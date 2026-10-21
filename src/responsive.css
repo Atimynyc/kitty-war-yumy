@@ -1,0 +1,165 @@
+/* Game-sized viewports, including browser chrome and notched display safe areas. */
+:root { --safe-top: env(safe-area-inset-top, 0px); --safe-bottom: env(safe-area-inset-bottom, 0px); --safe-left: env(safe-area-inset-left, 0px); --safe-right: env(safe-area-inset-right, 0px); }
+body { min-width: 280px; }
+.arena-base-label, .portrait-direction { display: none; }
+.upgrade-info strong b { font-weight: inherit; }
+html[data-phase='ended'] .health-track span { transition: none; }
+
+html:not([data-layout='desktop']) body { overflow: hidden; overscroll-behavior: none; }
+html:not([data-layout='desktop']) .game-shell {
+  height: 100vh;
+  height: var(--app-height, 100dvh);
+  max-width: 1500px;
+  padding: max(4px, var(--safe-top)) max(8px, var(--safe-right)) max(6px, var(--safe-bottom)) max(8px, var(--safe-left));
+  display: flex; flex-direction: column; gap: 5px; overflow: hidden;
+}
+html:not([data-layout='desktop']) .site-header { height: 44px; min-height: 44px; flex: 0 0 44px; border: 0; gap: 6px; }
+html:not([data-layout='desktop']) .brand { min-width: 0; gap: 8px; }
+html:not([data-layout='desktop']) .brand-mark { width: 30px; height: 30px; border-radius: 10px; flex-shrink: 0; }
+html:not([data-layout='desktop']) .brand-mark svg { width: 22px; height: 22px; }
+html:not([data-layout='desktop']) .brand-name { font-size: 14px; letter-spacing: 0; white-space: nowrap; }
+html:not([data-layout='desktop']) .brand-en,
+html:not([data-layout='desktop']) .version,
+html:not([data-layout='desktop']) .toolbar-divider,
+html:not([data-layout='desktop']) .toolbar .text-button > span:not(.help-symbol),
+html:not([data-layout='desktop']) .battle-heading,
+html:not([data-layout='desktop']) footer { display: none; }
+html:not([data-layout='desktop']) .toolbar { gap: 0; flex-shrink: 0; }
+html:not([data-layout='desktop']) .toolbar button { width: 44px; height: 44px; min-width: 44px; padding: 0; }
+html:not([data-layout='desktop']) main { flex: 1; min-height: 0; display: grid; gap: 6px; position: relative; }
+html:not([data-layout='desktop']) .status-bar { grid-template-columns: minmax(0, 1fr) auto; gap: 8px; border: 1px solid var(--border); border-radius: 10px; padding: 0 10px; height: 44px; min-width: 0; }
+html:not([data-layout='desktop']) .status-bar .base-status { display: none; }
+html:not([data-layout='desktop']) .resource-status { padding: 0; gap: 7px; border: 0; justify-content: flex-start; order: 0; min-width: 0; }
+html:not([data-layout='desktop']) .food-medal { width: 28px; height: 28px; flex-shrink: 0; }
+html:not([data-layout='desktop']) .resource-status > div { display: flex; align-items: center; gap: 7px; min-width: 0; }
+html:not([data-layout='desktop']) .resource-status .resource-label { display: none; }
+html:not([data-layout='desktop']) .food-numbers { gap: 7px; flex-wrap: nowrap; min-width: 0; }
+html:not([data-layout='desktop']) .food-numbers strong { font-size: 22px; min-width: 0; }
+html:not([data-layout='desktop']) .food-numbers > span { font-size: 11px; padding: 2px 4px; }
+html:not([data-layout='desktop']) .time-status { display: flex; gap: 7px; padding: 0; border: 0; order: 1; }
+html:not([data-layout='desktop']) .time-status .resource-label { display: none; }
+html:not([data-layout='desktop']) .time-status > strong { font-size: 18px; }
+html:not([data-layout='desktop']) #speed { min-width: 44px; min-height: 44px; margin-right: -9px; padding: 0; border: 0; background: none; font-size: 13px; }
+html:not([data-layout='desktop']) .arena-frame { min-width: 0; min-height: 0; border-radius: 12px; }
+html:not([data-layout='desktop']) #battle-canvas { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; }
+html:not([data-layout='desktop']) .arena-badge { display: none; }
+html:not([data-layout='desktop']) .arena-population { top: 10px; right: 10px; font-size: 11px; padding: 4px 6px; gap: 5px; }
+html:not([data-layout='desktop']) .arena-population strong { font-size: 11px; }
+html:not([data-layout='desktop']) .arena-base-label { position: absolute; display: block; width: 100px; padding: 5px 6px; background: #fff8e9de; border-radius: 7px; pointer-events: none; }
+html:not([data-layout='desktop']) .arena-base-label > span { display: flex; justify-content: space-between; gap: 4px; font-size: 11px; margin-bottom: 5px; }
+html:not([data-layout='desktop']) .arena-base-label strong { font: 700 12px 'Trebuchet MS', sans-serif; }
+html:not([data-layout='desktop']) .arena-base-label .health-track { height: 4px; }
+html:not([data-layout='desktop']) .enemy-label { top: 10px; left: 10px; color: #8a749d; }
+html:not([data-layout='desktop']) .enemy-label .health-track span { background: #ad98be; }
+html:not([data-layout='desktop']) .player-label { bottom: 10px; left: 10px; color: #6c886f; }
+html:not([data-layout='desktop']) .field-note { position: absolute; width: 1px; height: 1px; min-height: 0; overflow: hidden; clip-path: inset(50%); padding: 0; margin: -1px; }
+html:not([data-layout='desktop']) .section-label { display: none; }
+html:not([data-layout='desktop']) .recruit-section { min-height: 0; min-width: 0; }
+html:not([data-layout='desktop']) .unit-grid { height: 100%; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(44px, 1fr)); gap: 6px; }
+html:not([data-layout='desktop']) .unit-card { min-height: 44px; padding: 4px 6px 2px; border-radius: 9px; justify-content: center; gap: 1px; box-shadow: 0 2px 0 #e5dece55; }
+html:not([data-layout='desktop']) .unit-card.available:hover { transform: none; }
+html:not([data-layout='desktop']) .unit-key,
+html:not([data-layout='desktop']) .unit-pop,
+html:not([data-layout='desktop']) .unit-role { display: none; }
+html:not([data-layout='desktop']) .unit-art { width: 35px; height: 28px; margin: 0; flex-shrink: 0; }
+html:not([data-layout='desktop']) .unit-art img { width: 38px; height: 38px; margin: -4px 0 0; }
+html:not([data-layout='desktop']) .unit-art::before { inset: 1px 2px; }
+html:not([data-layout='desktop']) .unit-name { font-size: 11px; line-height: 15px; }
+html:not([data-layout='desktop']) .unit-bottom { margin: 0; padding: 0; border: 0; gap: 3px; justify-content: space-between; line-height: 16px; }
+html:not([data-layout='desktop']) .unit-cost { font-size: 13px; gap: 2px; }
+html:not([data-layout='desktop']) .unit-cost svg { width: 12px; height: 12px; }
+html:not([data-layout='desktop']) .unit-state { font-size: 11px; white-space: nowrap; }
+html:not([data-layout='desktop']) .upgrade-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin: 0; min-width: 0; min-height: 0; }
+html:not([data-layout='desktop']) .upgrade-card { min-height: 44px; padding: 5px 4px; flex-direction: column; gap: 2px; justify-content: center; text-align: center; }
+html:not([data-layout='desktop']) .upgrade-symbol,
+html:not([data-layout='desktop']) .key-label { display: none; }
+html:not([data-layout='desktop']) .upgrade-info { flex: 0 1 auto; align-items: center; }
+html:not([data-layout='desktop']) .upgrade-info strong { font-size: 12px; line-height: 16px; }
+html:not([data-layout='desktop']) .upgrade-info strong span { font-size: 10px; margin-left: 1px; padding: 0 2px; }
+html:not([data-layout='desktop']) .upgrade-info small { font-size: 11px; line-height: 14px; margin-top: 0; white-space: nowrap; }
+html:not([data-layout='desktop']) .roar-card .upgrade-info small { display: none; }
+html:not([data-layout='desktop']) .upgrade-action { width: auto; max-width: 100%; flex-wrap: nowrap; justify-content: center; gap: 2px; font-size: 12px; line-height: 16px; }
+html:not([data-layout='desktop']) .upgrade-action > span:last-child { flex-basis: auto; font-size: 11px; margin: 0 0 0 2px; white-space: nowrap; }
+html:not([data-layout='desktop']) .upgrade-action .inline-icon svg { width: 11px; height: 11px; }
+html:not([data-layout='desktop']) .upgrade-action b { font-size: 13px; }
+html:not([data-layout='desktop']) .battle-overlay,
+html:not([data-layout='desktop']) .arena-frame:has(.battle-overlay:not(.hidden)) .battle-overlay { position: absolute; inset: 0; padding: 10px; background: #f3ecdc45; backdrop-filter: blur(1px); overflow: auto; overscroll-behavior: contain; }
+html:not([data-layout='desktop']) .battle-overlay.hidden { display: none; }
+html:not([data-layout='desktop']) .intro-card { width: auto; max-width: 360px; padding: 18px 16px; transform: none; }
+html:not([data-layout='desktop']) .intro-card h2 { font-size: 22px; letter-spacing: .5px; }
+html:not([data-layout='desktop']) .intro-card p { font-size: 12px; line-height: 1.7; }
+html:not([data-layout='desktop']) .intro-eyebrow { font-size: 11px; letter-spacing: 1px; }
+html:not([data-layout='desktop']) .intro-tags { font-size: 11px; gap: 5px; }
+html:not([data-layout='desktop']) .primary-button { min-height: 44px; font-size: 13px; padding: 9px 16px; }
+html:not([data-layout='desktop']) .subtle-button { min-height: 44px; font-size: 12px; margin: 5px auto 0; }
+html:not([data-layout='desktop']) .result-stats span { font-size: 11px; }
+html:not([data-layout='desktop']) .result-paw { display: none; }
+html:not([data-layout='desktop']) dialog { max-width: calc(100vw - 20px - var(--safe-left) - var(--safe-right)); max-height: calc(var(--app-height, 100dvh) - 20px - var(--safe-top) - var(--safe-bottom)); overflow-y: auto; overscroll-behavior: contain; padding: 24px 18px; }
+html:not([data-layout='desktop']) .dialog-close { min-width: 44px; min-height: 44px; top: 0; right: 0; }
+html:not([data-layout='desktop']) .guide-units p,
+html:not([data-layout='desktop']) .guide-fair { font-size: 12px; }
+
+html[data-layout='portrait'] .game-shell { max-width: 780px; }
+html[data-layout='portrait'] main { grid-template-rows: 44px minmax(100px, 1fr) 150px 66px; }
+html[data-layout='portrait'] .status-bar { grid-row: 1; }
+html[data-layout='portrait'] .arena-frame { grid-row: 2; }
+html[data-layout='portrait'] .recruit-section { grid-row: 3; }
+html[data-layout='portrait'] .upgrade-grid { grid-row: 4; }
+html[data-layout='portrait'] .portrait-direction { display: block; position: absolute; bottom: 17px; right: 9px; font-size: 11px; color: #847e61; pointer-events: none; }
+
+html[data-layout='compact-landscape'] main { grid-template-columns: minmax(0, 1fr) clamp(224px, 35%, 380px); grid-template-rows: 44px minmax(100px, 1fr) 62px; }
+html[data-layout='compact-landscape'] .status-bar { grid-column: 1; grid-row: 1; }
+html[data-layout='compact-landscape'] .arena-frame { grid-column: 1; grid-row: 2 / 4; }
+html[data-layout='compact-landscape'] .recruit-section { grid-column: 2; grid-row: 1 / 3; }
+html[data-layout='compact-landscape'] .upgrade-grid { grid-column: 2; grid-row: 3; }
+html[data-layout='compact-landscape'] .unit-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(3, minmax(44px, 1fr)); }
+html[data-layout='compact-landscape'] .arena-population { top: auto; bottom: 8px; right: 8px; }
+html[data-layout='compact-landscape'] .enemy-label { left: auto; right: 8px; top: 8px; }
+html[data-layout='compact-landscape'] .player-label { left: 8px; top: 8px; bottom: auto; }
+html[data-layout='compact-landscape'] .upgrade-info strong { font-size: 11px; }
+html[data-layout='compact-landscape'] .upgrade-action > span:last-child { display: none; }
+html[data-layout='compact-landscape'] .intro-card { padding: 12px 16px; }
+html[data-layout='compact-landscape'] .intro-card p { margin-bottom: 10px; }
+
+@media (max-height: 700px) {
+  html[data-layout='portrait'] main { grid-template-rows: 44px minmax(90px, 1fr) 134px 60px; }
+  html[data-layout='portrait'] .unit-art { height: 23px; }
+  html[data-layout='portrait'] .unit-art img { width: 32px; height: 32px; }
+  html[data-layout='portrait'] .portrait-direction { display: none; }
+  html[data-layout='portrait'] .intro-card { padding: 12px 13px; }
+  html[data-layout='portrait'] .intro-card h2 { font-size: 20px; margin: 6px 0; }
+  html[data-layout='portrait'] .intro-card p { margin-bottom: 10px; }
+  html[data-layout='portrait'] .intro-tags { display: none; }
+}
+@media (max-height: 520px) {
+  html[data-layout='compact-landscape'] .unit-art { height: 30px; }
+  html[data-layout='compact-landscape'] .unit-art img { width: 40px; height: 40px; }
+  html[data-layout='compact-landscape'] .intro-eyebrow,
+  html[data-layout='compact-landscape'] .intro-tags { display: none; }
+  html[data-layout='compact-landscape'] .intro-card h2 { font-size: 20px; margin: 5px 0; }
+  html[data-layout='compact-landscape'] .intro-card p { font-size: 11px; }
+  html[data-layout='compact-landscape'] .result-stats { margin: 7px 0; gap: 16px; }
+  html[data-layout='compact-landscape'] .result-stats b { font-size: 16px; margin-bottom: 2px; }
+}
+@media (max-height: 370px) {
+  html[data-layout='compact-landscape'] .unit-art { display: none; }
+  html[data-layout='compact-landscape'] .upgrade-info small { display: none; }
+  html[data-layout='compact-landscape'] main { grid-template-rows: 44px minmax(80px, 1fr) 48px; }
+  html[data-layout='compact-landscape'] .pause-card p { display: none; }
+}
+@media (max-width: 350px) {
+  html:not([data-layout='desktop']) .brand { gap: 5px; }
+  html:not([data-layout='desktop']) .brand-name { font-size: 12px; }
+  html:not([data-layout='desktop']) .brand-mark { width: 26px; height: 26px; }
+  html:not([data-layout='desktop']) .unit-card { padding-left: 4px; padding-right: 4px; }
+  html:not([data-layout='desktop']) .upgrade-info strong { font-size: 11px; }
+  html:not([data-layout='desktop']) .unit-state { font-size: 10px; }
+  html:not([data-layout='desktop']) .upgrade-action > span:last-child { font-size: 10px; }
+}
+html[data-layout='portrait'][data-density='tight'] main { grid-template-rows: 44px minmax(90px, 1fr) 96px 48px; }
+html[data-layout='portrait'][data-density='tight'] .unit-art,
+html[data-layout='portrait'][data-density='tight'] .upgrade-info small { display: none; }
+html[data-layout='portrait'][data-density='tight'] .intro-card { padding: 8px 12px; }
+html[data-layout='portrait'][data-density='tight'] .intro-eyebrow,
+html[data-layout='portrait'][data-density='tight'] .intro-tags,
+html[data-layout='portrait'][data-density='tight'] .intro-card p { display: none; }
