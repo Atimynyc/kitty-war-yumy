@@ -51,6 +51,10 @@ node --experimental-strip-types scripts/balance.mjs # 使用正常资源对比�
 
 此命令会把开发服务开放给局域网，仅在可信网络使用。正式发布使用 `npm run build` 生成的静态站点。
 
+## 发布到 GitHub
+
+项目已包含 GitHub Pages 自动部署工作流。创建公开仓库，在 Settings → Pages 中选择 GitHub Actions，然后将源码推送到 `main`，即可发布为手机可直接访问的网址。完整首次上传、发布和更新步骤见 [GitHub 部署说明](./GitHub部署说明.md)。
+
 ## 多尺寸与浏览器适配（0.2）
 
 - 手机、折叠屏和平板竖屏：上下对抗；宽度不超过 1100 CSS 像素且高度不小于宽度时启用。
