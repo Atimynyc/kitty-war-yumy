@@ -4,6 +4,19 @@
 
 项目已包含自动部署配置：每次推送到 `main`，GitHub Actions 会安装依赖、运行规则测试、构建游戏，并将 `dist/` 发布到 Pages。`vite.config.ts` 使用相对资源路径，支持仓库名称对应的子目录。
 
+## 已上传但手机白屏
+
+当前仓库为 `Atimynyc/kitty-war-yumy`，访问地址为 <https://atimynyc.github.io/kitty-war-yumy/>。
+
+如果页面源代码仍引用 `/src/main.ts`，说明 Pages 发布了仓库源码，浏览器会请求不存在的脚本而白屏。即使 `Deploy game to GitHub Pages` 显示成功，也要检查是否同时运行了 `pages build and deployment` 从分支发布源码的流程。
+
+1. 打开 <https://github.com/Atimynyc/kitty-war-yumy/settings/pages>。
+2. 在 **Build and deployment → Source** 选择 **GitHub Actions**，不要选择 **Deploy from a branch**。此处无需选择 `main / (root)`。
+3. 打开 <https://github.com/Atimynyc/kitty-war-yumy/actions/workflows/deploy-pages.yml>，点击 **Run workflow**，选择 `main` 并运行。
+4. 等待 `build` 和 `deploy` 两个任务成功，再刷新手机网址。正确页面应加载 `./assets/index-*.js`，不再加载 `/src/main.ts`。
+
+现有仓库已经包含部署工作流，无需再次上传依赖或源码来解决发布来源设置问题。
+
 ## 第一次发布
 
 1. 登录 GitHub，新建一个 **Public（公开）** 仓库，例如 `catProtect`。创建空仓库，不勾选自动生成 README、`.gitignore` 或许可证；这些选项可能让远端先产生一个提交。

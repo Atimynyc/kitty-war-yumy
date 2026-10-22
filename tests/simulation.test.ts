@@ -2,17 +2,228 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { Battle } from '../src/game/simulation.ts';
 import { BASE_HP, BASE_X, CANNON_DAMAGE, CANNON_INTERVAL, CANNON_RANGE, STARTING_FOOD, UNITS, STAR_MAGIC, CATNIP } from '../src/game/content.ts';
-import { LEVELS, readProgress } from '../src/game/levels.ts';
+import { LEVELS, readProgress, victoryStars } from '../src/game/levels.ts';
 import type { Side, UnitKind } from '../src/game/content.ts';
 import { unitMotion, DEATH_DURATION } from '../src/game/unit-motion.ts';
+import { battleDistance, LANE_SPACING } from '../src/game/combat-space.ts';
+import { simulateStrategy } from '../scripts/balance.mjs';
+import { spellNoticeText } from '../src/game/spell-notices.ts';
 
 function create() { const battle = new Battle(); battle.aiEnabled = false; battle.start(); return battle; }
 function advance(battle: Battle, seconds: number) { for (let frame = 0; frame < seconds * 30; frame++) battle.step(1 / 30); }
-function spawn(battle: Battle, side: Side, kind: UnitKind, x: number) {
+function spawn(battle: Battle, side: Side, kind: UnitKind, x: number, row = 1) {
   battle.armies[side].food = 10000; battle.armies[side].tech = 3; battle.armies[side].cooldowns[kind] = 0;
   assert.equal(battle.summon(side, kind), true);
-  const unit = battle.units.at(-1)!; unit.x = x; unit.attackCooldown = 0; return unit;
+  const unit = battle.units.at(-1)!; unit.x = x; unit.row = row; unit.targetRow = row; unit.attackCooldown = 0; return unit;
 }
+
+test('spell captions report actual affected troops and effects for either army', () => {
+  for (const side of ['player', 'enemy'] as Side[]) {
+    const b = create(), foe = side === 'player' ? 'enemy' : 'player';
+    const ally = spawn(b, side, 'soldier', 700);
+    const near = spawn(b, foe, 'soldier', BASE_X[side] + (side === 'player' ? 100 : -100));
+    spawn(b, foe, 'soldier', 720);
+    assert.equal(b.roar(side), true);
+    const roar = b.spellNotices.visible(b.time)[0];
+    assert.equal(roar.affected, 1); assert.equal(roar.side, side);
+    assert.equal(near.slow, 3);
+    assert.match(spellNoticeText(roar).detail, /移速 −55%，持续 3 秒/);
+    advance(b, 4.6);
+    assert.equal(b.catnip(side), true);
+    const mint = b.spellNotices.visible(b.time)[0];
+    assert.equal(mint.spell, 'catnip'); assert.equal(mint.affected, 1); assert.equal(ally.catnip, 10);
+    assert.match(spellNoticeText(mint).title, new RegExp(`${side === 'enemy' ? '敌方' : '我方'}释放猫薄荷`));
+    assert.match(spellNoticeText(mint).detail, /攻击力 \+20%，持续 10 秒；新出兵不享受/);
+    const later = spawn(b, side, 'soldier', 500);
+    assert.equal(later.catnip, 0); assert.equal(mint.affected, 1);
+  }
+});
+
+test('failed casts never announce a spell, while a successful empty roar explains its empty area', () => {
+  const b = create();
+  assert.equal(b.catnip('player'), false); assert.deepEqual(b.spellNotices.visible(b.time), []);
+  assert.equal(b.roar('player'), true);
+  const notices = b.spellNotices.visible(b.time);
+  assert.equal(notices[0].affected, 0); assert.match(spellNoticeText(notices[0]).detail, /没有可击退/);
+  assert.equal(b.roar('player'), false);
+  b.togglePause(); assert.equal(b.roar('enemy'), false);
+  assert.deepEqual(b.spellNotices.visible(b.time), notices);
+});
+
+test('simultaneous enemy and player spells both show, same-side captions queue, pause freezes and restart clears them', () => {
+  const b = create();
+  spawn(b, 'player', 'knight', 500); spawn(b, 'enemy', 'knight', 900);
+  b.catnip('player'); b.roar('player'); b.catnip('enemy');
+  const notices = b.spellNotices.visible(b.time);
+  assert.deepEqual(notices.map(n => [n.side, n.spell]), [['enemy','catnip'], ['player','catnip']]);
+  b.togglePause(); advance(b, 20); assert.deepEqual(b.spellNotices.visible(b.time), notices);
+  b.togglePause(); advance(b, 4.6);
+  assert.deepEqual(b.spellNotices.visible(b.time).map(n => [n.side, n.spell]), [['player','roar']]);
+  advance(b, 4.6); assert.deepEqual(b.spellNotices.visible(b.time), []);
+  b.reset(); b.start(); spawn(b, 'player', 'soldier', 500); b.catnip('player'); b.roar('player');
+  b.reset(); assert.deepEqual(b.spellNotices.visible(0), []); b.start(); advance(b, 6);
+  assert.deepEqual(b.spellNotices.visible(b.time), []);
+});
+
+test('AI spells announce their actual effects through the same caption path', () => {
+  const b = create();
+  b.aiEnabled = true;
+  advance(b, b.level.grace - .1);
+  for (const row of [0,1,2]) {
+    spawn(b, 'player', 'knight', BASE_X.enemy - 100, row);
+    spawn(b, 'enemy', 'slinger', BASE_X.enemy - 40, row);
+  }
+  b.aiEnabled = true; advance(b, .2);
+  assert.ok(b.armies.enemy.roarCooldown > 0); assert.ok(b.armies.enemy.catnipCooldown > 0);
+  assert.equal(b.spellNotices.visible(b.time)[0].spell, 'roar');
+  b.aiEnabled = false; advance(b, 4.6);
+  const notice = b.spellNotices.visible(b.time)[0];
+  assert.equal(notice.side, 'enemy'); assert.equal(notice.spell, 'catnip');
+  assert.equal(notice.affected, 3); assert.match(spellNoticeText(notice).detail, /攻击力 \+20%/);
+});
+
+test('base-cat dialogue follows actual base damage, gives defense priority and pauses with battle time', () => {
+  const b = create();
+  assert.equal(b.baseDialogue.snapshot(b.time).text, '我要吃冻干！快给我！');
+  b.togglePause(); advance(b, 12);
+  assert.equal(b.baseDialogue.snapshot(b.time).remaining, 5);
+  b.togglePause(); advance(b, 6);
+  assert.equal(b.baseDialogue.snapshot(b.time).text, '');
+  spawn(b, 'enemy', 'soldier', BASE_X.player + 20);
+  b.step(1 / 30);
+  assert.ok(b.armies.player.hp < BASE_HP);
+  const first = b.baseDialogue.snapshot(b.time);
+  assert.equal(first.text, '真好吃！');
+  advance(b, 2);
+  assert.equal(b.baseDialogue.snapshot(b.time).startedAt, first.startedAt, 'repeated attacks must not restart the speech');
+  b.units = [];
+  spawn(b, 'player', 'soldier', BASE_X.enemy - 20);
+  b.step(1 / 30);
+  assert.equal(b.baseDialogue.snapshot(b.time).text, '不！我自己都不够吃。');
+  assert.ok(b.armies.enemy.hp < BASE_HP);
+  b.units = []; advance(b, 5);
+  assert.equal(b.baseDialogue.snapshot(b.time).text, '');
+  b.reset(); b.start();
+  assert.equal(b.baseDialogue.snapshot(b.time).text, '我要吃冻干！快给我！');
+});
+
+test('base-cat reactions ignore wounded units and wait for star impact on a base', () => {
+  const b = create(); advance(b, 6);
+  const a = spawn(b, 'player', 'soldier', 700), z = spawn(b, 'enemy', 'soldier', 730);
+  b.step(1 / 30);
+  assert.ok(a.hp < UNITS.soldier.hp && z.hp < UNITS.soldier.hp);
+  assert.equal(b.baseDialogue.snapshot(b.time).text, '');
+  b.units = []; spawn(b, 'enemy', 'mage', BASE_X.player + 100);
+  b.step(1 / 30);
+  assert.equal(b.projectiles.length, 1);
+  assert.equal(b.baseDialogue.snapshot(b.time).text, '');
+  advance(b, .2);
+  assert.equal(b.armies.player.hp, BASE_HP);
+  assert.equal(b.baseDialogue.snapshot(b.time).text, '');
+  advance(b, .2);
+  assert.ok(b.armies.player.hp < BASE_HP);
+  assert.equal(b.baseDialogue.snapshot(b.time).text, '真好吃！');
+});
+
+test('simultaneous base hits show the orange cat protecting his food, with a quiet gap between repeats', () => {
+  const b = create();
+  // Both projectiles land in one tick, even when the two casters have already left.
+  b.projectiles = [
+    {id: 100, side:'player', x:1100, row:1, targetX:BASE_X.enemy, targetRow:1, sourceId:98, damage:20, age:.3, duration:.32},
+    {id: 101, side:'enemy', x:300, row:1, targetX:BASE_X.player, targetRow:1, sourceId:99, damage:20, age:.3, duration:.32},
+  ];
+  b.step(1 / 30);
+  assert.equal(b.baseDialogue.snapshot(b.time).cue, 'protect');
+  const first = b.baseDialogue.snapshot(b.time).startedAt;
+  spawn(b, 'player', 'knight', BASE_X.enemy - 20);
+  advance(b, 5);
+  assert.equal(b.baseDialogue.snapshot(b.time).text, '');
+  advance(b, 5);
+  assert.equal(b.baseDialogue.snapshot(b.time).cue, 'protect');
+  assert.ok(b.baseDialogue.snapshot(b.time).startedAt >= first + 9);
+});
+
+test('opponents on different rows approach diagonally before melee and remain symmetric', () => {
+  for (const reverse of [false, true]) {
+    const b = create(), a = spawn(b, 'player', 'soldier', 650, 0), z = spawn(b, 'enemy', 'soldier', 780, 2);
+    if (reverse) b.units.reverse();
+    const from = { x: a.x, row: a.row };
+    b.step(.1);
+    assert.equal(a.hp, UNITS.soldier.hp); assert.equal(z.hp, a.hp);
+    assert.equal(a.targetId, z.id); assert.equal(z.targetId, a.id);
+    assert.ok(a.x > from.x && a.row > from.row && z.row < 2);
+    assert.ok(Math.abs(battleDistance(from, a) - UNITS.soldier.speed * .1) < 1e-8);
+    for (let i = 0; i < 100 && a.hp === UNITS.soldier.hp; i++) {
+      const distance = battleDistance(a, z), hp = a.hp;
+      b.step(1 / 30);
+      if (a.hp < hp) assert.ok(distance <= UNITS.soldier.range);
+      assert.equal(a.hp, z.hp);
+      assert.ok(Math.abs(a.x + z.x - 1430) < 1e-8);
+      assert.ok(Math.abs(a.row + z.row - 2) < 1e-8);
+    }
+    assert.ok(a.hp < UNITS.soldier.hp);
+    assert.ok(a.row > .7 && a.row < 1 && z.row > 1 && z.row < 1.3);
+  }
+});
+
+test('purely lateral and rear opponents can be reached without moving away or attacking across the lane', () => {
+  for (const side of ['player', 'enemy'] as Side[]) for (const behind of [false, true]) {
+    const b = create(), other = side === 'player' ? 'enemy' : 'player', dir = side === 'player' ? 1 : -1;
+    const a = spawn(b, side, 'soldier', 700, 0), z = spawn(b, other, 'soldier', behind ? 700 - dir * 150 : 700, 2);
+    b.step(.1);
+    assert.equal(a.hp, UNITS.soldier.hp); assert.equal(a.targetId, z.id);
+    if (behind) assert.ok((a.x - 700) * dir < 0); else assert.equal(a.x, 700);
+    assert.ok(a.row > 0 && z.row < 2);
+    advance(b, 2.5);
+    assert.ok(a.hp < UNITS.soldier.hp); assert.equal(a.hp, z.hp);
+  }
+});
+
+test('target lock avoids flickering between near-equal foes and reacquires a living target', () => {
+  const b = create(), a = spawn(b, 'player', 'soldier', 650, 1);
+  const first = spawn(b, 'enemy', 'soldier', 750, 0), second = spawn(b, 'enemy', 'soldier', 755, 2);
+  b.step(1 / 30); assert.equal(a.targetId, first.id);
+  second.x = 745; b.step(1 / 30); assert.equal(a.targetId, first.id);
+  second.x = 680; b.step(1 / 30); assert.equal(a.targetId, second.id);
+  second.hp = 0; b.step(1 / 30); assert.equal(a.targetId, first.id);
+  first.hp = 0; b.step(1 / 30); assert.equal(a.targetId, null); assert.equal(a.targetX, BASE_X.enemy);
+});
+
+test('lateral movement obeys the same speed, slow and travelled-distance rules', () => {
+  const b = create(), a = spawn(b, 'player', 'soldier', 700, 0);
+  spawn(b, 'enemy', 'soldier', 700, 2); a.starSlow = 3;
+  b.step(.1);
+  assert.equal(a.x, 700);
+  assert.ok(Math.abs(a.row * LANE_SPACING - UNITS.soldier.speed * .1 * .7) < 1e-8);
+  assert.ok(Math.abs(a.walkDistance - a.row * LANE_SPACING) < 1e-8);
+});
+
+test('ranged reach includes lateral distance and effects retain the actual source and target rows', () => {
+  for (const kind of ['slinger', 'mage', 'catapult'] as UnitKind[]) {
+    const b = create(), a = spawn(b, 'player', kind, 500, 0), z = spawn(b, 'enemy', 'shield', 500 + UNITS[kind].range - 1, 2);
+    b.step(1 / 30);
+    assert.equal(a.attackAt, -100); assert.equal(z.hp, UNITS.shield.hp);
+    z.x = 650; z.row = 1; a.attackCooldown = 0;
+    b.step(1 / 30);
+    assert.equal(a.attackAt, b.time);
+    const shot = kind === 'mage' ? b.projectiles[0] : b.effects.find(e => e.type === 'shot')!;
+    assert.equal(shot.sourceId, a.id); assert.equal(shot.targetId, z.id);
+    if (kind === 'mage') { assert.equal(b.projectiles[0].row, a.row); assert.equal(b.projectiles[0].targetRow, 1); }
+    else { assert.equal('sourceRow' in shot && shot.sourceRow, a.row); assert.equal(shot.row, 1); }
+  }
+});
+
+test('splash and healing respect lateral radius instead of hitting the entire row', () => {
+  const b = create(); spawn(b, 'player', 'catapult', 500, 0);
+  const center = spawn(b, 'enemy', 'shield', 700, 0), inside = spawn(b, 'enemy', 'shield', 700, .4375), outside = spawn(b, 'enemy', 'shield', 700, .45);
+  b.step(1 / 30);
+  assert.equal(center.hp, UNITS.shield.hp - UNITS.catapult.damage); assert.equal(inside.hp, center.hp); assert.equal(outside.hp, UNITS.shield.hp);
+  const h = create(), healer = spawn(h, 'player', 'healer', 600, 0);
+  const near = spawn(h, 'player', 'shield', 600, 1), far = spawn(h, 'player', 'shield', 600, UNITS.healer.range / LANE_SPACING + .1);
+  near.hp = far.hp = 600; h.step(1 / 30);
+  assert.equal(near.hp, 600 + UNITS.healer.heal!); assert.equal(far.hp, 600); assert.equal(healer.targetId, near.id);
+  h.step(1 / 30); assert.equal(healer.targetId, near.id);
+});
 
 test('dog knight requires tier three, a large food reserve and six free population, on either side', () => {
   for (const side of ['player', 'enemy'] as Side[]) {
@@ -130,12 +341,13 @@ test('catnip snapshots only the current living allied roster, expires after 10s 
 test('catapult splash includes its radius boundary, excludes allies and scales every victim with catnip', () => {
   const b = create(); spawn(b, 'player', 'catapult', 500);
   const ally = spawn(b, 'player', 'shield', 700); ally.attackCooldown = 100;
-  const targets = [740, 810, 811].map(x => spawn(b, 'enemy', 'shield', x));
+  const targets = [740, 775, 776, 810].map(x => spawn(b, 'enemy', 'shield', x));
   targets.forEach(u => u.attackCooldown = 100);
   b.catnip('player'); b.step(1 / 30);
   assert.equal(ally.hp, UNITS.shield.hp);
   assert.equal(targets[0].hp, UNITS.shield.hp - UNITS.catapult.damage * 1.2);
   assert.equal(targets[1].hp, targets[0].hp); assert.equal(targets[2].hp, UNITS.shield.hp);
+  assert.equal(targets[3].hp, UNITS.shield.hp, 'the old 70-unit boundary is now outside the splash');
 });
 
 test('catnip expires without changing base stats and never increases healing or cannon damage', () => {
@@ -231,7 +443,7 @@ test('melee contact halts forward movement, limits contact positions and awards 
 test('catapult splash damages a cluster and has a minimum firing range', () => {
   const battle = create();
   const catapult = spawn(battle, 'player', 'catapult', 500);
-  const first = spawn(battle, 'enemy', 'soldier', 740), second = spawn(battle, 'enemy', 'soldier', 780);
+  const first = spawn(battle, 'enemy', 'soldier', 740), second = spawn(battle, 'enemy', 'soldier', 770);
   battle.step(1 / 30);
   assert.equal(first.hp, UNITS.soldier.hp - UNITS.catapult.damage);
   assert.equal(second.hp, UNITS.soldier.hp - UNITS.catapult.damage);
@@ -401,6 +613,24 @@ test('corrupt or foreign campaign saves are ignored without preventing play', ()
   assert.deepEqual(readProgress('not json'), {});
   assert.deepEqual(readProgress('{"sunroom":{"stars":99,"bestTime":-1},"foreign":{"stars":3,"bestTime":20}}'), {});
   assert.deepEqual(readProgress('{"sunroom":{"stars":2,"bestTime":180}}'), { sunroom: { stars: 2, bestTime: 180 } });
+});
+
+test('victory stars require full base health for three stars and include exactly 50% in two stars', () => {
+  for (const [hp, stars] of [[3000,3], [2999.99,2], [2100,2], [1500.01,2], [1500,2], [1499.99,1], [1050,1], [1,1]]) {
+    assert.equal(victoryStars(hp), stars, `hp=${hp}`);
+  }
+  assert.deepEqual(readProgress('{"sunroom":{"stars":2,"bestTime":120,"ratingVersion":2}}'), {sunroom:{stars:2,bestTime:120,ratingVersion:2}});
+});
+
+test('later levels defeat soldier-only play while investment, mixed troops and spells can still win', () => {
+  const simple = LEVELS.map(level => simulateStrategy(level, 'soldier-rush'));
+  assert.deepEqual(simple.map(result => result.winner), ['player', 'enemy', 'enemy']);
+  const mixed = LEVELS.map(level => simulateStrategy(level, 'combined-arms'));
+  assert.ok(mixed.every(result => result.winner === 'player'));
+  // Higher difficulty pressures a simple army earlier; a mixed army's completion
+  // time can vary with its matchups and is not a ranking of level difficulty.
+  assert.ok(simple[2].seconds < simple[1].seconds);
+  assert.ok(mixed[0].seconds < mixed[1].seconds && mixed[0].seconds < mixed[2].seconds);
 });
 
 test('attack and hurt poses follow actual damage timestamps even when render frames are skipped', () => {

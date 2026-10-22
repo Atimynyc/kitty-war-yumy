@@ -49,7 +49,7 @@ const assertPainted = async (page, name) => {
 function validate(info, name) {
   assert.ok(info.scroll.width <= info.viewport.width + 1, `${name}: horizontal overflow`);
   assert.ok(info.arena.height >= 150, `${name}: arena too short (${info.arena.height})`);
-  assert.ok(Math.abs(info.canvas.width - info.arena.width) <= 3, `${name}: canvas width mismatched`);
+  assert.ok(Math.abs(info.canvas.width + 60 - info.arena.width) <= 3, `${name}: canvas and spell shelf width mismatched`);
   assert.ok(Math.abs(info.canvas.height - info.arena.height) <= 3, `${name}: canvas height mismatched`);
   {
     assert.ok(info.scroll.height <= Math.max(560, info.viewport.height) + 1, `${name}: vertical overflow ${info.scroll.height}/${info.viewport.height}`);
@@ -87,7 +87,7 @@ try {
     page.on('pageerror', error => report.errors.push(`${name}: ${error.message}`));
     page.on('console', msg => { if (msg.type() === 'error') report.errors.push(`${name}: ${msg.text()}`); });
     try {
-      await page.goto('http://127.0.0.1:5173/?qa', { waitUntil: 'networkidle' });
+      await page.goto(`${process.env.GAME_URL || 'http://127.0.0.1:5186'}/?qa`, { waitUntil: 'networkidle' });
       await page.locator('#loading').waitFor({ state: 'detached' });
       await page.waitForTimeout(100);
       assert.equal(await page.evaluate(() => window.__catGame.battle.time), 0);

@@ -12,20 +12,38 @@ page.on('console', message => { if (message.type() === 'error') errors.push(mess
 const advance = ms => page.evaluate(ms => window.advanceTime(ms), ms);
 const inspect = () => page.evaluate(() => window.__catGame.getAnimations());
 const capture = name => page.screenshot({ path: path.join(output, `${engine}-${name}.png`), fullPage: true });
+const assertFacingTargets = poses => {
+  for (const pose of poses.filter(p => p.state !== 'death')) {
+    const target = poses.find(p => p.id === pose.targetId);
+    if (!target || target.id === pose.id) continue;
+    const dx = target.x - pose.x, dy = target.y - pose.y, length = Math.hypot(dx, dy);
+    const native = pose.side === 'player' ? -1 : 1;
+    const alignment = (-Math.sin(pose.facing) * native * dx + Math.cos(pose.facing) * native * dy) / length;
+    assert.ok(alignment > .999, `${pose.kind} must face its displayed target (${alignment})`);
+    if (pose.kind !== 'mouse' && pose.kind !== 'catapult') {
+      assert.equal(pose.spriteRotation,0,'standing characters must remain upright when turning');
+      // Direction art retains its previous choice inside the small turn deadband.
+      if (Math.abs(dx) / length > .54) assert.equal(pose.look,'side');
+      else if (Math.abs(dx) / length <= .42) assert.equal(pose.look,dy>0?'front':'back');
+      if (dx/length < -.18) assert.equal(pose.mirror,-1);
+      else if (dx/length >= -.06) assert.equal(pose.mirror,1);
+    }
+  }
+};
 const reduceMotion = async () => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   // WebKit updates existing MediaQueryList objects on a later rendering turn.
   await page.waitForFunction(() => {
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
     window.advanceTime(0);
-    return window.__catGame.getAnimations().every(pose => pose.body.rotation === 0 && Object.values(pose.parts).every(part => part.rotation === 0));
+    return window.__catGame.getAnimations().every(pose => pose.body.rotation === 0 && Object.entries(pose.parts).every(([name,part]) => Math.abs(part.rotation - (name === 'rightHand' ? pose.aimRotation : 0)) < 1e-8));
   });
 };
 const fixture = async (kind, pair = true) => page.evaluate(({kind, pair}) => {
   const b = window.__catGame.battle; b.reset(); b.start(); b.aiEnabled = false;
   const spawn = (side, type, x) => {
     b.armies[side].food = 10000; b.armies[side].tech = 3; b.armies[side].cooldowns[type] = 0;
-    b.summon(side, type); const unit = b.units.at(-1); unit.x = x; unit.attackCooldown = 0; return unit;
+    b.summon(side, type); const unit = b.units.at(-1); unit.x = x; unit.row = unit.targetRow = 1; unit.attackCooldown = 0; return unit;
   };
   const a = spawn('player', kind, kind === 'slinger' || kind === 'mage' || kind === 'catapult' ? 600 : pair ? 700 : 500);
   if (pair) {
@@ -37,7 +55,7 @@ const fixture = async (kind, pair = true) => page.evaluate(({kind, pair}) => {
 }, {kind, pair});
 
 try {
-  await page.goto(`${process.env.GAME_URL || 'http://127.0.0.1:5173'}/?qa`, { waitUntil: 'networkidle' });
+  await page.goto(`${process.env.GAME_URL || 'http://127.0.0.1:5186'}/?qa`, { waitUntil: 'networkidle' });
   await page.locator('#loading').waitFor({state:'detached'}); await page.locator('#start').click(); await advance(0);
   await fixture('soldier', false); await advance(100);
   const walking = (await inspect())[0];
@@ -61,6 +79,77 @@ try {
       await capture('phone-star-slow');
     }
   }
+  // Cross-lane contact, a foe behind the soldier, and pure sideways pursuit.
+  for (const [name, playerX, enemyX] of [['diagonal',650,780], ['behind',780,650], ['sideways',700,700]]) {
+    const id = await fixture('soldier');
+    await page.evaluate(({playerX,enemyX}) => {
+      const b = window.__catGame.battle;
+      const a = b.units.find(u => u.side === 'player'), z = b.units.find(u => u.side === 'enemy');
+      a.x = playerX; a.row = 0; z.x = enemyX; z.row = 2; z.attackCooldown = 0;
+      b.effects = []; window.advanceTime(0);
+    }, {playerX,enemyX});
+    await advance(200);
+    const approach = await page.evaluate(() => window.__catGame.battle.units);
+    const a = approach.find(u => u.id === id), z = approach.find(u => u.id !== id);
+    assert.ok(a.row > 0 && z.row < 2); assert.equal(a.hp, 230); assert.equal(z.hp, 700);
+    if (name === 'diagonal') assert.ok(a.x > playerX);
+    if (name === 'behind') assert.ok(a.x < playerX);
+    if (name === 'sideways') assert.equal(a.x, playerX);
+    assertFacingTargets(await inspect()); await capture(`phone-${name}-approach`);
+    const approachFacing = (await inspect()).find(p => p.id === id).facing;
+    await reduceMotion();
+    assertFacingTargets(await inspect()); assert.equal((await inspect()).find(p => p.id === id).facing, approachFacing);
+    await page.emulateMedia({reducedMotion:'no-preference'});
+    await page.waitForFunction(() => !matchMedia('(prefers-reduced-motion: reduce)').matches);
+    await page.evaluate(() => {
+      const b = window.__catGame.battle;
+      for (let frame = 0; frame < 120 && b.units.find(u => u.side === 'player').attackAt < 0; frame++) window.advanceTime(1000 / 30);
+    });
+    assert.ok(await page.evaluate(id => window.__catGame.battle.units.find(u => u.id === id).attackAt > 0, id));
+    const contact = await inspect(); assertFacingTargets(contact);
+    const p = contact.find(u => u.id === id), q = contact.find(u => u.id !== id);
+    const size = await page.evaluate(() => window.__catGame.getView().unitSize);
+    assert.ok(Math.hypot(p.x-q.x,p.y-q.y) > size * .7);
+    await advance(50); await capture(`phone-${name}-contact`);
+    await page.locator('#pause').click(); const frozenFacing = await inspect();
+    await advance(1000); assert.deepEqual(await inspect(), frozenFacing); await page.locator('#resume').click();
+    if (name === 'diagonal') {
+      const victimId = q.id;
+      await page.evaluate(() => {
+        const b = window.__catGame.battle, a = b.units.find(u => u.side === 'player'), z = b.units.find(u => u.side === 'enemy');
+        z.hp = 1; a.attackCooldown = 0;
+        b.armies.enemy.cooldowns.soldier = 0; b.summon('enemy','soldier');
+        Object.assign(b.units.at(-1), {x:900,row:0,attackCooldown:10});
+      });
+      await advance(1000 / 30); const dying = (await inspect()).find(u => u.id === victimId);
+      assert.equal(dying.state,'death');
+      await advance(200); const reacquired = await inspect();
+      assert.ok(reacquired.find(u => u.id === id).targetId !== victimId); assertFacingTargets(reacquired);
+      assert.equal(reacquired.find(u => u.id === victimId).facing,dying.facing);
+      await capture('phone-retarget');
+    }
+  }
+  for (const kind of ['mage','slinger','catapult','knight']) {
+    await fixture(kind);
+    await page.evaluate(kind => {
+      const b = window.__catGame.battle, a = b.units.find(u => u.side === 'player'), z = b.units.find(u => u.side === 'enemy');
+      a.x = 650; a.row = 0; z.x = kind === 'knight' ? 670 : 760; z.row = kind === 'knight' ? .45 : 2;
+      b.effects = [];
+    }, kind);
+    await advance(1000 / 30); assertFacingTargets(await inspect());
+    assert.ok(await page.evaluate(() => window.__catGame.battle.units.find(u => u.side === 'player').attackAt > 0), kind);
+    await advance(100); await capture(`phone-${kind}-aim`);
+  }
+  // Several simultaneous fights must keep their own aim, including crowded fronts.
+  await fixture('soldier',false);
+  await page.evaluate(() => {
+    const b = window.__catGame.battle; b.units = []; b.effects = [];
+    for (const side of ['player','enemy']) for (const [i,kind] of ['soldier','shield','knight','mage','slinger','healer'].entries()) {
+      b.armies[side].food = 10000; b.armies[side].tech = 3; b.armies[side].cooldowns[kind] = 0; b.summon(side,kind);
+      Object.assign(b.units.at(-1), {x:(side==='player'?650:750) + (side==='player'?-1:1) * i * 18,row:i%3,attackCooldown:0});
+    }
+  });
+  await advance(1800); assertFacingTargets(await inspect()); await capture('phone-crowded-combat');
   // Mounted units keep four distinct paws and an independent rider through their lifecycle.
   const riderId = await fixture('knight', false); await advance(100);
   const riding = (await inspect()).find(p => p.id === riderId);
@@ -154,6 +243,6 @@ try {
   assert.equal(await page.locator('#catnip').isDisabled(), true);
   assert.equal(await page.evaluate(() => window.__catGame.battle.projectiles.length), 0);
   assert.deepEqual(errors, []);
-  writeFileSync(path.join(output, `${engine}-report.json`), JSON.stringify({status:'passed', engine, scenarios:['distance-based feet and hands','eight attack types','mounted diagonal trot, rider, hurt, death and key 8','star flight and impact slow','catnip roster snapshot and UI','catnip pause, expiry and keyboard shortcuts','damage reaction','windup','pause','death and population','rotation and desktop','reduced motion','reset cleanup'], errors}, null, 2));
+  writeFileSync(path.join(output, `${engine}-report.json`), JSON.stringify({status:'passed', engine, scenarios:['diagonal, rear and lateral pursuit/contact','displayed target-facing weapons','retarget after death and frozen corpse facing','ranged aiming and crowded combat','distance-based feet and hands','eight attack types','mounted diagonal trot, rider, hurt, death and key 8','star flight and impact slow','catnip roster snapshot and UI','catnip pause, expiry and keyboard shortcuts','damage reaction','windup','pause','death and population','rotation and desktop','reduced motion keeps facing','reset cleanup'], errors}, null, 2));
   console.log(`PASS ${engine}: vertical unit animations and lifecycle`);
 } finally { await browser.close(); }

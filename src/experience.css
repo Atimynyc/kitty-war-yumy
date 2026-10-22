@@ -119,7 +119,7 @@ html[data-layout='portrait'] .level-record { font-size: 10px; margin-top: 4px; }
 html[data-layout='portrait'] .level-launch { position: sticky; bottom: -18px; background: #f8f6eff5; padding: 10px 0; margin-top: 12px; flex-direction: column; gap: 6px; border-top: 1px solid #e4d8c4; }
 html[data-layout='portrait'] .level-launch p { margin: 0; font-size: 10px; text-align: center; }
 html[data-layout='portrait'] .level-launch .primary-button { width: 100%; }
-html[data-layout='portrait'] .upgrade-grid { padding-top: 0; border-top: 0; gap: 6px; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(44px, 1fr)); }
+html[data-layout='portrait'] .upgrade-grid { padding-top: 0; border-top: 0; gap: 6px; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: minmax(44px, 1fr); }
 html[data-layout='portrait'] .upgrade-card { border-left-width: 4px; border-radius: 6px; padding: 4px 6px; flex-direction: row; justify-content: space-between; gap: 3px; }
 html[data-layout='portrait'] .upgrade-info { text-align: left; align-items: flex-start; }
 html[data-layout='portrait'] .upgrade-info strong { font-size: 11px; }
@@ -140,6 +140,26 @@ html[data-layout='portrait'] .result-card .intro-eyebrow { display: none; }
 html[data-layout='portrait'] .result-card { padding: 12px; }
 html[data-layout='portrait'] .result-card p { margin-bottom: 5px; }
 html[data-layout='portrait'] .result-stats { margin: 8px 0; }
+.result-stars { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 4px 0 8px; }
+.result-star { width: 45px; height: 45px; color: #e4ddce; }
+.result-star:nth-child(2) { width: 54px; height: 54px; margin-top: -7px; }
+.result-star svg { width: 100%; height: 100%; fill: currentColor; stroke: #b7a993; stroke-width: 2; stroke-linejoin: round; }
+.result-star.earned { color: #f4c86d; filter: drop-shadow(0 3px 0 #d5aa5a38); }
+.result-star.earned svg { stroke: #bc8c45; }
+.result-rating { display: block; color: #a77639; font-size: 13px; margin: 4px 0 6px; }
+.result-rating-rules { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 6px; padding: 8px 0; border-top: 1px solid #e8ddc9; border-bottom: 1px solid #e8ddc9; font-size: 10px; color: #8d7e68; }
+.result-rating-rules b { display: block; color: #806d4c; margin-bottom: 2px; }
+html[data-layout='portrait'] .result-card { width: min(100%, 340px); }
+html[data-layout='portrait'][data-phase='ended'] .arena-frame { z-index: 100; }
+html[data-layout='portrait'][data-phase='ended'] .arena-frame .battle-overlay:not(.hidden) {
+  position: fixed; inset: 0; z-index: 1000;
+  padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  background: #e8deccc9; backdrop-filter: blur(3px);
+}
+html[data-layout='portrait'][data-density='tight'] .result-stars { margin: 1px 0 4px; gap: 5px; }
+html[data-layout='portrait'][data-density='tight'] .result-star { width: 33px; height: 33px; }
+html[data-layout='portrait'][data-density='tight'] .result-star:nth-child(2) { width: 40px; height: 40px; }
+html[data-layout='portrait'][data-density='tight'] .result-rating-rules { padding: 5px 0; }
 @media (max-width: 350px) {
   html[data-layout='portrait'] .home-copy h1 { font-size: 31px; }
   html[data-layout='portrait'] .home-screen { gap: 12px; }

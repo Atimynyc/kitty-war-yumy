@@ -8,15 +8,24 @@ import { portraitProjection } from './projection.ts';
 import { unitParts, unitShadowSVG, unitStarsSVG } from './unit-art.ts';
 import { UnitView } from './UnitView.ts';
 import { DEATH_DURATION } from './unit-motion.ts';
+import { CombatLayout, targetFacing, unitScale } from './combat-layout.ts';
+import type { ScreenPoint } from './combat-layout.ts';
+import { baseCatSVG } from './base-cat-art.ts';
+import { ORANGE_CAT, PLAYER_CAT } from './cat-appearance.ts';
+import { BaseCatView } from './BaseCatView.ts';
 
 export class BattleScene extends Phaser.Scene {
   private battle: Battle;
   private onFrame: () => void;
   private units = new Map<number, UnitView>();
+  private positions = new Map<number, ScreenPoint>();
+  private combatLayout = new CombatLayout();
+  private launchOffsets = new Map<number, ScreenPoint>();
   private bars!: Phaser.GameObjects.Graphics;
   private fx!: Phaser.GameObjects.Graphics;
   private cannons!: Phaser.GameObjects.Graphics;
   private bases: Partial<Record<Side, Phaser.GameObjects.Image>> = {};
+  private baseCats!: BaseCatView;
   private accumulator = 0;
   private endingTime = 0;
   private revision = -1;
@@ -35,7 +44,15 @@ export class BattleScene extends Phaser.Scene {
     load('unit-shadow', unitShadowSVG); load('unit-stars', unitStarsSVG);
     for (const side of ['player', 'enemy'] as Side[]) {
       load(`base-${side}`, portraitBaseSVG(side));
-      for (const kind of UNIT_ORDER) for (const part of unitParts(kind, side)) load(`${side}-${kind}-${part.name}`, part.svg);
+      for (const mood of ['calm', 'hungry', 'happy', 'worried'] as const) {
+        load(`base-cat-${side}-${mood}`, baseCatSVG(side === 'enemy' ? ORANGE_CAT : PLAYER_CAT, mood, side === 'enemy'));
+      }
+      for (const kind of UNIT_ORDER) {
+        for (const part of unitParts(kind, side)) load(`${side}-${kind}-${part.name}`, part.svg);
+        if (kind !== 'mouse' && kind !== 'catapult') for (const look of ['back', 'front', 'side'] as const) {
+          for (const part of unitParts(kind, side, look)) if (part.name === 'body' || part.name === 'rider') load(`${side}-${kind}-${part.name}-${look}`, part.svg);
+        }
+      }
     }
   }
   create() {
@@ -43,6 +60,7 @@ export class BattleScene extends Phaser.Scene {
     this.portraitBackground = this.add.graphics().setDepth(0);
     this.cameras.main.setOrigin(0, 0).setZoom(1).setScroll(0, 0);
     for (const side of ['player', 'enemy'] as Side[]) this.bases[side] = this.add.image(0, 0, `base-${side}`).setDepth(4);
+    this.baseCats = new BaseCatView(this);
     this.bars = this.add.graphics().setDepth(30);
     this.fx = this.add.graphics().setDepth(40);
     this.cannons = this.add.graphics().setDepth(6);
@@ -56,20 +74,21 @@ export class BattleScene extends Phaser.Scene {
       this.drawPortraitRoom();
       const view = portraitProjection(w, h);
       for (const side of ['player', 'enemy'] as Side[]) this.bases[side]!.setPosition(w / 2, side === 'player' ? h - 40 : 40).setDisplaySize(view.baseSize, view.baseSize * 145 / 180);
+      this.baseCats.draw(this.battle, w, h, this.reducedMotion);
     };
     const observer = new ResizeObserver(resize); observer.observe(parent);
     window.addEventListener('resize', resize);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => { observer.disconnect(); window.removeEventListener('resize', resize); this.units.clear(); });
     this.game.canvas.dataset.orientation = 'vertical';
     this.game.canvas.setAttribute('role', 'img');
-    this.game.canvas.setAttribute('aria-label', '竖屏战场：我方基地在下，对手基地在上。猫咪沿地毯向上进攻。');
+    this.game.canvas.setAttribute('aria-label', '竖屏战场：上方大胖橘想抢走冻干，下方灰白猫代表你守护粮罐。猫咪小队沿地毯进攻。');
     document.querySelector('#loading')?.remove();
     resize(); this.onFrame();
   }
   update(_time: number, delta: number) {
     if (this.revision !== this.battle.revision) {
       for (const view of this.units.values()) view.destroy();
-      this.units.clear(); this.accumulator = 0; this.endingTime = 0; this.revision = this.battle.revision;
+      this.units.clear(); this.launchOffsets.clear(); this.combatLayout.reset(); this.positions.clear(); this.accumulator = 0; this.endingTime = 0; this.revision = this.battle.revision;
     }
     if (!this.manualTime && this.battle.phase === 'playing') {
       this.accumulator += Math.min(delta, 100) / 1000 * this.speed;
@@ -77,7 +96,7 @@ export class BattleScene extends Phaser.Scene {
     } else this.accumulator = 0;
     if (!this.manualTime && this.battle.phase === 'ended') this.endingTime = Math.min(DEATH_DURATION, this.endingTime + Math.min(delta, 100) / 1000 * this.speed);
     this.bars.clear(); this.fx.clear();
-    this.drawCannons(); this.drawPortraitBattle(); this.onFrame();
+    this.drawPortraitBattle(); this.drawCannons(); this.baseCats.draw(this.battle, this.scale.width, this.scale.height, this.reducedMotion); this.onFrame();
   }
   advanceSimulation(seconds: number) {
     if (this.bars && this.revision !== this.battle.revision) this.update(0, 0);
@@ -100,14 +119,20 @@ export class BattleScene extends Phaser.Scene {
     // Also handle units killed entirely between rendered frames or during deterministic stepping.
     for (const [id, death] of deaths) {
       if (!death.kind || this.units.has(id) || death.age + this.endingTime >= DEATH_DURATION) continue;
-      const unit: Unit = { id, side: death.side, kind: death.kind, x: death.x, row: death.row, hp: 0, attackCooldown: 0, attacking: false, walking: false, slow: 0, starSlow: 0, catnip: 0, walkDistance: 0, attackAt: -100, hitAt: -100 };
+      const unit: Unit = { id, side: death.side, kind: death.kind, x: death.x, row: death.row, hp: 0, attackCooldown: 0, attacking: false, walking: false, slow: 0, starSlow: 0, catnip: 0, walkDistance: 0, attackAt: -100, hitAt: -100,
+        targetId: null, targetX: death.aimX ?? death.x, targetRow: death.aimRow ?? death.row };
       this.units.set(id, new UnitView(this, unit));
     }
+    const previous = this.positions;
+    this.positions = new Map(this.combatLayout.update([...live.values()], this.scale.width, this.scale.height, now));
+    // Fallen units keep their last position and stop pushing living fighters.
+    for (const [id, death] of deaths) if (!live.has(id)) this.positions.set(id,previous.get(id) ?? projection.project(death.x,death.row));
     for (const [id, view] of this.units) {
       const death = deaths.get(id), unit = live.get(id) ?? view.unit;
       if (!live.has(id) && (!death || death.age + this.endingTime >= DEATH_DURATION)) { view.destroy(); this.units.delete(id); continue; }
-      const point = projection.project(unit.x, unit.row), size = projection.unitSize * (unit.kind === 'knight' ? 1.24 : unit.kind === 'catapult' ? 1.14 : unit.kind === 'mouse' ? .9 : 1);
-      view.draw(unit, now, point.x, point.y, size, this.reducedMotion, death ? this.battle.time - death.age : undefined);
+      const point = this.positions.get(id)!, size = projection.unitSize * unitScale(unit.kind);
+      const target = (!death && unit.targetId !== null ? this.positions.get(unit.targetId) : undefined) ?? projection.project(unit.targetX, unit.targetRow);
+      view.draw(unit, now, point.x, point.y, size, this.reducedMotion, targetFacing(point, target, unit.side), death ? this.battle.time - death.age : undefined);
       if (!death && unit.hp < UNITS[unit.kind].hp) {
         this.bars.fillStyle(0x695449, .2).fillRoundedRect(point.x - 13, point.y - size * .48, 26, 3, 1.5);
         this.bars.fillStyle(unit.side === 'player' ? 0x6c9579 : 0x9f83b2).fillRoundedRect(point.x - 13, point.y - size * .48, Math.max(1, 26 * unit.hp / UNITS[unit.kind].hp), 3, 1.5);
@@ -115,6 +140,18 @@ export class BattleScene extends Phaser.Scene {
     }
   }
   getAnimationSnapshot() { return [...this.units.values()].map(view => view.snapshot()); }
+  private effectPoint(x: number, row: number, id?: number) { return (id === undefined ? undefined : this.positions.get(id)) ?? portraitProjection(this.scale.width, this.scale.height).project(x, row); }
+  private launchPoint(id: number, x: number, row: number, sourceId?: number) {
+    const projection = portraitProjection(this.scale.width, this.scale.height), origin = projection.project(x, row);
+    if (!this.launchOffsets.has(id)) {
+      const source = sourceId === undefined ? undefined : this.units.get(sourceId);
+      const muzzle = source?.projectileOrigin() ?? origin;
+      this.launchOffsets.set(id, { x: (muzzle.x - origin.x) / projection.unitSize, y: (muzzle.y - origin.y) / projection.unitSize });
+    }
+    // Keep the launch position after the caster moves or dies; scale it with the viewport.
+    const offset = this.launchOffsets.get(id)!;
+    return { x: origin.x + offset.x * projection.unitSize, y: origin.y + offset.y * projection.unitSize };
+  }
   private cannonPosition(side: Side) { return { x: this.scale.width / 2, y: side === 'player' ? this.scale.height - 62 : 62 }; }
   private drawCannons() {
     const g = this.cannons;
@@ -138,7 +175,7 @@ export class BattleScene extends Phaser.Scene {
     for (const effect of this.battle.effects) {
       if (effect.type !== 'cannon') continue;
       const start = this.cannonPosition(effect.side);
-      const target = portraitProjection(this.scale.width, this.scale.height).project(effect.targetX, effect.row);
+      const target = this.effectPoint(effect.targetX, effect.row, effect.targetId);
       const progress = Math.min(1, effect.age / .24), alpha = 1 - effect.age / effect.duration;
       const x = Phaser.Math.Linear(start.x, target.x, progress), y = Phaser.Math.Linear(start.y, target.y, progress);
       this.fx.lineStyle(4 * scale, 0xfff2c4, alpha).lineBetween(Phaser.Math.Linear(start.x, target.x, Math.max(0, progress - .12)), Phaser.Math.Linear(start.y, target.y, Math.max(0, progress - .12)), x, y);
@@ -175,6 +212,8 @@ export class BattleScene extends Phaser.Scene {
     const view = portraitProjection(this.scale.width, this.scale.height);
     for (const side of ['player', 'enemy'] as Side[]) this.bases[side]!.setAlpha(this.battle.armies[side].hp === 0 ? .4 : 1);
     this.drawUnits();
+    const flights = new Set([...this.battle.projectiles.map(projectile => projectile.id), ...this.battle.effects.filter(effect => effect.type === 'shot').map(effect => effect.id)]);
+    for (const id of this.launchOffsets.keys()) if (!flights.has(id)) this.launchOffsets.delete(id);
     const star = (x: number, y: number, radius: number, angle: number, alpha: number) => {
       const points = Array.from({ length: 10 }, (_, i) => {
         const a = angle + i * Math.PI / 5, r = radius * (i % 2 ? .45 : 1);
@@ -184,8 +223,7 @@ export class BattleScene extends Phaser.Scene {
       this.fx.lineStyle(1.4, 0x9b80bd, alpha).strokePoints(points, true);
     };
     for (const projectile of this.battle.projectiles) {
-      const start = view.project(projectile.x, projectile.row), end = view.project(projectile.targetX, projectile.targetRow);
-      start.x += view.unitSize * .3; start.y -= view.unitSize * .2;
+      const start = this.launchPoint(projectile.id, projectile.x, projectile.row, projectile.sourceId), end = this.effectPoint(projectile.targetX, projectile.targetRow, projectile.targetId);
       const t = Math.min(1, projectile.age / projectile.duration);
       const x = Phaser.Math.Linear(start.x, end.x, t), y = Phaser.Math.Linear(start.y, end.y, t);
       this.fx.lineStyle(3, 0xc7b5ec, .7).lineBetween(Phaser.Math.Linear(start.x, end.x, Math.max(0, t - .2)), Phaser.Math.Linear(start.y, end.y, Math.max(0, t - .2)), x, y);
@@ -194,7 +232,8 @@ export class BattleScene extends Phaser.Scene {
     for (const effect of this.battle.effects) {
       if (effect.type === 'cannon' || effect.type === 'death') continue;
       const t = effect.age / effect.duration, alpha = 1 - t;
-      const point = view.project(effect.x, effect.row), target = view.project(effect.targetX, effect.row);
+      const point = effect.type === 'shot' ? this.launchPoint(effect.id, effect.x, effect.sourceRow ?? effect.row, effect.sourceId) : this.effectPoint(effect.x, effect.sourceRow ?? effect.row, effect.sourceId);
+      const target = this.effectPoint(effect.targetX, effect.row, effect.targetId);
       if (effect.type === 'shot') {
         const x = Phaser.Math.Linear(point.x, target.x, t) + Math.sin(t * Math.PI) * (effect.side === 'player' ? -15 : 15);
         const y = Phaser.Math.Linear(point.y, target.y, t), radius = effect.kind === 'catapult' ? 7 : 4;
@@ -202,21 +241,26 @@ export class BattleScene extends Phaser.Scene {
         this.fx.lineStyle(1, 0xffedc9, .9).strokeCircle(x, y, radius - 2);
         if (effect.kind === 'catapult') {
           // Damage resolves on the attack tick; show its whole splash zone immediately.
-          const spread = Math.abs(view.project(effect.targetX + UNITS.catapult.splash!, effect.row).y - target.y);
-          this.fx.lineStyle(2, 0xc89559, alpha).strokeEllipse(target.x, target.y, this.scale.width * .4, Math.max(16, spread * 2) * (.8 + t * .3));
+          const splash = view.catapultSplashSize();
+          this.fx.lineStyle(2, 0xc89559, alpha).strokeEllipse(target.x, target.y, splash.width, splash.height);
         }
       } else if (effect.type === 'roar') {
         const center = view.project(BASE_X[effect.side]);
         this.fx.lineStyle(3 * alpha, effect.side === 'player' ? 0xfff0b5 : 0xd6bdec, alpha).strokeEllipse(center.x, center.y, 30 + t * this.scale.width * .9, 25 + t * Math.min(190, this.scale.height * .5));
       } else if (effect.type === 'starHit') {
-        this.fx.lineStyle(2, 0xa698d5, alpha).strokeCircle(point.x, point.y, 8 + t * 16);
-        for (let i = 0; i < 3; i++) star(point.x + Math.cos(i * 2.1) * t * 20, point.y + Math.sin(i * 2.1) * t * 20, 4, i, alpha);
+        this.fx.lineStyle(2, 0xa698d5, alpha).strokeCircle(target.x, target.y, 8 + t * 16);
+        for (let i = 0; i < 3; i++) star(target.x + Math.cos(i * 2.1) * t * 20, target.y + Math.sin(i * 2.1) * t * 20, 4, i, alpha);
       } else if (effect.type === 'catnip') {
         this.fx.lineStyle(2, 0x75a16e, alpha).strokeEllipse(point.x, point.y + 10, 24 + t * 30, 10 + t * 16);
       } else if (effect.type === 'heal') {
-        this.fx.fillStyle(0x6a9e7a, alpha).fillRect(point.x - 2, point.y - 24 - 12 * t, 4, 13).fillRect(point.x - 6.5, point.y - 19.5 - 12 * t, 13, 4);
+        this.fx.fillStyle(0x6a9e7a, alpha).fillRect(target.x - 2, target.y - 24 - 12 * t, 4, 13).fillRect(target.x - 6.5, target.y - 19.5 - 12 * t, 13, 4);
       } else {
         const at = effect.type === 'hit' ? target : point;
+        if (effect.type === 'hit') {
+          const angle = Math.atan2(target.y - point.y, target.x - point.x);
+          const reach = Math.min(view.unitSize * .48, Math.hypot(target.x - point.x, target.y - point.y) * .4);
+          this.fx.lineStyle(3, 0xffecc3, alpha).beginPath().arc(point.x, point.y, reach + t * 8, angle - .65, angle + .65).strokePath();
+        }
         for (let i = 0; i < 5; i++) { const angle = i * Math.PI * .4; this.fx.fillStyle(0xfff1c5, alpha).fillCircle(at.x + Math.cos(angle) * t * 22, at.y + Math.sin(angle) * t * 22, alpha * 3 + 1); }
       }
     }

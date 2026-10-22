@@ -6,7 +6,7 @@ export function menuMarkup() {
   return `<section id="home-screen" class="menu-screen home-screen" aria-labelledby="home-title">
     <div class="home-copy"><span class="eyebrow">PAW & PANTRY · 小爪子，大作战</span>
       <h1 id="home-title" tabindex="-1">冻干，<br>一粒也不能<span>少。</span></h1>
-      <p class="home-lead">开动投喂机，集结猫咪小队。<br>让每一只勇敢的小猫，都有冻干可吃。</p>
+      <p class="home-lead">馋嘴的大胖橘盯上了你的冻干罐头！<br>带着自己的猫咪，召集小队守住这份美味。</p>
       <div class="home-actions"><button id="start" class="primary-button">开始守护 ${icons.play}</button><button id="choose-level" class="menu-secondary">选择关卡 <span>→</span></button></div>
       <div class="home-details"><span><b>240</b> 开局猫粮</span><span><b>12 / 秒</b> 自动投喂</span><span><b>3</b> 个关卡</span></div>
     </div>
@@ -22,7 +22,7 @@ export function menuMarkup() {
   </section>
   <section id="level-screen" class="menu-screen level-screen" hidden aria-labelledby="levels-title">
     <div class="menu-heading"><div><span class="eyebrow">CHOOSE YOUR LITTLE ADVENTURE</span><h1 id="levels-title" tabindex="-1">今天，守护哪一个小窝？</h1></div><button id="levels-back" class="menu-secondary">← 返回首页</button></div>
-    <p class="level-lead">三个关卡均可挑战。对手会持续增援，摧毁敌方仓库才算胜利。</p>
+    <p class="level-lead">三个关卡均可挑战，难度逐关提高。摧毁敌方仓库获胜，满血通关可拿三星。</p>
     <div class="level-list" role="group" aria-label="选择关卡">${LEVELS.map((level, index) => `<button class="level-card" id="level-${level.id}" data-level="${level.id}" aria-pressed="false" style="--level-accent:${level.accent}">
       <span class="level-top"><span class="level-number">0${index + 1}</span><span class="difficulty-tag">${level.difficulty}</span></span>
       <div class="level-picture"><img src="${svgURL(unitSVG((['soldier', 'shield', 'catapult'] as const)[index]))}" alt=""/><span class="level-selection">✓ 已选择</span></div>
@@ -38,7 +38,9 @@ export function updateLevelSelection(selectedId: string, progress: CampaignProgr
     document.getElementById(`level-${level.id}`)?.setAttribute('aria-pressed', String(level.id === selectedId));
     const record = document.querySelector<HTMLElement>(`[data-record="${level.id}"]`)!;
     const result = progress[level.id];
-    record.textContent = result ? `${'★'.repeat(result.stars)}${'☆'.repeat(3 - result.stars)} 已通关 · 最快 ${Math.round(result.bestTime)} 秒` : '☆☆☆ 尚未通关';
+    record.textContent = result ? result.ratingVersion === 2
+      ? `${'★'.repeat(result.stars)}${'☆'.repeat(3 - result.stars)} 已通关 · 最快 ${Math.round(result.bestTime)} 秒`
+      : `☆☆☆ 已通关 · 再次挑战评星` : '☆☆☆ 尚未通关';
     if (level.id === selectedId) document.getElementById('selected-level-summary')!.textContent = `${level.name} · ${level.difficulty} / 双方基地主炮自动防守`;
   }
 }

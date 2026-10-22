@@ -18,12 +18,13 @@ const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, de
 const errors = [];
 page.on('pageerror', error => errors.push(error.message));
 page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
-const url = `${process.env.GAME_URL || 'http://127.0.0.1:5173'}/?qa`;
+const url = `${process.env.GAME_URL || 'http://127.0.0.1:5186'}/?qa`;
 const check = async (fn, arg) => page.evaluate(fn, arg);
 const capture = async name => page.screenshot({ path: path.join(output, `${name}.png`), fullPage: true });
 try {
   await page.goto(url, { waitUntil: 'networkidle' });
   await page.locator('#loading').waitFor({ state: 'detached' });
+  await check(() => window.advanceTime(0));
   assert.equal(await page.locator('canvas').count(), 1);
   await capture('desktop-home');
   assert.equal(await check(() => window.__catGame.getScreen()), 'home');

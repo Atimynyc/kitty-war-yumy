@@ -1,0 +1,17 @@
+.base-cat-speech {
+  position: absolute; z-index: 5; pointer-events: none; margin: 0;
+  padding: 6px 7px; border: 1.5px solid #caa06b; border-radius: 13px;
+  background: #fff9e9; color: #77502d; text-align: center;
+  font-size: 12px; font-weight: 700; line-height: 1.4;
+  box-shadow: 0 3px 0 #9a72451a;
+}
+.base-cat-speech::before {
+  content: ''; position: absolute; right: 25px; top: -6px;
+  width: 9px; height: 9px; transform: rotate(45deg);
+  background: inherit; border-left: 1.5px solid #caa06b; border-top: 1.5px solid #caa06b;
+}
+.base-cat-speech[data-mood='worried'] { color: #975039; background: #fff0df; }
+.base-cat-speech[data-mood='happy'] { background: #fff6d8; }
+.base-cat-speech[hidden] { display: none; }
+.base-cat-speech > span { display: block; }
+html[data-layout='portrait'] .portrait-direction { display: none; }

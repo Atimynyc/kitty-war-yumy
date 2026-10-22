@@ -100,7 +100,7 @@ html[data-layout='portrait'] .guide-units p,
 html[data-layout='portrait'] .guide-fair { font-size: 12px; }
 
 html[data-layout='portrait'] .game-shell { max-width: clamp(340px, calc(var(--app-height, 100dvh) * .66), 520px); }
-html[data-layout='portrait'] main { grid-template-rows: 44px minmax(100px, 1fr) 150px 104px; }
+html[data-layout='portrait'] main { grid-template-rows: 44px minmax(100px, 1fr) 150px 52px; }
 html[data-layout='portrait'] .status-bar { grid-row: 1; }
 html[data-layout='portrait'] .arena-frame { grid-row: 2; }
 html[data-layout='portrait'] .recruit-section { grid-row: 3; }
@@ -108,7 +108,7 @@ html[data-layout='portrait'] .upgrade-grid { grid-row: 4; }
 html[data-layout='portrait'] .portrait-direction { display: block; position: absolute; bottom: 17px; right: 9px; font-size: 11px; color: #847e61; pointer-events: none; }
 
 @media (max-height: 700px) {
-  html[data-layout='portrait'] main { grid-template-rows: 44px minmax(90px, 1fr) 134px 100px; }
+  html[data-layout='portrait'] main { grid-template-rows: 44px minmax(90px, 1fr) 134px 50px; }
   html[data-layout='portrait'] .unit-art { height: 23px; }
   html[data-layout='portrait'] .unit-art img { width: 32px; height: 32px; }
   html[data-layout='portrait'] .portrait-direction { display: none; }
@@ -126,7 +126,7 @@ html[data-layout='portrait'] .portrait-direction { display: block; position: abs
   html[data-layout='portrait'] .unit-state { font-size: 10px; }
   html[data-layout='portrait'] .upgrade-action > span:last-child { font-size: 10px; }
 }
-html[data-layout='portrait'][data-density='tight'] main { grid-template-rows: 44px minmax(90px, 1fr) 96px 100px; }
+html[data-layout='portrait'][data-density='tight'] main { grid-template-rows: 44px minmax(90px, 1fr) 96px 48px; }
 html[data-layout='portrait'][data-density='tight'] .unit-art,
 html[data-layout='portrait'][data-density='tight'] .upgrade-info small { display: none; }
 html[data-layout='portrait'][data-density='tight'] .intro-card { padding: 8px 12px; }

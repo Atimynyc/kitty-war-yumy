@@ -3,14 +3,15 @@ import { driedFish, teaserWand } from './weapon-art.ts';
 import { knightParts } from './knight-art.ts';
 
 export type PartName = 'body' | 'leftFoot' | 'rightFoot' | 'rearLeftFoot' | 'rearRightFoot' | 'rider' | 'leftHand' | 'rightHand';
+export type UnitLook = 'back' | 'front' | 'side';
 export interface UnitPart { name: PartName; x: number; y: number; svg: string }
 const wrap = (content: string) => `<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><g stroke="#655345" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">${content}</g></svg>`;
 export const unitShadowSVG = wrap('<ellipse cx="64" cy="108" rx="38" ry="9" fill="#796850" opacity=".17" stroke="none"/>');
 export const unitStarsSVG = wrap('<g fill="#ffe39a" stroke="#bc965c" stroke-width="1.5"><path d="m30 25 3-8 3 8 8 3-8 3-3 8-3-8-8-3Z"/><path d="m75 17 2-6 2 6 6 2-6 2-2 6-2-6-6-2Z"/></g>');
 
 /** All parts share a canvas; each supplied pivot is the hand/ankle/body attachment. */
-export function unitParts(kind: UnitKind, side: Side): UnitPart[] {
-  if (kind === 'knight') return knightParts(side);
+export function unitParts(kind: UnitKind, side: Side, look: UnitLook = side === 'player' ? 'back' : 'front'): UnitPart[] {
+  if (kind === 'knight') return knightParts(side, look);
   const friendly = side === 'player';
   const fur = friendly ? '#f5d19a' : '#ddd0e9', accent = friendly ? '#80a38a' : '#a494b9';
   const part = (name: PartName, x: number, y: number, content: string): UnitPart => ({ name, x, y, svg: wrap(content) });
@@ -32,7 +33,9 @@ export function unitParts(kind: UnitKind, side: Side): UnitPart[] {
     : kind === 'healer'
       ? '<path d="m29 46 5-24 30-9 30 10 4 23Z" fill="#fff7e8"/><path d="M64 23v16m-8-8h16" stroke="#cf8f85" stroke-width="5"/>'
       : `<path d="M28 47q1-29 36-31 34 2 36 31Z" fill="${accent}"/><path d="M29 47h70" stroke-width="4"/>${kind === 'soldier' ? '<path d="M64 21v20" stroke="#d3debf" stroke-width="5"/>' : ''}`;
-  const face = friendly
+  const face = look === 'side'
+    ? '<path d="M77 61v5" stroke-width="4"/><path d="m90 68 9 3-7 5" fill="#c18c93"/><path d="M91 77q-7 6-12 0" fill="none" stroke-width="2"/><ellipse cx="75" cy="72" rx="6" ry="3" fill="#cfad98" stroke="none"/>'
+    : look === 'back'
     ? '<path d="m47 59 5 6m10-10 3 7m12-5-3 7" stroke="#c6a076"/><path d="M46 79q18 6 36 0" fill="none" stroke="#d3b183" stroke-width="2"/>'
     : '<path d="M47 61v5m34-5v5" stroke-width="4"/><path d="m59 72 5 3 5-3" fill="#c18c93"/><path d="M64 76q-6 7-12 1m12-1q6 7 12 1" fill="none" stroke-width="2"/><ellipse cx="39" cy="73" rx="6" ry="3" fill="#c5afd2" stroke="none"/><ellipse cx="89" cy="73" rx="6" ry="3" fill="#c5afd2" stroke="none"/>';
   const paw = (x: number, y: number) => `<ellipse cx="${x}" cy="${y}" rx="9" ry="10" fill="${fur}"/><path d="M${x - 3} ${y + 2}v3m6-3v3" stroke-width="1.5"/>`;

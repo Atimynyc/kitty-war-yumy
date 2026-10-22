@@ -1,0 +1,23 @@
+/* The portrait owns the card; the only persistent label is its food cost. */
+html[data-layout='portrait'] .unit-card {
+  padding: 0; display: block; min-height: 44px; border-radius: 10px;
+  background-image: radial-gradient(ellipse at 55% 65%, color-mix(in srgb, var(--unit-bg) 32%, transparent), transparent 75%);
+}
+.recruit-portrait {
+  position: absolute; inset: 2px; width: calc(100% - 4px); height: calc(100% - 4px);
+  object-fit: contain; object-position: center bottom; pointer-events: none; user-select: none;
+}
+html[data-layout='portrait'] .unit-card .unit-cost {
+  position: absolute; top: 3px; left: 3px; z-index: 2; display: block;
+  padding: 1px 4px; border-radius: 5px; background: #fffaf0f2; color: #886334;
+  font: 700 13px/16px 'Trebuchet MS', sans-serif; pointer-events: none;
+  box-shadow: 0 1px 2px #795d3414;
+}
+.unit-card:disabled .recruit-portrait { opacity: .6; }
+.unit-card.locked .recruit-portrait { filter: saturate(.25); opacity: .5; }
+html[data-layout='portrait'] .unit-card[data-unavailable='猫粮不足'] .unit-cost { color: #a35f49; }
+.unit-card .cooldown-track { z-index: 3; height: 4px; background: #bca26e; }
+.unit-card:focus-visible { outline: 3px solid #8a6a9b; outline-offset: 1px; }
+@media (max-width: 350px), (max-height: 500px) {
+  html[data-layout='portrait'] .unit-card .unit-cost { top: 2px; left: 2px; padding: 0 3px; font-size: 12px; line-height: 15px; }
+}

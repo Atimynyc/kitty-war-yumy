@@ -34,6 +34,17 @@ export function unitSVG(kind: UnitKind, side: Side = 'player') {
   return wrap(shadow + cat + gear);
 }
 
+/** Trim only the empty margin for recruitment; keep the full figure and weapon. */
+export function unitPortraitSVG(kind: UnitKind) {
+  const bounds: Record<UnitKind, [number, number, number, number]> = {
+    mouse: [8, 32, 104, 82], soldier: [11, 9, 107, 106], shield: [11, 6, 97, 109],
+    slinger: [7, 11, 99, 104], mage: [11, 0, 107, 115], catapult: [11, 3, 92, 112],
+    healer: [11, 12, 108, 103], knight: [0, 0, 128, 120],
+  };
+  const [x, y, width, height] = bounds[kind];
+  return unitSVG(kind).replace(/<svg\b[^>]*>/, `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="${x} ${y} ${width} ${height}">`);
+}
+
 export function baseSVG(side: Side) {
   const accent = side === 'player' ? '#83a791' : '#a294bd';
   const light = side === 'player' ? '#dce8ce' : '#e0d9ed';

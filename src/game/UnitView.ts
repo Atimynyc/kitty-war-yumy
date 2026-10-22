@@ -1,13 +1,16 @@
 import Phaser from 'phaser';
 import { unitParts } from './unit-art.ts';
 import type { PartName } from './unit-art.ts';
+import type { UnitLook } from './unit-art.ts';
 import { unitMotion } from './unit-motion.ts';
+import { directionArt } from './unit-facing.ts';
 import type { Unit } from './simulation.ts';
 
 /** One reusable puppet for the vertical battlefield. The root is the logical ground point. */
 export class UnitView {
   readonly root: Phaser.GameObjects.Container;
   private actor: Phaser.GameObjects.Container;
+  private facing: Phaser.GameObjects.Container;
   private torso: Phaser.GameObjects.Container;
   private shadow: Phaser.GameObjects.Image;
   private stars: Phaser.GameObjects.Image;
@@ -15,15 +18,22 @@ export class UnitView {
   private pieces: Partial<Record<PartName, Phaser.GameObjects.Image>> = {};
   private pivots: Partial<Record<PartName, { x: number; y: number }>> = {};
   private state = 'idle';
+  private drawn = false;
+  private deathFacing?: number;
+  private heading = 0;
+  private aimRotation = 0;
+  private look: UnitLook = 'back';
 
   constructor(scene: Phaser.Scene, readonly unit: Unit) {
     this.root = scene.add.container(0, 0).setName(`unit-${unit.id}`);
     this.shadow = scene.add.image(0, 0, 'unit-shadow');
     this.actor = scene.add.container(0, 0);
+    this.facing = scene.add.container(0, 0);
+    this.facing.add(this.actor);
     this.torso = scene.add.container(0, 0);
     this.stars = scene.add.image(0, 0, 'unit-stars').setVisible(false);
     this.status = scene.add.graphics();
-    this.root.add([this.shadow, this.status, this.actor, this.stars]);
+    this.root.add([this.shadow, this.status, this.facing, this.stars]);
     for (const part of unitParts(unit.kind, unit.side)) {
       const image = scene.add.image(part.x - 64, part.y - 64, `${unit.side}-${unit.kind}-${part.name}`).setOrigin(part.x / 128, part.y / 128);
       this.pieces[part.name] = image;
@@ -35,12 +45,24 @@ export class UnitView {
     if (unit.side === 'enemy' && (unit.kind === 'mouse' || unit.kind === 'catapult')) this.actor.setAngle(180);
   }
 
-  draw(unit: Unit, now: number, x: number, y: number, size: number, reduced: boolean, deathAt?: number) {
+  draw(unit: Unit, now: number, x: number, y: number, size: number, reduced: boolean, facing: number, deathAt?: number) {
     const motion = unitMotion(unit, now, deathAt, reduced);
     const direction = unit.side === 'player' ? -1 : 1;
     const machine = unit.kind === 'mouse' || unit.kind === 'catapult';
     const localDirection = machine ? -1 : direction;
     this.state = motion.state;
+    if (deathAt !== undefined) this.deathFacing ??= this.drawn ? this.heading : facing;
+    this.heading = this.deathFacing ?? facing;
+    const forward = { x: -Math.sin(this.heading) * direction, y: Math.cos(this.heading) * direction };
+    const artwork = directionArt(forward, this.drawn ? { look: this.look, mirror: this.facing.scaleX } : undefined);
+    const mirror = machine ? 1 : artwork.mirror;
+    const localForward = machine ? { x: 0, y: direction } : { x: forward.x * mirror, y: forward.y };
+    // Standing character art uses directional faces; only overhead vehicles rotate in the floor plane.
+    this.facing.setRotation(machine ? this.heading : 0).setScale(mirror, 1);
+    this.look = artwork.look;
+    const aim = Math.atan2(localForward.y, localForward.x) - direction * Math.PI / 2;
+    this.aimRotation = machine ? 0 : Math.atan2(Math.sin(aim), Math.cos(aim));
+    this.drawn = true;
     this.status.clear();
     if (deathAt === undefined) {
       if (unit.starSlow > 0 || unit.slow > 0) {
@@ -57,14 +79,17 @@ export class UnitView {
       }
     }
     this.root.setPosition(x, y).setScale(size / 128).setAlpha(motion.alpha).setDepth(10 + y / 10000);
-    this.actor.setPosition(-motion.fall * 8 * direction, motion.fall * 7)
+    const lunge = motion.attack * 8 - motion.windup * 3;
+    this.actor.setPosition(-motion.fall * 8 * direction + localForward.x * lunge, motion.fall * 7 + localForward.y * lunge)
       .setAngle((machine && unit.side === 'enemy' ? 180 : 0) + motion.fall * 72 * direction);
     this.shadow.setScale(1 - motion.lift * .015, 1).setAlpha(1 - motion.fall * .4);
     this.stars.setVisible(motion.stars).setPosition(motion.fall * 20 * direction, 15);
-    this.torso.setPosition(0, -motion.lift + localDirection * (motion.attack * 5 - motion.windup * 2 - motion.hit * 7))
+    const recoil = motion.attack * 5 - motion.windup * 2 - motion.hit * 7;
+    this.torso.setPosition(localForward.x * recoil, -motion.lift + (machine ? localDirection : localForward.y) * recoil)
       .setScale(1 + motion.hit * .045, 1 - motion.hit * .06).setAngle(motion.stride * 1.2 + motion.hit * 5);
     for (const [name, image] of Object.entries(this.pieces) as [PartName, Phaser.GameObjects.Image][]) {
       const pivot = this.pivots[name]!;
+      if (!machine && (name === 'body' || name === 'rider')) image.setTexture(`${unit.side}-${unit.kind}-${name}-${this.look}`);
       image.setPosition(pivot.x, pivot.y).setRotation(0).setScale(1);
       // Canvas tint support differs across browsers, so recoil/scale also carries the hit.
       if (motion.flash) image.setTint(0xffd4bb);
@@ -114,13 +139,32 @@ export class UnitView {
         rightHand.y += direction * (motion.attack * 14 + motion.windup * 5);
         rightHand.setAngle(direction * motion.attack * 20);
         leftHand.y += direction * motion.attack * 8;
-      } else rightHand.setAngle(direction * (motion.attack * 85 - motion.windup * 38) - motion.stride * 8);
+      } else rightHand.setAngle(direction * (motion.attack * 30 - motion.windup * 38) - motion.stride * 8);
       rightHand.rotation += motion.hit * .12 - motion.fall * .3;
+    }
+    if (!machine) {
+      const hand = this.pieces.rightHand!;
+      hand.rotation += this.aimRotation;
+      const reach = unit.kind === 'knight' ? motion.attack * 23 - motion.windup * 9
+        : unit.kind === 'shield' ? motion.attack * 15 - motion.windup * 4
+        : unit.kind === 'mage' ? motion.attack * 16 - motion.windup * 8
+        : unit.kind === 'healer' ? motion.attack * 14 + motion.windup * 5 : 0;
+      hand.x += localForward.x * reach;
+      hand.y += (localForward.y - direction) * reach;
     }
   }
 
+  projectileOrigin() {
+    const hand = this.pieces.rightHand!;
+    // Coordinates relative to the hand's pivot, including the enemy weapon's native flip.
+    const dx = this.unit.kind === 'mage' ? -2 : 0;
+    const dy = this.unit.kind === 'mage' ? -52 : this.unit.kind === 'catapult' ? -50 : -21;
+    const flip = this.unit.side === 'enemy' && this.unit.kind !== 'catapult' ? -.75 : 1;
+    return hand.getWorldTransformMatrix().transformPoint(dx * flip, dy * flip);
+  }
   snapshot() {
-    return { id: this.unit.id, kind: this.unit.kind, side: this.unit.side, state: this.state, x: this.root.x, y: this.root.y, alpha: this.root.alpha,
+    return { id: this.unit.id, kind: this.unit.kind, side: this.unit.side, state: this.state, x: this.root.x, y: this.root.y, alpha: this.root.alpha, facing: this.heading, targetId: this.unit.targetId,
+      look: this.look, mirror: this.facing.scaleX, spriteRotation: this.facing.rotation, aimRotation: this.aimRotation,
       body: { x: this.torso.x, y: this.torso.y, rotation: this.torso.rotation },
       parts: Object.fromEntries(Object.entries(this.pieces).map(([name, piece]) => [name, { x: piece.x, y: piece.y, rotation: piece.rotation, scaleY: piece.scaleY }])) };
   }
