@@ -1,0 +1,149 @@
+/* Purpose is communicated through labels, shape and contrast, as well as color. */
+:root { --upgrade-green: #45674e; --research-purple: #72528a; --skill-orange: #ba5732; }
+[hidden] { display: none !important; }
+html:not([data-screen='battle']) #pause,
+html:not([data-screen='battle']) .toolbar-divider,
+html:not([data-screen='battle']) footer { display: none; }
+.menu-screen { padding: 40px 0 24px; }
+.menu-screen h1:focus { outline: none; }
+.home-screen { display: grid; grid-template-columns: 1fr 1.15fr; gap: 36px; align-items: center; min-height: min(720px, calc(100dvh - 90px)); }
+.home-copy { padding: 20px 0 12px 20px; }
+.home-copy h1 { font-size: clamp(40px, 4.3vw, 64px); line-height: 1.3; letter-spacing: 2px; margin: 20px 0; color: #574632; }
+.home-copy h1 span { color: #ca7952; }
+.home-lead { font-size: 15px; line-height: 2; color: #8b7962; margin: 0 0 30px; }
+.home-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; }
+.home-actions .primary-button { min-height: 52px; padding: 14px 28px; font-size: 16px; }
+.menu-secondary { min-height: 44px; border: 1px solid #d8c9b1; background: #fffaf0; border-radius: 10px; padding: 10px 18px; font-size: 13px; font-weight: 600; }
+.menu-secondary:hover { background: #f0e5d0; border-color: #b49b79; }
+.menu-secondary span { margin-left: 15px; }
+.home-details { display: flex; gap: 24px; margin-top: 36px; color: #8e8069; font-size: 11px; }
+.home-details span + span { border-left: 1px solid #ded4c1; padding-left: 24px; }
+.home-details b { display: block; font: 700 23px 'Trebuchet MS', sans-serif; color: #776044; margin-bottom: 5px; }
+.home-art { height: 410px; position: relative; border-radius: 44% 44% 18px 18px; overflow: hidden; background-size: auto 100%; background-position: 58% center; border: 2px solid #e4d6bf; box-shadow: 0 10px 0 #e6ddca55; }
+.home-base { position: absolute; width: 58%; left: 12%; bottom: 22%; }
+.home-cat { position: absolute; bottom: 9%; width: 32%; }
+.hero-soldier { left: 38%; width: 36%; }
+.hero-shield { left: 5%; }
+.hero-mouse { right: 2%; width: 28%; }
+.home-sticker { position: absolute; z-index: 1; right: 10%; top: 11%; border-radius: 50%; width: 90px; height: 90px; display: grid; align-content: center; text-align: center; background: #fff1ca; color: #a37b3c; font-size: 12px; line-height: 1.8; transform: rotate(12deg); border: 2px dashed #ddc497; }
+.home-sticker b { font-size: 15px; }
+.home-art-caption { position: absolute; bottom: 0; width: 100%; padding: 12px; text-align: center; font-size: 11px; letter-spacing: 2px; background: #fff9e9da; color: #887154; }
+.home-tip { grid-column: 1 / -1; text-align: center; color: #9a8b73; font-size: 12px; margin: 0; }
+.home-tip button { border: 0; background: none; min-height: 44px; color: #9b6a44; text-decoration: underline; margin-left: 10px; }
+.menu-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.menu-heading h1 { font-size: 29px; margin: 12px 0; }
+.level-lead { color: #8e7e67; font-size: 13px; line-height: 1.8; margin: 0 0 25px; }
+.level-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.level-card { position: relative; min-width: 0; border: 2px solid #e1d7c5; border-radius: 20px; background: #fffcf4; padding: 20px; text-align: left; display: flex; flex-direction: column; transition: border-color .15s, transform .15s; }
+.level-card:hover { transform: translateY(-3px); }
+.level-card[aria-pressed='true'] { border-color: var(--level-accent); box-shadow: 0 4px 0 color-mix(in srgb, var(--level-accent) 25%, transparent); }
+.level-top { display: flex; justify-content: space-between; align-items: center; }
+.level-number { font: 700 25px 'Trebuchet MS', sans-serif; color: var(--level-accent); }
+.difficulty-tag { font-size: 11px; border: 1px solid var(--level-accent); border-radius: 30px; padding: 4px 12px; color: var(--level-accent); }
+.level-picture { position: relative; display: grid; place-items: center; height: 130px; margin: 10px 0; border-radius: 12px; background: #f1ecdf; background: color-mix(in srgb, var(--level-accent) 12%, #fffaf0); }
+.level-picture img { width: 138px; height: 138px; }
+.level-selection { position: absolute; bottom: 9px; right: 9px; font-size: 11px; background: var(--level-accent); color: white; border-radius: 5px; padding: 5px 8px; visibility: hidden; }
+.level-card[aria-pressed='true'] .level-selection { visibility: visible; }
+.level-subtitle { color: #a69379; font-size: 10px; letter-spacing: 2px; margin: 5px 0; }
+.level-card > strong { font-size: 22px; color: #655238; }
+.level-description { font-size: 12px; line-height: 1.8; color: #93816b; margin: 10px 0; min-height: 44px; }
+.level-rule { font-size: 11px; padding-top: 12px; margin-top: auto; border-top: 1px dashed #dfd4bf; color: #807257; }
+.level-record { font-size: 11px; margin-top: 9px; color: #a37c43; }
+.level-launch { display: flex; gap: 20px; align-items: center; justify-content: space-between; margin: 28px 0 0; }
+.level-launch p { color: #8f7c61; font-size: 12px; }
+.level-launch .primary-button { min-height: 48px; }
+.unit-card.available { border-color: #b4c4a9; background: #fffdf7; }
+.available .unit-state { background: #e5eedc; border-radius: 4px; padding: 2px 5px; color: #4f7148; }
+.upgrade-grid { border-top: 1px dashed #d5c8b0; padding-top: 12px; }
+.upgrade-card { border-width: 1px 1px 1px 5px; border-radius: 7px; }
+.economy-card { background: #e0ecdf; border-color: #88a886; }
+.economy-card .upgrade-info strong, .economy-card .upgrade-action { color: var(--upgrade-green); }
+.economy-card .upgrade-info small, .economy-card .upgrade-action > span:last-child { color: #607c5e; }
+.tech-card { background: #e9e0f0; border-color: #ae8ec2; }
+.tech-card .upgrade-info strong, .tech-card .upgrade-action { color: var(--research-purple); }
+.tech-card .upgrade-info small, .tech-card .upgrade-action > span:last-child { color: #86659b; }
+.roar-card { background: #d77b50; border: 2px solid #b65f39; border-radius: 26px 9px 26px 9px; box-shadow: 0 3px 0 #a8583533; }
+.roar-card .upgrade-info strong, .roar-card .upgrade-info small, .roar-card .upgrade-action, .roar-card .upgrade-action > span:last-child { color: #fff9ed; }
+.roar-card .upgrade-symbol { background: #f5c49a; border-color: #eeb480; color: #a95934; border-radius: 50%; }
+.roar-card .upgrade-action { border-left: 1px solid #edac85; padding-left: 5px; }
+.roar-card:disabled { background: #c8977d; border-color: #b58c72; box-shadow: none; }
+.upgrade-card:disabled .upgrade-action { opacity: .8; }
+.pause-navigation, .result-actions { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.pause-navigation .menu-secondary, .result-actions .menu-secondary { padding: 8px 14px; font-size: 12px; }
+.battle-overlay { display: flex; flex-direction: column; align-items: center; overflow: auto; }
+.battle-overlay .intro-card { margin: auto; flex-shrink: 0; }
+.player-label small { display: block; font-size: 9px; margin-top: 4px; color: #678064; white-space: nowrap; }
+
+html:not([data-layout='desktop']) .menu-screen { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 12px 8px 18px; }
+html:not([data-layout='desktop']) .home-screen { display: flex; flex-direction: column; gap: 18px; }
+html:not([data-layout='desktop']) .home-copy { padding: 3px 0; text-align: center; flex: 0 0 auto; }
+html:not([data-layout='desktop']) .home-copy h1 { font-size: 37px; line-height: 1.3; margin: 12px 0; }
+html:not([data-layout='desktop']) .home-copy h1 br { display: initial; }
+html:not([data-layout='desktop']) .home-lead { font-size: 13px; margin: 0 0 16px; }
+html:not([data-layout='desktop']) .home-actions { justify-content: center; gap: 10px; }
+html:not([data-layout='desktop']) .home-actions .primary-button { min-height: 48px; font-size: 14px; padding: 10px 18px; }
+html:not([data-layout='desktop']) .home-details { justify-content: center; gap: 16px; margin-top: 22px; }
+html:not([data-layout='desktop']) .home-details span + span { padding-left: 16px; }
+html:not([data-layout='desktop']) .home-details b { font-size: 20px; }
+html:not([data-layout='desktop']) .home-art { width: min(100%, 470px); height: clamp(180px, 30vh, 330px); min-height: 180px; flex: 1 0 180px; border-radius: 80px 80px 15px 15px; }
+html:not([data-layout='desktop']) .home-base { width: 46%; left: 15%; bottom: 22%; }
+html:not([data-layout='desktop']) .home-cat { width: 27%; }
+html:not([data-layout='desktop']) .hero-soldier { width: 30%; }
+html:not([data-layout='desktop']) .home-sticker { width: 70px; height: 70px; top: 9%; font-size: 10px; }
+html:not([data-layout='desktop']) .home-sticker b { font-size: 12px; }
+html:not([data-layout='desktop']) .home-art-caption { font-size: 10px; padding: 8px; }
+html:not([data-layout='desktop']) .home-tip { font-size: 11px; line-height: 1.7; }
+html:not([data-layout='desktop']) .menu-heading { align-items: flex-start; gap: 5px; }
+html:not([data-layout='desktop']) .menu-heading h1 { font-size: 21px; line-height: 1.5; }
+html:not([data-layout='desktop']) .menu-heading .eyebrow { font-size: 8px; letter-spacing: .7px; }
+html:not([data-layout='desktop']) .menu-heading .menu-secondary { padding: 8px; font-size: 11px; white-space: nowrap; }
+html:not([data-layout='desktop']) .level-lead { font-size: 12px; margin-bottom: 15px; }
+html:not([data-layout='desktop']) .level-list { grid-template-columns: 1fr; gap: 10px; }
+html:not([data-layout='desktop']) .level-card { padding: 12px 12px 12px 100px; min-height: 144px; border-radius: 13px; }
+html:not([data-layout='desktop']) .level-top { position: absolute; top: 11px; left: 10px; right: 12px; }
+html:not([data-layout='desktop']) .level-number { font-size: 17px; }
+html:not([data-layout='desktop']) .difficulty-tag { padding: 2px 9px; font-size: 10px; }
+html:not([data-layout='desktop']) .level-picture { position: absolute; top: 29px; left: 8px; width: 82px; height: 90px; margin: 0; }
+html:not([data-layout='desktop']) .level-picture img { width: 83px; height: 83px; }
+html:not([data-layout='desktop']) .level-selection { left: 5px; right: 5px; bottom: 0; padding: 3px; text-align: center; font-size: 10px; }
+html:not([data-layout='desktop']) .level-subtitle { margin: 0 38px 3px 0; font-size: 9px; letter-spacing: 0; }
+html:not([data-layout='desktop']) .level-card > strong { font-size: 18px; }
+html:not([data-layout='desktop']) .level-description { font-size: 11px; line-height: 1.6; margin: 5px 0; min-height: 0; }
+html:not([data-layout='desktop']) .level-rule { font-size: 10px; padding-top: 5px; }
+html:not([data-layout='desktop']) .level-record { font-size: 10px; margin-top: 4px; }
+html:not([data-layout='desktop']) .level-launch { position: sticky; bottom: -18px; background: #f8f6eff5; padding: 10px 0; margin-top: 12px; flex-direction: column; gap: 6px; border-top: 1px solid #e4d8c4; }
+html:not([data-layout='desktop']) .level-launch p { margin: 0; font-size: 10px; text-align: center; }
+html:not([data-layout='desktop']) .level-launch .primary-button { width: 100%; }
+html:not([data-layout='desktop']) .upgrade-grid { padding-top: 0; border-top: 0; gap: 7px; }
+html:not([data-layout='desktop']) .upgrade-card { border-left-width: 4px; border-radius: 6px; padding: 4px 2px; }
+html:not([data-layout='desktop']) .roar-card { border-width: 2px; border-radius: 22px 7px 22px 7px; }
+html:not([data-layout='desktop']) .roar-card .upgrade-action { border: 0; padding: 0; }
+html:not([data-layout='desktop']) .available .unit-state { padding: 0 3px; }
+html:not([data-layout='desktop']) .arena-badge { display: flex; top: 51px; left: 10px; right: auto; gap: 0; padding: 4px 6px; border-radius: 5px; background: #fff8e9de; font-size: 9px; }
+html:not([data-layout='desktop']) .arena-badge .sun-icon { display: none; }
+html:not([data-layout='desktop']) .arena-badge > span { opacity: 1; }
+html:not([data-layout='desktop']) .battle-overlay { display: flex; }
+html:not([data-layout='desktop']) .pause-card .intro-eyebrow,
+html:not([data-layout='desktop']) .result-card .intro-eyebrow { display: none; }
+html:not([data-layout='desktop']) .result-card { padding: 12px; }
+html:not([data-layout='desktop']) .result-card p { margin-bottom: 5px; }
+html:not([data-layout='desktop']) .result-stats { margin: 8px 0; }
+html[data-layout='compact-landscape'] .upgrade-info strong { font-size: 10px; }
+html[data-layout='compact-landscape'] .upgrade-info strong span { font-size: 9px; }
+html[data-layout='compact-landscape'] .upgrade-info small { font-size: 10px; }
+html[data-layout='compact-landscape'] .arena-badge { top: auto; bottom: 8px; left: 8px; }
+html[data-layout='compact-landscape'] .home-screen { display: grid; grid-template-columns: 1.1fr 1fr; align-content: center; gap: 12px; }
+html[data-layout='compact-landscape'] .home-art { height: 210px; min-height: 160px; }
+html[data-layout='compact-landscape'] .home-copy h1 { font-size: 30px; }
+html[data-layout='compact-landscape'] .home-details { margin-top: 15px; }
+html[data-layout='compact-landscape'] .home-tip { display: none; }
+@media (max-width: 350px) {
+  html:not([data-layout='desktop']) .home-copy h1 { font-size: 31px; }
+  html:not([data-layout='desktop']) .home-screen { gap: 12px; }
+  html:not([data-layout='desktop']) .home-copy .eyebrow { font-size: 9px; }
+  html:not([data-layout='desktop']) .level-card { padding-left: 83px; }
+  html:not([data-layout='desktop']) .level-picture { width: 67px; }
+  html:not([data-layout='desktop']) .level-picture img { width: 70px; }
+  html:not([data-layout='desktop']) .menu-heading h1 { font-size: 18px; }
+  html:not([data-layout='desktop']) .unit-state { font-size: 10px; }
+}

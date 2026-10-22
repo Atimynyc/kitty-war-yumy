@@ -1,24 +1,27 @@
-import { BASE_HP, BASE_X, ECONOMY_COSTS, FOOD_RATES, MAX_POPULATION, TECH_COSTS, TECH_TIMES, UNITS, UNIT_ORDER } from './content.ts';
+import { BASE_HP, BASE_X, CANNON_DAMAGE, CANNON_INTERVAL, CANNON_RANGE, ECONOMY_COSTS, FOOD_RATES, MAX_POPULATION, STARTING_FOOD, TECH_COSTS, TECH_TIMES, UNITS, UNIT_ORDER } from './content.ts';
 import type { Side, UnitKind } from './content.ts';
+import { getLevel } from './levels.ts';
 
 export interface Army {
   food: number; hp: number; economy: number; tech: number;
   research: number; researching: boolean; roarCooldown: number;
   cooldowns: Record<UnitKind, number>; spent: number; hired: number; lost: number;
+  cannonCooldown: number; cannonShots: number;
 }
 export interface Unit {
   id: number; kind: UnitKind; side: Side; x: number; hp: number;
   attackCooldown: number; slow: number; attacking: boolean; walking: boolean; row: number;
 }
 export interface Effect {
-  id: number; type: 'hit' | 'shot' | 'heal' | 'death' | 'roar' | 'spawn';
+  id: number; type: 'hit' | 'shot' | 'cannon' | 'heal' | 'death' | 'roar' | 'spawn';
   side: Side; x: number; targetX: number; row: number; age: number; duration: number; kind?: UnitKind;
 }
 export type Phase = 'ready' | 'playing' | 'paused' | 'ended';
-const makeArmy = (): Army => ({ food: 120, hp: BASE_HP, economy: 0, tech: 1, research: 0, researching: false, roarCooldown: 0, cooldowns: { mouse: 0, soldier: 0, shield: 0, slinger: 0, catapult: 0, healer: 0 }, spent: 0, hired: 0, lost: 0 });
+const makeArmy = (): Army => ({ food: STARTING_FOOD, hp: BASE_HP, economy: 0, tech: 1, research: 0, researching: false, roarCooldown: 0, cannonCooldown: 0, cannonShots: 0, cooldowns: { mouse: 0, soldier: 0, shield: 0, slinger: 0, catapult: 0, healer: 0 }, spent: 0, hired: 0, lost: 0 });
 const opposite = (side: Side): Side => side === 'player' ? 'enemy' : 'player';
 
 export class Battle {
+  level = getLevel('sunroom');
   phase: Phase = 'ready';
   armies: Record<Side, Army> = { player: makeArmy(), enemy: makeArmy() };
   units: Unit[] = [];
@@ -29,14 +32,18 @@ export class Battle {
   message = '冻干已就位，小队等你出发。';
   messageUntil = 0;
   private nextId = 1;
-  private aiTimer = 6;
-  private aiDecisions = 0;
+  private aiTimer = this.level.grace;
+  private aiQueueIndex = 0;
+  private aiLastRecruit = 0;
+  private aiSavingSince: number | null = null;
 
-  start() { if (this.phase === 'ready') { this.phase = 'playing'; this.notify('先派两只小猫探路，或升级投喂机攒猫粮。'); } }
-  reset() {
+  start() { if (this.phase === 'ready') { this.phase = 'playing'; this.notify(`首波敌人将在 ${this.level.grace} 秒后出发。先升级投喂机，再招募小队！`); } }
+  reset(levelId = this.level.id) {
+    this.level = getLevel(levelId);
     this.phase = 'ready'; this.armies = { player: makeArmy(), enemy: makeArmy() };
     this.units = []; this.effects = []; this.time = 0; this.winner = null;
-    this.nextId = 1; this.aiTimer = 6; this.aiDecisions = 0;
+    this.nextId = 1; this.aiTimer = this.level.grace; this.aiQueueIndex = 0; this.aiLastRecruit = 0; this.aiSavingSince = null;
+    this.aiEnabled = true;
     this.message = '冻干已就位，小队等你出发。'; this.messageUntil = 0;
   }
   togglePause() { if (this.phase === 'playing') this.phase = 'paused'; else if (this.phase === 'paused') this.phase = 'playing'; }
@@ -45,7 +52,7 @@ export class Battle {
   summonReason(side: Side, kind: UnitKind): string {
     const army = this.armies[side], spec = UNITS[kind];
     if (army.tech < spec.tier) return `${spec.tier === 2 ? '二' : '三'}阶科技解锁`;
-    if (this.phase !== 'playing') return this.phase === 'paused' ? '已暂停' : '等待开战';
+    if (this.phase !== 'playing') return this.phase === 'paused' ? '已暂停' : this.phase === 'ended' ? '已结束' : '等待开战';
     if (army.cooldowns[kind] > 0) return `${army.cooldowns[kind].toFixed(1)}s`;
     if (this.population(side) + spec.population > MAX_POPULATION) return '人口已满';
     if (army.food + .00001 < spec.cost) return '猫粮不足';
@@ -101,12 +108,13 @@ export class Battle {
       const army = this.armies[side];
       army.food += FOOD_RATES[army.economy] * dt;
       army.roarCooldown = Math.max(0, army.roarCooldown - dt);
+      army.cannonCooldown = Math.max(0, army.cannonCooldown - dt);
       for (const kind of UNIT_ORDER) army.cooldowns[kind] = Math.max(0, army.cooldowns[kind] - dt);
       if (army.researching) {
         army.research = Math.max(0, army.research - dt);
         if (army.research <= .00001) {
           army.researching = false; army.tech++;
-          if (side === 'player') this.notify(army.tech === 2 ? '二阶科技完成！纸箱盾卫和毛球投手已解锁。' : '三阶科技完成！投石机和奶妈猫已解锁。');
+          if (side === 'player') this.notify(`${army.tech === 2 ? '二阶科技完成，盾卫和投手已解锁' : '三阶科技完成，投石机和奶妈已解锁'}！主炮伤害提升至 ${CANNON_DAMAGE[army.tech - 1]}。`);
         }
       }
     }
@@ -118,6 +126,18 @@ export class Battle {
     // Every unit reads the same start-of-step positions. Moving one side first must
     // not let the other side land a first strike a frame earlier on contact.
     const live = this.units.map(unit => ({ ...unit }));
+    // Defensive cannons use the same snapshot/damage batch as troops, so neither
+    // side gains an update-order advantage. With no target the cannon stays ready.
+    for (const side of ['player', 'enemy'] as Side[]) {
+      const army = this.armies[side];
+      if (army.hp <= 0 || army.cannonCooldown > 0) continue;
+      const target = live.filter(unit => unit.hp > 0 && unit.side !== side && Math.abs(unit.x - BASE_X[side]) <= CANNON_RANGE)
+        .sort((a, b) => Math.abs(a.x - BASE_X[side]) - Math.abs(b.x - BASE_X[side]) || a.id - b.id)[0];
+      if (!target) continue;
+      damage.set(target.id, (damage.get(target.id) ?? 0) + CANNON_DAMAGE[army.tech - 1]);
+      army.cannonCooldown = CANNON_INTERVAL; army.cannonShots++;
+      this.effect('cannon', side, BASE_X[side], target.x, target.row, .45);
+    }
     // Frontmost units claim contact positions first; damage resolves simultaneously.
     const ordered = [...this.units].sort((a, b) => (a.side === 'player' ? -a.x : a.x) - (b.side === 'player' ? -b.x : b.x));
     for (const unit of ordered) {
@@ -169,7 +189,13 @@ export class Battle {
       this.winner = !this.armies.player.hp && !this.armies.enemy.hp ? 'draw' : !this.armies.enemy.hp ? 'player' : 'enemy';
       return;
     }
-    if (this.aiEnabled) { this.aiTimer -= dt; if (this.aiTimer <= 0) { this.aiTimer = 3; this.decideAI(); } }
+    if (this.aiEnabled) {
+      this.aiTimer -= dt;
+      if (this.aiTimer <= .00001) {
+        this.aiTimer = this.time < this.level.openingDuration ? this.level.openingInterval : this.level.interval;
+        this.decideAI();
+      }
+    }
   }
   private move(unit: Unit, dt: number, dir: number, nearest?: Unit, limit?: number) {
     let next = unit.x + dir * UNITS[unit.kind].speed * (unit.slow > 0 ? .45 : 1) * dt;
@@ -183,27 +209,30 @@ export class Battle {
     const allies = this.units.filter(u => u.side === side), foes = this.units.filter(u => u.side !== side);
     const threatened = foes.some(u => u.x > BASE_X.enemy - 310);
     const count = (kind: UnitKind) => allies.filter(u => u.kind === kind).length;
-    this.aiDecisions++;
     if (threatened && army.roarCooldown === 0) this.roar(side);
-    // Reserve an investment only while the visible battlefield is sufficiently defended.
+    // Continuous recruitment, with a bounded savings window instead of a finite
+    // wave list or unbounded return paths while waiting for an expensive upgrade.
     const safe = !threatened && allies.length >= 3 && allies.length + 2 >= foes.length;
-    if (safe && army.economy < 3 && this.time > [45, 110, 195][army.economy]) {
-      if (this.upgradeEconomy(side)) return;
-      if (allies.length >= 5) return;
+    const investEconomy = safe && army.economy < 3 && this.time >= this.level.economyAt[army.economy];
+    const investTech = safe && army.tech < 3 && !army.researching && this.time >= this.level.techAt[army.tech - 1];
+    if (investEconomy || investTech) {
+      const upgraded = investEconomy ? this.upgradeEconomy(side) : this.researchTech(side);
+      if (upgraded) this.aiSavingSince = null;
+      else {
+        this.aiSavingSince ??= this.time;
+        if (this.time - this.aiSavingSince < 10 && this.time - this.aiLastRecruit < 10) return;
+      }
+    } else this.aiSavingSince = null;
+    const rotation: UnitKind[] = army.tech === 1 ? ['soldier', 'soldier', 'mouse']
+      : army.tech === 2 ? ['shield', 'slinger', 'soldier', 'slinger', 'mouse']
+      : ['shield', 'catapult', 'slinger', 'healer', 'soldier', 'slinger'];
+    let desired = rotation[this.aiQueueIndex % rotation.length];
+    if ((desired === 'healer' && (count('healer') >= 2 || allies.length < 3)) || (desired === 'shield' && count('shield') >= 3)) desired = 'soldier';
+    if (safe && army.food < UNITS[desired].cost && this.time - this.aiLastRecruit < 7) return;
+    for (const kind of [...new Set<UnitKind>([desired, 'soldier', 'mouse'])]) {
+      if (!this.summon(side, kind)) continue;
+      this.aiQueueIndex++; this.aiLastRecruit = this.time; this.aiSavingSince = null;
+      return;
     }
-    if (safe && army.tech < 3 && !army.researching && this.time > (army.tech === 1 ? 75 : 190)) {
-      if (this.researchTech(side)) return;
-      if (allies.length >= 6) return;
-    }
-    const choices: UnitKind[] = [];
-    if (army.tech >= 3 && foes.length >= 5 && count('catapult') < 2) choices.push('catapult');
-    if (army.tech >= 3 && allies.length >= 5 && count('healer') < 1) choices.push('healer');
-    if (army.tech >= 2 && count('shield') < 2) choices.push('shield');
-    if (army.tech >= 2 && count('slinger') < Math.max(2, count('shield') * 2)) choices.push('slinger');
-    if (army.tech >= 3 && count('catapult') < 2) choices.push('catapult');
-    choices.push(this.aiDecisions % 4 === 0 ? 'mouse' : 'soldier');
-    if (threatened) choices.push('mouse');
-    if (!threatened && allies.length >= 3 && choices.length > 1 && army.food < UNITS[choices[0]].cost) return;
-    for (const kind of choices) if (this.summon(side, kind)) return;
   }
 }

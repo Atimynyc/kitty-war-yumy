@@ -89,9 +89,15 @@ try {
       await page.goto('http://127.0.0.1:5173/?qa', { waitUntil: 'networkidle' });
       await page.locator('#loading').waitFor({ state: 'detached' });
       await page.waitForTimeout(100);
+      assert.equal(await page.evaluate(() => window.__catGame.battle.time), 0);
+      assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+      await page.screenshot({ path: path.join(output, `${engine}-${name}-home.png`) });
+      await page.locator('#choose-level').click();
+      await page.locator('#level-sunroom').click();
+      await page.screenshot({ path: path.join(output, `${engine}-${name}-levels.png`) });
+      await page.locator('#level-start').click();
+      await page.waitForTimeout(120);
       const ready = await inspect(page); validate(ready, name);
-      await page.screenshot({ path: path.join(output, `${engine}-${name}-ready.png`) });
-      await page.locator('#start').click();
       await page.waitForFunction(() => window.__catGame.battle.phase === 'playing', null, { timeout: 5000 });
       await page.locator('#hire-soldier').click();
       assert.equal(await page.evaluate(() => window.__catGame.battle.armies.player.hired), 1);

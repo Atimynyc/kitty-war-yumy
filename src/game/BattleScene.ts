@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { baseSVG, roomSVG, unitSVG } from '../art.ts';
-import { BASE_HP, BASE_X, UNIT_ORDER, UNITS, WORLD_HEIGHT, WORLD_WIDTH } from './content.ts';
+import { BASE_HP, BASE_X, CANNON_INTERVAL, UNIT_ORDER, UNITS, WORLD_HEIGHT, WORLD_WIDTH } from './content.ts';
 import type { Side } from './content.ts';
 import { Battle } from './simulation.ts';
 import { portraitBaseSVG, portraitUnitSVG } from '../portrait-art.ts';
@@ -12,6 +12,7 @@ export class BattleScene extends Phaser.Scene {
   private sprites = new Map<number, Phaser.GameObjects.Image>();
   private bars!: Phaser.GameObjects.Graphics;
   private fx!: Phaser.GameObjects.Graphics;
+  private cannons!: Phaser.GameObjects.Graphics;
   private bases: Partial<Record<Side, Phaser.GameObjects.Image>> = {};
   private elapsed = 0;
   private accumulator = 0;
@@ -21,6 +22,8 @@ export class BattleScene extends Phaser.Scene {
   private baseLabels: Partial<Record<Side, Phaser.GameObjects.Text>> = {};
   private portrait = false;
   speed = 1;
+  manualTime = false;
+  private reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   constructor(battle: Battle, onFrame: () => void) { super('battle'); this.battle = battle; this.onFrame = onFrame; }
   preload() {
     const source = (svg: string) => {
@@ -101,6 +104,7 @@ export class BattleScene extends Phaser.Scene {
     }
     this.bars = this.add.graphics().setDepth(30);
     this.fx = this.add.graphics().setDepth(40);
+    this.cannons = this.add.graphics().setDepth(6);
     document.querySelector('#loading')?.remove();
     this.game.canvas.setAttribute('role', 'img');
     resize();
@@ -108,7 +112,7 @@ export class BattleScene extends Phaser.Scene {
   }
   update(_time: number, delta: number) {
     const active = this.battle.phase === 'playing';
-    if (active) {
+    if (active && !this.manualTime) {
       this.elapsed += Math.min(delta, 100) / 1000 * this.speed;
       this.accumulator += Math.min(delta, 100) / 1000 * this.speed;
       while (this.accumulator >= 1 / 30) { this.battle.step(1 / 30); this.accumulator -= 1 / 30; }
@@ -116,6 +120,7 @@ export class BattleScene extends Phaser.Scene {
     const liveIds = new Set(this.battle.units.map(u => u.id));
     for (const [id, sprite] of this.sprites) if (!liveIds.has(id)) { sprite.destroy(); this.sprites.delete(id); }
     this.bars.clear(); this.fx.clear();
+    this.drawCannons();
     if (this.portrait) { this.drawPortraitBattle(); this.onFrame(); return; }
     for (const side of ['player', 'enemy'] as Side[]) {
       const army = this.battle.armies[side], x = BASE_X[side];
@@ -151,6 +156,7 @@ export class BattleScene extends Phaser.Scene {
       }
     }
     for (const effect of this.battle.effects) {
+      if (effect.type === 'cannon') continue;
       const t = effect.age / effect.duration, alpha = 1 - t, y = 315 + effect.row * 10;
       if (effect.type === 'shot') {
         const x = Phaser.Math.Linear(effect.x, effect.targetX, t);
@@ -175,6 +181,54 @@ export class BattleScene extends Phaser.Scene {
       }
     }
     this.onFrame();
+  }
+
+  advanceSimulation(seconds: number) {
+    const frames = Math.ceil(seconds * 30);
+    for (let i = 0; i < frames && this.battle.phase === 'playing'; i++) {
+      const dt = Math.min(1 / 30, seconds - i / 30);
+      this.battle.step(dt); this.elapsed += dt;
+    }
+    if (this.bars) this.update(0, 0);
+  }
+
+  private cannonPosition(side: Side) {
+    return this.portrait
+      ? { x: this.scale.width / 2, y: side === 'player' ? this.scale.height - 62 : 62 }
+      : { x: BASE_X[side] + (side === 'player' ? 42 : -42), y: 281 };
+  }
+
+  private drawCannons() {
+    const g = this.cannons;
+    g.clear();
+    const scale = this.portrait ? .66 : 1;
+    for (const side of ['player', 'enemy'] as Side[]) {
+      const army = this.battle.armies[side], at = this.cannonPosition(side);
+      const direction = side === 'player' ? 1 : -1;
+      const dx = this.portrait ? 0 : direction, dy = this.portrait ? -direction : 0;
+      const recoil = this.reducedMotion ? 0 : Math.max(0, (army.cannonCooldown - CANNON_INTERVAL + .18) / .18) * 5 * scale;
+      const x = at.x - dx * recoil, y = at.y - dy * recoil;
+      const alpha = army.hp > 0 ? 1 : .4;
+      g.fillStyle(0x665344, alpha).fillCircle(at.x, at.y + 4 * scale, 18 * scale);
+      g.fillStyle(side === 'player' ? 0x77987b : 0x9a83af, alpha).fillCircle(x, y, 15 * scale);
+      const tipX = x + dx * 31 * scale, tipY = y + dy * 31 * scale;
+      g.lineStyle(15 * scale, 0x5f584d, alpha).lineBetween(x, y, tipX, tipY);
+      g.lineStyle(8 * scale, 0xd9c6a0, alpha).lineBetween(x + dx * 8 * scale, y + dy * 8 * scale, tipX, tipY);
+      g.fillStyle(0xffe1a2, alpha).fillCircle(x, y, 7 * scale);
+      for (let i = 0; i < army.tech; i++) g.fillStyle(0xffdf91, alpha).fillCircle(at.x - 8 * scale + i * 8 * scale, at.y + 19 * scale, 2.5 * scale);
+    }
+    for (const effect of this.battle.effects) {
+      if (effect.type !== 'cannon') continue;
+      const start = this.cannonPosition(effect.side);
+      const target = this.portrait ? portraitProjection(this.scale.width, this.scale.height).project(effect.targetX, effect.row) : { x: effect.targetX, y: 315 + effect.row * 10 };
+      const progress = Math.min(1, effect.age / .24), alpha = 1 - effect.age / effect.duration;
+      const x = Phaser.Math.Linear(start.x, target.x, progress), y = Phaser.Math.Linear(start.y, target.y, progress);
+      this.fx.lineStyle(4 * scale, 0xfff2c4, alpha).lineBetween(Phaser.Math.Linear(start.x, target.x, Math.max(0, progress - .12)), Phaser.Math.Linear(start.y, target.y, Math.max(0, progress - .12)), x, y);
+      this.fx.fillStyle(0xe6a64e, alpha).fillCircle(x, y, 7 * scale);
+      this.fx.fillStyle(0xfff2c4, alpha).fillCircle(x, y, 3 * scale);
+      if (progress === 1) this.fx.lineStyle(3 * scale, 0xffdf9a, alpha).strokeCircle(x, y, (9 + (effect.age - .24) * 90) * scale);
+      if (effect.age < .12) this.fx.fillStyle(0xffe1a2, .7).fillCircle(start.x, start.y, (11 - effect.age * 60) * scale);
+    }
   }
 
   private drawPortraitRoom() {
@@ -220,6 +274,7 @@ export class BattleScene extends Phaser.Scene {
       }
     }
     for (const effect of this.battle.effects) {
+      if (effect.type === 'cannon') continue;
       const t = effect.age / effect.duration, alpha = 1 - t;
       const point = view.project(effect.x, effect.row), target = view.project(effect.targetX, effect.row);
       if (effect.type === 'shot') {
@@ -243,7 +298,8 @@ export class BattleScene extends Phaser.Scene {
     const view = portraitProjection(this.scale.width, this.scale.height);
     return { orientation: this.portrait ? 'vertical' : 'horizontal', width: this.scale.width, height: this.scale.height, renderFrame: this.game.loop.frame,
       player: this.portrait ? view.project(BASE_X.player) : { x: BASE_X.player, y: 342 },
-      enemy: this.portrait ? view.project(BASE_X.enemy) : { x: BASE_X.enemy, y: 342 }, unitSize: this.portrait ? view.unitSize : 68 };
+      enemy: this.portrait ? view.project(BASE_X.enemy) : { x: BASE_X.enemy, y: 342 }, unitSize: this.portrait ? view.unitSize : 68,
+      cannons: { player: this.cannonPosition('player'), enemy: this.cannonPosition('enemy') } };
   }
 
 }

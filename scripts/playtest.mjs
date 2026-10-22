@@ -25,7 +25,22 @@ try {
   await page.goto(url, { waitUntil: 'networkidle' });
   await page.locator('#loading').waitFor({ state: 'detached' });
   assert.equal(await page.locator('canvas').count(), 1);
-  await capture('desktop-ready');
+  await capture('desktop-home');
+  assert.equal(await check(() => window.__catGame.getScreen()), 'home');
+  await page.waitForTimeout(300);
+  assert.equal(await check(() => window.__catGame.battle.time), 0);
+  await page.keyboard.press('1');
+  assert.equal(await check(() => window.__catGame.battle.armies.player.hired), 0);
+  await page.locator('#choose-level').click();
+  await page.locator('#level-cardboard').click();
+  assert.equal(await page.locator('#level-cardboard').getAttribute('aria-pressed'), 'true');
+  assert.equal(await check(() => window.__catGame.battle.time), 0);
+  await capture('desktop-levels');
+  await page.locator('#level-start').click();
+  assert.equal(await check(() => window.__catGame.battle.level.id), 'cardboard');
+  await page.locator('#pause').click();
+  await page.locator('#pause-home').click();
+  assert.equal(await check(() => window.__catGame.getScreen()), 'home');
   await page.locator('#start').click();
   await page.locator('#hire-mouse').click();
   await page.locator('#hire-soldier').click();
@@ -79,12 +94,19 @@ try {
   await capture('desktop-battle');
   await check(() => {
     const b = window.__catGame.battle;
-    b.units.find(u => u.side === 'enemy').x = 300; b.armies.player.roarCooldown = 0;
+    b.units.find(u => u.side === 'enemy' && u.kind === 'shield').x = 300; b.armies.player.roarCooldown = 0;
     window.__catGame.render();
   });
   await page.keyboard.press('Space');
   assert.ok(await check(() => window.__catGame.battle.armies.player.roarCooldown > 44));
   assert.ok(await check(() => window.__catGame.battle.units.some(u => u.side === 'enemy' && u.slow > 0)));
+  const shotsBefore = await check(() => window.__catGame.battle.armies.player.cannonShots);
+  await check(() => window.__catGame.advance(3));
+  assert.ok(await check(() => window.__catGame.battle.armies.player.cannonShots) > shotsBefore);
+  assert.match(await page.locator('#cannon-status').textContent(), /85/);
+  const categories = await check(() => ['#hire-soldier', '#upgrade-economy', '#upgrade-tech', '#roar'].map(id => getComputedStyle(document.querySelector(id)).backgroundColor));
+  assert.equal(new Set(categories).size, 4);
+  await capture('desktop-cannon');
   await page.locator('#speed').click();
   assert.equal(await page.locator('#speed').textContent(), '2×');
   await check(() => {
@@ -95,19 +117,27 @@ try {
   });
   assert.equal(await check(() => window.__catGame.battle.winner), 'player');
   await capture('desktop-victory');
-  await page.locator('#play-again').click();
+  assert.ok(await check(() => JSON.parse(localStorage.getItem('paw-pantry-progress-v1')).cardboard.stars >= 1));
+  await page.locator('#next-level').click();
+  assert.equal(await check(() => window.__catGame.battle.level.id), 'pantry');
+  await page.locator('#pause').click();
+  await page.locator('#pause-levels').click();
+  assert.match(await page.locator('[data-record="cardboard"]').textContent(), /已通关/);
+  await page.locator('#level-start').click();
   assert.equal(await check(() => window.__catGame.battle.armies.player.tech), 1);
   assert.equal(await check(() => window.__catGame.battle.units.length), 0);
   // Run a complete losing match from normal starting resources, with the real computer.
   await check(() => { window.__catGame.battle.aiEnabled = true; window.__catGame.advance(480); });
   assert.equal(await check(() => window.__catGame.battle.winner), 'enemy');
   await capture('desktop-defeat');
+  await page.locator('#play-again').click();
+  assert.equal(await check(() => window.__catGame.battle.phase), 'playing');
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto(url, { waitUntil: 'networkidle' });
   await page.locator('#loading').waitFor({ state: 'detached' });
-  assert.ok(await check(() => document.querySelector('#roar').getBoundingClientRect().bottom < innerHeight));
-  await capture('laptop-ready');
+  await capture('laptop-home');
   await page.locator('#start').click();
+  assert.ok(await check(() => document.querySelector('#roar').getBoundingClientRect().bottom < innerHeight));
   await page.locator('#hire-soldier').click();
   assert.equal(await check(() => window.__catGame.battle.armies.player.hired), 1);
   await page.setViewportSize({ width: 390, height: 844 });
@@ -124,7 +154,7 @@ try {
   assert.ok(await check(() => document.documentElement.scrollWidth <= window.innerWidth));
   await capture('mobile-landscape');
   assert.deepEqual(errors, []);
-  console.log(JSON.stringify({ status: 'passed', scenarios: ['boot', 'recruitment', 'pause', 'guide', 'income upgrade', 'both technology tiers', 'all six units', 'roar', 'speed', 'victory', 'restart', 'full AI defeat', 'laptop controls visible', 'mobile portrait', 'mobile landscape'], browserErrors: errors, screenshots: output }, null, 2));
+  console.log(JSON.stringify({ status: 'passed', scenarios: ['home idle', 'level selection', 'menu navigation', 'saved stars', 'next level', 'cannon damage', 'button categories', 'boot', 'recruitment', 'pause', 'guide', 'income upgrade', 'both technology tiers', 'all six units', 'roar', 'speed', 'victory', 'restart', 'full AI defeat', 'laptop controls visible', 'mobile portrait', 'mobile landscape'], browserErrors: errors, screenshots: output }, null, 2));
 } catch (error) {
   console.error(JSON.stringify({ browserErrors: errors, url: page.url() }, null, 2));
   await capture('failure');

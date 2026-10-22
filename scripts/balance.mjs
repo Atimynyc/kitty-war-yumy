@@ -1,9 +1,10 @@
 import { Battle } from '../src/game/simulation.ts';
+import { LEVELS } from '../src/game/levels.ts';
 import { UNITS } from '../src/game/content.ts';
 
 const results = [];
-for (const strategy of ['mouse-rush', 'soldier-rush', 'economy-and-tech', 'economy-opening', 'reserve-for-tech']) {
-  const battle = new Battle(); battle.start();
+for (const level of LEVELS) for (const strategy of ['mouse-rush', 'soldier-rush', 'economy-and-tech', 'economy-opening', 'reserve-for-tech']) {
+  const battle = new Battle(); battle.reset(level.id); battle.start();
   if (strategy === 'economy-opening') battle.upgradeEconomy('player');
   let decision = 0;
   for (let frame = 0; frame < 30 * 900 && battle.phase === 'playing'; frame++) {
@@ -43,6 +44,6 @@ for (const strategy of ['mouse-rush', 'soldier-rush', 'economy-and-tech', 'econo
     }
     battle.step(1 / 30);
   }
-  results.push({ strategy, winner: battle.winner ?? 'unfinished', seconds: Math.round(battle.time), playerHp: Math.round(battle.armies.player.hp), enemyHp: Math.round(battle.armies.enemy.hp), playerTech: battle.armies.player.tech, enemyTech: battle.armies.enemy.tech, playerIncomeLevel: battle.armies.player.economy + 1, enemyIncomeLevel: battle.armies.enemy.economy + 1 });
+  results.push({ level: level.id, strategy, winner: battle.winner ?? 'unfinished', seconds: Math.round(battle.time), playerHp: Math.round(battle.armies.player.hp), enemyHp: Math.round(battle.armies.enemy.hp), playerTech: battle.armies.player.tech, enemyTech: battle.armies.enemy.tech, playerIncomeLevel: battle.armies.player.economy + 1, enemyIncomeLevel: battle.armies.enemy.economy + 1 });
 }
 console.log(JSON.stringify(results, null, 2));
