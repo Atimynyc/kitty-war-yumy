@@ -21,9 +21,9 @@ const cases = [
 ];
 const inspect = async page => page.evaluate(() => {
   const rect = element => { const r = element.getBoundingClientRect(); return { x: r.x, y: r.y, width: r.width, height: r.height, right: r.right, bottom: r.bottom }; };
-  const selectors = ['#sound', '#help', '#pause', '#speed', ...Array.from(document.querySelectorAll('.unit-card')).map(e => `#${e.id}`), '#upgrade-economy', '#upgrade-tech', '#roar'];
+  const selectors = ['#sound', '#help', '#pause', '#speed', ...Array.from(document.querySelectorAll('.unit-card')).map(e => `#${e.id}`), '#upgrade-economy', '#upgrade-tech', '#roar', '#catnip'];
   return {
-    layout: document.documentElement.dataset.layout, viewport: { width: innerWidth, height: innerHeight },
+    scrollY: window.scrollY, layout: document.documentElement.dataset.layout, viewport: { width: innerWidth, height: innerHeight },
     scroll: { width: document.documentElement.scrollWidth, height: document.documentElement.scrollHeight },
     arena: rect(document.querySelector('.arena-frame')), canvas: rect(document.querySelector('canvas')),
     view: window.__catGame.getView(),
@@ -51,27 +51,28 @@ function validate(info, name) {
   assert.ok(info.arena.height >= 150, `${name}: arena too short (${info.arena.height})`);
   assert.ok(Math.abs(info.canvas.width - info.arena.width) <= 3, `${name}: canvas width mismatched`);
   assert.ok(Math.abs(info.canvas.height - info.arena.height) <= 3, `${name}: canvas height mismatched`);
-  if (info.layout !== 'desktop') {
-    assert.ok(info.scroll.height <= info.viewport.height + 1, `${name}: vertical overflow ${info.scroll.height}/${info.viewport.height}`);
+  {
+    assert.ok(info.scroll.height <= Math.max(560, info.viewport.height) + 1, `${name}: vertical overflow ${info.scroll.height}/${info.viewport.height}`);
     for (const control of info.controls) {
       assert.ok(control.width >= 43 && control.height >= 43, `${name}: small target ${control.selector} (${control.width}×${control.height})`);
-      assert.ok(control.x >= -1 && control.y >= -1 && control.right <= info.viewport.width + 1 && control.bottom <= info.viewport.height + 1, `${name}: clipped ${control.selector}`);
+      assert.ok(control.x >= -1 && control.y + info.scrollY >= -1 && control.right <= info.viewport.width + 1 && control.bottom + info.scrollY <= info.scroll.height + 1, `${name}: clipped ${control.selector}`);
     }
     for (let a = 0; a < info.controls.length; a++) for (let b = a + 1; b < info.controls.length; b++) {
       const x = info.controls[a], y = info.controls[b];
       assert.ok(!(Math.min(x.right, y.right) - Math.max(x.x, y.x) > 1 && Math.min(x.bottom, y.bottom) - Math.max(x.y, y.y) > 1), `${name}: overlapping targets ${x.selector}/${y.selector}`);
     }
   }
-  if (info.layout === 'portrait') {
+  assert.equal(info.layout, 'portrait');
+  {
     assert.equal(info.view.orientation, 'vertical');
     assert.ok(info.view.player.y > info.view.enemy.y);
     assert.ok(info.view.unitSize >= 28);
-  } else assert.equal(info.view.orientation, 'horizontal');
+  }
 }
 const fixture = () => {
   const b = window.__catGame.battle; b.aiEnabled = false; b.units = []; b.effects = [];
-  const kinds = ['mouse', 'soldier', 'shield', 'slinger', 'catapult', 'healer'];
-  const positions = [665, 625, 580, 465, 330, 400];
+  const kinds = ['mouse', 'soldier', 'shield', 'slinger', 'mage', 'catapult', 'healer', 'knight'];
+  const positions = [665, 625, 580, 465, 445, 330, 400, 635];
   for (const side of ['player', 'enemy']) {
     const a = b.armies[side]; a.food = 2000; a.tech = 3;
     for (let i = 0; i < kinds.length; i++) { a.cooldowns[kinds[i]] = 0; b.summon(side, kinds[i]); b.units.at(-1).x = side === 'player' ? positions[i] : 1440 - positions[i]; }

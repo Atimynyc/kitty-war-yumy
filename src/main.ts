@@ -3,7 +3,7 @@ import './responsive.css';
 import './experience.css';
 import { installViewport } from './ui/viewport.ts';
 import { icons, paw, svgURL, unitSVG } from './art.ts';
-import { BASE_HP, CANNON_DAMAGE, CANNON_INTERVAL, CANNON_RANGE, ECONOMY_COSTS, FOOD_RATES, MAX_POPULATION, TECH_COSTS, TECH_NAMES, TECH_TIMES, UNIT_ORDER, UNITS } from './game/content.ts';
+import { BASE_HP, CANNON_DAMAGE, CANNON_INTERVAL, CANNON_RANGE, ECONOMY_COSTS, FOOD_RATES, MAX_POPULATION, TECH_COSTS, TECH_TIMES, UNIT_ORDER, UNITS } from './game/content.ts';
 import type { UnitKind } from './game/content.ts';
 import { LEVELS, readProgress } from './game/levels.ts';
 import type { CampaignProgress } from './game/levels.ts';
@@ -21,7 +21,7 @@ const food = `<span class="inline-icon">${icons.food}</span>`;
 $('#app').innerHTML = `
   <div class="game-shell">
     <header class="site-header">
-      <a class="brand" href="./" aria-label="猫咪冻干保卫战首页"><span class="brand-mark">${paw}</span><span><span class="brand-name">猫咪冻干保卫战<span class="version">试玩版 0.3</span></span><span class="brand-en">PAW & PANTRY <span>一场为了冻干的可爱战争</span></span></span></a>
+      <a class="brand" href="./" aria-label="猫咪冻干保卫战首页"><span class="brand-mark">${paw}</span><span><span class="brand-name">猫咪冻干保卫战<span class="version">试玩版 0.6</span></span><span class="brand-en">PAW & PANTRY <span>一场为了冻干的可爱战争</span></span></span></a>
       <nav class="toolbar" aria-label="游戏设置"><button class="icon-button" id="sound" title="开启音效（M）" aria-label="开启音效" aria-pressed="false">${icons.mute}</button><button class="text-button" id="help" aria-label="玩法指南"><span class="help-symbol">?</span><span>玩法指南</span></button><span class="toolbar-divider"></span><button class="text-button" id="pause" aria-label="暂停" disabled>${icons.pause}<span>暂停</span></button></nav>
     </header>
     ${menuMarkup()}
@@ -43,18 +43,19 @@ $('#app').innerHTML = `
         <div id="battle-overlay" class="battle-overlay"></div>
       </section>
       <div class="field-note"><span class="note-paw">${paw}</span><p id="field-message" role="status" aria-live="polite">冻干已就位，小队等你出发。</p><span class="auto-note" id="cannon-status"><i></i> 主炮 32 伤害 · 自动防守</span></div>
-      <section class="recruit-section" aria-labelledby="recruit-title"><div class="section-label"><h2 id="recruit-title">集结猫咪小队 <span>RECRUIT YOUR CREW</span></h2><span>点击招募 <span class="keyboard-hint">/ 快捷键 1—6</span></span></div>
+      <section class="recruit-section" aria-labelledby="recruit-title"><div class="section-label"><h2 id="recruit-title">集结猫咪小队 <span>RECRUIT YOUR CREW</span></h2><span>点击招募 <span class="keyboard-hint">/ 快捷键 1—8</span></span></div>
         <div class="unit-grid">${UNIT_ORDER.map((kind, index) => { const spec = UNITS[kind]; return `<button class="unit-card" id="hire-${kind}" data-kind="${kind}" aria-label="招募${spec.name}，${spec.cost}猫粮" title="${spec.description}"><span class="unit-key">${index + 1}</span><span class="unit-pop">${spec.population} 人口</span><div class="unit-art" style="--unit-bg:${spec.color}"><img src="${svgURL(unitSVG(kind))}" alt="" draggable="false" /></div><strong class="unit-name">${spec.name}</strong><span class="unit-role">${spec.role}</span><span class="unit-bottom"><span class="unit-cost">${food}${spec.cost}</span><span class="unit-state">招募 +</span></span><span class="cooldown-track"></span></button>`; }).join('')}</div>
       </section>
       <section class="upgrade-grid" aria-label="基地升级和主动技能">
         <button class="upgrade-card economy-card" id="upgrade-economy"><span class="upgrade-symbol">${icons.food}</span><span class="upgrade-info"><strong><b id="economy-title">产能升级</b> <span id="economy-level">Lv.1</span></strong><small id="economy-description">产量 6 → 9 猫粮 / 秒</small></span><span class="upgrade-action" id="economy-action">${food}120<span>升级 ↑</span></span></button>
-        <button class="upgrade-card tech-card" id="upgrade-tech"><span class="upgrade-symbol">${icons.flask}</span><span class="upgrade-info"><strong><b id="tech-title">科技研究</b> <span id="tech-level">一阶</span></strong><small id="tech-description">解锁盾卫 & 毛球投手</small></span><span class="upgrade-action" id="tech-action">${food}180<span>研究 ↑</span></span><span id="research-progress"></span></button>
+        <button class="upgrade-card tech-card" id="upgrade-tech"><span class="upgrade-symbol">${icons.flask}</span><span class="upgrade-info"><strong><b id="tech-title">科技研究</b> <span id="tech-level">一阶</span></strong><small id="tech-description">解锁盾卫、投手和法师</small></span><span class="upgrade-action" id="tech-action">${food}180<span>研究 ↑</span></span><span id="research-progress"></span></button>
         <button class="upgrade-card roar-card" id="roar"><span class="upgrade-symbol">${paw}</span><span class="upgrade-info"><strong>主动 · 震退 <span class="key-label">SPACE</span></strong><small>震退基地附近敌人，争取反击时间</small></span><span class="upgrade-action" id="roar-action"><b>喵！</b><span>技能就绪</span></span></button>
+        <button class="upgrade-card catnip-card" id="catnip" title="释放时在场的我方单位攻击力 +20%，持续 10 秒，冷却 45 秒；新上场的单位无加成。快捷键 C。"><span class="upgrade-info"><strong>法术 · 猫薄荷</strong><small id="catnip-description">攻击 +20% · 10 秒</small></span><span class="upgrade-action" id="catnip-action"><b>释放</b><span>法术就绪</span></span></button>
       </section>
     </main>
-    <footer><span>${paw} 每一粒冻干，都值得全力以赴。</span><span>招募 <kbd>1</kbd>—<kbd>6</kbd><i>·</i> 升级 <kbd>E</kbd> / <kbd>T</kbd><i>·</i> 暂停 <kbd>P</kbd></span></footer>
+    <footer><span>${paw} 每一粒冻干，都值得全力以赴。</span><span>招募 <kbd>1</kbd>—<kbd>8</kbd><i>·</i> 升级 <kbd>E</kbd> / <kbd>T</kbd><i>·</i> 暂停 <kbd>P</kbd></span></footer>
   </div>
-  <dialog id="guide" aria-labelledby="guide-title"><button class="dialog-close" aria-label="关闭玩法指南">×</button><span class="eyebrow">THE LITTLE FIELD GUIDE</span><h2 id="guide-title">冻干保卫战，开课啦。</h2><p class="guide-lead">左边是你的家，右边是馋嘴对手。让对手的基地耐久降到零，就赢啦！</p><div class="guide-steps"><p><b>01</b><span><strong>收猫粮，招募小队</strong>投喂机自动生产猫粮。点击兵种卡招募，佣兵会自己前进和战斗，每方最多 24 人口。</span></p><p><b>02</b><span><strong>稳住前线，再做投资</strong>升级投喂机能提高产量；研究科技解锁新伙伴并强化主炮。研究期间照样可以出兵。</span></p><p><b>03</b><span><strong>搭配阵容，抓准时机</strong>盾卫扛伤、投手输出、投石机攻城、奶妈治疗。敌人接近基地时，用「喵喵震退」救场。</span></p></div><div class="guide-units">${UNIT_ORDER.map(kind => `<p><img src="${svgURL(unitSVG(kind))}" alt=""/><span><strong>${UNITS[kind].name}</strong>${UNITS[kind].description}</span></p>`).join('')}</div><p class="guide-fair">双方开局 240 猫粮、每秒产粮 12。电脑按关卡节奏持续招募，同样消耗猫粮和人口。双方主炮自动攻击附近敌人，科技升级将伤害从 32 提升到 55 / 85。切换标签页会自动暂停。</p><button class="primary-button" id="guide-close">记住了，保护冻干！ ${icons.play}</button></dialog>
+  <dialog id="guide" aria-labelledby="guide-title"><button class="dialog-close" aria-label="关闭玩法指南">×</button><span class="eyebrow">THE LITTLE FIELD GUIDE</span><h2 id="guide-title">冻干保卫战，开课啦。</h2><p class="guide-lead">下方是你的家，上方是馋嘴对手。让对手的基地耐久降到零，就赢啦！</p><div class="guide-steps"><p><b>01</b><span><strong>收猫粮，招募小队</strong>投喂机自动生产猫粮。点击兵种卡招募，佣兵会自己前进和战斗，每方最多 24 人口。</span></p><p><b>02</b><span><strong>稳住前线，再做投资</strong>升级投喂机能提高产量；研究科技解锁新伙伴并强化主炮。研究期间照样可以出兵。</span></p><p><b>03</b><span><strong>搭配阵容，抓准时机</strong>盾卫扛伤、法师迟缓、投石机范围轰击、奶妈治疗；三阶可攒粮召唤高攻高血的小狗骑士。敌人接近基地时，用「喵喵震退」救场。猫薄荷让释放时在场的我方单位攻击力 +20%，持续 10 秒，冷却 45 秒；新出兵无加成，治疗量和主炮不变。蓝紫星环表示迟缓，绿叶表示增伤。</span></p></div><div class="guide-units">${UNIT_ORDER.map(kind => `<p><img src="${svgURL(unitSVG(kind))}" alt=""/><span><strong>${UNITS[kind].name}</strong>${UNITS[kind].description}</span></p>`).join('')}</div><p class="guide-fair">双方开局 240 猫粮、每秒产粮 12。电脑按关卡节奏持续招募，同样消耗猫粮和人口。双方主炮自动攻击附近敌人，科技升级将伤害从 32 提升到 55 / 85。切换标签页会自动暂停。</p><button class="primary-button" id="guide-close">记住了，保护冻干！ ${icons.play}</button></dialog>
 `;
 
 type Screen = 'home' | 'levels' | 'battle';
@@ -79,10 +80,9 @@ function updateMarkup(selector: string, markup: string) {
 }
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const { scene } = createGame('battle-canvas', battle, render);
-window.addEventListener('game-layout-change', () => render(true));
 const guide = $('#guide') as HTMLDialogElement;
 
-function action(callback: () => boolean, sound: 'hire' | 'upgrade' | 'roar') {
+function action(callback: () => boolean, sound: 'hire' | 'upgrade' | 'roar' | 'catnip') {
   if (callback()) audio.play(sound);
   render(true);
 }
@@ -90,6 +90,7 @@ for (const kind of UNIT_ORDER) $(`#hire-${kind}`).addEventListener('click', () =
 $('#upgrade-economy').addEventListener('click', () => action(() => battle.upgradeEconomy('player'), 'upgrade'));
 $('#upgrade-tech').addEventListener('click', () => action(() => battle.researchTech('player'), 'upgrade'));
 $('#roar').addEventListener('click', () => action(() => battle.roar('player'), 'roar'));
+$('#catnip').addEventListener('click', () => action(() => battle.catnip('player'), 'catnip'));
 $('#pause').addEventListener('click', () => { battle.togglePause(); render(true); });
 $('#speed').addEventListener('click', () => { speed = speed === 1 ? 2 : 1; scene.speed = speed; $('#speed').textContent = `${speed}×`; $('#speed').setAttribute('aria-label', `游戏速度 ${speed} 倍`); });
 $('#sound').addEventListener('click', () => {
@@ -111,9 +112,10 @@ window.addEventListener('keydown', event => {
   const key = event.key.toLowerCase();
   if (key === 'm') { $('#sound').click(); return; }
   if (screen !== 'battle') { if (key === 'escape' && screen === 'levels') navigate('home'); return; }
-  if (/^[1-6]$/.test(key)) { event.preventDefault(); action(() => battle.summon('player', UNIT_ORDER[Number(key) - 1]), 'hire'); }
+  if (/^[1-8]$/.test(key)) { event.preventDefault(); action(() => battle.summon('player', UNIT_ORDER[Number(key) - 1]), 'hire'); }
   if (key === 'p' || key === 'escape') { event.preventDefault(); battle.togglePause(); render(true); }
   if (event.code === 'Space' && battle.phase === 'playing') { event.preventDefault(); action(() => battle.roar('player'), 'roar'); }
+  if (key === 'c') action(() => battle.catnip('player'), 'catnip');
   if (key === 'e') action(() => battle.upgradeEconomy('player'), 'upgrade');
   if (key === 't') action(() => battle.researchTech('player'), 'upgrade');
   if (key === 'f') { if (document.fullscreenElement) void document.exitFullscreen?.().catch(() => {}); else void document.documentElement.requestFullscreen?.().catch(() => {}); }
@@ -181,10 +183,6 @@ function render(force = false) {
   if (!force && now - lastHUD < 90 && previousPhase === battle.phase) return;
   lastHUD = now;
   const army = battle.armies.player, enemy = battle.armies.enemy;
-  const compact = document.documentElement.dataset.layout !== 'desktop';
-  $('.guide-lead').textContent = document.documentElement.dataset.layout === 'portrait'
-    ? '下方是你的家，上方是馋嘴对手。猫咪向中央推进，让对手的基地耐久降到零，就赢啦！'
-    : '左边是你的家，右边是馋嘴对手。让对手的基地耐久降到零，就赢啦！';
   $('#food').textContent = Math.floor(army.food).toLocaleString('zh-CN');
   $('#reinforcement-status').textContent = battle.time < battle.level.grace ? `首波敌人 ${Math.ceil(battle.level.grace - battle.time)} 秒后出发` : '敌方持续增援中';
   const cannonDamage = CANNON_DAMAGE[army.tech - 1];
@@ -205,7 +203,7 @@ function render(force = false) {
     card.disabled = Boolean(reason);
     card.classList.toggle('locked', locked);
     card.classList.toggle('available', !reason);
-    card.querySelector('.unit-state')!.textContent = locked ? `⌑ ${spec.tier === 2 ? '二' : '三'}阶解锁` : (reason === '猫粮不足' ? `等 ${Math.ceil((spec.cost - army.food) / FOOD_RATES[army.economy])}s` : reason) || '出兵 +' ;
+    card.querySelector('.unit-state')!.textContent = locked ? `${spec.tier === 2 ? '二' : '三'}阶` : (reason === '猫粮不足' ? `${Math.ceil((spec.cost - army.food) / FOOD_RATES[army.economy])}s` : ({ '已暂停': '暂停', '已结束': '结束', '等待开战': '待战', '人口已满': '满员' }[reason] ?? reason)) || '+' ;
     (card.querySelector('.cooldown-track') as HTMLElement).style.width = `${army.cooldowns[kind] / spec.cooldown * 100}%`;
     card.title = `${spec.description}${reason ? `（${reason}）` : ''}`;
   }
@@ -213,19 +211,24 @@ function render(force = false) {
   $('#economy-title').textContent = '产能升级';
   $('#tech-title').textContent = '科技研究';
   $('#economy-level').textContent = `Lv.${army.economy + 1}`;
-  $('#economy-description').textContent = econCost === undefined ? (compact ? '产量已满级' : '满级投喂机，猫粮源源不断！') : compact ? `${FOOD_RATES[army.economy]} → ${FOOD_RATES[army.economy + 1]} / 秒` : `产量 ${FOOD_RATES[army.economy]} → ${FOOD_RATES[army.economy + 1]} 猫粮 / 秒`;
+  $('#economy-description').textContent = econCost === undefined ? '产量已满级' : `${FOOD_RATES[army.economy]} → ${FOOD_RATES[army.economy + 1]} / 秒`;
   updateMarkup('#economy-action', econCost === undefined ? '<b>MAX</b><span>已满级</span>' : `${food}${econCost}<span>${army.food < econCost ? '猫粮不足' : '升级 ↑'}</span>`);
   $<HTMLButtonElement>('#upgrade-economy').disabled = battle.phase !== 'playing' || econCost === undefined || army.food < econCost;
   $('#tech-level').textContent = `${['一', '二', '三'][army.tech - 1]}阶`;
   $('#tech-description').textContent = army.researching ? `研究中 · ${Math.ceil(army.research)} 秒` : army.tech < 3
-    ? (compact ? `主炮 ${cannonDamage} → ${CANNON_DAMAGE[army.tech]}` : `${army.tech === 1 ? '解锁盾卫 / 投手' : '解锁投石机 / 奶妈'} · 主炮 ${cannonDamage} → ${CANNON_DAMAGE[army.tech]}`)
-    : (compact ? `主炮 ${cannonDamage} · 满级` : `${TECH_NAMES[army.tech - 1]} · 主炮 ${cannonDamage} 伤害`);
-  $('#upgrade-tech').title = army.tech < 3 ? `研究完成后解锁${army.tech === 1 ? '纸箱盾卫和毛球投手' : '猫咪投石机和奶妈猫'}，主炮伤害 ${cannonDamage} → ${CANNON_DAMAGE[army.tech]}` : '所有兵种与主炮科技已满级';
+    ? `主炮 ${cannonDamage} → ${CANNON_DAMAGE[army.tech]}`
+    : `主炮 ${cannonDamage} · 满级`;
+  $('#upgrade-tech').title = army.tech < 3 ? `研究完成后解锁${army.tech === 1 ? '纸箱盾卫、毛球投手和逗猫棒法师' : '猫咪投石机、奶妈猫和小狗骑士'}，主炮伤害 ${cannonDamage} → ${CANNON_DAMAGE[army.tech]}` : '所有兵种与主炮科技已满级';
   updateMarkup('#tech-action', army.researching ? `<b>${Math.ceil(army.research)}s</b><span>研究中…</span>` : army.tech === 3 ? '<b>MAX</b><span>已满级</span>' : `${food}${TECH_COSTS[army.tech - 1]}<span>${army.food < TECH_COSTS[army.tech - 1] ? '猫粮不足' : '研究 ↑'}</span>`);
   $<HTMLButtonElement>('#upgrade-tech').disabled = battle.phase !== 'playing' || army.researching || army.tech === 3 || army.food < TECH_COSTS[army.tech - 1];
   $('#research-progress').style.width = army.researching ? `${(1 - army.research / TECH_TIMES[army.tech - 1]) * 100}%` : '0';
   $<HTMLButtonElement>('#roar').disabled = battle.phase !== 'playing' || army.roarCooldown > 0;
   updateMarkup('#roar-action', army.roarCooldown > 0 ? `<b>${Math.ceil(army.roarCooldown)}s</b><span>休息一下</span>` : '<b>喵！</b><span>技能就绪</span>');
+  const allies = battle.units.filter(unit => unit.side === 'player' && unit.hp > 0);
+  const boosted = allies.filter(unit => unit.catnip > 0);
+  $<HTMLButtonElement>('#catnip').disabled = battle.phase !== 'playing' || army.catnipCooldown > 0 || !allies.length;
+  $('#catnip-description').textContent = boosted.length ? `${boosted.length} 名增伤 · ${Math.ceil(Math.max(...boosted.map(unit => unit.catnip)))} 秒` : '攻击 +20% · 10 秒';
+  updateMarkup('#catnip-action', army.catnipCooldown > 0 ? `<b>${Math.ceil(army.catnipCooldown)}s</b><span>冷却中</span>` : `<b>释放</b><span>${allies.length ? '已就绪' : '先招募'}</span>`);
   $<HTMLButtonElement>('#pause').disabled = battle.phase === 'ready' || battle.phase === 'ended';
   updateMarkup('#pause', battle.phase === 'paused' ? `${icons.play}<span>继续</span>` : `${icons.pause}<span>暂停</span>`);
   $('#pause').setAttribute('aria-label', battle.phase === 'paused' ? '继续' : '暂停');
@@ -241,18 +244,20 @@ navigate('home');
 
 // Development-only hook for deterministic browser acceptance checks, excluded from production.
 if (import.meta.env.DEV && new URLSearchParams(location.search).has('qa')) {
-  Object.assign(window, { __catGame: { battle, render: () => render(true), getView: () => scene.getViewportSnapshot(), getScreen: () => screen, advance: (seconds: number) => { for (let i = 0; i < seconds * 30 && battle.phase === 'playing'; i++) battle.step(1 / 30); render(true); } } });
+  Object.assign(window, { __catGame: { battle, render: () => render(true), getView: () => scene.getViewportSnapshot(), getAnimations: () => scene.getAnimationSnapshot(), getScreen: () => screen, advance: (seconds: number) => { scene.advanceSimulation(seconds); render(true); } } });
 }
 
 // Read-only gameplay state and deterministic stepping for browser playtests.
 Object.assign(window, {
   render_game_to_text: () => JSON.stringify({ screen, phase: battle.phase, level: battle.level.id, selectedLevel: selectedLevelId, time: +battle.time.toFixed(2), winner: battle.winner,
-    coordinates: 'World x increases left to right (155 player, 1285 enemy); portrait maps progress bottom to top.',
+    coordinates: 'Vertical battlefield: player below, enemy above; logical progress x runs from 155 (player) to 1285 (enemy), projected bottom to top.',
     player: { ...battle.armies.player, population: battle.population('player'), income: FOOD_RATES[battle.armies.player.economy] },
     enemy: { hp: battle.armies.enemy.hp, tech: battle.armies.enemy.tech, hired: battle.armies.enemy.hired, population: battle.population('enemy') },
     cannon: { damage: CANNON_DAMAGE[battle.armies.player.tech - 1], range: CANNON_RANGE, interval: CANNON_INTERVAL },
     reinforcement: { initialDelayRemaining: Math.max(0, battle.level.grace - battle.time), continuous: true },
-    units: battle.units.map(({ id, kind, side, x, hp }) => ({ id, kind, side, x: +x.toFixed(1), hp })),
+    units: battle.units.map(({ id, kind, side, x, hp, starSlow, catnip }) => ({ id, kind, side, x: +x.toFixed(1), hp, slowSeconds: +starSlow.toFixed(2), catnipSeconds: +catnip.toFixed(2) })),
+    projectiles: battle.projectiles.map(({ id, targetId, age, duration }) => ({ id, targetId, impactIn: +(duration - age).toFixed(2) })),
+    animations: scene.getAnimationSnapshot().map(({ id, state }) => ({ id, state })),
   }),
 });
 if (import.meta.env.DEV && new URLSearchParams(location.search).has('qa')) {

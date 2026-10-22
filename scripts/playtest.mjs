@@ -66,6 +66,8 @@ try {
   await check(() => { window.__catGame.battle.armies.player.food = 500; window.__catGame.render(); });
   await page.locator('#hire-shield').click();
   await page.locator('#hire-slinger').click();
+  await page.locator('#hire-mage').click();
+  assert.equal(await check(() => window.__catGame.battle.units.some(u => u.kind === 'mage')), true);
   await check(() => { window.__catGame.battle.armies.player.food = 500; window.__catGame.render(); });
   await page.keyboard.press('t');
   await check(() => window.__catGame.advance(20));
@@ -74,11 +76,14 @@ try {
   await page.locator('#hire-catapult').click();
   await page.locator('#hire-healer').click();
   assert.equal(await check(() => window.__catGame.battle.units.some(u => u.kind === 'healer')), true);
+  await check(() => { window.__catGame.battle.armies.player.food = 500; window.__catGame.render(); });
+  await page.locator('#hire-knight').click();
+  assert.equal(await check(() => window.__catGame.battle.units.some(u => u.kind === 'knight')), true);
   // A representative battle fixture uses the same public recruitment actions as the UI.
   await check(() => {
     const b = window.__catGame.battle; b.units = []; b.effects = [];
-    const order = ['mouse', 'soldier', 'shield', 'slinger', 'catapult', 'healer'];
-    const positions = [665, 640, 620, 485, 350, 450];
+    const order = ['mouse', 'soldier', 'shield', 'slinger', 'mage', 'catapult', 'healer', 'knight'];
+    const positions = [665, 640, 620, 485, 465, 350, 450, 650];
     for (const side of ['player', 'enemy']) {
       const a = b.armies[side]; a.food = 2000; a.tech = 3; a.economy = 2;
       for (let i = 0; i < order.length; i++) {
@@ -104,8 +109,8 @@ try {
   await check(() => window.__catGame.advance(3));
   assert.ok(await check(() => window.__catGame.battle.armies.player.cannonShots) > shotsBefore);
   assert.match(await page.locator('#cannon-status').textContent(), /85/);
-  const categories = await check(() => ['#hire-soldier', '#upgrade-economy', '#upgrade-tech', '#roar'].map(id => getComputedStyle(document.querySelector(id)).backgroundColor));
-  assert.equal(new Set(categories).size, 4);
+  const categories = await check(() => ['#hire-soldier', '#upgrade-economy', '#upgrade-tech', '#roar', '#catnip'].map(id => getComputedStyle(document.querySelector(id)).backgroundColor));
+  assert.equal(new Set(categories).size, 5);
   await capture('desktop-cannon');
   await page.locator('#speed').click();
   assert.equal(await page.locator('#speed').textContent(), '2×');
@@ -154,7 +159,7 @@ try {
   assert.ok(await check(() => document.documentElement.scrollWidth <= window.innerWidth));
   await capture('mobile-landscape');
   assert.deepEqual(errors, []);
-  console.log(JSON.stringify({ status: 'passed', scenarios: ['home idle', 'level selection', 'menu navigation', 'saved stars', 'next level', 'cannon damage', 'button categories', 'boot', 'recruitment', 'pause', 'guide', 'income upgrade', 'both technology tiers', 'all six units', 'roar', 'speed', 'victory', 'restart', 'full AI defeat', 'laptop controls visible', 'mobile portrait', 'mobile landscape'], browserErrors: errors, screenshots: output }, null, 2));
+  console.log(JSON.stringify({ status: 'passed', scenarios: ['home idle', 'level selection', 'menu navigation', 'saved stars', 'next level', 'cannon damage', 'button categories', 'boot', 'recruitment', 'pause', 'guide', 'income upgrade', 'both technology tiers', 'all eight units', 'roar', 'speed', 'victory', 'restart', 'full AI defeat', 'laptop controls visible', 'mobile portrait', 'vertical board after phone rotation'], browserErrors: errors, screenshots: output }, null, 2));
 } catch (error) {
   console.error(JSON.stringify({ browserErrors: errors, url: page.url() }, null, 2));
   await capture('failure');

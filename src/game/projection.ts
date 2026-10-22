@@ -1,7 +1,7 @@
 import { BASE_X } from './content.ts';
 
 export function portraitProjection(width: number, height: number) {
-  const unitSize = Math.max(28, Math.min(50, height / 10.5));
+  const unitSize = Math.max(36, Math.min(60, height / 9));
   const margin = Math.min(72, Math.max(48, height * .14));
   const spread = Math.min(38, Math.max(22, width * .075));
   return {

@@ -1,23 +1,28 @@
-import { BASE_HP, BASE_X, CANNON_DAMAGE, CANNON_INTERVAL, CANNON_RANGE, ECONOMY_COSTS, FOOD_RATES, MAX_POPULATION, STARTING_FOOD, TECH_COSTS, TECH_TIMES, UNITS, UNIT_ORDER } from './content.ts';
+import { BASE_HP, BASE_X, CANNON_DAMAGE, CANNON_INTERVAL, CANNON_RANGE, CATNIP, STAR_MAGIC, ECONOMY_COSTS, FOOD_RATES, MAX_POPULATION, STARTING_FOOD, TECH_COSTS, TECH_TIMES, UNITS, UNIT_ORDER } from './content.ts';
 import type { Side, UnitKind } from './content.ts';
 import { getLevel } from './levels.ts';
 
 export interface Army {
   food: number; hp: number; economy: number; tech: number;
-  research: number; researching: boolean; roarCooldown: number;
+  research: number; researching: boolean; roarCooldown: number; catnipCooldown: number;
   cooldowns: Record<UnitKind, number>; spent: number; hired: number; lost: number;
   cannonCooldown: number; cannonShots: number;
 }
 export interface Unit {
   id: number; kind: UnitKind; side: Side; x: number; hp: number;
   attackCooldown: number; slow: number; attacking: boolean; walking: boolean; row: number;
+  attackAt: number; hitAt: number; walkDistance: number; starSlow: number; catnip: number;
 }
 export interface Effect {
-  id: number; type: 'hit' | 'shot' | 'cannon' | 'heal' | 'death' | 'roar' | 'spawn';
-  side: Side; x: number; targetX: number; row: number; age: number; duration: number; kind?: UnitKind;
+  id: number; type: 'hit' | 'shot' | 'cannon' | 'heal' | 'death' | 'roar' | 'spawn' | 'starHit' | 'catnip';
+  side: Side; x: number; targetX: number; row: number; age: number; duration: number; kind?: UnitKind; unitId?: number;
+}
+export interface StarProjectile {
+  id: number; side: Side; x: number; row: number; targetX: number; targetRow: number;
+  targetId?: number; damage: number; age: number; duration: number;
 }
 export type Phase = 'ready' | 'playing' | 'paused' | 'ended';
-const makeArmy = (): Army => ({ food: STARTING_FOOD, hp: BASE_HP, economy: 0, tech: 1, research: 0, researching: false, roarCooldown: 0, cannonCooldown: 0, cannonShots: 0, cooldowns: { mouse: 0, soldier: 0, shield: 0, slinger: 0, catapult: 0, healer: 0 }, spent: 0, hired: 0, lost: 0 });
+const makeArmy = (): Army => ({ food: STARTING_FOOD, hp: BASE_HP, economy: 0, tech: 1, research: 0, researching: false, roarCooldown: 0, catnipCooldown: 0, cannonCooldown: 0, cannonShots: 0, cooldowns: Object.fromEntries(UNIT_ORDER.map(kind => [kind, 0])) as Record<UnitKind, number>, spent: 0, hired: 0, lost: 0 });
 const opposite = (side: Side): Side => side === 'player' ? 'enemy' : 'player';
 
 export class Battle {
@@ -26,7 +31,9 @@ export class Battle {
   armies: Record<Side, Army> = { player: makeArmy(), enemy: makeArmy() };
   units: Unit[] = [];
   effects: Effect[] = [];
+  projectiles: StarProjectile[] = [];
   time = 0;
+  revision = 0;
   winner: Side | 'draw' | null = null;
   aiEnabled = true;
   message = '冻干已就位，小队等你出发。';
@@ -39,9 +46,10 @@ export class Battle {
 
   start() { if (this.phase === 'ready') { this.phase = 'playing'; this.notify(`首波敌人将在 ${this.level.grace} 秒后出发。先升级投喂机，再招募小队！`); } }
   reset(levelId = this.level.id) {
+    this.revision++;
     this.level = getLevel(levelId);
     this.phase = 'ready'; this.armies = { player: makeArmy(), enemy: makeArmy() };
-    this.units = []; this.effects = []; this.time = 0; this.winner = null;
+    this.units = []; this.effects = []; this.projectiles = []; this.time = 0; this.winner = null;
     this.nextId = 1; this.aiTimer = this.level.grace; this.aiQueueIndex = 0; this.aiLastRecruit = 0; this.aiSavingSince = null;
     this.aiEnabled = true;
     this.message = '冻干已就位，小队等你出发。'; this.messageUntil = 0;
@@ -63,7 +71,7 @@ export class Battle {
     const army = this.armies[side], spec = UNITS[kind];
     army.food -= spec.cost; army.spent += spec.cost; army.hired++; army.cooldowns[kind] = spec.cooldown;
     const id = this.nextId++;
-    const unit: Unit = { id, kind, side, hp: spec.hp, x: BASE_X[side] + (side === 'player' ? 22 : -22), attackCooldown: .25, slow: 0, attacking: false, walking: true, row: id % 3 };
+    const unit: Unit = { id, kind, side, hp: spec.hp, x: BASE_X[side] + (side === 'player' ? 22 : -22), attackCooldown: .25, slow: 0, starSlow: 0, catnip: 0, attacking: false, walking: true, row: id % 3, attackAt: -100, hitAt: -100, walkDistance: 0 };
     this.units.push(unit); this.effect('spawn', side, unit.x, unit.x, unit.row, .6);
     return true;
   }
@@ -96,8 +104,19 @@ export class Battle {
     if (side === 'player') this.notify('喵——！基地附近的敌人被震退了。');
     return true;
   }
-  private effect(type: Effect['type'], side: Side, x: number, targetX: number, row: number, duration: number, kind?: UnitKind) {
-    this.effects.push({ id: this.nextId++, type, side, x, targetX, row, age: 0, duration, kind });
+  catnip(side: Side) {
+    const army = this.armies[side], allies = this.units.filter(unit => unit.side === side && unit.hp > 0);
+    if (this.phase !== 'playing' || army.catnipCooldown > 0 || !allies.length) return false;
+    army.catnipCooldown = CATNIP.cooldown;
+    for (const unit of allies) {
+      unit.catnip = CATNIP.duration;
+      this.effect('catnip', side, unit.x, unit.x, unit.row, .7);
+    }
+    if (side === 'player') this.notify(`猫薄荷生效！当前 ${allies.length} 名队友攻击力 +20%，持续 10 秒；新出兵不受加成。`);
+    return true;
+  }
+  private effect(type: Effect['type'], side: Side, x: number, targetX: number, row: number, duration: number, kind?: UnitKind, unitId?: number) {
+    this.effects.push({ id: this.nextId++, type, side, x, targetX, row, age: 0, duration, kind, unitId });
   }
   step(dt: number) {
     if (this.phase !== 'playing' || dt <= 0) return;
@@ -108,13 +127,14 @@ export class Battle {
       const army = this.armies[side];
       army.food += FOOD_RATES[army.economy] * dt;
       army.roarCooldown = Math.max(0, army.roarCooldown - dt);
+      army.catnipCooldown = Math.max(0, army.catnipCooldown - dt);
       army.cannonCooldown = Math.max(0, army.cannonCooldown - dt);
       for (const kind of UNIT_ORDER) army.cooldowns[kind] = Math.max(0, army.cooldowns[kind] - dt);
       if (army.researching) {
         army.research = Math.max(0, army.research - dt);
         if (army.research <= .00001) {
           army.researching = false; army.tech++;
-          if (side === 'player') this.notify(`${army.tech === 2 ? '二阶科技完成，盾卫和投手已解锁' : '三阶科技完成，投石机和奶妈已解锁'}！主炮伤害提升至 ${CANNON_DAMAGE[army.tech - 1]}。`);
+          if (side === 'player') this.notify(`${army.tech === 2 ? '二阶科技完成，盾卫、投手和法师已解锁' : '三阶科技完成，投石机、奶妈和小狗骑士已解锁'}！主炮伤害提升至 ${CANNON_DAMAGE[army.tech - 1]}。`);
         }
       }
     }
@@ -126,6 +146,20 @@ export class Battle {
     // Every unit reads the same start-of-step positions. Moving one side first must
     // not let the other side land a first strike a frame earlier on contact.
     const live = this.units.map(unit => ({ ...unit }));
+    const slowed = new Set<number>();
+    for (const star of this.projectiles) {
+      const target = live.find(unit => unit.id === star.targetId);
+      if (star.targetId !== undefined && !target) { star.age = star.duration; continue; }
+      if (target) { star.targetX = target.x; star.targetRow = target.row; }
+      star.age += dt;
+      if (star.age + 1e-8 < star.duration) continue;
+      if (target) {
+        damage.set(target.id, (damage.get(target.id) ?? 0) + star.damage);
+        slowed.add(target.id);
+      } else baseDamage[opposite(star.side)] += star.damage;
+      this.effect('starHit', star.side, star.targetX, star.targetX, star.targetRow, .45);
+    }
+    this.projectiles = this.projectiles.filter(star => star.age + 1e-8 < star.duration);
     // Defensive cannons use the same snapshot/damage batch as troops, so neither
     // side gains an update-order advantage. With no target the cannon stays ready.
     for (const side of ['player', 'enemy'] as Side[]) {
@@ -142,8 +176,9 @@ export class Battle {
     const ordered = [...this.units].sort((a, b) => (a.side === 'player' ? -a.x : a.x) - (b.side === 'player' ? -b.x : b.x));
     for (const unit of ordered) {
       const spec = UNITS[unit.kind], dir = unit.side === 'player' ? 1 : -1;
-      unit.attackCooldown = Math.max(0, unit.attackCooldown - dt);
-      unit.slow = Math.max(0, unit.slow - dt); unit.attacking = false; unit.walking = false;
+      // Integrate the slowed fraction of this step, including partial expiry.
+      unit.attackCooldown = Math.max(0, unit.attackCooldown - dt + Math.min(dt, unit.starSlow) * STAR_MAGIC.slow);
+      unit.attacking = false; unit.walking = false;
       const foes = live.filter(u => u.side !== unit.side).sort((a, b) => Math.abs(a.x - unit.x) - Math.abs(b.x - unit.x));
       const nearest = foes[0];
       if (spec.heal) {
@@ -151,7 +186,7 @@ export class Battle {
           .sort((a, b) => a.hp / UNITS[a.kind].hp - b.hp / UNITS[b.kind].hp).slice(0, 3);
         if (wounded.length && unit.attackCooldown <= 0) {
           for (const ally of wounded) { ally.hp = Math.min(UNITS[ally.kind].hp, ally.hp + spec.heal); this.effect('heal', unit.side, ally.x, ally.x, ally.row, .7); }
-          unit.attackCooldown = spec.interval; unit.attacking = true;
+          unit.attackCooldown = spec.interval; unit.attacking = true; unit.attackAt = this.time;
         }
         const frontline = live.filter(u => u.side === unit.side && !UNITS[u.kind].heal).sort((a, b) => dir * (b.x - a.x))[0];
         const limit = frontline ? frontline.x - dir * 85 : BASE_X[unit.side] + dir * 35;
@@ -170,17 +205,26 @@ export class Battle {
         unit.attacking = true;
         if (unit.attackCooldown <= 0) {
           unit.attackCooldown = spec.interval;
-          if (nearest) {
+          unit.attackAt = this.time;
+          const attackDamage = spec.damage * (unit.catnip > dt + 1e-8 ? 1 + CATNIP.bonus : 1);
+          if (unit.kind === 'mage') {
+            this.projectiles.push({ id: this.nextId++, side: unit.side, x: unit.x, row: unit.row, targetX, targetRow: nearest?.row ?? unit.row,
+              targetId: nearest?.id, damage: attackDamage, age: 0, duration: STAR_MAGIC.travel });
+          } else if (nearest) {
             const targets = spec.splash ? foes.filter(u => Math.abs(u.x - nearest.x) <= spec.splash!) : [nearest];
-            for (const victim of targets) damage.set(victim.id, (damage.get(victim.id) ?? 0) + spec.damage);
-          } else baseDamage[opposite(unit.side)] += spec.damage * (spec.baseBonus ?? 1);
-          this.effect(spec.range > 60 ? 'shot' : 'hit', unit.side, unit.x, targetX, nearest?.row ?? unit.row, spec.range > 60 ? .4 : .25, unit.kind);
+            for (const victim of targets) damage.set(victim.id, (damage.get(victim.id) ?? 0) + attackDamage);
+          } else baseDamage[opposite(unit.side)] += attackDamage * (spec.baseBonus ?? 1);
+          if (unit.kind !== 'mage') this.effect(spec.range > 60 ? 'shot' : 'hit', unit.side, unit.x, targetX, nearest?.row ?? unit.row, spec.range > 60 ? .4 : .25, unit.kind);
         }
       } else if (!inRange) this.move(unit, dt, dir, nearest);
     }
     for (const unit of this.units) {
+      unit.slow = Math.max(0, unit.slow - dt);
+      unit.starSlow = slowed.has(unit.id) ? STAR_MAGIC.duration : Math.max(0, unit.starSlow - dt);
+      unit.catnip = Math.max(0, unit.catnip - dt);
+      if ((damage.get(unit.id) ?? 0) > 0) unit.hitAt = this.time;
       unit.hp -= damage.get(unit.id) ?? 0;
-      if (unit.hp <= 0) { this.armies[unit.side].lost++; this.effect('death', unit.side, unit.x, unit.x, unit.row, .8, unit.kind); }
+      if (unit.hp <= 0) { this.armies[unit.side].lost++; this.effect('death', unit.side, unit.x, unit.x, unit.row, .8, unit.kind, unit.id); }
     }
     this.units = this.units.filter(u => u.hp > 0);
     for (const side of ['player', 'enemy'] as Side[]) this.armies[side].hp = Math.max(0, this.armies[side].hp - baseDamage[side]);
@@ -198,11 +242,14 @@ export class Battle {
     }
   }
   private move(unit: Unit, dt: number, dir: number, nearest?: Unit, limit?: number) {
-    let next = unit.x + dir * UNITS[unit.kind].speed * (unit.slow > 0 ? .45 : 1) * dt;
+    const roarTime = Math.min(dt, unit.slow);
+    const starOnlyTime = Math.max(0, Math.min(dt, unit.starSlow) - roarTime);
+    const travelTime = dt - roarTime * .55 - starOnlyTime * STAR_MAGIC.slow;
+    let next = unit.x + dir * UNITS[unit.kind].speed * travelTime;
     if (nearest && (nearest.x - unit.x) * dir >= 0) next = dir > 0 ? Math.min(next, nearest.x - 30) : Math.max(next, nearest.x + 30);
     if (limit !== undefined) next = dir > 0 ? Math.min(next, limit) : Math.max(next, limit);
     next = Math.max(BASE_X.player, Math.min(BASE_X.enemy, next));
-    if ((next - unit.x) * dir > 0) { unit.x = next; unit.walking = true; }
+    if ((next - unit.x) * dir > 0) { unit.walkDistance += Math.abs(next - unit.x); unit.x = next; unit.walking = true; }
   }
   private decideAI() {
     const side: Side = 'enemy', army = this.armies.enemy;
@@ -210,6 +257,7 @@ export class Battle {
     const threatened = foes.some(u => u.x > BASE_X.enemy - 310);
     const count = (kind: UnitKind) => allies.filter(u => u.kind === kind).length;
     if (threatened && army.roarCooldown === 0) this.roar(side);
+    if (allies.filter(unit => unit.attacking && UNITS[unit.kind].damage > 0).length >= 3) this.catnip(side);
     // Continuous recruitment, with a bounded savings window instead of a finite
     // wave list or unbounded return paths while waiting for an expensive upgrade.
     const safe = !threatened && allies.length >= 3 && allies.length + 2 >= foes.length;
@@ -223,9 +271,13 @@ export class Battle {
         if (this.time - this.aiSavingSince < 10 && this.time - this.aiLastRecruit < 10) return;
       }
     } else this.aiSavingSince = null;
+    // A late-game reserve can fund one heavy rider without stalling ordinary reinforcements.
+    if (army.tech === 3 && count('knight') === 0 && army.food >= UNITS.knight.cost && this.summon(side, 'knight')) {
+      this.aiLastRecruit = this.time; this.aiSavingSince = null; return;
+    }
     const rotation: UnitKind[] = army.tech === 1 ? ['soldier', 'soldier', 'mouse']
-      : army.tech === 2 ? ['shield', 'slinger', 'soldier', 'slinger', 'mouse']
-      : ['shield', 'catapult', 'slinger', 'healer', 'soldier', 'slinger'];
+      : army.tech === 2 ? ['shield', 'slinger', 'soldier', 'mage', 'mouse']
+      : ['shield', 'catapult', 'mage', 'healer', 'soldier', 'slinger'];
     let desired = rotation[this.aiQueueIndex % rotation.length];
     if ((desired === 'healer' && (count('healer') >= 2 || allies.length < 3)) || (desired === 'shield' && count('shield') >= 3)) desired = 'soldier';
     if (safe && army.food < UNITS[desired].cost && this.time - this.aiLastRecruit < 7) return;

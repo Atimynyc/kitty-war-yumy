@@ -1,211 +1,129 @@
 import Phaser from 'phaser';
-import { baseSVG, roomSVG, unitSVG } from '../art.ts';
-import { BASE_HP, BASE_X, CANNON_INTERVAL, UNIT_ORDER, UNITS, WORLD_HEIGHT, WORLD_WIDTH } from './content.ts';
+import { BASE_X, CANNON_INTERVAL, UNIT_ORDER, UNITS } from './content.ts';
 import type { Side } from './content.ts';
 import { Battle } from './simulation.ts';
-import { portraitBaseSVG, portraitUnitSVG } from '../portrait-art.ts';
+import type { Unit } from './simulation.ts';
+import { portraitBaseSVG } from '../portrait-art.ts';
 import { portraitProjection } from './projection.ts';
+import { unitParts, unitShadowSVG, unitStarsSVG } from './unit-art.ts';
+import { UnitView } from './UnitView.ts';
+import { DEATH_DURATION } from './unit-motion.ts';
 
 export class BattleScene extends Phaser.Scene {
   private battle: Battle;
   private onFrame: () => void;
-  private sprites = new Map<number, Phaser.GameObjects.Image>();
+  private units = new Map<number, UnitView>();
   private bars!: Phaser.GameObjects.Graphics;
   private fx!: Phaser.GameObjects.Graphics;
   private cannons!: Phaser.GameObjects.Graphics;
   private bases: Partial<Record<Side, Phaser.GameObjects.Image>> = {};
-  private elapsed = 0;
   private accumulator = 0;
+  private endingTime = 0;
+  private revision = -1;
   private assetUrls: string[] = [];
-  private room!: Phaser.GameObjects.Image;
   private portraitBackground!: Phaser.GameObjects.Graphics;
-  private baseLabels: Partial<Record<Side, Phaser.GameObjects.Text>> = {};
-  private portrait = false;
   speed = 1;
   manualTime = false;
-  private reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  private motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+  private get reducedMotion() { return this.motionPreference.matches; }
   constructor(battle: Battle, onFrame: () => void) { super('battle'); this.battle = battle; this.onFrame = onFrame; }
   preload() {
-    const source = (svg: string) => {
+    const load = (key: string, svg: string) => {
       const url = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml;charset=utf-8' }));
-      this.assetUrls.push(url);
-      return url;
+      this.assetUrls.push(url); this.load.svg(key, url);
     };
-    this.load.svg('room', source(roomSVG));
+    load('unit-shadow', unitShadowSVG); load('unit-stars', unitStarsSVG);
     for (const side of ['player', 'enemy'] as Side[]) {
-      this.load.svg(`base-${side}`, source(baseSVG(side)));
-      this.load.svg(`portrait-base-${side}`, source(portraitBaseSVG(side)));
-      for (const kind of UNIT_ORDER) {
-        this.load.svg(`${side}-${kind}`, source(unitSVG(kind, side)));
-        this.load.svg(`portrait-${side}-${kind}`, source(portraitUnitSVG(kind, side)));
-      }
+      load(`base-${side}`, portraitBaseSVG(side));
+      for (const kind of UNIT_ORDER) for (const part of unitParts(kind, side)) load(`${side}-${kind}-${part.name}`, part.svg);
     }
   }
   create() {
-    this.assetUrls.forEach(url => URL.revokeObjectURL(url));
-    this.assetUrls = [];
-    this.room = this.add.image(0, 0, 'room').setOrigin(0).setDepth(0);
+    this.assetUrls.forEach(url => URL.revokeObjectURL(url)); this.assetUrls = [];
     this.portraitBackground = this.add.graphics().setDepth(0);
-    const fitCamera = () => {
-      this.portrait = document.documentElement.dataset.layout === 'portrait';
-      this.game.canvas.dataset.orientation = this.portrait ? 'vertical' : 'horizontal';
-      this.game.canvas.setAttribute('aria-label', this.portrait
-        ? '竖屏战场：我方基地在下，对手基地在上。猫咪沿地毯向中央推进。'
-        : '横屏战场：我方基地在左，对手基地在右。通过佣兵卡招募小队。');
-      this.room.setVisible(!this.portrait);
-      this.portraitBackground.setVisible(this.portrait);
-      if (this.portrait) {
-        this.cameras.main.setOrigin(0, 0).setZoom(1).setScroll(0, 0);
-        this.drawPortraitRoom();
-      } else {
-      const zoom = this.scale.width / WORLD_WIDTH;
-      const visibleHeight = this.scale.height / zoom;
-      const scrollY = visibleHeight < WORLD_HEIGHT ? WORLD_HEIGHT - visibleHeight : (WORLD_HEIGHT - visibleHeight) / 2;
-      this.cameras.main.setOrigin(0, 0).setZoom(zoom).setScroll(0, scrollY);
-      }
-      const view = portraitProjection(this.scale.width, this.scale.height);
-      for (const side of ['player', 'enemy'] as Side[]) {
-        this.baseLabels[side]?.setVisible(!this.portrait);
-        const base = this.bases[side];
-        if (!base) continue;
-        base.setTexture(this.portrait ? `portrait-base-${side}` : `base-${side}`);
-        if (this.portrait) base.setOrigin(.5).setPosition(this.scale.width / 2, side === 'player' ? this.scale.height - 40 : 40).setDisplaySize(view.baseSize, view.baseSize * 145 / 180);
-        else base.setOrigin(.5, 1).setPosition(BASE_X[side], 364).setScale(.94);
-      }
-    };
-    this.scale.on(Phaser.Scale.Events.RESIZE, fitCamera);
-    const parent = document.getElementById('battle-canvas')!;
-    const resize = () => {
-      const { width, height } = parent.getBoundingClientRect();
-      if (width > 0 && height > 0) {
-        const nextWidth = Math.round(width), nextHeight = Math.round(height);
-        // Window and ResizeObserver can report the same resize. Reassigning canvas
-        // dimensions clears its drawing buffer even when the size did not change.
-        if (this.scale.width !== nextWidth || this.scale.height !== nextHeight) this.scale.resize(nextWidth, nextHeight);
-        this.game.canvas.style.width = `${nextWidth}px`;
-        this.game.canvas.style.height = `${nextHeight}px`;
-      }
-      fitCamera();
-    };
-    const observer = typeof ResizeObserver === 'undefined' ? undefined : new ResizeObserver(resize);
-    observer?.observe(parent);
-    window.addEventListener('game-layout-change', resize);
-    window.addEventListener('resize', resize);
-    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-      this.scale.off(Phaser.Scale.Events.RESIZE, fitCamera);
-      window.removeEventListener('game-layout-change', resize);
-      window.removeEventListener('resize', resize);
-      observer?.disconnect();
-    });
-    for (const side of ['player', 'enemy'] as Side[]) {
-      this.bases[side] = this.add.image(BASE_X[side], 364, `base-${side}`).setOrigin(.5, 1).setScale(.94).setDepth(4);
-      const color = side === 'player' ? '#587c65' : '#86729c';
-      this.baseLabels[side] = this.add.text(BASE_X[side], 396, side === 'player' ? '我方 · 冻干小窝' : '对手 · 馋嘴基地', { fontFamily: 'Microsoft YaHei, sans-serif', fontSize: '15px', color, fontStyle: 'bold' }).setOrigin(.5).setDepth(4);
-    }
+    this.cameras.main.setOrigin(0, 0).setZoom(1).setScroll(0, 0);
+    for (const side of ['player', 'enemy'] as Side[]) this.bases[side] = this.add.image(0, 0, `base-${side}`).setDepth(4);
     this.bars = this.add.graphics().setDepth(30);
     this.fx = this.add.graphics().setDepth(40);
     this.cannons = this.add.graphics().setDepth(6);
-    document.querySelector('#loading')?.remove();
+    const parent = document.getElementById('battle-canvas')!;
+    const resize = () => {
+      const { width, height } = parent.getBoundingClientRect();
+      if (width <= 0 || height <= 0) return;
+      const w = Math.round(width), h = Math.round(height);
+      if (this.scale.width !== w || this.scale.height !== h) this.scale.resize(w, h);
+      this.game.canvas.style.width = `${w}px`; this.game.canvas.style.height = `${h}px`;
+      this.drawPortraitRoom();
+      const view = portraitProjection(w, h);
+      for (const side of ['player', 'enemy'] as Side[]) this.bases[side]!.setPosition(w / 2, side === 'player' ? h - 40 : 40).setDisplaySize(view.baseSize, view.baseSize * 145 / 180);
+    };
+    const observer = new ResizeObserver(resize); observer.observe(parent);
+    window.addEventListener('resize', resize);
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => { observer.disconnect(); window.removeEventListener('resize', resize); this.units.clear(); });
+    this.game.canvas.dataset.orientation = 'vertical';
     this.game.canvas.setAttribute('role', 'img');
-    resize();
-    this.onFrame();
+    this.game.canvas.setAttribute('aria-label', '竖屏战场：我方基地在下，对手基地在上。猫咪沿地毯向上进攻。');
+    document.querySelector('#loading')?.remove();
+    resize(); this.onFrame();
   }
   update(_time: number, delta: number) {
-    const active = this.battle.phase === 'playing';
-    if (active && !this.manualTime) {
-      this.elapsed += Math.min(delta, 100) / 1000 * this.speed;
+    if (this.revision !== this.battle.revision) {
+      for (const view of this.units.values()) view.destroy();
+      this.units.clear(); this.accumulator = 0; this.endingTime = 0; this.revision = this.battle.revision;
+    }
+    if (!this.manualTime && this.battle.phase === 'playing') {
       this.accumulator += Math.min(delta, 100) / 1000 * this.speed;
       while (this.accumulator >= 1 / 30) { this.battle.step(1 / 30); this.accumulator -= 1 / 30; }
     } else this.accumulator = 0;
-    const liveIds = new Set(this.battle.units.map(u => u.id));
-    for (const [id, sprite] of this.sprites) if (!liveIds.has(id)) { sprite.destroy(); this.sprites.delete(id); }
+    if (!this.manualTime && this.battle.phase === 'ended') this.endingTime = Math.min(DEATH_DURATION, this.endingTime + Math.min(delta, 100) / 1000 * this.speed);
     this.bars.clear(); this.fx.clear();
-    this.drawCannons();
-    if (this.portrait) { this.drawPortraitBattle(); this.onFrame(); return; }
-    for (const side of ['player', 'enemy'] as Side[]) {
-      const army = this.battle.armies[side], x = BASE_X[side];
-      this.bars.fillStyle(0x685544, .12).fillRoundedRect(x - 80, 375, 160, 7, 3);
-      if (army.hp > 0) this.bars.fillStyle(side === 'player' ? 0x7f9e79 : 0xa595ba).fillRoundedRect(x - 80, 375, Math.max(4, 160 * army.hp / BASE_HP), 7, 3);
-      this.bases[side]!.setAlpha(army.hp === 0 ? .45 : 1);
-      if (army.hp < BASE_HP * .5) {
-        this.fx.lineStyle(2, 0x856c55, .7).beginPath().moveTo(x - 54, 293).lineTo(x - 43, 308).lineTo(x - 50, 319).lineTo(x - 36, 332).strokePath();
-      }
-    }
-    for (const unit of this.battle.units) {
-      const spec = UNITS[unit.kind];
-      let sprite = this.sprites.get(unit.id);
-      if (!sprite) {
-        sprite = this.add.image(unit.x, 350, `${unit.side}-${unit.kind}`).setOrigin(.5, .9);
-        sprite.setFlipX(unit.side === 'enemy'); this.sprites.set(unit.id, sprite);
-      }
-      const compact = document.documentElement.dataset.layout === 'compact-landscape';
-      const zoom = this.cameras.main.zoom;
-      const originalScale = unit.kind === 'catapult' ? .87 : unit.kind === 'mouse' ? .59 : unit.kind === 'shield' ? .76 : .68;
-      const scale = compact ? Math.max(originalScale, 34 / (120 * zoom)) : originalScale;
-      const motion = unit.walking ? Math.sin(this.elapsed * 12 + unit.id) : 0;
-      const attack = unit.attacking ? Math.max(0, 1 - (spec.interval - unit.attackCooldown) * 5) : 0;
-      const direction = unit.side === 'player' ? 1 : -1;
-      const y = 342 + (compact ? (unit.row - 1) * 9 / zoom : unit.row * 10) - Math.abs(motion) * 3;
-      sprite.setTexture(`${unit.side}-${unit.kind}`).setOrigin(.5, .9).setFlipX(unit.side === 'enemy');
-      sprite.setPosition(unit.x + direction * attack * 5, y).setScale(scale, scale * (1 + Math.abs(motion) * .025)).setRotation(motion * .035 + attack * direction * .09).setDepth(10 + unit.row);
-      if (unit.slow > 0) sprite.setTint(0xd3dff5); else sprite.clearTint();
-      if (unit.hp < spec.hp) {
-        const w = 38, bx = unit.x - w / 2, by = y - scale * 111;
-        this.bars.fillStyle(0x695449, .18).fillRoundedRect(bx, by, w, 4, 2);
-        this.bars.fillStyle(unit.side === 'player' ? 0x6f9d83 : 0xa491bd).fillRoundedRect(bx, by, Math.max(2, w * unit.hp / spec.hp), 4, 2);
-      }
-    }
-    for (const effect of this.battle.effects) {
-      if (effect.type === 'cannon') continue;
-      const t = effect.age / effect.duration, alpha = 1 - t, y = 315 + effect.row * 10;
-      if (effect.type === 'shot') {
-        const x = Phaser.Math.Linear(effect.x, effect.targetX, t);
-        const py = y - Math.sin(t * Math.PI) * (effect.kind === 'catapult' ? 110 : 45);
-        const radius = effect.kind === 'catapult' ? 12 : 6;
-        this.fx.fillStyle(effect.side === 'player' ? 0xb48f67 : 0xa395bc).fillCircle(x, py, radius);
-        this.fx.lineStyle(1.5, 0xffedc9, .9).strokeCircle(x, py, radius - 3);
-      } else if (effect.type === 'hit') {
-        this.fx.lineStyle(3 * alpha, 0xfff4ce, alpha);
-        for (let i = 0; i < 5; i++) { const a = i * Math.PI * .4; this.fx.lineBetween(effect.targetX + Math.cos(a) * 6, y + Math.sin(a) * 6, effect.targetX + Math.cos(a) * (10 + t * 18), y + Math.sin(a) * (10 + t * 18)); }
-      } else if (effect.type === 'heal') {
-        this.fx.fillStyle(0x7aa78a, alpha).fillRoundedRect(effect.x - 3, y - 30 - t * 25, 6, 19, 2).fillRoundedRect(effect.x - 9.5, y - 23.5 - t * 25, 19, 6, 2);
-      } else if (effect.type === 'roar') {
-        this.fx.lineStyle(6 * alpha, effect.side === 'player' ? 0xffedc6 : 0xc7b7df, alpha);
-        this.fx.strokeEllipse(effect.x, 300, 100 + t * 590, 70 + t * 150);
-        this.fx.lineStyle(3 * alpha, 0xe6bc84, alpha).strokeEllipse(effect.x, 300, 60 + t * 450, 40 + t * 120);
-      } else {
-        for (let i = 0; i < 5; i++) {
-          const angle = i * Math.PI * .4;
-          this.fx.fillStyle(effect.type === 'death' ? 0xffedac : 0xfff7df, alpha * .8).fillCircle(effect.x + Math.cos(angle) * t * 35, y + Math.sin(angle) * t * 20 - t * 15, 3 + alpha * 4);
-        }
-      }
-    }
-    this.onFrame();
+    this.drawCannons(); this.drawPortraitBattle(); this.onFrame();
   }
-
   advanceSimulation(seconds: number) {
+    if (this.bars && this.revision !== this.battle.revision) this.update(0, 0);
+    // Render state is derived from simulation timestamps, including skipped intermediate frames.
     const frames = Math.ceil(seconds * 30);
-    for (let i = 0; i < frames && this.battle.phase === 'playing'; i++) {
+    for (let i = 0; i < frames; i++) {
       const dt = Math.min(1 / 30, seconds - i / 30);
-      this.battle.step(dt); this.elapsed += dt;
+      if (this.battle.phase === 'playing') this.battle.step(dt);
+      else if (this.battle.phase === 'ended') this.endingTime = Math.min(DEATH_DURATION, this.endingTime + dt);
+      else break;
     }
     if (this.bars) this.update(0, 0);
   }
-
-  private cannonPosition(side: Side) {
-    return this.portrait
-      ? { x: this.scale.width / 2, y: side === 'player' ? this.scale.height - 62 : 62 }
-      : { x: BASE_X[side] + (side === 'player' ? 42 : -42), y: 281 };
+  private drawUnits() {
+    const projection = portraitProjection(this.scale.width, this.scale.height);
+    const live = new Map(this.battle.units.map(unit => [unit.id, unit]));
+    const deaths = new Map(this.battle.effects.filter(effect => effect.type === 'death' && effect.unitId !== undefined).map(effect => [effect.unitId!, effect]));
+    const now = this.battle.time + this.endingTime;
+    for (const unit of live.values()) if (!this.units.has(unit.id)) this.units.set(unit.id, new UnitView(this, unit));
+    // Also handle units killed entirely between rendered frames or during deterministic stepping.
+    for (const [id, death] of deaths) {
+      if (!death.kind || this.units.has(id) || death.age + this.endingTime >= DEATH_DURATION) continue;
+      const unit: Unit = { id, side: death.side, kind: death.kind, x: death.x, row: death.row, hp: 0, attackCooldown: 0, attacking: false, walking: false, slow: 0, starSlow: 0, catnip: 0, walkDistance: 0, attackAt: -100, hitAt: -100 };
+      this.units.set(id, new UnitView(this, unit));
+    }
+    for (const [id, view] of this.units) {
+      const death = deaths.get(id), unit = live.get(id) ?? view.unit;
+      if (!live.has(id) && (!death || death.age + this.endingTime >= DEATH_DURATION)) { view.destroy(); this.units.delete(id); continue; }
+      const point = projection.project(unit.x, unit.row), size = projection.unitSize * (unit.kind === 'knight' ? 1.24 : unit.kind === 'catapult' ? 1.14 : unit.kind === 'mouse' ? .9 : 1);
+      view.draw(unit, now, point.x, point.y, size, this.reducedMotion, death ? this.battle.time - death.age : undefined);
+      if (!death && unit.hp < UNITS[unit.kind].hp) {
+        this.bars.fillStyle(0x695449, .2).fillRoundedRect(point.x - 13, point.y - size * .48, 26, 3, 1.5);
+        this.bars.fillStyle(unit.side === 'player' ? 0x6c9579 : 0x9f83b2).fillRoundedRect(point.x - 13, point.y - size * .48, Math.max(1, 26 * unit.hp / UNITS[unit.kind].hp), 3, 1.5);
+      }
+    }
   }
-
+  getAnimationSnapshot() { return [...this.units.values()].map(view => view.snapshot()); }
+  private cannonPosition(side: Side) { return { x: this.scale.width / 2, y: side === 'player' ? this.scale.height - 62 : 62 }; }
   private drawCannons() {
     const g = this.cannons;
     g.clear();
-    const scale = this.portrait ? .66 : 1;
+    const scale = .66;
     for (const side of ['player', 'enemy'] as Side[]) {
       const army = this.battle.armies[side], at = this.cannonPosition(side);
       const direction = side === 'player' ? 1 : -1;
-      const dx = this.portrait ? 0 : direction, dy = this.portrait ? -direction : 0;
+      const dx = 0, dy = -direction;
       const recoil = this.reducedMotion ? 0 : Math.max(0, (army.cannonCooldown - CANNON_INTERVAL + .18) / .18) * 5 * scale;
       const x = at.x - dx * recoil, y = at.y - dy * recoil;
       const alpha = army.hp > 0 ? 1 : .4;
@@ -220,7 +138,7 @@ export class BattleScene extends Phaser.Scene {
     for (const effect of this.battle.effects) {
       if (effect.type !== 'cannon') continue;
       const start = this.cannonPosition(effect.side);
-      const target = this.portrait ? portraitProjection(this.scale.width, this.scale.height).project(effect.targetX, effect.row) : { x: effect.targetX, y: 315 + effect.row * 10 };
+      const target = portraitProjection(this.scale.width, this.scale.height).project(effect.targetX, effect.row);
       const progress = Math.min(1, effect.age / .24), alpha = 1 - effect.age / effect.duration;
       const x = Phaser.Math.Linear(start.x, target.x, progress), y = Phaser.Math.Linear(start.y, target.y, progress);
       this.fx.lineStyle(4 * scale, 0xfff2c4, alpha).lineBetween(Phaser.Math.Linear(start.x, target.x, Math.max(0, progress - .12)), Phaser.Math.Linear(start.y, target.y, Math.max(0, progress - .12)), x, y);
@@ -256,25 +174,25 @@ export class BattleScene extends Phaser.Scene {
   private drawPortraitBattle() {
     const view = portraitProjection(this.scale.width, this.scale.height);
     for (const side of ['player', 'enemy'] as Side[]) this.bases[side]!.setAlpha(this.battle.armies[side].hp === 0 ? .4 : 1);
-    for (const unit of this.battle.units) {
-      const spec = UNITS[unit.kind], point = view.project(unit.x, unit.row);
-      let sprite = this.sprites.get(unit.id);
-      if (!sprite) { sprite = this.add.image(point.x, point.y, `portrait-${unit.side}-${unit.kind}`); this.sprites.set(unit.id, sprite); }
-      const bob = unit.walking ? Math.sin(this.elapsed * 12 + unit.id) : 0;
-      const strike = unit.attacking ? Math.max(0, 1 - (spec.interval - unit.attackCooldown) * 5) : 0;
-      const direction = unit.side === 'player' ? -1 : 1;
-      const size = view.unitSize * (unit.kind === 'catapult' ? 1.14 : unit.kind === 'mouse' ? .85 : 1);
-      sprite.setTexture(`portrait-${unit.side}-${unit.kind}`).setOrigin(.5).setFlipX(false)
-        .setPosition(point.x + bob * 1.2, point.y + direction * strike * 3)
-        .setDisplaySize(size, size * (1 + Math.abs(bob) * .025)).setRotation(bob * .04).setDepth(10 + point.y / Math.max(1, this.scale.height));
-      if (unit.slow > 0) sprite.setTint(0xd3dff5); else sprite.clearTint();
-      if (unit.hp < spec.hp) {
-        this.bars.fillStyle(0x695449, .2).fillRoundedRect(point.x - 13, point.y - size * .55, 26, 3, 1.5);
-        this.bars.fillStyle(unit.side === 'player' ? 0x6c9579 : 0x9f83b2).fillRoundedRect(point.x - 13, point.y - size * .55, Math.max(1, 26 * unit.hp / spec.hp), 3, 1.5);
-      }
+    this.drawUnits();
+    const star = (x: number, y: number, radius: number, angle: number, alpha: number) => {
+      const points = Array.from({ length: 10 }, (_, i) => {
+        const a = angle + i * Math.PI / 5, r = radius * (i % 2 ? .45 : 1);
+        return new Phaser.Geom.Point(x + Math.cos(a) * r, y + Math.sin(a) * r);
+      });
+      this.fx.fillStyle(0xffe7a2, alpha).fillPoints(points, true);
+      this.fx.lineStyle(1.4, 0x9b80bd, alpha).strokePoints(points, true);
+    };
+    for (const projectile of this.battle.projectiles) {
+      const start = view.project(projectile.x, projectile.row), end = view.project(projectile.targetX, projectile.targetRow);
+      start.x += view.unitSize * .3; start.y -= view.unitSize * .2;
+      const t = Math.min(1, projectile.age / projectile.duration);
+      const x = Phaser.Math.Linear(start.x, end.x, t), y = Phaser.Math.Linear(start.y, end.y, t);
+      this.fx.lineStyle(3, 0xc7b5ec, .7).lineBetween(Phaser.Math.Linear(start.x, end.x, Math.max(0, t - .2)), Phaser.Math.Linear(start.y, end.y, Math.max(0, t - .2)), x, y);
+      star(x, y, 7, this.reducedMotion ? 0 : t * 5, 1);
     }
     for (const effect of this.battle.effects) {
-      if (effect.type === 'cannon') continue;
+      if (effect.type === 'cannon' || effect.type === 'death') continue;
       const t = effect.age / effect.duration, alpha = 1 - t;
       const point = view.project(effect.x, effect.row), target = view.project(effect.targetX, effect.row);
       if (effect.type === 'shot') {
@@ -282,9 +200,19 @@ export class BattleScene extends Phaser.Scene {
         const y = Phaser.Math.Linear(point.y, target.y, t), radius = effect.kind === 'catapult' ? 7 : 4;
         this.fx.fillStyle(effect.side === 'player' ? 0xb39260 : 0xaa93bc).fillCircle(x, y, radius);
         this.fx.lineStyle(1, 0xffedc9, .9).strokeCircle(x, y, radius - 2);
+        if (effect.kind === 'catapult') {
+          // Damage resolves on the attack tick; show its whole splash zone immediately.
+          const spread = Math.abs(view.project(effect.targetX + UNITS.catapult.splash!, effect.row).y - target.y);
+          this.fx.lineStyle(2, 0xc89559, alpha).strokeEllipse(target.x, target.y, this.scale.width * .4, Math.max(16, spread * 2) * (.8 + t * .3));
+        }
       } else if (effect.type === 'roar') {
         const center = view.project(BASE_X[effect.side]);
         this.fx.lineStyle(3 * alpha, effect.side === 'player' ? 0xfff0b5 : 0xd6bdec, alpha).strokeEllipse(center.x, center.y, 30 + t * this.scale.width * .9, 25 + t * Math.min(190, this.scale.height * .5));
+      } else if (effect.type === 'starHit') {
+        this.fx.lineStyle(2, 0xa698d5, alpha).strokeCircle(point.x, point.y, 8 + t * 16);
+        for (let i = 0; i < 3; i++) star(point.x + Math.cos(i * 2.1) * t * 20, point.y + Math.sin(i * 2.1) * t * 20, 4, i, alpha);
+      } else if (effect.type === 'catnip') {
+        this.fx.lineStyle(2, 0x75a16e, alpha).strokeEllipse(point.x, point.y + 10, 24 + t * 30, 10 + t * 16);
       } else if (effect.type === 'heal') {
         this.fx.fillStyle(0x6a9e7a, alpha).fillRect(point.x - 2, point.y - 24 - 12 * t, 4, 13).fillRect(point.x - 6.5, point.y - 19.5 - 12 * t, 13, 4);
       } else {
@@ -296,12 +224,10 @@ export class BattleScene extends Phaser.Scene {
 
   getViewportSnapshot() {
     const view = portraitProjection(this.scale.width, this.scale.height);
-    return { orientation: this.portrait ? 'vertical' : 'horizontal', width: this.scale.width, height: this.scale.height, renderFrame: this.game.loop.frame,
-      player: this.portrait ? view.project(BASE_X.player) : { x: BASE_X.player, y: 342 },
-      enemy: this.portrait ? view.project(BASE_X.enemy) : { x: BASE_X.enemy, y: 342 }, unitSize: this.portrait ? view.unitSize : 68,
+    return { orientation: 'vertical', width: this.scale.width, height: this.scale.height, renderFrame: this.game.loop.frame,
+      player: view.project(BASE_X.player), enemy: view.project(BASE_X.enemy), unitSize: view.unitSize,
       cannons: { player: this.cannonPosition('player'), enemy: this.cannonPosition('enemy') } };
   }
-
 }
 
 export function createGame(parent: string, battle: Battle, onFrame: () => void) {

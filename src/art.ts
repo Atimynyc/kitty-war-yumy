@@ -1,4 +1,7 @@
 import type { Side, UnitKind } from './game/content.ts';
+import { driedFish, teaserWand } from './game/weapon-art.ts';
+import { knightParts } from './game/knight-art.ts';
+import { unitShadowSVG } from './game/unit-art.ts';
 
 const wrap = (body: string, width = 120, height = 120) => `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><g stroke="#604c41" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">${body}</g></svg>`;
 export const svgURL = (svg: string) => `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
@@ -14,6 +17,7 @@ export const icons = {
 };
 
 export function unitSVG(kind: UnitKind, side: Side = 'player') {
+  if (kind === 'knight') return `<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 128 128">${unitShadowSVG}${knightParts(side).map(part => part.svg).join('')}</svg>`;
   const fur = side === 'player' ? '#f7d7a1' : '#d9d0ea';
   const accent = side === 'player' ? '#769d88' : '#a18bb9';
   const ear = side === 'player' ? '#eeb3a3' : '#bcabd5';
@@ -22,7 +26,8 @@ export function unitSVG(kind: UnitKind, side: Side = 'player') {
   if (kind === 'mouse') return wrap(`${shadow}<path d="M30 81Q4 79 15 60q8-9 12 3" fill="none" stroke="#d1a397" stroke-width="5"/><ellipse cx="61" cy="79" rx="34" ry="23" fill="#d2c6bc"/><path d="m77 64 28 19-27 13" fill="#d2c6bc"/><circle cx="51" cy="57" r="17" fill="#d2c6bc"/><circle cx="51" cy="57" r="10" fill="#e7bbb0" stroke="none"/><circle cx="83" cy="77" r="3" fill="#604c41" stroke="none"/><circle cx="105" cy="83" r="4" fill="#d99292"/><path d="m99 86 9 6m-9-11 9-5" stroke-width="1.5"/><circle cx="44" cy="100" r="8" fill="${accent}"/><circle cx="78" cy="100" r="8" fill="${accent}"/><path d="M64 59V43h-7v-8h17v8h-7" fill="#eac68e"/><path d="M54 83h17" stroke="#b4a699"/>`);
   if (kind === 'catapult') return wrap(`${shadow}<path d="M23 86h77v12H23Z" fill="#c99e72"/><path d="m37 86 18-49 24 49Z" fill="#e4be91"/><path d="m43 75 33-55" stroke="#987655" stroke-width="10"/><path d="m67 23 16-2 7 10-12 7Z" fill="#d2af83"/><circle cx="81" cy="20" r="14" fill="${accent}"/><path d="m74 12 14 12m-18-7 15 11m-7-20 12 12" stroke="#fff4df" stroke-width="1.5"/><circle cx="33" cy="99" r="12" fill="#ad855f"/><circle cx="88" cy="99" r="12" fill="#ad855f"/><circle cx="33" cy="99" r="4" fill="#e8c797"/><circle cx="88" cy="99" r="4" fill="#e8c797"/><path d="m14 67 1-18 13 8 12-7 2 19q-2 18-16 16-14 0-12-18" fill="${fur}"/><path d="M22 67v3m12-3v3"/><path d="m25 76 4 2 3-2" fill="none"/>`);
   let gear = '';
-  if (kind === 'soldier') gear = `<path d="M30 40q0-27 32-28 28 0 30 28Z" fill="${accent}"/><path d="M28 40h65" stroke-width="4"/><path d="M60 17v17" stroke="#c6d8bb" stroke-width="5"/><path d="m36 80 37 1-4 11H41Z" fill="${accent}"/><path d="m87 88 18-21 2-17 9 11-5 13-18 20" fill="#d7ddd6"/><path d="m81 85 13 12m-7-6-6 7" stroke="#8e7053" stroke-width="5"/>`;
+  if (kind === 'soldier') gear = `<path d="M30 40q0-27 32-28 28 0 30 28Z" fill="${accent}"/><path d="M28 40h65" stroke-width="4"/><path d="M60 17v17" stroke="#c6d8bb" stroke-width="5"/><path d="m36 80 37 1-4 11H41Z" fill="${accent}"/>${driedFish(99, 66, 24)}<ellipse cx="89" cy="91" rx="8" ry="7" fill="${fur}"/>`;
+  if (kind === 'mage') gear = `<path d="m30 37 27-34 13 12 15 23Z" fill="#a89aca"/><path d="M24 39q37-12 75 0l-3 7H27Z" fill="#c9bce4"/><path d="m57 20 3-6 3 6 6 1-5 4 1 6-5-3-5 3 1-6-5-4Z" fill="#ffe3a1" stroke-width="1.5"/><path d="m36 82 42-1 4 20H32Z" fill="#b4a4d3"/><path d="M39 86h36" stroke="#eee1ad" stroke-width="5"/>${teaserWand(96, 65)}<ellipse cx="96" cy="89" rx="8" ry="7" fill="${fur}"/>`;
   if (kind === 'shield') gear = `<path d="m27 36 4-20 28-8 32 15-2 16Z" fill="#c9aa81"/><path d="m33 19 24 6 26-4M57 25v13" fill="none" stroke="#ab8967"/><path d="m60 63 44 5-5 34-23 11-22-18Z" fill="#cfad81"/><path d="m77 66-3 39" stroke="#e7ca9f" stroke-width="8"/><path d="m67 82 7 8 13-13" fill="none" stroke="#8b9d70" stroke-width="5"/>`;
   if (kind === 'slinger') gear = `<path d="M28 41q8-28 34-27 26 1 31 28" fill="${accent}"/><path d="M29 40h64l-8 7H37Z" fill="${accent}"/><path d="m32 82 46-2-7 14H39Z" fill="${accent}"/><path d="m91 99-2-31-11-13m11 13 13-15" fill="none" stroke="#ac835f" stroke-width="7"/><path d="m78 55 8 19 16-21" fill="none" stroke="#dfb897" stroke-width="2"/><circle cx="21" cy="89" r="12" fill="#e7b3a6"/><path d="m14 80 14 16m-19-9 17 12" stroke="#f9e3d7" stroke-width="1.5"/>`;
   if (kind === 'healer') gear = `<path d="m30 41 5-20 26-7 28 11 3 17Z" fill="#fff8eb"/><path d="M58 21v15m-7-7h14" stroke="#dc948c" stroke-width="5"/><path d="m35 81 42-1-7 23H43Z" fill="#fff6e7"/><path d="M53 84v14m-7-7h14" stroke="#dc948c" stroke-width="4"/><path d="m91 100 5-37" stroke="#b49270" stroke-width="5"/><path d="M96 64q-21-10-10-19 7-5 11 3 6-10 12-3 10 11-13 19" fill="#e8a7a2"/>`;
