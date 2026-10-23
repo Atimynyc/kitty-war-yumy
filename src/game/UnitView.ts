@@ -3,7 +3,7 @@ import { unitParts } from './unit-art.ts';
 import type { PartName } from './unit-art.ts';
 import type { UnitLook } from './unit-art.ts';
 import { unitMotion } from './unit-motion.ts';
-import { directionArt } from './unit-facing.ts';
+import { BodyDirection } from './unit-facing.ts';
 import type { Unit } from './simulation.ts';
 
 /** One reusable puppet for the vertical battlefield. The root is the logical ground point. */
@@ -23,6 +23,7 @@ export class UnitView {
   private heading = 0;
   private aimRotation = 0;
   private look: UnitLook = 'back';
+  private bodyDirection = new BodyDirection();
 
   constructor(scene: Phaser.Scene, readonly unit: Unit) {
     this.root = scene.add.container(0, 0).setName(`unit-${unit.id}`);
@@ -54,7 +55,7 @@ export class UnitView {
     if (deathAt !== undefined) this.deathFacing ??= this.drawn ? this.heading : facing;
     this.heading = this.deathFacing ?? facing;
     const forward = { x: -Math.sin(this.heading) * direction, y: Math.cos(this.heading) * direction };
-    const artwork = directionArt(forward, this.drawn ? { look: this.look, mirror: this.facing.scaleX } : undefined);
+    const artwork = deathAt !== undefined && this.drawn ? { look:this.look,mirror:this.facing.scaleX } : this.bodyDirection.update(forward,now);
     const mirror = machine ? 1 : artwork.mirror;
     const localForward = machine ? { x: 0, y: direction } : { x: forward.x * mirror, y: forward.y };
     // Standing character art uses directional faces; only overhead vehicles rotate in the floor plane.
@@ -164,7 +165,7 @@ export class UnitView {
   }
   snapshot() {
     return { id: this.unit.id, kind: this.unit.kind, side: this.unit.side, state: this.state, x: this.root.x, y: this.root.y, alpha: this.root.alpha, facing: this.heading, targetId: this.unit.targetId,
-      look: this.look, mirror: this.facing.scaleX, spriteRotation: this.facing.rotation, aimRotation: this.aimRotation,
+      look: this.look, mirror: this.facing.scaleX, turning: this.bodyDirection.turning, spriteRotation: this.facing.rotation, aimRotation: this.aimRotation,
       body: { x: this.torso.x, y: this.torso.y, rotation: this.torso.rotation },
       parts: Object.fromEntries(Object.entries(this.pieces).map(([name, piece]) => [name, { x: piece.x, y: piece.y, rotation: piece.rotation, scaleY: piece.scaleY }])) };
   }

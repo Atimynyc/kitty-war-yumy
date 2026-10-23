@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-23",
+  "node": "v24.11.0",
+  "stepSeconds": 0.03333333333333333,
+  "selected": "focused_no_heal",
+  "configurations": [
+    "baseline",
+    "economy",
+    "gentle",
+    "moderate",
+    "gentle_no_economy",
+    "gentle_heal30",
+    "gentle_heal38",
+    "gentle_cheap_mage",
+    "focused",
+    "focused_no_heal",
+    "focused_no_knight",
+    "focused_mage_only",
+    "economy240_only",
+    "focused220",
+    "paced_first",
+    "paced_third",
+    "paced",
+    "paced_economy",
+    "paced_gentle"
+  ],
+  "counts": {
+    "screen": 798,
+    "arena": 532,
+    "validation": 780,
+    "support": 300,
+    "total": 2410
+  },
+  "files": {
+    "src/game/content.ts": "f08bba2dae49c5cb379099eab002590409b26a5f15eed520b8ee090aced47228",
+    "src/game/simulation.ts": "da276f70cd03a4acba1fc2796892a5bb433e3a7840a9a228cbb49f1c305ee309",
+    "src/game/levels.ts": "f02a53cb6cd2a5257cd3cc07afda48bc92a99ba213fe10646b31e4e0c7af5b44",
+    "src/game/combat-space.ts": "e9e280ac758fd629276593c93eed2ad60167fc4b479cd3821b316c5c84a8227f"
+  },
+  "baselineConfig": {
+    "file": "analysis/balance-2026-10-23/baseline-config.json",
+    "sha256": "8bc23c65db0c0882da3867f407ccd76a0c6922e5207803477252bcad37bc534e"
+  },
+  "application": {
+    "status": "applied",
+    "version": "0.9.1",
+    "files": {
+      "src/game/content.ts": "466331bf5efd8dac4bf8f6f8e69efb323901b260d6085cb089d02e110e79f341",
+      "src/game/simulation.ts": "da276f70cd03a4acba1fc2796892a5bb433e3a7840a9a228cbb49f1c305ee309",
+      "src/game/levels.ts": "f02a53cb6cd2a5257cd3cc07afda48bc92a99ba213fe10646b31e4e0c7af5b44",
+      "src/game/combat-space.ts": "e9e280ac758fd629276593c93eed2ad60167fc4b479cd3821b316c5c84a8227f"
+    }
+  }
+}

@@ -1,0 +1,5895 @@
+{
+  "name": "gentle_no_economy",
+  "config": {
+    "units": {
+      "shield": {
+        "hp": 650
+      },
+      "slinger": {
+        "damage": 46
+      },
+      "mage": {
+        "hp": 150,
+        "damage": 28
+      },
+      "healer": {
+        "heal": 34
+      },
+      "knight": {
+        "damage": 150
+      }
+    }
+  },
+  "units": [
+    {
+      "kind": "mouse",
+      "name": "发条玩具鼠",
+      "cost": 25,
+      "population": 1,
+      "tier": 1,
+      "hp": 85,
+      "damage": 12,
+      "interval": 0.8,
+      "dps": 15,
+      "hpPer100Food": 340,
+      "dpsPer100Food": 60,
+      "dpsPerPopulation": 15,
+      "heal": 0,
+      "healPerSecondPerTarget": 0,
+      "maxHealPerSecond": 0,
+      "range": 35,
+      "speed": 75,
+      "cooldown": 0.8,
+      "foodWaitAtStart": 2.08,
+      "foodWaitAtMax": 1.09
+    },
+    {
+      "kind": "soldier",
+      "name": "小鱼干士兵",
+      "cost": 50,
+      "population": 1,
+      "tier": 1,
+      "hp": 230,
+      "damage": 28,
+      "interval": 1,
+      "dps": 28,
+      "hpPer100Food": 460,
+      "dpsPer100Food": 56,
+      "dpsPerPopulation": 28,
+      "heal": 0,
+      "healPerSecondPerTarget": 0,
+      "maxHealPerSecond": 0,
+      "range": 40,
+      "speed": 48,
+      "cooldown": 1.2,
+      "foodWaitAtStart": 4.17,
+      "foodWaitAtMax": 2.17
+    },
+    {
+      "kind": "shield",
+      "name": "纸箱盾卫",
+      "cost": 90,
+      "population": 2,
+      "tier": 2,
+      "hp": 650,
+      "damage": 15,
+      "interval": 1.4,
+      "dps": 10.71,
+      "hpPer100Food": 722.22,
+      "dpsPer100Food": 11.9,
+      "dpsPerPopulation": 5.36,
+      "heal": 0,
+      "healPerSecondPerTarget": 0,
+      "maxHealPerSecond": 0,
+      "range": 42,
+      "speed": 33,
+      "cooldown": 2.5,
+      "foodWaitAtStart": 7.5,
+      "foodWaitAtMax": 3.91
+    },
+    {
+      "kind": "slinger",
+      "name": "毛球投手",
+      "cost": 85,
+      "population": 2,
+      "tier": 2,
+      "hp": 150,
+      "damage": 46,
+      "interval": 1.3,
+      "dps": 35.38,
+      "hpPer100Food": 176.47,
+      "dpsPer100Food": 41.63,
+      "dpsPerPopulation": 17.69,
+      "heal": 0,
+      "healPerSecondPerTarget": 0,
+      "maxHealPerSecond": 0,
+      "range": 200,
+      "speed": 42,
+      "cooldown": 2.4,
+      "foodWaitAtStart": 7.08,
+      "foodWaitAtMax": 3.7
+    },
+    {
+      "kind": "mage",
+      "name": "逗猫棒法师",
+      "cost": 110,
+      "population": 2,
+      "tier": 2,
+      "hp": 150,
+      "damage": 28,
+      "interval": 1.6,
+      "dps": 17.5,
+      "hpPer100Food": 136.36,
+      "dpsPer100Food": 15.91,
+      "dpsPerPopulation": 8.75,
+      "heal": 0,
+      "healPerSecondPerTarget": 0,
+      "maxHealPerSecond": 0,
+      "range": 220,
+      "speed": 40,
+      "cooldown": 3.2,
+      "foodWaitAtStart": 9.17,
+      "foodWaitAtMax": 4.78
+    },
+    {
+      "kind": "catapult",
+      "name": "猫咪投石机",
+      "cost": 160,
+      "population": 3,
+      "tier": 3,
+      "hp": 260,
+      "damage": 105,
+      "interval": 3,
+      "dps": 35,
+      "hpPer100Food": 162.5,
+      "dpsPer100Food": 21.88,
+      "dpsPerPopulation": 11.67,
+      "heal": 0,
+      "healPerSecondPerTarget": 0,
+      "maxHealPerSecond": 0,
+      "range": 310,
+      "speed": 27,
+      "cooldown": 4.5,
+      "foodWaitAtStart": 13.33,
+      "foodWaitAtMax": 6.96
+    },
+    {
+      "kind": "healer",
+      "name": "奶妈猫",
+      "cost": 130,
+      "population": 2,
+      "tier": 3,
+      "hp": 180,
+      "damage": 0,
+      "interval": 2,
+      "dps": 0,
+      "hpPer100Food": 138.46,
+      "dpsPer100Food": 0,
+      "dpsPerPopulation": 0,
+      "heal": 34,
+      "healPerSecondPerTarget": 17,
+      "maxHealPerSecond": 51,
+      "range": 155,
+      "speed": 38,
+      "cooldown": 4,
+      "foodWaitAtStart": 10.83,
+      "foodWaitAtMax": 5.65
+    },
+    {
+      "kind": "knight",
+      "name": "小狗骑士",
+      "cost": 500,
+      "population": 6,
+      "tier": 3,
+      "hp": 1800,
+      "damage": 150,
+      "interval": 1.6,
+      "dps": 93.75,
+      "hpPer100Food": 360,
+      "dpsPer100Food": 18.75,
+      "dpsPerPopulation": 15.63,
+      "heal": 0,
+      "healPerSecondPerTarget": 0,
+      "maxHealPerSecond": 0,
+      "range": 48,
+      "speed": 45,
+      "cooldown": 12,
+      "foodWaitAtStart": 41.67,
+      "foodWaitAtMax": 21.74
+    }
+  ],
+  "economy": [
+    {
+      "level": 2,
+      "cost": 120,
+      "from": 12,
+      "to": 18,
+      "gain": 6,
+      "payback": 20,
+      "net60": 240,
+      "net120": 600,
+      "net180": 960
+    },
+    {
+      "level": 3,
+      "cost": 220,
+      "from": 18,
+      "to": 21,
+      "gain": 3,
+      "payback": 73.33,
+      "net60": -40,
+      "net120": 140,
+      "net180": 320
+    },
+    {
+      "level": 4,
+      "cost": 340,
+      "from": 21,
+      "to": 23,
+      "gain": 2,
+      "payback": 170,
+      "net60": -220,
+      "net120": -100,
+      "net180": 20
+    }
+  ],
+  "legacy": [
+    {
+      "level": "sunroom",
+      "strategy": "mouse-rush",
+      "winner": "enemy",
+      "seconds": 196,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "playerTech": 1,
+      "enemyTech": 3,
+      "playerIncomeLevel": 1,
+      "enemyIncomeLevel": 4,
+      "playerFood": 23,
+      "enemyFood": 330
+    },
+    {
+      "level": "sunroom",
+      "strategy": "soldier-rush",
+      "winner": "player",
+      "seconds": 236,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "playerTech": 1,
+      "enemyTech": 1,
+      "playerIncomeLevel": 1,
+      "enemyIncomeLevel": 1,
+      "playerFood": 878,
+      "enemyFood": 28
+    },
+    {
+      "level": "sunroom",
+      "strategy": "economy-and-tech",
+      "winner": "player",
+      "seconds": 133,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "playerTech": 2,
+      "enemyTech": 1,
+      "playerIncomeLevel": 3,
+      "enemyIncomeLevel": 1,
+      "playerFood": 268,
+      "enemyFood": 32
+    },
+    {
+      "level": "sunroom",
+      "strategy": "economy-opening",
+      "winner": "player",
+      "seconds": 131,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "playerTech": 2,
+      "enemyTech": 1,
+      "playerIncomeLevel": 3,
+      "enemyIncomeLevel": 1,
+      "playerFood": 403,
+      "enemyFood": 35
+    },
+    {
+      "level": "sunroom",
+      "strategy": "reserve-for-tech",
+      "winner": "player",
+      "seconds": 174,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "playerTech": 3,
+      "enemyTech": 2,
+      "playerIncomeLevel": 4,
+      "enemyIncomeLevel": 3,
+      "playerFood": 37,
+      "enemyFood": 60
+    },
+    {
+      "level": "sunroom",
+      "strategy": "combined-arms",
+      "winner": "player",
+      "seconds": 215,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "playerTech": 3,
+      "enemyTech": 3,
+      "playerIncomeLevel": 4,
+      "enemyIncomeLevel": 3,
+      "playerFood": 560,
+      "enemyFood": 33
+    },
+    {
+      "level": "cardboard",
+      "strategy": "mouse-rush",
+      "winner": "enemy",
+      "seconds": 102,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "playerTech": 1,
+      "enemyTech": 3,
+      "playerIncomeLevel": 1,
+      "enemyIncomeLevel": 3,
+      "playerFood": 19,
+      "enemyFood": 113
+    },
+    {
+      "level": "cardboard",
+      "strategy": "soldier-rush",
+      "winner": "enemy",
+      "seconds": 191,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "playerTech": 1,
+      "enemyTech": 3,
+      "playerIncomeLevel": 1,
+      "enemyIncomeLevel": 4,
+      "playerFood": 32,
+      "enemyFood": 171
+    },
+    {
+      "level": "cardboard",
+      "strategy": "economy-and-tech",
+      "winner": "player",
+      "seconds": 292,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "playerTech": 3,
+      "enemyTech": 3,
+      "playerIncomeLevel": 4,
+      "enemyIncomeLevel": 4,
+      "playerFood": 540,
+      "enemyFood": 38
+    },
+    {
+      "level": "cardboard",
+      "strategy": "economy-opening",
+      "winner": "enemy",
+      "seconds": 203,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "playerTech": 2,
+      "enemyTech": 3,
+      "playerIncomeLevel": 2,
+      "enemyIncomeLevel": 4,
+      "playerFood": 40,
+      "enemyFood": 672
+    },
+    {
+      "level": "cardboard",
+      "strategy": "reserve-for-tech",
+      "winner": "enemy",
+      "seconds": 168,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "playerTech": 3,
+      "enemyTech": 3,
+      "playerIncomeLevel": 1,
+      "enemyIncomeLevel": 4,
+      "playerFood": 3,
+      "enemyFood": 109
+    },
+    {
+      "level": "cardboard",
+      "strategy": "combined-arms",
+      "winner": "player",
+      "seconds": 229,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "playerTech": 3,
+      "enemyTech": 3,
+      "playerIncomeLevel": 4,
+      "enemyIncomeLevel": 4,
+      "playerFood": 693,
+      "enemyFood": 19
+    },
+    {
+      "level": "pantry",
+      "strategy": "mouse-rush",
+      "winner": "enemy",
+      "seconds": 105,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "playerTech": 1,
+      "enemyTech": 3,
+      "playerIncomeLevel": 1,
+      "enemyIncomeLevel": 4,
+      "playerFood": 20,
+      "enemyFood": 52
+    },
+    {
+      "level": "pantry",
+      "strategy": "soldier-rush",
+      "winner": "enemy",
+      "seconds": 122,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "playerTech": 1,
+      "enemyTech": 2,
+      "playerIncomeLevel": 1,
+      "enemyIncomeLevel": 4,
+      "playerFood": 50,
+      "enemyFood": 203
+    },
+    {
+      "level": "pantry",
+      "strategy": "economy-and-tech",
+      "winner": "enemy",
+      "seconds": 294,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "playerTech": 2,
+      "enemyTech": 3,
+      "playerIncomeLevel": 4,
+      "enemyIncomeLevel": 4,
+      "playerFood": 49,
+      "enemyFood": 1164
+    },
+    {
+      "level": "pantry",
+      "strategy": "economy-opening",
+      "winner": "enemy",
+      "seconds": 183,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "playerTech": 2,
+      "enemyTech": 3,
+      "playerIncomeLevel": 2,
+      "enemyIncomeLevel": 4,
+      "playerFood": 36,
+      "enemyFood": 703
+    },
+    {
+      "level": "pantry",
+      "strategy": "reserve-for-tech",
+      "winner": "player",
+      "seconds": 304,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "playerTech": 3,
+      "enemyTech": 3,
+      "playerIncomeLevel": 4,
+      "enemyIncomeLevel": 4,
+      "playerFood": 535,
+      "enemyFood": 51
+    },
+    {
+      "level": "pantry",
+      "strategy": "combined-arms",
+      "winner": "enemy",
+      "seconds": 312,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "playerTech": 3,
+      "enemyTech": 3,
+      "playerIncomeLevel": 4,
+      "enemyIncomeLevel": 4,
+      "playerFood": 90,
+      "enemyFood": 1549
+    }
+  ],
+  "campaigns": [
+    {
+      "level": "sunroom",
+      "policy": "balanced",
+      "variant": 0,
+      "economyCap": 3,
+      "winner": "player",
+      "seconds": 120.47,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "food": 427.73,
+      "peakFood": 427.73,
+      "meanFood": 111.74,
+      "populationCapSeconds": 0,
+      "firstBaseHit": null,
+      "tech": 3,
+      "economy": 4,
+      "bought": {
+        "mouse": 0,
+        "soldier": 12,
+        "shield": 2,
+        "slinger": 3,
+        "mage": 1,
+        "catapult": 0,
+        "healer": 0,
+        "knight": 0
+      },
+      "upgrades": [
+        {
+          "type": "economy",
+          "level": 2,
+          "time": 0
+        },
+        {
+          "type": "tech",
+          "level": 2,
+          "time": 21.5
+        },
+        {
+          "type": "economy",
+          "level": 3,
+          "time": 44
+        },
+        {
+          "type": "tech",
+          "level": 3,
+          "time": 71
+        },
+        {
+          "type": "economy",
+          "level": 4,
+          "time": 98
+        }
+      ],
+      "samples": [
+        {
+          "time": 0.03,
+          "food": 70.6,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 10.03,
+          "food": 0.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 20.03,
+          "food": 130.6,
+          "population": 7,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 30.03,
+          "food": 60.6,
+          "population": 9,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 40.03,
+          "food": 150.6,
+          "population": 9,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 50.03,
+          "food": 18.7,
+          "population": 11,
+          "hp": 3000,
+          "enemyHp": 2832,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 60.03,
+          "food": 58.7,
+          "population": 13,
+          "hp": 3000,
+          "enemyHp": 2776,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 70.03,
+          "food": 268.7,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 2742.4,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 80.03,
+          "food": 13.7,
+          "population": 13,
+          "hp": 3000,
+          "enemyHp": 2696.4,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 90.03,
+          "food": 173.7,
+          "population": 13,
+          "hp": 3000,
+          "enemyHp": 2355.4,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 100.03,
+          "food": 47.77,
+          "population": 13,
+          "hp": 3000,
+          "enemyHp": 2205.4,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 110.03,
+          "food": 187.77,
+          "population": 13,
+          "hp": 3000,
+          "enemyHp": 960.2,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 120.03,
+          "food": 417.77,
+          "population": 12,
+          "hp": 3000,
+          "enemyHp": 36.2,
+          "economy": 3,
+          "tech": 3
+        }
+      ]
+    },
+    {
+      "level": "sunroom",
+      "policy": "ranged",
+      "variant": 0,
+      "economyCap": 3,
+      "winner": "player",
+      "seconds": 126.53,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "food": 27.27,
+      "peakFood": 341,
+      "meanFood": 84.51,
+      "populationCapSeconds": 0,
+      "firstBaseHit": null,
+      "tech": 3,
+      "economy": 4,
+      "bought": {
+        "mouse": 0,
+        "soldier": 10,
+        "shield": 4,
+        "slinger": 5,
+        "mage": 1,
+        "catapult": 1,
+        "healer": 1,
+        "knight": 0
+      },
+      "upgrades": [
+        {
+          "type": "economy",
+          "level": 2,
+          "time": 0
+        },
+        {
+          "type": "tech",
+          "level": 2,
+          "time": 21.5
+        },
+        {
+          "type": "economy",
+          "level": 3,
+          "time": 44
+        },
+        {
+          "type": "tech",
+          "level": 3,
+          "time": 70
+        },
+        {
+          "type": "economy",
+          "level": 4,
+          "time": 98
+        }
+      ],
+      "samples": [
+        {
+          "time": 0.03,
+          "food": 70.6,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 10.03,
+          "food": 0.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 20.03,
+          "food": 130.6,
+          "population": 7,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 30.03,
+          "food": 60.6,
+          "population": 9,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 40.03,
+          "food": 150.6,
+          "population": 9,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 50.03,
+          "food": 38.7,
+          "population": 11,
+          "hp": 3000,
+          "enemyHp": 2832,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 60.03,
+          "food": 78.7,
+          "population": 14,
+          "hp": 3000,
+          "enemyHp": 2776,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 70.03,
+          "food": 8.7,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 2641.6,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 80.03,
+          "food": 48.7,
+          "population": 12,
+          "hp": 3000,
+          "enemyHp": 2641.6,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 90.03,
+          "food": 173.7,
+          "population": 14,
+          "hp": 3000,
+          "enemyHp": 2641.6,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 100.03,
+          "food": 47.77,
+          "population": 12,
+          "hp": 3000,
+          "enemyHp": 2473.6,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 110.03,
+          "food": 77.77,
+          "population": 16,
+          "hp": 3000,
+          "enemyHp": 1368.6,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 120.03,
+          "food": 17.77,
+          "population": 21,
+          "hp": 3000,
+          "enemyHp": 615,
+          "economy": 3,
+          "tech": 3
+        }
+      ]
+    },
+    {
+      "level": "sunroom",
+      "policy": "siege",
+      "variant": 0,
+      "economyCap": 3,
+      "winner": "player",
+      "seconds": 136.13,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "food": 162.07,
+      "peakFood": 346.5,
+      "meanFood": 87.69,
+      "populationCapSeconds": 8.93,
+      "firstBaseHit": null,
+      "tech": 3,
+      "economy": 4,
+      "bought": {
+        "mouse": 0,
+        "soldier": 14,
+        "shield": 2,
+        "slinger": 2,
+        "mage": 1,
+        "catapult": 3,
+        "healer": 1,
+        "knight": 0
+      },
+      "upgrades": [
+        {
+          "type": "economy",
+          "level": 2,
+          "time": 0
+        },
+        {
+          "type": "tech",
+          "level": 2,
+          "time": 21.5
+        },
+        {
+          "type": "economy",
+          "level": 3,
+          "time": 44
+        },
+        {
+          "type": "tech",
+          "level": 3,
+          "time": 71
+        },
+        {
+          "type": "economy",
+          "level": 4,
+          "time": 98.5
+        }
+      ],
+      "samples": [
+        {
+          "time": 0.03,
+          "food": 70.6,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 10.03,
+          "food": 0.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 20.03,
+          "food": 130.6,
+          "population": 7,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 30.03,
+          "food": 60.6,
+          "population": 9,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 40.03,
+          "food": 150.6,
+          "population": 9,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 50.03,
+          "food": 38.7,
+          "population": 11,
+          "hp": 3000,
+          "enemyHp": 2832,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 60.03,
+          "food": 53.7,
+          "population": 13,
+          "hp": 3000,
+          "enemyHp": 2776,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 70.03,
+          "food": 263.7,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 2742.4,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 80.03,
+          "food": 8.7,
+          "population": 13,
+          "hp": 3000,
+          "enemyHp": 2742.4,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 90.03,
+          "food": 168.7,
+          "population": 13,
+          "hp": 3000,
+          "enemyHp": 2742.4,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 100.03,
+          "food": 41.77,
+          "population": 13,
+          "hp": 3000,
+          "enemyHp": 2742.4,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 110.03,
+          "food": 111.77,
+          "population": 16,
+          "hp": 3000,
+          "enemyHp": 1952.6,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 120.03,
+          "food": 21.77,
+          "population": 21,
+          "hp": 3000,
+          "enemyHp": 1407.8,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 130.03,
+          "food": 71.77,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 501.8,
+          "economy": 3,
+          "tech": 3
+        }
+      ]
+    },
+    {
+      "level": "sunroom",
+      "policy": "knights",
+      "variant": 0,
+      "economyCap": 3,
+      "winner": "player",
+      "seconds": 121.43,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "food": 22.97,
+      "peakFood": 501.5,
+      "meanFood": 117.93,
+      "populationCapSeconds": 0,
+      "firstBaseHit": null,
+      "tech": 3,
+      "economy": 4,
+      "bought": {
+        "mouse": 0,
+        "soldier": 14,
+        "shield": 1,
+        "slinger": 2,
+        "mage": 1,
+        "catapult": 0,
+        "healer": 0,
+        "knight": 1
+      },
+      "upgrades": [
+        {
+          "type": "economy",
+          "level": 2,
+          "time": 0
+        },
+        {
+          "type": "tech",
+          "level": 2,
+          "time": 21.5
+        },
+        {
+          "type": "economy",
+          "level": 3,
+          "time": 44
+        },
+        {
+          "type": "tech",
+          "level": 3,
+          "time": 73
+        },
+        {
+          "type": "economy",
+          "level": 4,
+          "time": 99
+        }
+      ],
+      "samples": [
+        {
+          "time": 0.03,
+          "food": 70.6,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 10.03,
+          "food": 0.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 20.03,
+          "food": 130.6,
+          "population": 7,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 30.03,
+          "food": 60.6,
+          "population": 9,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 40.03,
+          "food": 150.6,
+          "population": 9,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 50.03,
+          "food": 18.7,
+          "population": 11,
+          "hp": 3000,
+          "enemyHp": 2832,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 60.03,
+          "food": 8.7,
+          "population": 14,
+          "hp": 3000,
+          "enemyHp": 2776,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 70.03,
+          "food": 218.7,
+          "population": 12,
+          "hp": 3000,
+          "enemyHp": 2742.4,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 80.03,
+          "food": 48.7,
+          "population": 11,
+          "hp": 3000,
+          "enemyHp": 2742.4,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 90.03,
+          "food": 158.7,
+          "population": 13,
+          "hp": 3000,
+          "enemyHp": 2324.4,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 100.03,
+          "food": 30.77,
+          "population": 12,
+          "hp": 3000,
+          "enemyHp": 1945.4,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 110.03,
+          "food": 260.77,
+          "population": 12,
+          "hp": 3000,
+          "enemyHp": 985.8,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 120.03,
+          "food": 490.77,
+          "population": 12,
+          "hp": 3000,
+          "enemyHp": 306.6,
+          "economy": 3,
+          "tech": 3
+        }
+      ]
+    },
+    {
+      "level": "sunroom",
+      "policy": "control",
+      "variant": 0,
+      "economyCap": 3,
+      "winner": "player",
+      "seconds": 206.2,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "food": 962.6,
+      "peakFood": 962.6,
+      "meanFood": 172.19,
+      "populationCapSeconds": 45.7,
+      "firstBaseHit": null,
+      "tech": 3,
+      "economy": 4,
+      "bought": {
+        "mouse": 0,
+        "soldier": 14,
+        "shield": 6,
+        "slinger": 2,
+        "mage": 8,
+        "catapult": 1,
+        "healer": 1,
+        "knight": 0
+      },
+      "upgrades": [
+        {
+          "type": "economy",
+          "level": 2,
+          "time": 0
+        },
+        {
+          "type": "tech",
+          "level": 2,
+          "time": 21.5
+        },
+        {
+          "type": "economy",
+          "level": 3,
+          "time": 44
+        },
+        {
+          "type": "tech",
+          "level": 3,
+          "time": 72.5
+        },
+        {
+          "type": "economy",
+          "level": 4,
+          "time": 99
+        }
+      ],
+      "samples": [
+        {
+          "time": 0.03,
+          "food": 70.6,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 10.03,
+          "food": 0.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 20.03,
+          "food": 130.6,
+          "population": 7,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 30.03,
+          "food": 60.6,
+          "population": 9,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 40.03,
+          "food": 150.6,
+          "population": 9,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 50.03,
+          "food": 38.7,
+          "population": 11,
+          "hp": 3000,
+          "enemyHp": 2832,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 60.03,
+          "food": 28.7,
+          "population": 13,
+          "hp": 3000,
+          "enemyHp": 2776,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 70.03,
+          "food": 238.7,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 2657.2,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 80.03,
+          "food": 58.7,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 2657.2,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 90.03,
+          "food": 158.7,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 2657.2,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 100.03,
+          "food": 30.77,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 2657.2,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 110.03,
+          "food": 80.77,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 2657.2,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 120.03,
+          "food": 90.77,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 2657.2,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 130.03,
+          "food": 10.77,
+          "population": 12,
+          "hp": 3000,
+          "enemyHp": 2657.2,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 140.03,
+          "food": 25.77,
+          "population": 16,
+          "hp": 3000,
+          "enemyHp": 2657.2,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 150.03,
+          "food": 10.77,
+          "population": 21,
+          "hp": 3000,
+          "enemyHp": 2657.2,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 160.03,
+          "food": 0.77,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 2657.2,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 170.03,
+          "food": 230.77,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 2657.2,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 180.03,
+          "food": 410.77,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 2657.2,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 190.03,
+          "food": 640.77,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 1854.7,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 200.03,
+          "food": 820.77,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 781.2,
+          "economy": 3,
+          "tech": 3
+        }
+      ]
+    },
+    {
+      "level": "sunroom",
+      "policy": "two-tier",
+      "variant": 0,
+      "economyCap": 3,
+      "winner": "player",
+      "seconds": 107.57,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "food": 77.03,
+      "peakFood": 343,
+      "meanFood": 74.43,
+      "populationCapSeconds": 0,
+      "firstBaseHit": null,
+      "tech": 2,
+      "economy": 4,
+      "bought": {
+        "mouse": 0,
+        "soldier": 13,
+        "shield": 2,
+        "slinger": 5,
+        "mage": 2,
+        "catapult": 0,
+        "healer": 0,
+        "knight": 0
+      },
+      "upgrades": [
+        {
+          "type": "economy",
+          "level": 2,
+          "time": 0
+        },
+        {
+          "type": "tech",
+          "level": 2,
+          "time": 21.5
+        },
+        {
+          "type": "economy",
+          "level": 3,
+          "time": 44
+        },
+        {
+          "type": "economy",
+          "level": 4,
+          "time": 100
+        }
+      ],
+      "samples": [
+        {
+          "time": 0.03,
+          "food": 70.6,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 10.03,
+          "food": 0.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 20.03,
+          "food": 130.6,
+          "population": 7,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 30.03,
+          "food": 60.6,
+          "population": 9,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 40.03,
+          "food": 150.6,
+          "population": 9,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 50.03,
+          "food": 38.7,
+          "population": 11,
+          "hp": 3000,
+          "enemyHp": 2832,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 60.03,
+          "food": 78.7,
+          "population": 14,
+          "hp": 3000,
+          "enemyHp": 2776,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 70.03,
+          "food": 33.7,
+          "population": 17,
+          "hp": 3000,
+          "enemyHp": 2675.2,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 80.03,
+          "food": 23.7,
+          "population": 18,
+          "hp": 3000,
+          "enemyHp": 2675.2,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 90.03,
+          "food": 133.7,
+          "population": 20,
+          "hp": 3000,
+          "enemyHp": 2339.2,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 100.03,
+          "food": 3.77,
+          "population": 20,
+          "hp": 3000,
+          "enemyHp": 1149.2,
+          "economy": 3,
+          "tech": 2
+        }
+      ]
+    },
+    {
+      "level": "sunroom",
+      "policy": "soldiers",
+      "variant": 0,
+      "economyCap": 3,
+      "winner": "player",
+      "seconds": 179.9,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "food": 398.8,
+      "peakFood": 398.8,
+      "meanFood": 80.16,
+      "populationCapSeconds": 47.27,
+      "firstBaseHit": null,
+      "tech": 1,
+      "economy": 1,
+      "bought": {
+        "mouse": 0,
+        "soldier": 40,
+        "shield": 0,
+        "slinger": 0,
+        "mage": 0,
+        "catapult": 0,
+        "healer": 0,
+        "knight": 0
+      },
+      "upgrades": [],
+      "samples": [
+        {
+          "time": 0.03,
+          "food": 190.4,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 10.03,
+          "food": 10.4,
+          "population": 7,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 20.03,
+          "food": 30.4,
+          "population": 9,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 30.03,
+          "food": 0.4,
+          "population": 11,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 40.03,
+          "food": 20.4,
+          "population": 13,
+          "hp": 3000,
+          "enemyHp": 2860,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 50.03,
+          "food": 40.4,
+          "population": 13,
+          "hp": 3000,
+          "enemyHp": 2496,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 60.03,
+          "food": 10.4,
+          "population": 15,
+          "hp": 3000,
+          "enemyHp": 2412,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 70.03,
+          "food": 30.4,
+          "population": 16,
+          "hp": 3000,
+          "enemyHp": 2277.6,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 80.03,
+          "food": 0.4,
+          "population": 19,
+          "hp": 3000,
+          "enemyHp": 2165.6,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 90.03,
+          "food": 20.4,
+          "population": 20,
+          "hp": 3000,
+          "enemyHp": 2081.6,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 100.03,
+          "food": 40.4,
+          "population": 19,
+          "hp": 3000,
+          "enemyHp": 2081.6,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 110.03,
+          "food": 10.4,
+          "population": 21,
+          "hp": 3000,
+          "enemyHp": 1980.8,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 120.03,
+          "food": 30.4,
+          "population": 22,
+          "hp": 3000,
+          "enemyHp": 1644.8,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 130.03,
+          "food": 0.4,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 1448.8,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 140.03,
+          "food": 70.4,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 1196.8,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 150.03,
+          "food": 140.4,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 888.8,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 160.03,
+          "food": 260.4,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 424,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 170.03,
+          "food": 280.4,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 250.4,
+          "economy": 0,
+          "tech": 1
+        }
+      ]
+    },
+    {
+      "level": "sunroom",
+      "policy": "mice",
+      "variant": 0,
+      "economyCap": 3,
+      "winner": "enemy",
+      "seconds": 191.8,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "food": 16.6,
+      "peakFood": 240,
+      "meanFood": 24.24,
+      "populationCapSeconds": 0,
+      "firstBaseHit": 121.67,
+      "tech": 1,
+      "economy": 1,
+      "bought": {
+        "mouse": 101,
+        "soldier": 0,
+        "shield": 0,
+        "slinger": 0,
+        "mage": 0,
+        "catapult": 0,
+        "healer": 0,
+        "knight": 0
+      },
+      "upgrades": [],
+      "samples": [
+        {
+          "time": 0.03,
+          "food": 215.4,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 10.03,
+          "food": 85.4,
+          "population": 11,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 20.03,
+          "food": 5.4,
+          "population": 16,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 30.03,
+          "food": 0.4,
+          "population": 16,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 40.03,
+          "food": 20.4,
+          "population": 18,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 50.03,
+          "food": 15.4,
+          "population": 19,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 60.03,
+          "food": 10.4,
+          "population": 20,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 70.03,
+          "food": 5.4,
+          "population": 16,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 80.03,
+          "food": 0.4,
+          "population": 11,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 90.03,
+          "food": 20.4,
+          "population": 5,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 100.03,
+          "food": 15.4,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 110.03,
+          "food": 10.4,
+          "population": 2,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 120.03,
+          "food": 5.4,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 130.03,
+          "food": 0.4,
+          "population": 1,
+          "hp": 2792,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 140.03,
+          "food": 20.4,
+          "population": 0,
+          "hp": 2488,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 150.03,
+          "food": 15.4,
+          "population": 0,
+          "hp": 2180,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 160.03,
+          "food": 10.4,
+          "population": 1,
+          "hp": 1816,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 170.03,
+          "food": 5.4,
+          "population": 1,
+          "hp": 1323.2,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 180.03,
+          "food": 0.4,
+          "population": 1,
+          "hp": 801.2,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 190.03,
+          "food": 20.4,
+          "population": 0,
+          "hp": 141.2,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        }
+      ]
+    },
+    {
+      "level": "cardboard",
+      "policy": "balanced",
+      "variant": 0,
+      "economyCap": 3,
+      "winner": "enemy",
+      "seconds": 317.87,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "food": 56.93,
+      "peakFood": 508,
+      "meanFood": 139.15,
+      "populationCapSeconds": 0,
+      "firstBaseHit": 291.5,
+      "tech": 3,
+      "economy": 4,
+      "bought": {
+        "mouse": 0,
+        "soldier": 24,
+        "shield": 14,
+        "slinger": 10,
+        "mage": 12,
+        "catapult": 1,
+        "healer": 2,
+        "knight": 2
+      },
+      "upgrades": [
+        {
+          "type": "economy",
+          "level": 2,
+          "time": 0
+        },
+        {
+          "type": "tech",
+          "level": 2,
+          "time": 21.5
+        },
+        {
+          "type": "economy",
+          "level": 3,
+          "time": 44
+        },
+        {
+          "type": "tech",
+          "level": 3,
+          "time": 71
+        },
+        {
+          "type": "economy",
+          "level": 4,
+          "time": 101
+        }
+      ],
+      "samples": [
+        {
+          "time": 0.03,
+          "food": 70.6,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 10.03,
+          "food": 0.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 20.03,
+          "food": 130.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 30.03,
+          "food": 60.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 40.03,
+          "food": 150.6,
+          "population": 7,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 50.03,
+          "food": 18.7,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 60.03,
+          "food": 58.7,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 70.03,
+          "food": 268.7,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 80.03,
+          "food": 108.7,
+          "population": 2,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 90.03,
+          "food": 208.7,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 100.03,
+          "food": 328.7,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 110.03,
+          "food": 106.77,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 120.03,
+          "food": 246.77,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 130.03,
+          "food": 276.77,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 140.03,
+          "food": 416.77,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 150.03,
+          "food": 61.77,
+          "population": 12,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 160.03,
+          "food": 31.77,
+          "population": 16,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 170.03,
+          "food": 131.77,
+          "population": 18,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 180.03,
+          "food": 91.77,
+          "population": 21,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 190.03,
+          "food": 236.77,
+          "population": 15,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 200.03,
+          "food": 376.77,
+          "population": 11,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 210.03,
+          "food": 496.77,
+          "population": 7,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 220.03,
+          "food": 56.77,
+          "population": 14,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 230.03,
+          "food": 111.77,
+          "population": 16,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 240.03,
+          "food": 16.77,
+          "population": 16,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 250.03,
+          "food": 156.77,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 260.03,
+          "food": 276.77,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 270.03,
+          "food": 306.77,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 280.03,
+          "food": 136.77,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 290.03,
+          "food": 16.77,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 300.03,
+          "food": 46.77,
+          "population": 0,
+          "hp": 2010.5,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 310.03,
+          "food": 26.77,
+          "population": 1,
+          "hp": 908.5,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        }
+      ]
+    },
+    {
+      "level": "cardboard",
+      "policy": "ranged",
+      "variant": 0,
+      "economyCap": 3,
+      "winner": "enemy",
+      "seconds": 308.43,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "food": 44.97,
+      "peakFood": 341.5,
+      "meanFood": 62.64,
+      "populationCapSeconds": 0,
+      "firstBaseHit": 288.7,
+      "tech": 3,
+      "economy": 4,
+      "bought": {
+        "mouse": 0,
+        "soldier": 22,
+        "shield": 20,
+        "slinger": 30,
+        "mage": 1,
+        "catapult": 1,
+        "healer": 1,
+        "knight": 0
+      },
+      "upgrades": [
+        {
+          "type": "economy",
+          "level": 2,
+          "time": 0
+        },
+        {
+          "type": "tech",
+          "level": 2,
+          "time": 21.5
+        },
+        {
+          "type": "economy",
+          "level": 3,
+          "time": 44
+        },
+        {
+          "type": "tech",
+          "level": 3,
+          "time": 70
+        },
+        {
+          "type": "economy",
+          "level": 4,
+          "time": 98.5
+        }
+      ],
+      "samples": [
+        {
+          "time": 0.03,
+          "food": 70.6,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 10.03,
+          "food": 0.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 20.03,
+          "food": 130.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 30.03,
+          "food": 60.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 40.03,
+          "food": 150.6,
+          "population": 7,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 50.03,
+          "food": 38.7,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 60.03,
+          "food": 78.7,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 70.03,
+          "food": 8.7,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 80.03,
+          "food": 38.7,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 90.03,
+          "food": 163.7,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 100.03,
+          "food": 36.77,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 110.03,
+          "food": 6.77,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 120.03,
+          "food": 61.77,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 130.03,
+          "food": 36.77,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 140.03,
+          "food": 1.77,
+          "population": 12,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 150.03,
+          "food": 61.77,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 160.03,
+          "food": 31.77,
+          "population": 14,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 170.03,
+          "food": 21.77,
+          "population": 18,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 180.03,
+          "food": 76.77,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 190.03,
+          "food": 51.77,
+          "population": 16,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 200.03,
+          "food": 106.77,
+          "population": 18,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 210.03,
+          "food": 1.77,
+          "population": 15,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 220.03,
+          "food": 61.77,
+          "population": 13,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 230.03,
+          "food": 31.77,
+          "population": 15,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 240.03,
+          "food": 1.77,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 250.03,
+          "food": 56.77,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 260.03,
+          "food": 21.77,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 270.03,
+          "food": 76.77,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 280.03,
+          "food": 41.77,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 290.03,
+          "food": 21.77,
+          "population": 1,
+          "hp": 2590.2,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 300.03,
+          "food": 1.77,
+          "population": 1,
+          "hp": 1079.2,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        }
+      ]
+    },
+    {
+      "level": "cardboard",
+      "policy": "siege",
+      "variant": 0,
+      "economyCap": 3,
+      "winner": "player",
+      "seconds": 232.93,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "food": 320.47,
+      "peakFood": 343,
+      "meanFood": 84.07,
+      "populationCapSeconds": 21.77,
+      "firstBaseHit": null,
+      "tech": 3,
+      "economy": 4,
+      "bought": {
+        "mouse": 0,
+        "soldier": 15,
+        "shield": 15,
+        "slinger": 5,
+        "mage": 4,
+        "catapult": 3,
+        "healer": 3,
+        "knight": 0
+      },
+      "upgrades": [
+        {
+          "type": "economy",
+          "level": 2,
+          "time": 0
+        },
+        {
+          "type": "tech",
+          "level": 2,
+          "time": 21.5
+        },
+        {
+          "type": "economy",
+          "level": 3,
+          "time": 44
+        },
+        {
+          "type": "tech",
+          "level": 3,
+          "time": 71
+        },
+        {
+          "type": "economy",
+          "level": 4,
+          "time": 100
+        }
+      ],
+      "samples": [
+        {
+          "time": 0.03,
+          "food": 70.6,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 10.03,
+          "food": 0.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 20.03,
+          "food": 130.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 30.03,
+          "food": 60.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 40.03,
+          "food": 150.6,
+          "population": 7,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 50.03,
+          "food": 38.7,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 60.03,
+          "food": 53.7,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 70.03,
+          "food": 263.7,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 80.03,
+          "food": 13.7,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 90.03,
+          "food": 223.7,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 100.03,
+          "food": 3.77,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 110.03,
+          "food": 53.77,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 120.03,
+          "food": 33.77,
+          "population": 7,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 130.03,
+          "food": 13.77,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 140.03,
+          "food": 153.77,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 150.03,
+          "food": 3.77,
+          "population": 15,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 160.03,
+          "food": 38.77,
+          "population": 19,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 170.03,
+          "food": 93.77,
+          "population": 19,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 180.03,
+          "food": 3.77,
+          "population": 23,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 190.03,
+          "food": 38.77,
+          "population": 21,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 200.03,
+          "food": 43.77,
+          "population": 20,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 210.03,
+          "food": 43.77,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 220.03,
+          "food": 73.77,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 2597,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 230.03,
+          "food": 253.77,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 699.4,
+          "economy": 3,
+          "tech": 3
+        }
+      ]
+    },
+    {
+      "level": "cardboard",
+      "policy": "knights",
+      "variant": 0,
+      "economyCap": 3,
+      "winner": "enemy",
+      "seconds": 270.2,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "food": 14.6,
+      "peakFood": 508,
+      "meanFood": 156.4,
+      "populationCapSeconds": 0,
+      "firstBaseHit": 252.17,
+      "tech": 3,
+      "economy": 4,
+      "bought": {
+        "mouse": 0,
+        "soldier": 28,
+        "shield": 12,
+        "slinger": 2,
+        "mage": 2,
+        "catapult": 0,
+        "healer": 1,
+        "knight": 4
+      },
+      "upgrades": [
+        {
+          "type": "economy",
+          "level": 2,
+          "time": 0
+        },
+        {
+          "type": "tech",
+          "level": 2,
+          "time": 21.5
+        },
+        {
+          "type": "economy",
+          "level": 3,
+          "time": 44
+        },
+        {
+          "type": "tech",
+          "level": 3,
+          "time": 73
+        },
+        {
+          "type": "economy",
+          "level": 4,
+          "time": 99
+        }
+      ],
+      "samples": [
+        {
+          "time": 0.03,
+          "food": 70.6,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 10.03,
+          "food": 0.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 20.03,
+          "food": 130.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 30.03,
+          "food": 60.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 40.03,
+          "food": 150.6,
+          "population": 7,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 50.03,
+          "food": 18.7,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 60.03,
+          "food": 8.7,
+          "population": 9,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 70.03,
+          "food": 218.7,
+          "population": 7,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 80.03,
+          "food": 58.7,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 90.03,
+          "food": 158.7,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 100.03,
+          "food": 30.77,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 110.03,
+          "food": 120.77,
+          "population": 3,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 120.03,
+          "food": 350.77,
+          "population": 2,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 130.03,
+          "food": 440.77,
+          "population": 3,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 140.03,
+          "food": 30.77,
+          "population": 9,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 150.03,
+          "food": 170.77,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 160.03,
+          "food": 400.77,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 170.03,
+          "food": 0.77,
+          "population": 16,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 180.03,
+          "food": 140.77,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 190.03,
+          "food": 370.77,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 200.03,
+          "food": 100.77,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 210.03,
+          "food": 240.77,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 220.03,
+          "food": 380.77,
+          "population": 2,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 230.03,
+          "food": 60.77,
+          "population": 7,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 240.03,
+          "food": 60.77,
+          "population": 3,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 250.03,
+          "food": 0.77,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 260.03,
+          "food": 30.77,
+          "population": 1,
+          "hp": 1561.8,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 270.03,
+          "food": 10.77,
+          "population": 1,
+          "hp": 34.7,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        }
+      ]
+    },
+    {
+      "level": "cardboard",
+      "policy": "control",
+      "variant": 0,
+      "economyCap": 3,
+      "winner": "enemy",
+      "seconds": 188.13,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "food": 37.07,
+      "peakFood": 348,
+      "meanFood": 87.69,
+      "populationCapSeconds": 0,
+      "firstBaseHit": 168.63,
+      "tech": 3,
+      "economy": 4,
+      "bought": {
+        "mouse": 0,
+        "soldier": 28,
+        "shield": 16,
+        "slinger": 0,
+        "mage": 2,
+        "catapult": 0,
+        "healer": 0,
+        "knight": 0
+      },
+      "upgrades": [
+        {
+          "type": "economy",
+          "level": 2,
+          "time": 0
+        },
+        {
+          "type": "tech",
+          "level": 2,
+          "time": 21.5
+        },
+        {
+          "type": "economy",
+          "level": 3,
+          "time": 44
+        },
+        {
+          "type": "tech",
+          "level": 3,
+          "time": 72.5
+        },
+        {
+          "type": "economy",
+          "level": 4,
+          "time": 114
+        }
+      ],
+      "samples": [
+        {
+          "time": 0.03,
+          "food": 70.6,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 10.03,
+          "food": 0.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 20.03,
+          "food": 130.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 30.03,
+          "food": 60.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 40.03,
+          "food": 150.6,
+          "population": 7,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 50.03,
+          "food": 38.7,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 60.03,
+          "food": 28.7,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 70.03,
+          "food": 238.7,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 80.03,
+          "food": 78.7,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 90.03,
+          "food": 198.7,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 100.03,
+          "food": 228.7,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 110.03,
+          "food": 258.7,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 120.03,
+          "food": 0.77,
+          "population": 3,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 130.03,
+          "food": 40.77,
+          "population": 3,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 140.03,
+          "food": 0.77,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 150.03,
+          "food": 0.77,
+          "population": 5,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 160.03,
+          "food": 40.77,
+          "population": 2,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 170.03,
+          "food": 20.77,
+          "population": 1,
+          "hp": 2770,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 180.03,
+          "food": 0.77,
+          "population": 1,
+          "hp": 1471,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        }
+      ]
+    },
+    {
+      "level": "cardboard",
+      "policy": "two-tier",
+      "variant": 0,
+      "economyCap": 3,
+      "winner": "player",
+      "seconds": 128.87,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "food": 114.93,
+      "peakFood": 341.5,
+      "meanFood": 70.23,
+      "populationCapSeconds": 5.63,
+      "firstBaseHit": null,
+      "tech": 2,
+      "economy": 4,
+      "bought": {
+        "mouse": 0,
+        "soldier": 15,
+        "shield": 5,
+        "slinger": 6,
+        "mage": 2,
+        "catapult": 0,
+        "healer": 0,
+        "knight": 0
+      },
+      "upgrades": [
+        {
+          "type": "economy",
+          "level": 2,
+          "time": 0
+        },
+        {
+          "type": "tech",
+          "level": 2,
+          "time": 21.5
+        },
+        {
+          "type": "economy",
+          "level": 3,
+          "time": 44
+        },
+        {
+          "type": "economy",
+          "level": 4,
+          "time": 98.5
+        }
+      ],
+      "samples": [
+        {
+          "time": 0.03,
+          "food": 70.6,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 10.03,
+          "food": 0.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 20.03,
+          "food": 130.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 30.03,
+          "food": 60.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 40.03,
+          "food": 150.6,
+          "population": 7,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 50.03,
+          "food": 38.7,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 60.03,
+          "food": 78.7,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 70.03,
+          "food": 28.7,
+          "population": 12,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 80.03,
+          "food": 43.7,
+          "population": 14,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 90.03,
+          "food": 163.7,
+          "population": 16,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 100.03,
+          "food": 36.77,
+          "population": 14,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 2
+        },
+        {
+          "time": 110.03,
+          "food": 21.77,
+          "population": 19,
+          "hp": 3000,
+          "enemyHp": 2242,
+          "economy": 3,
+          "tech": 2
+        },
+        {
+          "time": 120.03,
+          "food": 1.77,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 1120.6,
+          "economy": 3,
+          "tech": 2
+        }
+      ]
+    },
+    {
+      "level": "cardboard",
+      "policy": "soldiers",
+      "variant": 0,
+      "economyCap": 3,
+      "winner": "player",
+      "seconds": 307.9,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "food": 684.8,
+      "peakFood": 728,
+      "meanFood": 228.39,
+      "populationCapSeconds": 141.53,
+      "firstBaseHit": null,
+      "tech": 1,
+      "economy": 1,
+      "bought": {
+        "mouse": 0,
+        "soldier": 65,
+        "shield": 0,
+        "slinger": 0,
+        "mage": 0,
+        "catapult": 0,
+        "healer": 0,
+        "knight": 0
+      },
+      "upgrades": [],
+      "samples": [
+        {
+          "time": 0.03,
+          "food": 190.4,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 10.03,
+          "food": 10.4,
+          "population": 7,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 20.03,
+          "food": 30.4,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 30.03,
+          "food": 0.4,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 40.03,
+          "food": 20.4,
+          "population": 11,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 50.03,
+          "food": 40.4,
+          "population": 11,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 60.03,
+          "food": 10.4,
+          "population": 11,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 70.03,
+          "food": 30.4,
+          "population": 12,
+          "hp": 3000,
+          "enemyHp": 2832,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 80.03,
+          "food": 0.4,
+          "population": 14,
+          "hp": 3000,
+          "enemyHp": 2692,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 90.03,
+          "food": 20.4,
+          "population": 15,
+          "hp": 3000,
+          "enemyHp": 2636,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 100.03,
+          "food": 40.4,
+          "population": 15,
+          "hp": 3000,
+          "enemyHp": 2636,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 110.03,
+          "food": 10.4,
+          "population": 16,
+          "hp": 3000,
+          "enemyHp": 2636,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 120.03,
+          "food": 30.4,
+          "population": 18,
+          "hp": 3000,
+          "enemyHp": 2300,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 130.03,
+          "food": 0.4,
+          "population": 20,
+          "hp": 3000,
+          "enemyHp": 2300,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 140.03,
+          "food": 20.4,
+          "population": 20,
+          "hp": 3000,
+          "enemyHp": 2300,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 150.03,
+          "food": 40.4,
+          "population": 21,
+          "hp": 3000,
+          "enemyHp": 2300,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 160.03,
+          "food": 10.4,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 1863.2,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 170.03,
+          "food": 80.4,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 1762.4,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 180.03,
+          "food": 150.4,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 1734.4,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 190.03,
+          "food": 220.4,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 1650.4,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 200.03,
+          "food": 290.4,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 1482.4,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 210.03,
+          "food": 410.4,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 1040,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 220.03,
+          "food": 430.4,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 900,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 230.03,
+          "food": 450.4,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 900,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 240.03,
+          "food": 470.4,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 900,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 250.03,
+          "food": 590.4,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 597.6,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 260.03,
+          "food": 610.4,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 457.6,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 270.03,
+          "food": 680.4,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 401.6,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 280.03,
+          "food": 550.4,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 401.6,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 290.03,
+          "food": 620.4,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 334.4,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 300.03,
+          "food": 690.4,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 104.8,
+          "economy": 0,
+          "tech": 1
+        }
+      ]
+    },
+    {
+      "level": "cardboard",
+      "policy": "mice",
+      "variant": 0,
+      "economyCap": 3,
+      "winner": "enemy",
+      "seconds": 100.8,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "food": 24.6,
+      "peakFood": 240,
+      "meanFood": 32.48,
+      "populationCapSeconds": 0,
+      "firstBaseHit": 69.23,
+      "tech": 1,
+      "economy": 1,
+      "bought": {
+        "mouse": 57,
+        "soldier": 0,
+        "shield": 0,
+        "slinger": 0,
+        "mage": 0,
+        "catapult": 0,
+        "healer": 0,
+        "knight": 0
+      },
+      "upgrades": [],
+      "samples": [
+        {
+          "time": 0.03,
+          "food": 215.4,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 10.03,
+          "food": 85.4,
+          "population": 11,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 20.03,
+          "food": 5.4,
+          "population": 13,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 30.03,
+          "food": 0.4,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 40.03,
+          "food": 20.4,
+          "population": 5,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 50.03,
+          "food": 15.4,
+          "population": 3,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 60.03,
+          "food": 10.4,
+          "population": 2,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 70.03,
+          "food": 5.4,
+          "population": 1,
+          "hp": 2870,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 80.03,
+          "food": 0.4,
+          "population": 1,
+          "hp": 2090,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 90.03,
+          "food": 20.4,
+          "population": 0,
+          "hp": 1157.2,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 100.03,
+          "food": 15.4,
+          "population": 0,
+          "hp": 165.2,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        }
+      ]
+    },
+    {
+      "level": "pantry",
+      "policy": "balanced",
+      "variant": 0,
+      "economyCap": 3,
+      "winner": "enemy",
+      "seconds": 208.17,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "food": 40.33,
+      "peakFood": 510,
+      "meanFood": 108.97,
+      "populationCapSeconds": 0,
+      "firstBaseHit": 193.23,
+      "tech": 3,
+      "economy": 4,
+      "bought": {
+        "mouse": 0,
+        "soldier": 20,
+        "shield": 12,
+        "slinger": 2,
+        "mage": 7,
+        "catapult": 0,
+        "healer": 0,
+        "knight": 1
+      },
+      "upgrades": [
+        {
+          "type": "economy",
+          "level": 2,
+          "time": 0
+        },
+        {
+          "type": "tech",
+          "level": 2,
+          "time": 21.5
+        },
+        {
+          "type": "economy",
+          "level": 3,
+          "time": 50.5
+        },
+        {
+          "type": "tech",
+          "level": 3,
+          "time": 72
+        },
+        {
+          "type": "economy",
+          "level": 4,
+          "time": 103
+        }
+      ],
+      "samples": [
+        {
+          "time": 0.03,
+          "food": 70.6,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 10.03,
+          "food": 0.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 20.03,
+          "food": 130.6,
+          "population": 5,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 30.03,
+          "food": 60.6,
+          "population": 3,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 40.03,
+          "food": 150.6,
+          "population": 3,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 50.03,
+          "food": 220.6,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 60.03,
+          "food": 34.2,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 70.03,
+          "food": 244.2,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 80.03,
+          "food": 64.2,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 90.03,
+          "food": 184.2,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 100.03,
+          "food": 284.2,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 110.03,
+          "food": 78.27,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 120.03,
+          "food": 198.27,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 130.03,
+          "food": 338.27,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 140.03,
+          "food": 68.27,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 150.03,
+          "food": 48.27,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 160.03,
+          "food": 103.27,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 170.03,
+          "food": 133.27,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 180.03,
+          "food": 73.27,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 190.03,
+          "food": 23.27,
+          "population": 3,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 200.03,
+          "food": 3.27,
+          "population": 1,
+          "hp": 1528.3,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        }
+      ]
+    },
+    {
+      "level": "pantry",
+      "policy": "ranged",
+      "variant": 0,
+      "economyCap": 3,
+      "winner": "enemy",
+      "seconds": 189.6,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "food": 44.8,
+      "peakFood": 350,
+      "meanFood": 87.83,
+      "populationCapSeconds": 0,
+      "firstBaseHit": 168.13,
+      "tech": 3,
+      "economy": 4,
+      "bought": {
+        "mouse": 0,
+        "soldier": 24,
+        "shield": 16,
+        "slinger": 5,
+        "mage": 0,
+        "catapult": 0,
+        "healer": 0,
+        "knight": 0
+      },
+      "upgrades": [
+        {
+          "type": "economy",
+          "level": 2,
+          "time": 0
+        },
+        {
+          "type": "tech",
+          "level": 2,
+          "time": 21.5
+        },
+        {
+          "type": "economy",
+          "level": 3,
+          "time": 49
+        },
+        {
+          "type": "tech",
+          "level": 3,
+          "time": 75
+        },
+        {
+          "type": "economy",
+          "level": 4,
+          "time": 117
+        }
+      ],
+      "samples": [
+        {
+          "time": 0.03,
+          "food": 70.6,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 10.03,
+          "food": 0.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 20.03,
+          "food": 130.6,
+          "population": 5,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 30.03,
+          "food": 60.6,
+          "population": 3,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 40.03,
+          "food": 150.6,
+          "population": 3,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 50.03,
+          "food": 23.7,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 60.03,
+          "food": 58.7,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 70.03,
+          "food": 178.7,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 80.03,
+          "food": 18.7,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 90.03,
+          "food": 143.7,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 100.03,
+          "food": 173.7,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 110.03,
+          "food": 293.7,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 120.03,
+          "food": 79.77,
+          "population": 2,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 130.03,
+          "food": 44.77,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 140.03,
+          "food": 9.77,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 150.03,
+          "food": 59.77,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 160.03,
+          "food": 14.77,
+          "population": 2,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 170.03,
+          "food": 44.77,
+          "population": 1,
+          "hp": 2655.5,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 180.03,
+          "food": 24.77,
+          "population": 0,
+          "hp": 1577,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        }
+      ]
+    },
+    {
+      "level": "pantry",
+      "policy": "siege",
+      "variant": 0,
+      "economyCap": 3,
+      "winner": "player",
+      "seconds": 213.47,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "food": 775.73,
+      "peakFood": 775.73,
+      "meanFood": 144.02,
+      "populationCapSeconds": 43.63,
+      "firstBaseHit": null,
+      "tech": 3,
+      "economy": 4,
+      "bought": {
+        "mouse": 0,
+        "soldier": 15,
+        "shield": 12,
+        "slinger": 3,
+        "mage": 2,
+        "catapult": 3,
+        "healer": 1,
+        "knight": 0
+      },
+      "upgrades": [
+        {
+          "type": "economy",
+          "level": 2,
+          "time": 0
+        },
+        {
+          "type": "tech",
+          "level": 2,
+          "time": 21.5
+        },
+        {
+          "type": "economy",
+          "level": 3,
+          "time": 49
+        },
+        {
+          "type": "tech",
+          "level": 3,
+          "time": 76.5
+        },
+        {
+          "type": "economy",
+          "level": 4,
+          "time": 101
+        }
+      ],
+      "samples": [
+        {
+          "time": 0.03,
+          "food": 70.6,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 10.03,
+          "food": 0.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 20.03,
+          "food": 130.6,
+          "population": 5,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 30.03,
+          "food": 60.6,
+          "population": 3,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 40.03,
+          "food": 150.6,
+          "population": 3,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 50.03,
+          "food": 23.7,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 60.03,
+          "food": 33.7,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 70.03,
+          "food": 153.7,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 80.03,
+          "food": 83.7,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 90.03,
+          "food": 118.7,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 100.03,
+          "food": 328.7,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 110.03,
+          "food": 36.77,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 120.03,
+          "food": 106.77,
+          "population": 7,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 130.03,
+          "food": 86.77,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 140.03,
+          "food": 66.77,
+          "population": 13,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 150.03,
+          "food": 76.77,
+          "population": 15,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 160.03,
+          "food": 21.77,
+          "population": 19,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 170.03,
+          "food": 16.77,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 180.03,
+          "food": 156.77,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 190.03,
+          "food": 336.77,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 200.03,
+          "food": 516.77,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 1749.2,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 210.03,
+          "food": 696.77,
+          "population": 24,
+          "hp": 3000,
+          "enemyHp": 464.2,
+          "economy": 3,
+          "tech": 3
+        }
+      ]
+    },
+    {
+      "level": "pantry",
+      "policy": "knights",
+      "variant": 0,
+      "economyCap": 3,
+      "winner": "enemy",
+      "seconds": 232.23,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "food": 52.87,
+      "peakFood": 509,
+      "meanFood": 149.62,
+      "populationCapSeconds": 0,
+      "firstBaseHit": 212.07,
+      "tech": 3,
+      "economy": 4,
+      "bought": {
+        "mouse": 0,
+        "soldier": 29,
+        "shield": 14,
+        "slinger": 1,
+        "mage": 2,
+        "catapult": 0,
+        "healer": 0,
+        "knight": 2
+      },
+      "upgrades": [
+        {
+          "type": "economy",
+          "level": 2,
+          "time": 0
+        },
+        {
+          "type": "tech",
+          "level": 2,
+          "time": 21.5
+        },
+        {
+          "type": "economy",
+          "level": 3,
+          "time": 50.5
+        },
+        {
+          "type": "tech",
+          "level": 3,
+          "time": 72
+        },
+        {
+          "type": "economy",
+          "level": 4,
+          "time": 126
+        }
+      ],
+      "samples": [
+        {
+          "time": 0.03,
+          "food": 70.6,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 10.03,
+          "food": 0.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 20.03,
+          "food": 130.6,
+          "population": 5,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 30.03,
+          "food": 60.6,
+          "population": 3,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 40.03,
+          "food": 150.6,
+          "population": 3,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 50.03,
+          "food": 220.6,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 60.03,
+          "food": 34.2,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 70.03,
+          "food": 244.2,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 80.03,
+          "food": 64.2,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 90.03,
+          "food": 184.2,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 100.03,
+          "food": 394.2,
+          "population": 2,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 110.03,
+          "food": 14.2,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 120.03,
+          "food": 224.2,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 130.03,
+          "food": 102.27,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 140.03,
+          "food": 242.27,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 150.03,
+          "food": 472.27,
+          "population": 2,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 160.03,
+          "food": 112.27,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 170.03,
+          "food": 252.27,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 180.03,
+          "food": 342.27,
+          "population": 3,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 190.03,
+          "food": 292.27,
+          "population": 3,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 200.03,
+          "food": 102.27,
+          "population": 3,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 210.03,
+          "food": 42.27,
+          "population": 0,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 220.03,
+          "food": 22.27,
+          "population": 1,
+          "hp": 1723,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 230.03,
+          "food": 2.27,
+          "population": 1,
+          "hp": 320.5,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        }
+      ]
+    },
+    {
+      "level": "pantry",
+      "policy": "control",
+      "variant": 0,
+      "economyCap": 3,
+      "winner": "enemy",
+      "seconds": 223.07,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "food": 12.53,
+      "peakFood": 350,
+      "meanFood": 82.27,
+      "populationCapSeconds": 0,
+      "firstBaseHit": 199.87,
+      "tech": 3,
+      "economy": 4,
+      "bought": {
+        "mouse": 0,
+        "soldier": 25,
+        "shield": 22,
+        "slinger": 0,
+        "mage": 6,
+        "catapult": 0,
+        "healer": 0,
+        "knight": 0
+      },
+      "upgrades": [
+        {
+          "type": "economy",
+          "level": 2,
+          "time": 0
+        },
+        {
+          "type": "tech",
+          "level": 2,
+          "time": 21.5
+        },
+        {
+          "type": "economy",
+          "level": 3,
+          "time": 49
+        },
+        {
+          "type": "tech",
+          "level": 3,
+          "time": 76.5
+        },
+        {
+          "type": "economy",
+          "level": 4,
+          "time": 105.5
+        }
+      ],
+      "samples": [
+        {
+          "time": 0.03,
+          "food": 70.6,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 10.03,
+          "food": 0.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 20.03,
+          "food": 130.6,
+          "population": 5,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 30.03,
+          "food": 60.6,
+          "population": 3,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 40.03,
+          "food": 150.6,
+          "population": 3,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 50.03,
+          "food": 23.7,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 60.03,
+          "food": 33.7,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 70.03,
+          "food": 153.7,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 80.03,
+          "food": 83.7,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 90.03,
+          "food": 203.7,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 100.03,
+          "food": 233.7,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 3
+        },
+        {
+          "time": 110.03,
+          "food": 22.77,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 120.03,
+          "food": 52.77,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 130.03,
+          "food": 82.77,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 140.03,
+          "food": 22.77,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 150.03,
+          "food": 72.77,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 160.03,
+          "food": 32.77,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 170.03,
+          "food": 62.77,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 180.03,
+          "food": 2.77,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 190.03,
+          "food": 2.77,
+          "population": 3,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 200.03,
+          "food": 32.77,
+          "population": 0,
+          "hp": 2948.4,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 210.03,
+          "food": 12.77,
+          "population": 1,
+          "hp": 1978.8,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        },
+        {
+          "time": 220.03,
+          "food": 42.77,
+          "population": 0,
+          "hp": 582.3,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 3
+        }
+      ]
+    },
+    {
+      "level": "pantry",
+      "policy": "two-tier",
+      "variant": 0,
+      "economyCap": 3,
+      "winner": "enemy",
+      "seconds": 247.83,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "food": 31.17,
+      "peakFood": 346.5,
+      "meanFood": 61.46,
+      "populationCapSeconds": 0,
+      "firstBaseHit": 230.8,
+      "tech": 2,
+      "economy": 4,
+      "bought": {
+        "mouse": 0,
+        "soldier": 24,
+        "shield": 17,
+        "slinger": 21,
+        "mage": 2,
+        "catapult": 0,
+        "healer": 0,
+        "knight": 0
+      },
+      "upgrades": [
+        {
+          "type": "economy",
+          "level": 2,
+          "time": 0
+        },
+        {
+          "type": "tech",
+          "level": 2,
+          "time": 21.5
+        },
+        {
+          "type": "economy",
+          "level": 3,
+          "time": 49
+        },
+        {
+          "type": "economy",
+          "level": 4,
+          "time": 98.5
+        }
+      ],
+      "samples": [
+        {
+          "time": 0.03,
+          "food": 70.6,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 10.03,
+          "food": 0.6,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 20.03,
+          "food": 130.6,
+          "population": 5,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 1
+        },
+        {
+          "time": 30.03,
+          "food": 60.6,
+          "population": 3,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 40.03,
+          "food": 150.6,
+          "population": 3,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 1,
+          "tech": 2
+        },
+        {
+          "time": 50.03,
+          "food": 23.7,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 60.03,
+          "food": 58.7,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 70.03,
+          "food": 3.7,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 80.03,
+          "food": 43.7,
+          "population": 12,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 90.03,
+          "food": 168.7,
+          "population": 14,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 2,
+          "tech": 2
+        },
+        {
+          "time": 100.03,
+          "food": 41.77,
+          "population": 12,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 2
+        },
+        {
+          "time": 110.03,
+          "food": 6.77,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 2
+        },
+        {
+          "time": 120.03,
+          "food": 66.77,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 2
+        },
+        {
+          "time": 130.03,
+          "food": 36.77,
+          "population": 14,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 2
+        },
+        {
+          "time": 140.03,
+          "food": 46.77,
+          "population": 18,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 2
+        },
+        {
+          "time": 150.03,
+          "food": 51.77,
+          "population": 11,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 2
+        },
+        {
+          "time": 160.03,
+          "food": 21.77,
+          "population": 15,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 2
+        },
+        {
+          "time": 170.03,
+          "food": 81.77,
+          "population": 16,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 2
+        },
+        {
+          "time": 180.03,
+          "food": 51.77,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 2
+        },
+        {
+          "time": 190.03,
+          "food": 21.77,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 2
+        },
+        {
+          "time": 200.03,
+          "food": 76.77,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 2
+        },
+        {
+          "time": 210.03,
+          "food": 41.77,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 2
+        },
+        {
+          "time": 220.03,
+          "food": 41.77,
+          "population": 2,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 2
+        },
+        {
+          "time": 230.03,
+          "food": 21.77,
+          "population": 0,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 2
+        },
+        {
+          "time": 240.03,
+          "food": 1.77,
+          "population": 1,
+          "hp": 1188,
+          "enemyHp": 3000,
+          "economy": 3,
+          "tech": 2
+        }
+      ]
+    },
+    {
+      "level": "pantry",
+      "policy": "soldiers",
+      "variant": 0,
+      "economyCap": 3,
+      "winner": "enemy",
+      "seconds": 128.67,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "food": 34,
+      "peakFood": 240,
+      "meanFood": 33.57,
+      "populationCapSeconds": 0,
+      "firstBaseHit": 103.93,
+      "tech": 1,
+      "economy": 1,
+      "bought": {
+        "mouse": 0,
+        "soldier": 35,
+        "shield": 0,
+        "slinger": 0,
+        "mage": 0,
+        "catapult": 0,
+        "healer": 0,
+        "knight": 0
+      },
+      "upgrades": [],
+      "samples": [
+        {
+          "time": 0.03,
+          "food": 190.4,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 10.03,
+          "food": 10.4,
+          "population": 7,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 20.03,
+          "food": 30.4,
+          "population": 7,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 30.03,
+          "food": 0.4,
+          "population": 8,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 40.03,
+          "food": 20.4,
+          "population": 10,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 50.03,
+          "food": 40.4,
+          "population": 9,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 60.03,
+          "food": 10.4,
+          "population": 6,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 70.03,
+          "food": 30.4,
+          "population": 4,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 80.03,
+          "food": 0.4,
+          "population": 3,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 90.03,
+          "food": 20.4,
+          "population": 2,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 100.03,
+          "food": 40.4,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 110.03,
+          "food": 10.4,
+          "population": 1,
+          "hp": 2022.4,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 120.03,
+          "food": 30.4,
+          "population": 0,
+          "hp": 949.2,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        }
+      ]
+    },
+    {
+      "level": "pantry",
+      "policy": "mice",
+      "variant": 0,
+      "economyCap": 3,
+      "winner": "enemy",
+      "seconds": 108.27,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "food": 14.2,
+      "peakFood": 240,
+      "meanFood": 31.21,
+      "populationCapSeconds": 0,
+      "firstBaseHit": 62.97,
+      "tech": 1,
+      "economy": 1,
+      "bought": {
+        "mouse": 61,
+        "soldier": 0,
+        "shield": 0,
+        "slinger": 0,
+        "mage": 0,
+        "catapult": 0,
+        "healer": 0,
+        "knight": 0
+      },
+      "upgrades": [],
+      "samples": [
+        {
+          "time": 0.03,
+          "food": 215.4,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 10.03,
+          "food": 85.4,
+          "population": 11,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 20.03,
+          "food": 5.4,
+          "population": 9,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 30.03,
+          "food": 0.4,
+          "population": 5,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 40.03,
+          "food": 20.4,
+          "population": 2,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 50.03,
+          "food": 15.4,
+          "population": 2,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 60.03,
+          "food": 10.4,
+          "population": 1,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 70.03,
+          "food": 5.4,
+          "population": 1,
+          "hp": 2630.4,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 80.03,
+          "food": 0.4,
+          "population": 1,
+          "hp": 2192.4,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 90.03,
+          "food": 20.4,
+          "population": 0,
+          "hp": 1792.4,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        },
+        {
+          "time": 100.03,
+          "food": 15.4,
+          "population": 0,
+          "hp": 902.4,
+          "enemyHp": 3000,
+          "economy": 0,
+          "tech": 1
+        }
+      ]
+    }
+  ]
+}

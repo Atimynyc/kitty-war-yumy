@@ -20,7 +20,7 @@ const sample=frames=>page.evaluate(frames=>{
   for(let i=0;i<frames;i++) {
     window.advanceTime(1000/30);
     const b=window.__catGame.battle;
-    samples.push({time:b.time,units:b.units.map(u=>({id:u.id,attackAt:u.attackAt,walking:u.walking,hp:u.hp})),poses:window.__catGame.getAnimations()});
+    samples.push({time:b.time,units:b.units.map(u=>({id:u.id,targetId:u.targetId,attacking:u.attacking,attackAt:u.attackAt,walking:u.walking,hp:u.hp})),poses:window.__catGame.getAnimations()});
   }
   return samples;
 },frames);
@@ -30,7 +30,7 @@ try {
   const report=[];
   for(const [name,width,height] of [['phone',390,844],['tiny',320,568]]) {
     await page.setViewportSize({width,height});await page.waitForTimeout(180);await fixture(1);
-    const duel=await sample(80);let stalls=0;
+    const duel=await sample(100);let stalls=0;
     writeFileSync(`${output}/${engine}-${name}-duel-trace.json`,JSON.stringify(duel));
     for(let i=1;i<duel.length;i++) {
       const u=duel[i].units[0],p=duel[i].poses[0],old=duel[i-1].poses[0];
@@ -39,10 +39,17 @@ try {
     assert.equal(stalls,0,`${name}: visible stop before first strike`);
     assert.ok(duel.at(-1).units.every(u=>u.attackAt>0));await capture(`${name}-duel`);
     await fixture(24);
-    let previous=new Map(),maxJump=0,rapidTurns=0,lastTurn=new Map();const trace=[],turns=[],deathPoints=new Map();
+    const unitSize=await page.evaluate(()=>window.__catGame.getView().unitSize);
+    let previous=new Map(),maxJump=0,rapidTurns=0,lastTurn=new Map(),contactChecks=0;const trace=[],turns=[],deathPoints=new Map();
     for(let burst=0;burst<5;burst++) {
       const frames=await sample(60);trace.push(...frames);
       for(const frame of frames) {
+        for(const unit of frame.units.filter(u=>u.attacking)) {
+          const p=frame.poses.find(p=>p.id===unit.id),q=frame.poses.find(p=>p.id===unit.targetId);
+          if(!q || q.state==='death')continue;
+          assert.ok(Math.hypot(p.x-q.x,p.y-q.y)<=unitSize*.6+.2,`${name}: soldier attacked across a visible gap`);
+          contactChecks++;
+        }
         for(const pose of frame.poses.filter(p=>p.state==='death')) {
           const point={x:pose.x,y:pose.y},old=deathPoints.get(pose.id)??previous.get(pose.id);
           if(old)assert.deepEqual(point,{x:old.x,y:old.y},`${name}: a fallen unit slid with the crowd`);
@@ -76,7 +83,8 @@ try {
     await page.locator('#restart').click();
     // The click resets the model; the next Phaser frame removes the old puppets.
     await page.waitForFunction(()=>window.__catGame.getAnimations().length===0);
-    report.push({name,maxJump,stalls,rapidTurns,deaths:deathPoints.size});
+    assert.ok(contactChecks>0);
+    report.push({name,maxJump,stalls,rapidTurns,deaths:deathPoints.size,contactChecks});
   }
   assert.deepEqual(errors,[]);
   writeFileSync(`${output}/${engine}-report.json`,JSON.stringify(report,null,2));console.log(JSON.stringify(report));

@@ -1,0 +1,2478 @@
+{
+  "duels": [
+    {
+      "a": "mouse",
+      "b": "soldier",
+      "winner": "enemy",
+      "seconds": 5.43,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 182,
+        "survivingFoodFraction": 39.57
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "shield",
+      "winner": "enemy",
+      "seconds": 9.63,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 592,
+        "survivingFoodFraction": 76.11
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "slinger",
+      "winner": "enemy",
+      "seconds": 4.2,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 138,
+        "survivingFoodFraction": 78.2
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "mage",
+      "winner": "enemy",
+      "seconds": 6.63,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 111,
+        "survivingFoodFraction": 90.44
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "catapult",
+      "winner": "enemy",
+      "seconds": 1.07,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 260,
+        "survivingFoodFraction": 160
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "knight",
+      "winner": "enemy",
+      "seconds": 2.3,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 1800,
+        "survivingFoodFraction": 500
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "shield",
+      "winner": "enemy",
+      "seconds": 24.47,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 112,
+        "survivingFoodFraction": 14.4
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "slinger",
+      "winner": "enemy",
+      "seconds": 8.53,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 38,
+        "survivingFoodFraction": 21.53
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "mage",
+      "winner": "player",
+      "seconds": 12.83,
+      "player": {
+        "survivors": 1,
+        "hp": 62,
+        "survivingFoodFraction": 13.48
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "catapult",
+      "winner": "player",
+      "seconds": 16.33,
+      "player": {
+        "survivors": 1,
+        "hp": 20,
+        "survivingFoodFraction": 4.35
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "knight",
+      "winner": "enemy",
+      "seconds": 4.57,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 1744,
+        "survivingFoodFraction": 484.44
+      }
+    },
+    {
+      "a": "shield",
+      "b": "slinger",
+      "winner": "player",
+      "seconds": 19.83,
+      "player": {
+        "survivors": 1,
+        "hp": 112,
+        "survivingFoodFraction": 14.4
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "shield",
+      "b": "mage",
+      "winner": "player",
+      "seconds": 25.8,
+      "player": {
+        "survivors": 1,
+        "hp": 340,
+        "survivingFoodFraction": 43.71
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "shield",
+      "b": "catapult",
+      "winner": "player",
+      "seconds": 33.67,
+      "player": {
+        "survivors": 1,
+        "hp": 385,
+        "survivingFoodFraction": 49.5
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "shield",
+      "b": "knight",
+      "winner": "enemy",
+      "seconds": 9.93,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 1725,
+        "survivingFoodFraction": 479.17
+      }
+    },
+    {
+      "a": "slinger",
+      "b": "mage",
+      "winner": "player",
+      "seconds": 8.9,
+      "player": {
+        "survivors": 1,
+        "hp": 54,
+        "survivingFoodFraction": 30.6
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "slinger",
+      "b": "catapult",
+      "winner": "enemy",
+      "seconds": 5.43,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 218,
+        "survivingFoodFraction": 134.15
+      }
+    },
+    {
+      "a": "slinger",
+      "b": "knight",
+      "winner": "enemy",
+      "seconds": 7.07,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 1632,
+        "survivingFoodFraction": 453.33
+      }
+    },
+    {
+      "a": "mage",
+      "b": "catapult",
+      "winner": "enemy",
+      "seconds": 5.77,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 236,
+        "survivingFoodFraction": 145.23
+      }
+    },
+    {
+      "a": "mage",
+      "b": "knight",
+      "winner": "enemy",
+      "seconds": 7.27,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 1704,
+        "survivingFoodFraction": 473.33
+      }
+    },
+    {
+      "a": "catapult",
+      "b": "knight",
+      "winner": "enemy",
+      "seconds": 8.9,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 1590,
+        "survivingFoodFraction": 441.67
+      }
+    }
+  ],
+  "formations": {
+    "mouse": {
+      "units": [
+        "mouse",
+        "mouse",
+        "mouse",
+        "mouse",
+        "mouse",
+        "mouse",
+        "mouse",
+        "mouse",
+        "mouse",
+        "mouse",
+        "mouse",
+        "mouse",
+        "mouse",
+        "mouse",
+        "mouse",
+        "mouse",
+        "mouse",
+        "mouse",
+        "mouse",
+        "mouse",
+        "mouse",
+        "mouse",
+        "mouse",
+        "mouse"
+      ],
+      "cost": 600,
+      "population": 24
+    },
+    "soldier": {
+      "units": [
+        "soldier",
+        "soldier",
+        "soldier",
+        "soldier",
+        "soldier",
+        "soldier",
+        "soldier",
+        "soldier",
+        "soldier",
+        "soldier",
+        "soldier",
+        "soldier"
+      ],
+      "cost": 600,
+      "population": 12
+    },
+    "shield": {
+      "units": [
+        "shield",
+        "shield",
+        "shield",
+        "shield",
+        "shield",
+        "shield",
+        "soldier"
+      ],
+      "cost": 590,
+      "population": 13
+    },
+    "slinger": {
+      "units": [
+        "slinger",
+        "slinger",
+        "slinger",
+        "slinger",
+        "slinger",
+        "slinger",
+        "slinger"
+      ],
+      "cost": 595,
+      "population": 14
+    },
+    "mage": {
+      "units": [
+        "mage",
+        "mage",
+        "mage",
+        "mage",
+        "mage",
+        "soldier"
+      ],
+      "cost": 600,
+      "population": 11
+    },
+    "catapult": {
+      "units": [
+        "catapult",
+        "catapult",
+        "catapult",
+        "soldier",
+        "soldier"
+      ],
+      "cost": 580,
+      "population": 11
+    },
+    "knight": {
+      "units": [
+        "knight",
+        "soldier",
+        "soldier"
+      ],
+      "cost": 600,
+      "population": 8
+    },
+    "support": {
+      "units": [
+        "shield",
+        "shield",
+        "slinger",
+        "slinger",
+        "healer",
+        "mage"
+      ],
+      "cost": 590,
+      "population": 12
+    }
+  },
+  "matches": [
+    {
+      "a": "mouse",
+      "b": "soldier",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "soldier",
+      "seconds": 13.57,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 9,
+        "hp": 1458,
+        "survivingFoodFraction": 316.96
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "soldier",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "soldier",
+      "seconds": 13.57,
+      "player": {
+        "survivors": 9,
+        "hp": 1458,
+        "survivingFoodFraction": 316.96
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "soldier",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "soldier",
+      "seconds": 36.43,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 6,
+        "hp": 1260,
+        "survivingFoodFraction": 273.91
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "soldier",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "soldier",
+      "seconds": 36.43,
+      "player": {
+        "survivors": 6,
+        "hp": 1260,
+        "survivingFoodFraction": 273.91
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "shield",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "mouse",
+      "seconds": 45.2,
+      "player": {
+        "survivors": 4,
+        "hp": 280,
+        "survivingFoodFraction": 82.35
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "shield",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "mouse",
+      "seconds": 45.2,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 4,
+        "hp": 280,
+        "survivingFoodFraction": 82.35
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "shield",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "shield",
+      "seconds": 65.37,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 1644,
+        "survivingFoodFraction": 211.37
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "shield",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "shield",
+      "seconds": 65.37,
+      "player": {
+        "survivors": 3,
+        "hp": 1644,
+        "survivingFoodFraction": 211.37
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "slinger",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "mouse",
+      "seconds": 13.83,
+      "player": {
+        "survivors": 9,
+        "hp": 765,
+        "survivingFoodFraction": 225
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "slinger",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "mouse",
+      "seconds": 13.83,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 9,
+        "hp": 765,
+        "survivingFoodFraction": 225
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "slinger",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "slinger",
+      "seconds": 24,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 2,
+        "hp": 192,
+        "survivingFoodFraction": 108.8
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "slinger",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "slinger",
+      "seconds": 24,
+      "player": {
+        "survivors": 2,
+        "hp": 192,
+        "survivingFoodFraction": 108.8
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "mage",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "mouse",
+      "seconds": 18,
+      "player": {
+        "survivors": 14,
+        "hp": 1058,
+        "survivingFoodFraction": 311.18
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "mage",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "mouse",
+      "seconds": 18,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 14,
+        "hp": 1058,
+        "survivingFoodFraction": 311.18
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "mage",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "mouse",
+      "seconds": 24.6,
+      "player": {
+        "survivors": 14,
+        "hp": 1118,
+        "survivingFoodFraction": 328.82
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "mage",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "mouse",
+      "seconds": 24.6,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 14,
+        "hp": 1118,
+        "survivingFoodFraction": 328.82
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "catapult",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "catapult",
+      "seconds": 4.27,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 5,
+        "hp": 1060,
+        "survivingFoodFraction": 540.87
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "catapult",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "catapult",
+      "seconds": 4.27,
+      "player": {
+        "survivors": 5,
+        "hp": 1060,
+        "survivingFoodFraction": 540.87
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "catapult",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "catapult",
+      "seconds": 4.1,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 5,
+        "hp": 1168,
+        "survivingFoodFraction": 564.35
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "catapult",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "catapult",
+      "seconds": 4.1,
+      "player": {
+        "survivors": 5,
+        "hp": 1168,
+        "survivingFoodFraction": 564.35
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "knight",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "knight",
+      "seconds": 35.9,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 324,
+        "survivingFoodFraction": 90
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "knight",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "knight",
+      "seconds": 35.9,
+      "player": {
+        "survivors": 1,
+        "hp": 324,
+        "survivingFoodFraction": 90
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "knight",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "knight",
+      "seconds": 35.9,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 780,
+        "survivingFoodFraction": 216.67
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "knight",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "knight",
+      "seconds": 35.9,
+      "player": {
+        "survivors": 1,
+        "hp": 780,
+        "survivingFoodFraction": 216.67
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "support",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "support",
+      "seconds": 29.03,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 5,
+        "hp": 781,
+        "survivingFoodFraction": 431.34
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "support",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "support",
+      "seconds": 29.03,
+      "player": {
+        "survivors": 5,
+        "hp": 781,
+        "survivingFoodFraction": 431.34
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "support",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "support",
+      "seconds": 31.63,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 5,
+        "hp": 1297,
+        "survivingFoodFraction": 497.69
+      }
+    },
+    {
+      "a": "mouse",
+      "b": "support",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "support",
+      "seconds": 31.63,
+      "player": {
+        "survivors": 5,
+        "hp": 1297,
+        "survivingFoodFraction": 497.69
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "shield",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "soldier",
+      "seconds": 22.23,
+      "player": {
+        "survivors": 9,
+        "hp": 1860,
+        "survivingFoodFraction": 404.35
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "shield",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "soldier",
+      "seconds": 22.23,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 9,
+        "hp": 1860,
+        "survivingFoodFraction": 404.35
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "shield",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "soldier",
+      "seconds": 56.07,
+      "player": {
+        "survivors": 6,
+        "hp": 1290,
+        "survivingFoodFraction": 280.43
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "shield",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "soldier",
+      "seconds": 56.07,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 6,
+        "hp": 1290,
+        "survivingFoodFraction": 280.43
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "slinger",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "soldier",
+      "seconds": 12.3,
+      "player": {
+        "survivors": 7,
+        "hp": 1106,
+        "survivingFoodFraction": 240.43
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "slinger",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "soldier",
+      "seconds": 12.3,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 7,
+        "hp": 1106,
+        "survivingFoodFraction": 240.43
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "slinger",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "soldier",
+      "seconds": 18.57,
+      "player": {
+        "survivors": 3,
+        "hp": 606,
+        "survivingFoodFraction": 131.74
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "slinger",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "soldier",
+      "seconds": 18.57,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 606,
+        "survivingFoodFraction": 131.74
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "mage",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "soldier",
+      "seconds": 11.3,
+      "player": {
+        "survivors": 12,
+        "hp": 2104,
+        "survivingFoodFraction": 457.39
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "mage",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "soldier",
+      "seconds": 11.3,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 12,
+        "hp": 2104,
+        "survivingFoodFraction": 457.39
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "mage",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "soldier",
+      "seconds": 15.4,
+      "player": {
+        "survivors": 10,
+        "hp": 1984,
+        "survivingFoodFraction": 431.3
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "mage",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "soldier",
+      "seconds": 15.4,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 10,
+        "hp": 1984,
+        "survivingFoodFraction": 431.3
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "catapult",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "catapult",
+      "seconds": 7.73,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 780,
+        "survivingFoodFraction": 480
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "catapult",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "catapult",
+      "seconds": 7.73,
+      "player": {
+        "survivors": 3,
+        "hp": 780,
+        "survivingFoodFraction": 480
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "catapult",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "catapult",
+      "seconds": 4.7,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 5,
+        "hp": 1072,
+        "survivingFoodFraction": 543.48
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "catapult",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "catapult",
+      "seconds": 4.7,
+      "player": {
+        "survivors": 5,
+        "hp": 1072,
+        "survivingFoodFraction": 543.48
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "knight",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "soldier",
+      "seconds": 23.6,
+      "player": {
+        "survivors": 6,
+        "hp": 1240,
+        "survivingFoodFraction": 269.57
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "knight",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "soldier",
+      "seconds": 23.6,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 6,
+        "hp": 1240,
+        "survivingFoodFraction": 269.57
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "knight",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "soldier",
+      "seconds": 28.3,
+      "player": {
+        "survivors": 4,
+        "hp": 780,
+        "survivingFoodFraction": 169.57
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "knight",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "soldier",
+      "seconds": 28.3,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 4,
+        "hp": 780,
+        "survivingFoodFraction": 169.57
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "support",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "soldier",
+      "seconds": 20.5,
+      "player": {
+        "survivors": 7,
+        "hp": 1280,
+        "survivingFoodFraction": 278.26
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "support",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "soldier",
+      "seconds": 20.5,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 7,
+        "hp": 1280,
+        "survivingFoodFraction": 278.26
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "support",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "support",
+      "seconds": 38.63,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 2,
+        "hp": 229,
+        "survivingFoodFraction": 163.27
+      }
+    },
+    {
+      "a": "soldier",
+      "b": "support",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "support",
+      "seconds": 38.63,
+      "player": {
+        "survivors": 2,
+        "hp": 229,
+        "survivingFoodFraction": 163.27
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "shield",
+      "b": "slinger",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "slinger",
+      "seconds": 25.03,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 4,
+        "hp": 405,
+        "survivingFoodFraction": 229.5
+      }
+    },
+    {
+      "a": "shield",
+      "b": "slinger",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "slinger",
+      "seconds": 25.03,
+      "player": {
+        "survivors": 4,
+        "hp": 405,
+        "survivingFoodFraction": 229.5
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "shield",
+      "b": "slinger",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "slinger",
+      "seconds": 25.43,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 5,
+        "hp": 615,
+        "survivingFoodFraction": 348.5
+      }
+    },
+    {
+      "a": "shield",
+      "b": "slinger",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "slinger",
+      "seconds": 25.43,
+      "player": {
+        "survivors": 5,
+        "hp": 615,
+        "survivingFoodFraction": 348.5
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "shield",
+      "b": "mage",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "shield",
+      "seconds": 28.7,
+      "player": {
+        "survivors": 5,
+        "hp": 2708,
+        "survivingFoodFraction": 348.17
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "shield",
+      "b": "mage",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "shield",
+      "seconds": 28.7,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 5,
+        "hp": 2708,
+        "survivingFoodFraction": 348.17
+      }
+    },
+    {
+      "a": "shield",
+      "b": "mage",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "shield",
+      "seconds": 35.73,
+      "player": {
+        "survivors": 4,
+        "hp": 2512,
+        "survivingFoodFraction": 322.97
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "shield",
+      "b": "mage",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "shield",
+      "seconds": 35.73,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 4,
+        "hp": 2512,
+        "survivingFoodFraction": 322.97
+      }
+    },
+    {
+      "a": "shield",
+      "b": "catapult",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "catapult",
+      "seconds": 16.83,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 780,
+        "survivingFoodFraction": 480
+      }
+    },
+    {
+      "a": "shield",
+      "b": "catapult",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "catapult",
+      "seconds": 16.83,
+      "player": {
+        "survivors": 3,
+        "hp": 780,
+        "survivingFoodFraction": 480
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "shield",
+      "b": "catapult",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "catapult",
+      "seconds": 10.53,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 4,
+        "hp": 980,
+        "survivingFoodFraction": 523.48
+      }
+    },
+    {
+      "a": "shield",
+      "b": "catapult",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "catapult",
+      "seconds": 10.53,
+      "player": {
+        "survivors": 4,
+        "hp": 980,
+        "survivingFoodFraction": 523.48
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "shield",
+      "b": "knight",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "knight",
+      "seconds": 48.33,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 561,
+        "survivingFoodFraction": 155.83
+      }
+    },
+    {
+      "a": "shield",
+      "b": "knight",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "knight",
+      "seconds": 48.33,
+      "player": {
+        "survivors": 1,
+        "hp": 561,
+        "survivingFoodFraction": 155.83
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "shield",
+      "b": "knight",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "knight",
+      "seconds": 47.77,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 1020,
+        "survivingFoodFraction": 283.33
+      }
+    },
+    {
+      "a": "shield",
+      "b": "knight",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "knight",
+      "seconds": 47.77,
+      "player": {
+        "survivors": 1,
+        "hp": 1020,
+        "survivingFoodFraction": 283.33
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "shield",
+      "b": "support",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "support",
+      "seconds": 47.47,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 6,
+        "hp": 1632,
+        "survivingFoodFraction": 540.76
+      }
+    },
+    {
+      "a": "shield",
+      "b": "support",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "support",
+      "seconds": 47.47,
+      "player": {
+        "survivors": 6,
+        "hp": 1632,
+        "survivingFoodFraction": 540.76
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "shield",
+      "b": "support",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "support",
+      "seconds": 47.27,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 6,
+        "hp": 1832,
+        "survivingFoodFraction": 566.47
+      }
+    },
+    {
+      "a": "shield",
+      "b": "support",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "support",
+      "seconds": 47.27,
+      "player": {
+        "survivors": 6,
+        "hp": 1832,
+        "survivingFoodFraction": 566.47
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "slinger",
+      "b": "mage",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "slinger",
+      "seconds": 7.73,
+      "player": {
+        "survivors": 7,
+        "hp": 786,
+        "survivingFoodFraction": 445.4
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "slinger",
+      "b": "mage",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "slinger",
+      "seconds": 7.73,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 7,
+        "hp": 786,
+        "survivingFoodFraction": 445.4
+      }
+    },
+    {
+      "a": "slinger",
+      "b": "mage",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "slinger",
+      "seconds": 8.8,
+      "player": {
+        "survivors": 6,
+        "hp": 828,
+        "survivingFoodFraction": 469.2
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "slinger",
+      "b": "mage",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "slinger",
+      "seconds": 8.8,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 6,
+        "hp": 828,
+        "survivingFoodFraction": 469.2
+      }
+    },
+    {
+      "a": "slinger",
+      "b": "catapult",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "catapult",
+      "seconds": 6.67,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 612,
+        "survivingFoodFraction": 376.62
+      }
+    },
+    {
+      "a": "slinger",
+      "b": "catapult",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "catapult",
+      "seconds": 6.67,
+      "player": {
+        "survivors": 3,
+        "hp": 612,
+        "survivingFoodFraction": 376.62
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "slinger",
+      "b": "catapult",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "catapult",
+      "seconds": 3.6,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 780,
+        "survivingFoodFraction": 480
+      }
+    },
+    {
+      "a": "slinger",
+      "b": "catapult",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "catapult",
+      "seconds": 3.6,
+      "player": {
+        "survivors": 3,
+        "hp": 780,
+        "survivingFoodFraction": 480
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "slinger",
+      "b": "knight",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "slinger",
+      "seconds": 12.63,
+      "player": {
+        "survivors": 5,
+        "hp": 610,
+        "survivingFoodFraction": 345.67
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "slinger",
+      "b": "knight",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "slinger",
+      "seconds": 12.63,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 5,
+        "hp": 610,
+        "survivingFoodFraction": 345.67
+      }
+    },
+    {
+      "a": "slinger",
+      "b": "knight",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "slinger",
+      "seconds": 12.83,
+      "player": {
+        "survivors": 5,
+        "hp": 610,
+        "survivingFoodFraction": 345.67
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "slinger",
+      "b": "knight",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "slinger",
+      "seconds": 12.83,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 5,
+        "hp": 610,
+        "survivingFoodFraction": 345.67
+      }
+    },
+    {
+      "a": "slinger",
+      "b": "support",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "slinger",
+      "seconds": 16.5,
+      "player": {
+        "survivors": 3,
+        "hp": 237,
+        "survivingFoodFraction": 134.3
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "slinger",
+      "b": "support",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "slinger",
+      "seconds": 16.5,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 237,
+        "survivingFoodFraction": 134.3
+      }
+    },
+    {
+      "a": "slinger",
+      "b": "support",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "slinger",
+      "seconds": 19.6,
+      "player": {
+        "survivors": 2,
+        "hp": 210,
+        "survivingFoodFraction": 119
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "slinger",
+      "b": "support",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "slinger",
+      "seconds": 19.6,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 2,
+        "hp": 210,
+        "survivingFoodFraction": 119
+      }
+    },
+    {
+      "a": "mage",
+      "b": "catapult",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "catapult",
+      "seconds": 8.77,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 4,
+        "hp": 866,
+        "survivingFoodFraction": 498.7
+      }
+    },
+    {
+      "a": "mage",
+      "b": "catapult",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "catapult",
+      "seconds": 8.77,
+      "player": {
+        "survivors": 4,
+        "hp": 866,
+        "survivingFoodFraction": 498.7
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "mage",
+      "b": "catapult",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "catapult",
+      "seconds": 4.7,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 5,
+        "hp": 1000,
+        "survivingFoodFraction": 527.83
+      }
+    },
+    {
+      "a": "mage",
+      "b": "catapult",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "catapult",
+      "seconds": 4.7,
+      "player": {
+        "survivors": 5,
+        "hp": 1000,
+        "survivingFoodFraction": 527.83
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "mage",
+      "b": "knight",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "knight",
+      "seconds": 19.17,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 1272,
+        "survivingFoodFraction": 353.33
+      }
+    },
+    {
+      "a": "mage",
+      "b": "knight",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "knight",
+      "seconds": 19.17,
+      "player": {
+        "survivors": 1,
+        "hp": 1272,
+        "survivingFoodFraction": 353.33
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "mage",
+      "b": "knight",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "knight",
+      "seconds": 16.2,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 1512,
+        "survivingFoodFraction": 420
+      }
+    },
+    {
+      "a": "mage",
+      "b": "knight",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "knight",
+      "seconds": 16.2,
+      "player": {
+        "survivors": 1,
+        "hp": 1512,
+        "survivingFoodFraction": 420
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "mage",
+      "b": "support",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "support",
+      "seconds": 14.7,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 6,
+        "hp": 1649,
+        "survivingFoodFraction": 542.94
+      }
+    },
+    {
+      "a": "mage",
+      "b": "support",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "support",
+      "seconds": 14.7,
+      "player": {
+        "survivors": 6,
+        "hp": 1649,
+        "survivingFoodFraction": 542.94
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "mage",
+      "b": "support",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "support",
+      "seconds": 14.3,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 6,
+        "hp": 1711,
+        "survivingFoodFraction": 550.91
+      }
+    },
+    {
+      "a": "mage",
+      "b": "support",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "support",
+      "seconds": 14.3,
+      "player": {
+        "survivors": 6,
+        "hp": 1711,
+        "survivingFoodFraction": 550.91
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "catapult",
+      "b": "knight",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "knight",
+      "seconds": 20.17,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 400,
+        "survivingFoodFraction": 111.11
+      }
+    },
+    {
+      "a": "catapult",
+      "b": "knight",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "knight",
+      "seconds": 20.17,
+      "player": {
+        "survivors": 1,
+        "hp": 400,
+        "survivingFoodFraction": 111.11
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "catapult",
+      "b": "knight",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "knight",
+      "seconds": 20.17,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 344,
+        "survivingFoodFraction": 95.56
+      }
+    },
+    {
+      "a": "catapult",
+      "b": "knight",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "knight",
+      "seconds": 20.17,
+      "player": {
+        "survivors": 1,
+        "hp": 344,
+        "survivingFoodFraction": 95.56
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "catapult",
+      "b": "support",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "support",
+      "seconds": 20.33,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 5,
+        "hp": 846,
+        "survivingFoodFraction": 439.7
+      }
+    },
+    {
+      "a": "catapult",
+      "b": "support",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "support",
+      "seconds": 20.33,
+      "player": {
+        "survivors": 5,
+        "hp": 846,
+        "survivingFoodFraction": 439.7
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "catapult",
+      "b": "support",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "catapult",
+      "seconds": 14.2,
+      "player": {
+        "survivors": 3,
+        "hp": 672,
+        "survivingFoodFraction": 413.54
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "catapult",
+      "b": "support",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "catapult",
+      "seconds": 14.2,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 672,
+        "survivingFoodFraction": 413.54
+      }
+    },
+    {
+      "a": "knight",
+      "b": "support",
+      "layout": "spread",
+      "swapped": false,
+      "winner": "support",
+      "seconds": 26.93,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 5,
+        "hp": 727,
+        "survivingFoodFraction": 424.4
+      }
+    },
+    {
+      "a": "knight",
+      "b": "support",
+      "layout": "spread",
+      "swapped": true,
+      "winner": "support",
+      "seconds": 26.93,
+      "player": {
+        "survivors": 5,
+        "hp": 727,
+        "survivingFoodFraction": 424.4
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "a": "knight",
+      "b": "support",
+      "layout": "clustered",
+      "swapped": false,
+      "winner": "support",
+      "seconds": 25.63,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 5,
+        "hp": 825,
+        "survivingFoodFraction": 437
+      }
+    },
+    {
+      "a": "knight",
+      "b": "support",
+      "layout": "clustered",
+      "swapped": true,
+      "winner": "support",
+      "seconds": 25.63,
+      "player": {
+        "survivors": 5,
+        "hp": 825,
+        "survivingFoodFraction": 437
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    }
+  ]
+}

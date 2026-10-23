@@ -1,0 +1,192 @@
+[
+  {
+    "name": "baseline",
+    "runs": 42,
+    "wins": 23,
+    "unfinished": 0,
+    "fullHealthWins": 23,
+    "winsIn180to300": 8,
+    "medianWinSeconds": 179.9,
+    "maxSeconds": 472
+  },
+  {
+    "name": "economy",
+    "runs": 42,
+    "wins": 20,
+    "unfinished": 0,
+    "fullHealthWins": 20,
+    "winsIn180to300": 9,
+    "medianWinSeconds": 189.05,
+    "maxSeconds": 472
+  },
+  {
+    "name": "gentle",
+    "runs": 42,
+    "wins": 23,
+    "unfinished": 0,
+    "fullHealthWins": 23,
+    "winsIn180to300": 9,
+    "medianWinSeconds": 183.03,
+    "maxSeconds": 359.1
+  },
+  {
+    "name": "moderate",
+    "runs": 42,
+    "wins": 20,
+    "unfinished": 0,
+    "fullHealthWins": 20,
+    "winsIn180to300": 8,
+    "medianWinSeconds": 173.9,
+    "maxSeconds": 338.8
+  },
+  {
+    "name": "gentle_no_economy",
+    "runs": 42,
+    "wins": 19,
+    "unfinished": 0,
+    "fullHealthWins": 19,
+    "winsIn180to300": 7,
+    "medianWinSeconds": 179.9,
+    "maxSeconds": 317.87
+  },
+  {
+    "name": "gentle_heal30",
+    "runs": 42,
+    "wins": 21,
+    "unfinished": 0,
+    "fullHealthWins": 21,
+    "winsIn180to300": 8,
+    "medianWinSeconds": 179.9,
+    "maxSeconds": 347
+  },
+  {
+    "name": "gentle_heal38",
+    "runs": 42,
+    "wins": 22,
+    "unfinished": 0,
+    "fullHealthWins": 22,
+    "winsIn180to300": 9,
+    "medianWinSeconds": 181.47,
+    "maxSeconds": 345
+  },
+  {
+    "name": "gentle_cheap_mage",
+    "runs": 42,
+    "wins": 21,
+    "unfinished": 1,
+    "fullHealthWins": 21,
+    "winsIn180to300": 8,
+    "medianWinSeconds": 179.9,
+    "maxSeconds": 900
+  },
+  {
+    "name": "focused",
+    "runs": 42,
+    "wins": 20,
+    "unfinished": 0,
+    "fullHealthWins": 20,
+    "winsIn180to300": 9,
+    "medianWinSeconds": 200.13,
+    "maxSeconds": 472
+  },
+  {
+    "name": "focused_no_heal",
+    "runs": 42,
+    "wins": 20,
+    "unfinished": 0,
+    "fullHealthWins": 20,
+    "winsIn180to300": 9,
+    "medianWinSeconds": 198.22,
+    "maxSeconds": 472
+  },
+  {
+    "name": "focused_no_knight",
+    "runs": 42,
+    "wins": 18,
+    "unfinished": 0,
+    "fullHealthWins": 18,
+    "winsIn180to300": 7,
+    "medianWinSeconds": 184.59,
+    "maxSeconds": 472
+  },
+  {
+    "name": "focused_mage_only",
+    "runs": 42,
+    "wins": 17,
+    "unfinished": 0,
+    "fullHealthWins": 17,
+    "winsIn180to300": 6,
+    "medianWinSeconds": 179.9,
+    "maxSeconds": 472
+  },
+  {
+    "name": "economy240_only",
+    "runs": 42,
+    "wins": 22,
+    "unfinished": 0,
+    "fullHealthWins": 22,
+    "winsIn180to300": 9,
+    "medianWinSeconds": 177.42,
+    "maxSeconds": 472
+  },
+  {
+    "name": "focused220",
+    "runs": 42,
+    "wins": 17,
+    "unfinished": 0,
+    "fullHealthWins": 17,
+    "winsIn180to300": 6,
+    "medianWinSeconds": 169,
+    "maxSeconds": 472
+  },
+  {
+    "name": "paced_first",
+    "runs": 42,
+    "wins": 16,
+    "unfinished": 1,
+    "fullHealthWins": 16,
+    "winsIn180to300": 9,
+    "medianWinSeconds": 217.8,
+    "maxSeconds": 900
+  },
+  {
+    "name": "paced_third",
+    "runs": 42,
+    "wins": 22,
+    "unfinished": 0,
+    "fullHealthWins": 22,
+    "winsIn180to300": 9,
+    "medianWinSeconds": 188.03,
+    "maxSeconds": 472
+  },
+  {
+    "name": "paced",
+    "runs": 42,
+    "wins": 18,
+    "unfinished": 1,
+    "fullHealthWins": 18,
+    "winsIn180to300": 9,
+    "medianWinSeconds": 215.4,
+    "maxSeconds": 900
+  },
+  {
+    "name": "paced_economy",
+    "runs": 42,
+    "wins": 19,
+    "unfinished": 1,
+    "fullHealthWins": 19,
+    "winsIn180to300": 11,
+    "medianWinSeconds": 211,
+    "maxSeconds": 900
+  },
+  {
+    "name": "paced_gentle",
+    "runs": 42,
+    "wins": 17,
+    "unfinished": 1,
+    "fullHealthWins": 17,
+    "winsIn180to300": 8,
+    "medianWinSeconds": 191.53,
+    "maxSeconds": 900
+  }
+]

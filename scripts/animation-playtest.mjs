@@ -22,6 +22,7 @@ const assertFacingTargets = poses => {
     assert.ok(alignment > .999, `${pose.kind} must face its displayed target (${alignment})`);
     if (pose.kind !== 'mouse' && pose.kind !== 'catapult') {
       assert.equal(pose.spriteRotation,0,'standing characters must remain upright when turning');
+      if (pose.turning) continue; // Body settles within 0.22s; weapon alignment above is immediate.
       // Direction art retains its previous choice inside the small turn deadband.
       if (Math.abs(dx) / length > .54) assert.equal(pose.look,'side');
       else if (Math.abs(dx) / length <= .42) assert.equal(pose.look,dy>0?'front':'back');
@@ -47,7 +48,7 @@ const fixture = async (kind, pair = true) => page.evaluate(({kind, pair}) => {
   };
   const a = spawn('player', kind, kind === 'slinger' || kind === 'mage' || kind === 'catapult' ? 600 : pair ? 700 : 500);
   if (pair) {
-    const b = spawn('enemy', 'shield', kind === 'slinger' || kind === 'mage' || kind === 'catapult' ? 800 : 735); b.attackCooldown = 10;
+    const b = spawn('enemy', 'shield', kind === 'slinger' || kind === 'mage' || kind === 'catapult' ? 800 : 716); b.attackCooldown = 10;
   }
   if (kind === 'healer') { const ally = spawn('player', 'soldier', 730); ally.hp = 100; }
   window.advanceTime(0); window.__catGame.render();
@@ -109,7 +110,8 @@ try {
     const contact = await inspect(); assertFacingTargets(contact);
     const p = contact.find(u => u.id === id), q = contact.find(u => u.id !== id);
     const size = await page.evaluate(() => window.__catGame.getView().unitSize);
-    assert.ok(Math.hypot(p.x-q.x,p.y-q.y) > size * .7);
+    const gap = Math.hypot(p.x-q.x,p.y-q.y);
+    assert.ok(gap > size * .45 && gap <= size * .6 + .2, 'melee bodies must touch at the first hit');
     await advance(50); await capture(`phone-${name}-contact`);
     await page.locator('#pause').click(); const frozenFacing = await inspect();
     await advance(1000); assert.deepEqual(await inspect(), frozenFacing); await page.locator('#resume').click();
@@ -133,7 +135,7 @@ try {
     await fixture(kind);
     await page.evaluate(kind => {
       const b = window.__catGame.battle, a = b.units.find(u => u.side === 'player'), z = b.units.find(u => u.side === 'enemy');
-      a.x = 650; a.row = 0; z.x = kind === 'knight' ? 670 : 760; z.row = kind === 'knight' ? .45 : 2;
+      a.x = 650; a.row = 0; z.x = kind === 'knight' ? 660 : 760; z.row = kind === 'knight' ? .2 : 2;
       b.effects = [];
     }, kind);
     await advance(1000 / 30); assertFacingTargets(await inspect());

@@ -2,9 +2,9 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { portraitProjection } from '../src/game/projection.ts';
 import { BASE_X } from '../src/game/content.ts';
-import { CombatLayout, combatLayout, targetFacing, unitScale } from '../src/game/combat-layout.ts';
+import { CombatLayout, combatLayout, targetFacing, unitScale, meleeContactPixels } from '../src/game/combat-layout.ts';
 import { Battle } from '../src/game/simulation.ts';
-import { directionArt } from '../src/game/unit-facing.ts';
+import { BodyDirection, directionArt } from '../src/game/unit-facing.ts';
 import type { Side, UnitKind } from '../src/game/content.ts';
 
 test('vertical projection places the player below the enemy and preserves relative progress across sizes', () => {
@@ -45,12 +45,13 @@ test('facing points the native weapon direction toward front, rear and lateral t
   }
 });
 
-test('opposing puppets stay visibly separated on short phone boards without mutating combat positions', () => {
+test('touching melee silhouettes remain distinct on short boards without mutating combat positions', () => {
   for (const [width, height] of [[304,190],[374,430],[504,500]]) for (const kind of ['soldier', 'knight'] as UnitKind[]) {
-    const actors = [{ id:1, side:'player' as Side, kind, x:700, row:1 }, { id:2, side:'enemy' as Side, kind, x:735, row:1 }];
+    const actors = [{ id:1, side:'player' as Side, kind, x:700, row:1 }, { id:2, side:'enemy' as Side, kind, x:716, row:1 }];
     const before = structuredClone(actors), layout = combatLayout(actors, width, height), a = layout.get(1)!, b = layout.get(2)!;
     assert.deepEqual(actors, before); assert.ok(a.y > b.y);
-    assert.ok(Math.hypot(a.x-b.x, a.y-b.y) >= portraitProjection(width,height).unitSize * unitScale(kind) * .77);
+    const distance = Math.hypot(a.x-b.x, a.y-b.y), contact = meleeContactPixels(kind,kind,portraitProjection(width,height).unitSize);
+    assert.ok(distance >= portraitProjection(width,height).unitSize*unitScale(kind)*.45 && distance <= contact+.1);
     assert.deepEqual(combatLayout([...actors].reverse(), width, height), layout);
   }
 });
@@ -85,6 +86,8 @@ test('a duel visibly closes throughout its approach instead of stopping before m
       previous = current;
     }
     assert.ok(a.attackAt > 0 && b.attackAt > 0);
+    const p = previous.get(a.id)!, q = previous.get(b.id)!;
+    assert.ok(Math.hypot(p.x-q.x,p.y-q.y) <= meleeContactPixels(a.kind,b.kind,portraitProjection(width,height).unitSize)+.1);
   }
 });
 
@@ -100,6 +103,13 @@ test('crowd movement and deaths do not reshuffle existing puppets or change comb
       for (const [id, point] of current) {
         const old = previous.get(id);
         if (old) assert.ok(Math.hypot(point.x - old.x, point.y - old.y) < 4, `unit ${id} jumped at ${battle.time}s`);
+      }
+      for (const unit of battle.units.filter(u=>u.attacking)) {
+        const target = battle.units.find(u=>u.id===unit.targetId);
+        if (!target) continue;
+        const p=current.get(unit.id)!,q=current.get(target.id)!;
+        assert.ok(Math.hypot(p.x-q.x,p.y-q.y) <= meleeContactPixels(unit.kind,target.kind,portraitProjection(width,height).unitSize)+.2,
+          `unit ${unit.id} attacked with a visible gap at ${battle.time}s`);
       }
       previous = current;
     }
@@ -139,4 +149,19 @@ test('small target-angle fluctuations do not flip body art, while deliberate tur
     previous = directionArt(forward(0,sign),previous);
     assert.deepEqual(previous,{look:sign>0?'front':'back',mirror:1});
   }
+});
+
+test('body ignores brief shoulder crossings during contact but completes sustained turns', () => {
+  const body=new BodyDirection();
+  const original=body.update({x:0,y:-1},0);
+  for(let frame=1;frame<=60;frame++) {
+    const pose=body.update({x:frame%2 ? -1 : 1,y:0},frame/30);
+    assert.deepEqual(pose,original);
+  }
+  for(let frame=61;frame<=65;frame++) body.update({x:-1,y:0},frame/30);
+  assert.deepEqual(body.update({x:-1,y:0},2.2),{look:'side',mirror:-1});
+  assert.equal(body.turning,false);
+  const pose=body.update({x:0,y:1},2.2);
+  assert.deepEqual(body.update({x:0,y:1},2.2),pose,'paused time cannot turn a body');
+  assert.deepEqual(body.update({x:0,y:1},2.5),{look:'front',mirror:1});
 });

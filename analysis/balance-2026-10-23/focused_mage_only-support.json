@@ -1,0 +1,2076 @@
+{
+  "core": [
+    "shield",
+    "soldier",
+    "slinger",
+    "slinger"
+  ],
+  "additions": {
+    "soldiers": [
+      "soldier",
+      "soldier"
+    ],
+    "ranged": [
+      "slinger",
+      "mouse"
+    ],
+    "mage": [
+      "mage"
+    ],
+    "healer": [
+      "healer"
+    ],
+    "shield": [
+      "shield",
+      "mouse"
+    ]
+  },
+  "opponents": {
+    "soldiers": [
+      "soldier",
+      "soldier",
+      "soldier",
+      "soldier",
+      "soldier",
+      "soldier",
+      "soldier",
+      "soldier"
+    ],
+    "mice": [
+      "mouse",
+      "mouse",
+      "mouse",
+      "mouse",
+      "mouse",
+      "mouse",
+      "mouse",
+      "mouse",
+      "mouse",
+      "mouse",
+      "mouse",
+      "mouse",
+      "mouse",
+      "mouse",
+      "mouse",
+      "mouse"
+    ],
+    "knight": [
+      "knight"
+    ],
+    "ranged": [
+      "shield",
+      "shield",
+      "slinger",
+      "slinger",
+      "slinger"
+    ],
+    "siege": [
+      "catapult",
+      "catapult",
+      "soldier",
+      "soldier"
+    ]
+  },
+  "matches": [
+    {
+      "addition": "soldiers",
+      "opponent": "soldiers",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 410,
+      "opponentCost": 400,
+      "winner": "opponent",
+      "seconds": 20.1,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 501,
+        "survivingFoodFraction": 108.91
+      }
+    },
+    {
+      "addition": "soldiers",
+      "opponent": "soldiers",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 410,
+      "opponentCost": 400,
+      "winner": "opponent",
+      "seconds": 20.1,
+      "player": {
+        "survivors": 3,
+        "hp": 501,
+        "survivingFoodFraction": 108.91
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "soldiers",
+      "opponent": "soldiers",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 410,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 24.33,
+      "player": {
+        "survivors": 2,
+        "hp": 244,
+        "survivingFoodFraction": 138.27
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "soldiers",
+      "opponent": "soldiers",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 410,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 24.33,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 2,
+        "hp": 244,
+        "survivingFoodFraction": 138.27
+      }
+    },
+    {
+      "addition": "soldiers",
+      "opponent": "mice",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 410,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 18.63,
+      "player": {
+        "survivors": 3,
+        "hp": 532,
+        "survivingFoodFraction": 199.83
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "soldiers",
+      "opponent": "mice",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 410,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 18.63,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 532,
+        "survivingFoodFraction": 199.83
+      }
+    },
+    {
+      "addition": "soldiers",
+      "opponent": "mice",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 410,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 18.63,
+      "player": {
+        "survivors": 3,
+        "hp": 964,
+        "survivingFoodFraction": 255.37
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "soldiers",
+      "opponent": "mice",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 410,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 18.63,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 964,
+        "survivingFoodFraction": 255.37
+      }
+    },
+    {
+      "addition": "soldiers",
+      "opponent": "knight",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 410,
+      "opponentCost": 500,
+      "winner": "allies",
+      "seconds": 21.83,
+      "player": {
+        "survivors": 2,
+        "hp": 160,
+        "survivingFoodFraction": 90.67
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "soldiers",
+      "opponent": "knight",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 410,
+      "opponentCost": 500,
+      "winner": "allies",
+      "seconds": 21.83,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 2,
+        "hp": 160,
+        "survivingFoodFraction": 90.67
+      }
+    },
+    {
+      "addition": "soldiers",
+      "opponent": "knight",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 410,
+      "opponentCost": 500,
+      "winner": "allies",
+      "seconds": 20.53,
+      "player": {
+        "survivors": 2,
+        "hp": 300,
+        "survivingFoodFraction": 170
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "soldiers",
+      "opponent": "knight",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 410,
+      "opponentCost": 500,
+      "winner": "allies",
+      "seconds": 20.53,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 2,
+        "hp": 300,
+        "survivingFoodFraction": 170
+      }
+    },
+    {
+      "addition": "soldiers",
+      "opponent": "ranged",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 410,
+      "opponentCost": 435,
+      "winner": "opponent",
+      "seconds": 19,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 366,
+        "survivingFoodFraction": 207.4
+      }
+    },
+    {
+      "addition": "soldiers",
+      "opponent": "ranged",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 410,
+      "opponentCost": 435,
+      "winner": "opponent",
+      "seconds": 19,
+      "player": {
+        "survivors": 3,
+        "hp": 366,
+        "survivingFoodFraction": 207.4
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "soldiers",
+      "opponent": "ranged",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 410,
+      "opponentCost": 435,
+      "winner": "opponent",
+      "seconds": 19.6,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 408,
+        "survivingFoodFraction": 231.2
+      }
+    },
+    {
+      "addition": "soldiers",
+      "opponent": "ranged",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 410,
+      "opponentCost": 435,
+      "winner": "opponent",
+      "seconds": 19.6,
+      "player": {
+        "survivors": 3,
+        "hp": 408,
+        "survivingFoodFraction": 231.2
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "soldiers",
+      "opponent": "siege",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 410,
+      "opponentCost": 420,
+      "winner": "allies",
+      "seconds": 16.43,
+      "player": {
+        "survivors": 3,
+        "hp": 475,
+        "survivingFoodFraction": 192.5
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "soldiers",
+      "opponent": "siege",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 410,
+      "opponentCost": 420,
+      "winner": "allies",
+      "seconds": 16.43,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 475,
+        "survivingFoodFraction": 192.5
+      }
+    },
+    {
+      "addition": "soldiers",
+      "opponent": "siege",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 410,
+      "opponentCost": 420,
+      "winner": "allies",
+      "seconds": 16.5,
+      "player": {
+        "survivors": 3,
+        "hp": 314,
+        "survivingFoodFraction": 171.8
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "soldiers",
+      "opponent": "siege",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 410,
+      "opponentCost": 420,
+      "winner": "allies",
+      "seconds": 16.5,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 314,
+        "survivingFoodFraction": 171.8
+      }
+    },
+    {
+      "addition": "ranged",
+      "opponent": "soldiers",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 420,
+      "opponentCost": 400,
+      "winner": "opponent",
+      "seconds": 20.17,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 2,
+        "hp": 334,
+        "survivingFoodFraction": 72.61
+      }
+    },
+    {
+      "addition": "ranged",
+      "opponent": "soldiers",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 420,
+      "opponentCost": 400,
+      "winner": "opponent",
+      "seconds": 20.17,
+      "player": {
+        "survivors": 2,
+        "hp": 334,
+        "survivingFoodFraction": 72.61
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "ranged",
+      "opponent": "soldiers",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 420,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 23.03,
+      "player": {
+        "survivors": 2,
+        "hp": 244,
+        "survivingFoodFraction": 138.27
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "ranged",
+      "opponent": "soldiers",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 420,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 23.03,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 2,
+        "hp": 244,
+        "survivingFoodFraction": 138.27
+      }
+    },
+    {
+      "addition": "ranged",
+      "opponent": "mice",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 420,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 16.03,
+      "player": {
+        "survivors": 4,
+        "hp": 538,
+        "survivingFoodFraction": 266.31
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "ranged",
+      "opponent": "mice",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 420,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 16.03,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 4,
+        "hp": 538,
+        "survivingFoodFraction": 266.31
+      }
+    },
+    {
+      "addition": "ranged",
+      "opponent": "mice",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 420,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 21.23,
+      "player": {
+        "survivors": 4,
+        "hp": 622,
+        "survivingFoodFraction": 277.11
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "ranged",
+      "opponent": "mice",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 420,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 21.23,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 4,
+        "hp": 622,
+        "survivingFoodFraction": 277.11
+      }
+    },
+    {
+      "addition": "ranged",
+      "opponent": "knight",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 420,
+      "opponentCost": 500,
+      "winner": "allies",
+      "seconds": 18.37,
+      "player": {
+        "survivors": 2,
+        "hp": 300,
+        "survivingFoodFraction": 170
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "ranged",
+      "opponent": "knight",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 420,
+      "opponentCost": 500,
+      "winner": "allies",
+      "seconds": 18.37,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 2,
+        "hp": 300,
+        "survivingFoodFraction": 170
+      }
+    },
+    {
+      "addition": "ranged",
+      "opponent": "knight",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 420,
+      "opponentCost": 500,
+      "winner": "allies",
+      "seconds": 19.23,
+      "player": {
+        "survivors": 2,
+        "hp": 300,
+        "survivingFoodFraction": 170
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "ranged",
+      "opponent": "knight",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 420,
+      "opponentCost": 500,
+      "winner": "allies",
+      "seconds": 19.23,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 2,
+        "hp": 300,
+        "survivingFoodFraction": 170
+      }
+    },
+    {
+      "addition": "ranged",
+      "opponent": "ranged",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 420,
+      "opponentCost": 435,
+      "winner": "opponent",
+      "seconds": 16.57,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 408,
+        "survivingFoodFraction": 231.2
+      }
+    },
+    {
+      "addition": "ranged",
+      "opponent": "ranged",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 420,
+      "opponentCost": 435,
+      "winner": "opponent",
+      "seconds": 16.57,
+      "player": {
+        "survivors": 3,
+        "hp": 408,
+        "survivingFoodFraction": 231.2
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "ranged",
+      "opponent": "ranged",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 420,
+      "opponentCost": 435,
+      "winner": "opponent",
+      "seconds": 17.63,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 450,
+        "survivingFoodFraction": 255
+      }
+    },
+    {
+      "addition": "ranged",
+      "opponent": "ranged",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 420,
+      "opponentCost": 435,
+      "winner": "opponent",
+      "seconds": 17.63,
+      "player": {
+        "survivors": 3,
+        "hp": 450,
+        "survivingFoodFraction": 255
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "ranged",
+      "opponent": "siege",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 420,
+      "opponentCost": 420,
+      "winner": "allies",
+      "seconds": 15.17,
+      "player": {
+        "survivors": 3,
+        "hp": 345,
+        "survivingFoodFraction": 195.5
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "ranged",
+      "opponent": "siege",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 420,
+      "opponentCost": 420,
+      "winner": "allies",
+      "seconds": 15.17,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 345,
+        "survivingFoodFraction": 195.5
+      }
+    },
+    {
+      "addition": "ranged",
+      "opponent": "siege",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 420,
+      "opponentCost": 420,
+      "winner": "opponent",
+      "seconds": 13.8,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 260,
+        "survivingFoodFraction": 160
+      }
+    },
+    {
+      "addition": "ranged",
+      "opponent": "siege",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 420,
+      "opponentCost": 420,
+      "winner": "opponent",
+      "seconds": 13.8,
+      "player": {
+        "survivors": 1,
+        "hp": 260,
+        "survivingFoodFraction": 160
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "mage",
+      "opponent": "soldiers",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 420,
+      "opponentCost": 400,
+      "winner": "opponent",
+      "seconds": 18.17,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 4,
+        "hp": 499,
+        "survivingFoodFraction": 108.48
+      }
+    },
+    {
+      "addition": "mage",
+      "opponent": "soldiers",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 420,
+      "opponentCost": 400,
+      "winner": "opponent",
+      "seconds": 18.17,
+      "player": {
+        "survivors": 4,
+        "hp": 499,
+        "survivingFoodFraction": 108.48
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "mage",
+      "opponent": "soldiers",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 420,
+      "opponentCost": 400,
+      "winner": "opponent",
+      "seconds": 24.17,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 2,
+        "hp": 376,
+        "survivingFoodFraction": 81.74
+      }
+    },
+    {
+      "addition": "mage",
+      "opponent": "soldiers",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 420,
+      "opponentCost": 400,
+      "winner": "opponent",
+      "seconds": 24.17,
+      "player": {
+        "survivors": 2,
+        "hp": 376,
+        "survivingFoodFraction": 81.74
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "mage",
+      "opponent": "mice",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 420,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 17.33,
+      "player": {
+        "survivors": 4,
+        "hp": 490,
+        "survivingFoodFraction": 285.14
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "mage",
+      "opponent": "mice",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 420,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 17.33,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 4,
+        "hp": 490,
+        "survivingFoodFraction": 285.14
+      }
+    },
+    {
+      "addition": "mage",
+      "opponent": "mice",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 420,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 17.33,
+      "player": {
+        "survivors": 4,
+        "hp": 694,
+        "survivingFoodFraction": 311.37
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "mage",
+      "opponent": "mice",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 420,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 17.33,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 4,
+        "hp": 694,
+        "survivingFoodFraction": 311.37
+      }
+    },
+    {
+      "addition": "mage",
+      "opponent": "knight",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 420,
+      "opponentCost": 500,
+      "winner": "allies",
+      "seconds": 17.77,
+      "player": {
+        "survivors": 3,
+        "hp": 450,
+        "survivingFoodFraction": 280
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "mage",
+      "opponent": "knight",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 420,
+      "opponentCost": 500,
+      "winner": "allies",
+      "seconds": 17.77,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 450,
+        "survivingFoodFraction": 280
+      }
+    },
+    {
+      "addition": "mage",
+      "opponent": "knight",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 420,
+      "opponentCost": 500,
+      "winner": "allies",
+      "seconds": 20.53,
+      "player": {
+        "survivors": 3,
+        "hp": 310,
+        "survivingFoodFraction": 200.67
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "mage",
+      "opponent": "knight",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 420,
+      "opponentCost": 500,
+      "winner": "allies",
+      "seconds": 20.53,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 310,
+        "survivingFoodFraction": 200.67
+      }
+    },
+    {
+      "addition": "mage",
+      "opponent": "ranged",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 420,
+      "opponentCost": 435,
+      "winner": "opponent",
+      "seconds": 15.57,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 5,
+        "hp": 697,
+        "survivingFoodFraction": 286.76
+      }
+    },
+    {
+      "addition": "mage",
+      "opponent": "ranged",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 420,
+      "opponentCost": 435,
+      "winner": "opponent",
+      "seconds": 15.57,
+      "player": {
+        "survivors": 5,
+        "hp": 697,
+        "survivingFoodFraction": 286.76
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "mage",
+      "opponent": "ranged",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 420,
+      "opponentCost": 435,
+      "winner": "opponent",
+      "seconds": 16.6,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 4,
+        "hp": 828,
+        "survivingFoodFraction": 303.6
+      }
+    },
+    {
+      "addition": "mage",
+      "opponent": "ranged",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 420,
+      "opponentCost": 435,
+      "winner": "opponent",
+      "seconds": 16.6,
+      "player": {
+        "survivors": 4,
+        "hp": 828,
+        "survivingFoodFraction": 303.6
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "mage",
+      "opponent": "siege",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 420,
+      "opponentCost": 420,
+      "winner": "allies",
+      "seconds": 15.37,
+      "player": {
+        "survivors": 4,
+        "hp": 464,
+        "survivingFoodFraction": 281.8
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "mage",
+      "opponent": "siege",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 420,
+      "opponentCost": 420,
+      "winner": "allies",
+      "seconds": 15.37,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 4,
+        "hp": 464,
+        "survivingFoodFraction": 281.8
+      }
+    },
+    {
+      "addition": "mage",
+      "opponent": "siege",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 420,
+      "opponentCost": 420,
+      "winner": "opponent",
+      "seconds": 10.77,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 2,
+        "hp": 478,
+        "survivingFoodFraction": 294.15
+      }
+    },
+    {
+      "addition": "mage",
+      "opponent": "siege",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 420,
+      "opponentCost": 420,
+      "winner": "opponent",
+      "seconds": 10.77,
+      "player": {
+        "survivors": 2,
+        "hp": 478,
+        "survivingFoodFraction": 294.15
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "healer",
+      "opponent": "soldiers",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 440,
+      "opponentCost": 400,
+      "winner": "opponent",
+      "seconds": 22.17,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 390,
+        "survivingFoodFraction": 84.78
+      }
+    },
+    {
+      "addition": "healer",
+      "opponent": "soldiers",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 440,
+      "opponentCost": 400,
+      "winner": "opponent",
+      "seconds": 22.17,
+      "player": {
+        "survivors": 3,
+        "hp": 390,
+        "survivingFoodFraction": 84.78
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "healer",
+      "opponent": "soldiers",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 440,
+      "opponentCost": 400,
+      "winner": "opponent",
+      "seconds": 30.5,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 146,
+        "survivingFoodFraction": 31.74
+      }
+    },
+    {
+      "addition": "healer",
+      "opponent": "soldiers",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 440,
+      "opponentCost": 400,
+      "winner": "opponent",
+      "seconds": 30.5,
+      "player": {
+        "survivors": 1,
+        "hp": 146,
+        "survivingFoodFraction": 31.74
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "healer",
+      "opponent": "mice",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 440,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 18.63,
+      "player": {
+        "survivors": 5,
+        "hp": 834,
+        "survivingFoodFraction": 351.55
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "healer",
+      "opponent": "mice",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 440,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 18.63,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 5,
+        "hp": 834,
+        "survivingFoodFraction": 351.55
+      }
+    },
+    {
+      "addition": "healer",
+      "opponent": "mice",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 440,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 21.37,
+      "player": {
+        "survivors": 4,
+        "hp": 958,
+        "survivingFoodFraction": 361.46
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "healer",
+      "opponent": "mice",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 440,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 21.37,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 4,
+        "hp": 958,
+        "survivingFoodFraction": 361.46
+      }
+    },
+    {
+      "addition": "healer",
+      "opponent": "knight",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 440,
+      "opponentCost": 500,
+      "winner": "allies",
+      "seconds": 22.2,
+      "player": {
+        "survivors": 2,
+        "hp": 160,
+        "survivingFoodFraction": 90.67
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "healer",
+      "opponent": "knight",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 440,
+      "opponentCost": 500,
+      "winner": "allies",
+      "seconds": 22.2,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 2,
+        "hp": 160,
+        "survivingFoodFraction": 90.67
+      }
+    },
+    {
+      "addition": "healer",
+      "opponent": "knight",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 440,
+      "opponentCost": 500,
+      "winner": "opponent",
+      "seconds": 25.6,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 181,
+        "survivingFoodFraction": 50.28
+      }
+    },
+    {
+      "addition": "healer",
+      "opponent": "knight",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 440,
+      "opponentCost": 500,
+      "winner": "opponent",
+      "seconds": 25.6,
+      "player": {
+        "survivors": 1,
+        "hp": 181,
+        "survivingFoodFraction": 50.28
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "healer",
+      "opponent": "ranged",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 440,
+      "opponentCost": 435,
+      "winner": "opponent",
+      "seconds": 18.8,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 5,
+        "hp": 654,
+        "survivingFoodFraction": 281.23
+      }
+    },
+    {
+      "addition": "healer",
+      "opponent": "ranged",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 440,
+      "opponentCost": 435,
+      "winner": "opponent",
+      "seconds": 18.8,
+      "player": {
+        "survivors": 5,
+        "hp": 654,
+        "survivingFoodFraction": 281.23
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "healer",
+      "opponent": "ranged",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 440,
+      "opponentCost": 435,
+      "winner": "opponent",
+      "seconds": 17.67,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 4,
+        "hp": 772,
+        "survivingFoodFraction": 296.4
+      }
+    },
+    {
+      "addition": "healer",
+      "opponent": "ranged",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 440,
+      "opponentCost": 435,
+      "winner": "opponent",
+      "seconds": 17.67,
+      "player": {
+        "survivors": 4,
+        "hp": 772,
+        "survivingFoodFraction": 296.4
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "healer",
+      "opponent": "siege",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 440,
+      "opponentCost": 420,
+      "winner": "allies",
+      "seconds": 16.6,
+      "player": {
+        "survivors": 4,
+        "hp": 802,
+        "survivingFoodFraction": 341.4
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "healer",
+      "opponent": "siege",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 440,
+      "opponentCost": 420,
+      "winner": "allies",
+      "seconds": 16.6,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 4,
+        "hp": 802,
+        "survivingFoodFraction": 341.4
+      }
+    },
+    {
+      "addition": "healer",
+      "opponent": "siege",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 440,
+      "opponentCost": 420,
+      "winner": "opponent",
+      "seconds": 16.6,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 2,
+        "hp": 352,
+        "survivingFoodFraction": 216.62
+      }
+    },
+    {
+      "addition": "healer",
+      "opponent": "siege",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 440,
+      "opponentCost": 420,
+      "winner": "opponent",
+      "seconds": 16.6,
+      "player": {
+        "survivors": 2,
+        "hp": 352,
+        "survivingFoodFraction": 216.62
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "shield",
+      "opponent": "soldiers",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 425,
+      "opponentCost": 400,
+      "winner": "opponent",
+      "seconds": 21.03,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 447,
+        "survivingFoodFraction": 97.17
+      }
+    },
+    {
+      "addition": "shield",
+      "opponent": "soldiers",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 425,
+      "opponentCost": 400,
+      "winner": "opponent",
+      "seconds": 21.03,
+      "player": {
+        "survivors": 3,
+        "hp": 447,
+        "survivingFoodFraction": 97.17
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "shield",
+      "opponent": "soldiers",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 425,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 28.23,
+      "player": {
+        "survivors": 2,
+        "hp": 272,
+        "survivingFoodFraction": 154.13
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "shield",
+      "opponent": "soldiers",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 425,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 28.23,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 2,
+        "hp": 272,
+        "survivingFoodFraction": 154.13
+      }
+    },
+    {
+      "addition": "shield",
+      "opponent": "mice",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 425,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 17.33,
+      "player": {
+        "survivors": 5,
+        "hp": 922,
+        "survivingFoodFraction": 258.68
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "shield",
+      "opponent": "mice",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 425,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 17.33,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 5,
+        "hp": 922,
+        "survivingFoodFraction": 258.68
+      }
+    },
+    {
+      "addition": "shield",
+      "opponent": "mice",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 425,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 19.93,
+      "player": {
+        "survivors": 4,
+        "hp": 1208,
+        "survivingFoodFraction": 286.74
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "shield",
+      "opponent": "mice",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 425,
+      "opponentCost": 400,
+      "winner": "allies",
+      "seconds": 19.93,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 4,
+        "hp": 1208,
+        "survivingFoodFraction": 286.74
+      }
+    },
+    {
+      "addition": "shield",
+      "opponent": "knight",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 425,
+      "opponentCost": 500,
+      "winner": "allies",
+      "seconds": 24.5,
+      "player": {
+        "survivors": 2,
+        "hp": 300,
+        "survivingFoodFraction": 170
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "shield",
+      "opponent": "knight",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 425,
+      "opponentCost": 500,
+      "winner": "allies",
+      "seconds": 24.5,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 2,
+        "hp": 300,
+        "survivingFoodFraction": 170
+      }
+    },
+    {
+      "addition": "shield",
+      "opponent": "knight",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 425,
+      "opponentCost": 500,
+      "winner": "allies",
+      "seconds": 23.13,
+      "player": {
+        "survivors": 2,
+        "hp": 300,
+        "survivingFoodFraction": 170
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "shield",
+      "opponent": "knight",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 425,
+      "opponentCost": 500,
+      "winner": "allies",
+      "seconds": 23.13,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 2,
+        "hp": 300,
+        "survivingFoodFraction": 170
+      }
+    },
+    {
+      "addition": "shield",
+      "opponent": "ranged",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 425,
+      "opponentCost": 435,
+      "winner": "opponent",
+      "seconds": 21.77,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 408,
+        "survivingFoodFraction": 231.2
+      }
+    },
+    {
+      "addition": "shield",
+      "opponent": "ranged",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 425,
+      "opponentCost": 435,
+      "winner": "opponent",
+      "seconds": 21.77,
+      "player": {
+        "survivors": 3,
+        "hp": 408,
+        "survivingFoodFraction": 231.2
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "shield",
+      "opponent": "ranged",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 425,
+      "opponentCost": 435,
+      "winner": "opponent",
+      "seconds": 21.83,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 450,
+        "survivingFoodFraction": 255
+      }
+    },
+    {
+      "addition": "shield",
+      "opponent": "ranged",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 425,
+      "opponentCost": 435,
+      "winner": "opponent",
+      "seconds": 21.83,
+      "player": {
+        "survivors": 3,
+        "hp": 450,
+        "survivingFoodFraction": 255
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "shield",
+      "opponent": "siege",
+      "layout": "spread",
+      "swapped": false,
+      "cost": 425,
+      "opponentCost": 420,
+      "winner": "allies",
+      "seconds": 18.03,
+      "player": {
+        "survivors": 3,
+        "hp": 790,
+        "survivingFoodFraction": 233
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    },
+    {
+      "addition": "shield",
+      "opponent": "siege",
+      "layout": "spread",
+      "swapped": true,
+      "cost": 425,
+      "opponentCost": 420,
+      "winner": "allies",
+      "seconds": 18.03,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 3,
+        "hp": 790,
+        "survivingFoodFraction": 233
+      }
+    },
+    {
+      "addition": "shield",
+      "opponent": "siege",
+      "layout": "clustered",
+      "swapped": false,
+      "cost": 425,
+      "opponentCost": 420,
+      "winner": "opponent",
+      "seconds": 16.83,
+      "player": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      },
+      "enemy": {
+        "survivors": 1,
+        "hp": 176,
+        "survivingFoodFraction": 108.31
+      }
+    },
+    {
+      "addition": "shield",
+      "opponent": "siege",
+      "layout": "clustered",
+      "swapped": true,
+      "cost": 425,
+      "opponentCost": 420,
+      "winner": "opponent",
+      "seconds": 16.83,
+      "player": {
+        "survivors": 1,
+        "hp": 176,
+        "survivingFoodFraction": 108.31
+      },
+      "enemy": {
+        "survivors": 0,
+        "hp": 0,
+        "survivingFoodFraction": 0
+      }
+    }
+  ]
+}

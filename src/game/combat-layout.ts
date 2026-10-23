@@ -1,11 +1,28 @@
 import type { Side, UnitKind } from './content.ts';
-import { UNITS } from './content.ts';
-import { battleDistance } from './combat-space.ts';
+import { BASE_X, MELEE_CONTACT_RANGE, UNITS } from './content.ts';
+import { battleDistance, LANE_SPACING } from './combat-space.ts';
 import { portraitProjection } from './projection.ts';
 
-interface Actor { id: number; x: number; row: number; side: Side; kind: UnitKind; targetId?: number | null }
+interface Actor { id: number; x: number; row: number; side: Side; kind: UnitKind; targetId?: number | null; attacking?: boolean }
 export interface ScreenPoint { x: number; y: number }
 export const unitScale = (kind: UnitKind) => kind === 'knight' ? 1.24 : kind === 'catapult' ? 1.14 : kind === 'mouse' ? .9 : 1;
+// Body silhouettes touch at this spacing; transparent SVG edges are not bodies.
+export const meleeContactPixels = (a: UnitKind, b: UnitKind, size: number) => size * (unitScale(a) + unitScale(b)) / 2 * .6;
+
+function keepContactOffsets(actors: Actor[], points: Map<number, ScreenPoint>, width: number, height: number) {
+  const view=portraitProjection(width,height), origin=view.project(BASE_X.player,0);
+  const end=view.project(BASE_X.enemy,1);
+  const scale=Math.max(Math.abs(end.y-origin.y)/(BASE_X.enemy-BASE_X.player),Math.abs(end.x-origin.x)/LANE_SPACING);
+  for(const unit of actors) {
+    const p=points.get(unit.id)!,anchor=view.project(unit.x,unit.row);
+    // Each body owns half the contact spacing, less half the projected reach.
+    // The triangle inequality then guarantees any melee hit is visibly in contact,
+    // without pulling a crowd into one target or snapping when targets change.
+    const limit=Math.max(0,view.unitSize*unitScale(unit.kind)*.3-MELEE_CONTACT_RANGE*scale/2);
+    const dx=p.x-anchor.x,dy=p.y-anchor.y,distance=Math.hypot(dx,dy);
+    if(distance>limit) { p.x=anchor.x+dx*limit/distance; p.y=anchor.y+dy*limit/distance; }
+  }
+}
 
 /** Keep compressed front lines legible without changing simulation reach or collision. */
 export function combatLayout(actors: Actor[], width: number, height: number, seed?: Map<number, ScreenPoint>) {
@@ -18,24 +35,26 @@ export function combatLayout(actors: Actor[], width: number, height: number, see
   const gaps = new Map<string, number>();
   for (let i = 0; i < ordered.length; i++) for (let j = i + 1; j < ordered.length; j++) {
     const a = ordered[i], b = ordered[j];
-    let gap = view.unitSize * (unitScale(a.kind) + unitScale(b.kind)) / 2 * (a.side === b.side ? .62 : .86);
-    const meleeReach = Math.max(...[a,b].map(u => UNITS[u.kind].range <= 60 ? UNITS[u.kind].range : 0));
-    const engaged = targets.get(a.id) === b.id || targets.get(b.id) === a.id;
-    if (a.side !== b.side && meleeReach && engaged) {
+    let gap = view.unitSize * (unitScale(a.kind) + unitScale(b.kind)) / 2 * (a.side === b.side ? .5 : .7);
+    const attackers = [a,b].filter((u,i) => UNITS[u.kind].range <= 60 && targets.get(u.id) === [b,a][i].id);
+    const meleeReach = Math.max(0,...attackers.map(u=>UNITS[u.kind].range));
+    if (a.side !== b.side && meleeReach) {
       const p = anchors.get(a.id)!, q = anchors.get(b.id)!;
       const projected = Math.hypot(q.x-p.x,q.y-p.y), logical = battleDistance(a,b);
+      gap = meleeContactPixels(a.kind,b.kind,view.unitSize);
       const reachPixels = logical > 0 ? projected * meleeReach / logical : 0;
       const padding = Math.max(0, gap - reachPixels);
       // Leave a closing gap until actual melee range. A fixed visual radius used
       // to pin both puppets in place while their hidden logical points approached.
       if (padding > .001) gap = Math.max(gap, projected + padding * Math.exp(-Math.max(0, projected-reachPixels) / (2*padding)));
+      if (logical <= meleeReach) gap = meleeContactPixels(a.kind,b.kind,view.unitSize);
     }
     gaps.set(`${a.id}:${b.id}`,gap);
   }
   for (let pass = 0; pass < 8; pass++) {
     if (seed) for (const unit of ordered) {
       const p = points.get(unit.id)!, anchor = anchors.get(unit.id)!;
-      p.x += (anchor.x-p.x)*.015; p.y += (anchor.y-p.y)*.015;
+      p.x += (anchor.x-p.x)*.04; p.y += (anchor.y-p.y)*.04;
     }
     const shifts = new Map(ordered.map(unit => [unit.id, { x: 0, y: 0 }]));
     for (let i = 0; i < ordered.length; i++) for (let j = i + 1; j < ordered.length; j++) {
@@ -57,6 +76,7 @@ export function combatLayout(actors: Actor[], width: number, height: number, see
       p.x = Math.max(view.unitSize * .65, Math.min(width - view.unitSize * .65, p.x + shift.x * limit));
       p.y = Math.max(view.unitSize * .65, Math.min(height - view.unitSize * .65, p.y + shift.y * limit));
     }
+    keepContactOffsets(ordered,points,width,height);
   }
   return points;
 }
@@ -92,6 +112,7 @@ export class CombatLayout {
       const ease = Math.min(1-Math.exp(-10*elapsed), view.unitSize*1.4*elapsed/(distance || 1));
       positions.set(unit.id,{x:from.x+dx*ease,y:from.y+dy*ease});
     }
+    keepContactOffsets(actors,positions,width,height);
     this.positions=positions; this.anchors=anchors; this.time=now; this.width=width; this.height=height;
     return positions;
   }

@@ -71,4 +71,4 @@ export function simulateStrategy(level, strategy) {
   }
   return { level: level.id, strategy, winner: battle.winner ?? 'unfinished', seconds: Math.round(battle.time), playerHp: Math.round(battle.armies.player.hp), enemyHp: Math.round(battle.armies.enemy.hp), playerTech: battle.armies.player.tech, enemyTech: battle.armies.enemy.tech, playerIncomeLevel: battle.armies.player.economy + 1, enemyIncomeLevel: battle.armies.enemy.economy + 1, playerFood: Math.round(battle.armies.player.food), enemyFood: Math.round(battle.armies.enemy.food), ...(battle.winner ? {} : {remainingUnits:battle.units.map(({kind,side,x,hp})=>({kind,side,x:Math.round(x),hp:Math.round(hp)}))}) };
 }
-if (import.meta.url === pathToFileURL(process.argv[1]).href) console.log(JSON.stringify(LEVELS.flatMap(level => STRATEGIES.map(strategy => simulateStrategy(level,strategy))), null, 2));
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) console.log(JSON.stringify(LEVELS.flatMap(level => STRATEGIES.map(strategy => simulateStrategy(level,strategy))), null, 2));

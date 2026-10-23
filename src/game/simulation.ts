@@ -250,7 +250,7 @@ export class Battle {
             fx.sourceRow = unit.row; fx.sourceId = unit.id; fx.targetId = nearest?.id;
           }
         }
-      } else if (!inRange) this.move(unit, dt, targetX, unit.targetRow, 30);
+      } else if (!inRange) this.move(unit, dt, targetX, unit.targetRow, Math.min(30, spec.range * .98));
     }
     for (const unit of this.units) {
       unit.slow = Math.max(0, unit.slow - dt);

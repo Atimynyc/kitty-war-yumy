@@ -89,7 +89,7 @@ test('base-cat dialogue follows actual base damage, gives defense priority and p
   assert.equal(b.baseDialogue.snapshot(b.time).remaining, 5);
   b.togglePause(); advance(b, 6);
   assert.equal(b.baseDialogue.snapshot(b.time).text, '');
-  spawn(b, 'enemy', 'soldier', BASE_X.player + 20);
+  spawn(b, 'enemy', 'soldier', BASE_X.player + 16);
   b.step(1 / 30);
   assert.ok(b.armies.player.hp < BASE_HP);
   const first = b.baseDialogue.snapshot(b.time);
@@ -97,7 +97,7 @@ test('base-cat dialogue follows actual base damage, gives defense priority and p
   advance(b, 2);
   assert.equal(b.baseDialogue.snapshot(b.time).startedAt, first.startedAt, 'repeated attacks must not restart the speech');
   b.units = [];
-  spawn(b, 'player', 'soldier', BASE_X.enemy - 20);
+  spawn(b, 'player', 'soldier', BASE_X.enemy - 16);
   b.step(1 / 30);
   assert.equal(b.baseDialogue.snapshot(b.time).text, '不！我自己都不够吃。');
   assert.ok(b.armies.enemy.hp < BASE_HP);
@@ -109,7 +109,7 @@ test('base-cat dialogue follows actual base damage, gives defense priority and p
 
 test('base-cat reactions ignore wounded units and wait for star impact on a base', () => {
   const b = create(); advance(b, 6);
-  const a = spawn(b, 'player', 'soldier', 700), z = spawn(b, 'enemy', 'soldier', 730);
+  const a = spawn(b, 'player', 'soldier', 700), z = spawn(b, 'enemy', 'soldier', 716);
   b.step(1 / 30);
   assert.ok(a.hp < UNITS.soldier.hp && z.hp < UNITS.soldier.hp);
   assert.equal(b.baseDialogue.snapshot(b.time).text, '');
@@ -135,7 +135,7 @@ test('simultaneous base hits show the orange cat protecting his food, with a qui
   b.step(1 / 30);
   assert.equal(b.baseDialogue.snapshot(b.time).cue, 'protect');
   const first = b.baseDialogue.snapshot(b.time).startedAt;
-  spawn(b, 'player', 'knight', BASE_X.enemy - 20);
+  spawn(b, 'player', 'knight', BASE_X.enemy - 16);
   advance(b, 5);
   assert.equal(b.baseDialogue.snapshot(b.time).text, '');
   advance(b, 5);
@@ -248,14 +248,14 @@ test('dog knight requires tier three, a large food reserve and six free populati
 
 test('knight delivers a heavy single-target melee strike, obeys cadence and receives catnip and slow', () => {
   const b = create(), knight = spawn(b, 'player', 'knight', 700);
-  const target = spawn(b, 'enemy', 'shield', 735), neighbor = spawn(b, 'enemy', 'shield', 736);
+  const target = spawn(b, 'enemy', 'shield', 716), neighbor = spawn(b, 'enemy', 'shield', 717);
   target.attackCooldown = neighbor.attackCooldown = 100;
   b.step(1 / 30);
-  assert.equal(target.hp, UNITS.shield.hp - 140); assert.equal(neighbor.hp, UNITS.shield.hp);
-  advance(b, 1.5); assert.equal(target.hp, UNITS.shield.hp - 140);
-  advance(b, .15); assert.equal(target.hp, UNITS.shield.hp - 280);
+  assert.equal(target.hp, UNITS.shield.hp - 150); assert.equal(neighbor.hp, UNITS.shield.hp);
+  advance(b, 1.5); assert.equal(target.hp, UNITS.shield.hp - 150);
+  advance(b, .15); assert.equal(target.hp, UNITS.shield.hp - 300);
   b.catnip('player'); knight.attackCooldown = 0;
-  const hp = target.hp; b.step(1 / 30); assert.equal(hp - target.hp, 168);
+  const hp = target.hp; b.step(1 / 30); assert.equal(hp - target.hp, 180);
   b.units = [knight]; knight.x = 500; knight.starSlow = 3; knight.attackCooldown = 10;
   b.step(.1); assert.ok(Math.abs(knight.x - 503.15) < 1e-8);
   assert.ok(Math.abs(knight.attackCooldown - 9.93) < 1e-8);
@@ -265,8 +265,8 @@ test('knight can be healed, takes ordinary damage and releases all six populatio
   const b = create(), knight = spawn(b, 'player', 'knight', 700);
   spawn(b, 'player', 'healer', 600); knight.hp = 1780;
   b.step(1 / 30); assert.equal(knight.hp, 1800);
-  const foe = spawn(b, 'enemy', 'knight', 745); knight.attackCooldown = 100;
-  b.step(1 / 30); assert.equal(knight.hp, 1660);
+  const foe = spawn(b, 'enemy', 'knight', 716); knight.attackCooldown = 100;
+  b.step(1 / 30); assert.equal(knight.hp, 1650);
   knight.hp = 1; foe.attackCooldown = 0; b.step(1 / 30);
   assert.equal(b.population('player'), 2);
   assert.equal(b.units.some(u => u.id === knight.id), false);
@@ -305,7 +305,7 @@ test('star slow reduces movement and attack frequency by 30%, including partial 
 });
 
 test('a slowed fighter completes one attack interval in interval / 0.7 seconds', () => {
-  const b = create(), u = spawn(b, 'player', 'soldier', 700), target = spawn(b, 'enemy', 'shield', 735);
+  const b = create(), u = spawn(b, 'player', 'soldier', 700), target = spawn(b, 'enemy', 'shield', 716);
   target.attackCooldown = 100; u.starSlow = 3; u.attackCooldown = 1;
   advance(b, 1.4); assert.equal(target.hp, UNITS.shield.hp);
   advance(b, 1 / 30); assert.equal(target.hp, UNITS.shield.hp - UNITS.soldier.damage);
@@ -351,7 +351,7 @@ test('catapult splash includes its radius boundary, excludes allies and scales e
 });
 
 test('catnip expires without changing base stats and never increases healing or cannon damage', () => {
-  const b = create(), u = spawn(b, 'player', 'soldier', 700), target = spawn(b, 'enemy', 'shield', 735);
+  const b = create(), u = spawn(b, 'player', 'soldier', 700), target = spawn(b, 'enemy', 'shield', 716);
   target.attackCooldown = 100; b.catnip('player'); b.step(1 / 30);
   assert.ok(Math.abs(target.hp - (UNITS.shield.hp - UNITS.soldier.damage * 1.2)) < 1e-8);
   u.catnip = .02; u.attackCooldown = 0; const hp = target.hp; b.step(1 / 30);
@@ -425,10 +425,39 @@ test('pause freezes income, combat, research, cooldowns and game time; restart c
   assert.equal(battle.armies.player.food, STARTING_FOOD); assert.equal(battle.armies.player.hp, BASE_HP);
 });
 
+test('every melee troop must reach contact before damage, including lateral and rear targets', () => {
+  for (const kind of ['mouse','soldier','shield','knight'] as UnitKind[]) for (const side of ['player','enemy'] as Side[])
+    for (const angle of [0, Math.PI/4, Math.PI/2, Math.PI]) {
+      const b=create(), a=spawn(b,side,kind,700), foe=side==='player'?'enemy':'player';
+      const place=(distance:number)=>({x:700+Math.cos(angle)*distance,row:1+Math.sin(angle)*distance/LANE_SPACING});
+      const outside=place(UNITS[kind].range+.01), z=spawn(b,foe,'shield',outside.x,outside.row);
+      z.attackCooldown=100;
+      b.step(1/30);
+      assert.equal(z.hp,UNITS.shield.hp,`${kind} hit before contact`);
+      assert.equal(a.attackAt,-100); assert.equal(a.attacking,false); assert.equal(a.walking,true);
+      Object.assign(a,{x:700,row:1}); Object.assign(z,place(UNITS[kind].range-.01));
+      b.step(1/30);
+      assert.equal(a.attackAt,b.time); assert.equal(z.hp,UNITS.shield.hp-UNITS[kind].damage);
+    }
+});
+
+test('knockback breaks melee contact and prevents damage until the fighter closes again', () => {
+  const b=create(), a=spawn(b,'player','soldier',350), z=spawn(b,'enemy','shield',366);
+  b.armies.player.cannonCooldown=b.armies.enemy.cannonCooldown=100;
+  z.attackCooldown=100; b.step(1/30); const hp=z.hp;
+  b.roar('player'); a.attackCooldown=0;
+  for (let frame=0;frame<180;frame++) {
+    const distance=battleDistance(a,z); b.step(1/30);
+    if(distance>UNITS.soldier.range) { assert.equal(z.hp,hp); assert.equal(a.attacking,false); }
+    else { assert.ok(z.hp<hp); return; }
+  }
+  assert.fail('fighter never regained contact after knockback');
+});
+
 test('melee contact halts forward movement, limits contact positions and awards no kill income', () => {
   const battle = create();
   for (let i = 0; i < 5; i++) spawn(battle, 'player', 'soldier', 700);
-  const target = spawn(battle, 'enemy', 'shield', 735); target.attackCooldown = 10;
+  const target = spawn(battle, 'enemy', 'shield', 716); target.attackCooldown = 10;
   const foodBefore = battle.armies.player.food;
   battle.step(1 / 30);
   assert.equal(target.hp, UNITS.shield.hp - UNITS.soldier.damage * 3);
@@ -486,7 +515,7 @@ test('attacking the base completes the match and completed matches stop advancin
 
 test('simultaneous fatal melee damage removes both soldiers without update-order advantage', () => {
   const battle = create();
-  const a = spawn(battle, 'player', 'soldier', 700), b = spawn(battle, 'enemy', 'soldier', 735);
+  const a = spawn(battle, 'player', 'soldier', 700), b = spawn(battle, 'enemy', 'soldier', 716);
   a.hp = b.hp = 10;
   battle.step(1 / 30);
   assert.equal(battle.units.length, 0);
@@ -636,7 +665,7 @@ test('later levels defeat soldier-only play while investment, mixed troops and s
 test('attack and hurt poses follow actual damage timestamps even when render frames are skipped', () => {
   const battle = create();
   const attacker = spawn(battle, 'player', 'soldier', 700);
-  const victim = spawn(battle, 'enemy', 'shield', 735); victim.attackCooldown = 10;
+  const victim = spawn(battle, 'enemy', 'shield', 716); victim.attackCooldown = 10;
   battle.step(1 / 30);
   assert.equal(attacker.attackAt, battle.time);
   assert.equal(victim.hitAt, battle.time);
@@ -662,7 +691,7 @@ test('steps follow distance travelled, including slow, while a roar does not gen
 });
 
 test('death keeps an identifiable visual event while immediately releasing the unit and population', () => {
-  const battle = create(), attacker = spawn(battle, 'player', 'soldier', 700), victim = spawn(battle, 'enemy', 'soldier', 735);
+  const battle = create(), attacker = spawn(battle, 'player', 'soldier', 700), victim = spawn(battle, 'enemy', 'soldier', 716);
   victim.hp = 1; victim.attackCooldown = 10;
   battle.step(1 / 30);
   const event = battle.effects.find(effect => effect.type === 'death' && effect.unitId === victim.id)!;

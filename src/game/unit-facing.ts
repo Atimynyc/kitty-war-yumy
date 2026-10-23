@@ -12,3 +12,25 @@ export function directionArt(forward: { x: number; y: number }, previous?: Direc
     mirror: forward.x < mirrorThreshold ? -1 : 1,
   };
 }
+
+/** Close contact can move a target past either shoulder briefly. Keep the body
+ * settled while the weapon aims continuously; deliberate turns still complete. */
+export class BodyDirection {
+  private current?: DirectionArt;
+  private pending?: DirectionArt;
+  private pendingSince = 0;
+  private changedAt = -Infinity;
+  get turning() { return this.pending !== undefined; }
+  update(forward: { x: number; y: number }, now: number) {
+    const next=directionArt(forward,this.current);
+    if(!this.current) return this.current=next;
+    if(next.look===this.current.look && next.mirror===this.current.mirror) { this.pending=undefined; return this.current; }
+    if(!this.pending || next.look!==this.pending.look || next.mirror!==this.pending.mirror) {
+      this.pending=next; this.pendingSince=now;
+    }
+    if(now-this.pendingSince>=.1-1e-8 && now-this.changedAt>=.22-1e-8) {
+      this.current=next; this.pending=undefined; this.changedAt=now;
+    }
+    return this.current;
+  }
+}
