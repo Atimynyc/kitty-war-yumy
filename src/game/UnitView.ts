@@ -5,6 +5,8 @@ import type { UnitLook } from './unit-art.ts';
 import { unitMotion } from './unit-motion.ts';
 import { BodyDirection } from './unit-facing.ts';
 import type { Unit } from './simulation.ts';
+import { bossCharge } from './boss-combat.ts';
+import { ORANGE_BOSS } from './content.ts';
 
 /** One reusable puppet for the vertical battlefield. The root is the logical ground point. */
 export class UnitView {
@@ -14,6 +16,7 @@ export class UnitView {
   private torso: Phaser.GameObjects.Container;
   private shadow: Phaser.GameObjects.Image;
   private stars: Phaser.GameObjects.Image;
+  private bossPaw?: Phaser.GameObjects.Image;
   private status: Phaser.GameObjects.Graphics;
   private pieces: Partial<Record<PartName, Phaser.GameObjects.Image>> = {};
   private pivots: Partial<Record<PartName, { x: number; y: number }>> = {};
@@ -42,6 +45,10 @@ export class UnitView {
       if (part.name.endsWith('Foot')) this.actor.add(image); else this.torso.add(image);
     }
     this.actor.add(this.torso);
+    if(unit.kind==='boss') {
+      const paw=this.pieces.rightHand!;
+      this.bossPaw=scene.add.image(0,0,paw.texture.key).setOrigin(paw.originX,paw.originY).setDepth(29).setVisible(false);
+    }
     // Wheels remain on the ground; mouse/vehicle body and tool point toward the foe.
     if (unit.side === 'enemy' && (unit.kind === 'mouse' || unit.kind === 'catapult')) this.actor.setAngle(180);
   }
@@ -92,6 +99,7 @@ export class UnitView {
       const pivot = this.pivots[name]!;
       if (!machine && (name === 'body' || name === 'rider')) image.setTexture(`${unit.side}-${unit.kind}-${name}-${this.look}`);
       image.setPosition(pivot.x, pivot.y).setRotation(0).setScale(1);
+      image.setVisible(true);
       // Canvas tint support differs across browsers, so recoil/scale also carries the hit.
       if (motion.flash) image.setTint(0xffd4bb);
       else if (unit.slow > 0 || unit.starSlow > 0) image.setTint(0xd3dff5);
@@ -125,7 +133,22 @@ export class UnitView {
       const leftHand = this.pieces.leftHand!, rightHand = this.pieces.rightHand!;
       leftHand.y -= motion.stride * 3; rightHand.y += motion.stride * 3;
       leftHand.setAngle(motion.stride * 8 - motion.hit * 12 + motion.fall * 18);
-      if (unit.kind === 'shield') {
+      if (unit.kind === 'boss') {
+        const charge=bossCharge(unit.sweep),raise=deathAt===undefined?charge.lift:0,age=now-unit.attackAt;
+        const striking=deathAt===undefined && age>=0 && age<ORANGE_BOSS.recovery;
+        const swipe=unit.sweep?charge.swipe:striking?1:0;
+        const recover=striking?Math.max(0,1-age/ORANGE_BOSS.recovery):unit.sweep?1:0;
+        const lifted=unit.sweep?raise:recover;
+        // The palm grows with the lift, holds at full size, then crosses fast.
+        rightHand.setScale(1+lifted*1.1);
+        if(!reduced) {
+          rightHand.y += -lifted*36+Math.sin(swipe*Math.PI/2)*recover*48;
+          rightHand.x -= swipe*recover*72;
+          rightHand.setAngle(-lifted*50+swipe*recover*115);
+          leftHand.setAngle(lifted*12-swipe*recover*18);
+          this.torso.setAngle(-lifted*4+swipe*recover*8+motion.hit*5);
+        }
+      } else if (unit.kind === 'shield') {
         rightHand.y += direction * (motion.attack * 15 - motion.windup * 4);
         rightHand.setAngle(-direction * motion.attack * 12);
       } else if (unit.kind === 'slinger') {
@@ -153,6 +176,17 @@ export class UnitView {
       hand.x += localForward.x * reach;
       hand.y += (localForward.y - direction) * reach;
     }
+    if(this.bossPaw) {
+      // Draw the giant paw over the front line, so crowded soldiers cannot hide the swing.
+      const hand=this.pieces.rightHand!,front=deathAt===undefined && Boolean(unit.sweep || now-unit.attackAt<ORANGE_BOSS.recovery);
+      this.bossPaw.setVisible(front);
+      if(front) {
+        const transform=hand.getWorldTransformMatrix().decomposeMatrix();
+        this.bossPaw.setPosition(transform.translateX,transform.translateY).setRotation(transform.rotation)
+          .setScale(transform.scaleX,transform.scaleY).setAlpha(motion.alpha).setTint(hand.tintTopLeft);
+        hand.setVisible(false);
+      }
+    }
   }
 
   projectileOrigin() {
@@ -167,7 +201,8 @@ export class UnitView {
     return { id: this.unit.id, kind: this.unit.kind, side: this.unit.side, state: this.state, x: this.root.x, y: this.root.y, alpha: this.root.alpha, facing: this.heading, targetId: this.unit.targetId,
       look: this.look, mirror: this.facing.scaleX, turning: this.bodyDirection.turning, spriteRotation: this.facing.rotation, aimRotation: this.aimRotation,
       body: { x: this.torso.x, y: this.torso.y, rotation: this.torso.rotation },
-      parts: Object.fromEntries(Object.entries(this.pieces).map(([name, piece]) => [name, { x: piece.x, y: piece.y, rotation: piece.rotation, scaleY: piece.scaleY }])) };
+      charge:this.unit.kind==='boss'?bossCharge(this.unit.sweep):undefined,
+      parts: Object.fromEntries(Object.entries(this.pieces).map(([name, piece]) => [name, { x: piece.x, y: piece.y, rotation: piece.rotation, scaleX: piece.scaleX, scaleY: piece.scaleY }])) };
   }
-  destroy() { this.root.destroy(); }
+  destroy() { this.root.destroy(); this.bossPaw?.destroy(); }
 }

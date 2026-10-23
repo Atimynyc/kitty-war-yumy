@@ -100,11 +100,11 @@ try {
   await capture('desktop-battle');
   await check(() => {
     const b = window.__catGame.battle;
-    b.units.find(u => u.side === 'enemy' && u.kind === 'shield').x = 300; b.armies.player.roarCooldown = 0;
+    b.units.find(u => u.side === 'enemy' && u.kind === 'shield').x = 300; b.armies.player.energy = 50;
     window.__catGame.render();
   });
   await page.keyboard.press('Space');
-  assert.ok(await check(() => window.__catGame.battle.armies.player.roarCooldown > 44));
+  assert.equal(await check(() => window.__catGame.battle.armies.player.energy),0);
   assert.ok(await check(() => window.__catGame.battle.units.some(u => u.side === 'enemy' && u.slow > 0)));
   const shotsBefore = await check(() => window.__catGame.battle.armies.player.cannonShots);
   await check(() => window.__catGame.advance(3));

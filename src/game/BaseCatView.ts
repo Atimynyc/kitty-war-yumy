@@ -3,7 +3,7 @@ import type { Battle } from './simulation.ts';
 import type { Side } from './content.ts';
 import { baseCatLayout } from './base-cat-layout.ts';
 
-/** Decoration only: these cats do not enter unit targeting, population or collision. */
+/** The enemy mascot leaves this spot when the final-level boss enters battle. */
 export class BaseCatView {
   private cats: Record<Side, Phaser.GameObjects.Image>;
   constructor(scene: Phaser.Scene) {
@@ -16,6 +16,7 @@ export class BaseCatView {
     const layout = baseCatLayout(width, height), speech = battle.baseDialogue.snapshot(battle.time);
     for (const side of ['player', 'enemy'] as const) {
       const at = layout[side], image = this.cats[side];
+      image.setVisible(side !== 'enemy' || !battle.boss.spawned);
       const mood = side === 'enemy' ? speech.mood : 'calm';
       const animate = !reduced && battle.phase !== 'ready' && battle.phase !== 'ended';
       const breath = animate ? Math.sin(battle.time * 2.5 + (side === 'player' ? 2 : 0)) * .012 : 0;

@@ -203,10 +203,10 @@ try {
   await advance(10000);
   assert.ok(await page.evaluate(() => window.__catGame.battle.units.every(u => u.catnip === 0)));
   assert.equal(await page.locator('#catnip').isDisabled(), true);
-  // The C shortcut follows the same guarded action and works when cooldown expires.
-  await page.evaluate(() => { window.__catGame.battle.armies.player.catnipCooldown = 0; window.__catGame.render(); });
+  // The C shortcut follows the same guarded action when enough energy is available.
+  await page.evaluate(() => { window.__catGame.battle.armies.player.energy = 50; window.__catGame.render(); });
   await page.keyboard.press('c');
-  assert.equal(await page.evaluate(() => window.__catGame.battle.armies.player.catnipCooldown), 45);
+  assert.equal(await page.evaluate(() => window.__catGame.battle.armies.player.energy), 0);
   await page.keyboard.press('7');
   assert.equal(await page.evaluate(() => window.__catGame.battle.units.at(-1).kind), 'healer');
   assert.equal(await page.evaluate(() => window.__catGame.battle.units.at(-1).catnip), 0);

@@ -1,6 +1,7 @@
 import type { Side, UnitKind } from './content.ts';
 import { driedFish, teaserWand } from './weapon-art.ts';
 import { knightParts } from './knight-art.ts';
+import { bossParts } from './boss-art.ts';
 
 export type PartName = 'body' | 'leftFoot' | 'rightFoot' | 'rearLeftFoot' | 'rearRightFoot' | 'rider' | 'leftHand' | 'rightHand';
 export type UnitLook = 'back' | 'front' | 'side';
@@ -11,6 +12,7 @@ export const unitStarsSVG = wrap('<g fill="#ffe39a" stroke="#bc965c" stroke-widt
 
 /** All parts share a canvas; each supplied pivot is the hand/ankle/body attachment. */
 export function unitParts(kind: UnitKind, side: Side, look: UnitLook = side === 'player' ? 'back' : 'front'): UnitPart[] {
+  if (kind === 'boss') return bossParts(look);
   if (kind === 'knight') return knightParts(side, look);
   const friendly = side === 'player';
   const fur = friendly ? '#f5d19a' : '#ddd0e9', accent = friendly ? '#80a38a' : '#a494b9';

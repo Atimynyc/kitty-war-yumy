@@ -20,6 +20,7 @@ function spawn(battle: Battle, side: Side, kind: UnitKind, x: number, row = 1) {
 test('spell captions report actual affected troops and effects for either army', () => {
   for (const side of ['player', 'enemy'] as Side[]) {
     const b = create(), foe = side === 'player' ? 'enemy' : 'player';
+    b.armies[side].energy=100;
     const ally = spawn(b, side, 'soldier', 700);
     const near = spawn(b, foe, 'soldier', BASE_X[side] + (side === 'player' ? 100 : -100));
     spawn(b, foe, 'soldier', 720);
@@ -39,12 +40,12 @@ test('spell captions report actual affected troops and effects for either army',
   }
 });
 
-test('failed casts never announce a spell, while a successful empty roar explains its empty area', () => {
+test('failed and empty casts never spend energy or announce a spell', () => {
   const b = create();
   assert.equal(b.catnip('player'), false); assert.deepEqual(b.spellNotices.visible(b.time), []);
-  assert.equal(b.roar('player'), true);
+  assert.equal(b.roar('player'), false);
   const notices = b.spellNotices.visible(b.time);
-  assert.equal(notices[0].affected, 0); assert.match(spellNoticeText(notices[0]).detail, /没有可击退/);
+  assert.deepEqual(notices,[]);assert.equal(b.armies.player.energy,50);
   assert.equal(b.roar('player'), false);
   b.togglePause(); assert.equal(b.roar('enemy'), false);
   assert.deepEqual(b.spellNotices.visible(b.time), notices);
@@ -52,7 +53,8 @@ test('failed casts never announce a spell, while a successful empty roar explain
 
 test('simultaneous enemy and player spells both show, same-side captions queue, pause freezes and restart clears them', () => {
   const b = create();
-  spawn(b, 'player', 'knight', 500); spawn(b, 'enemy', 'knight', 900);
+  spawn(b, 'player', 'knight', 500); spawn(b, 'enemy', 'knight', 340);
+  b.armies.player.energy=100;
   b.catnip('player'); b.roar('player'); b.catnip('enemy');
   const notices = b.spellNotices.visible(b.time);
   assert.deepEqual(notices.map(n => [n.side, n.spell]), [['enemy','catnip'], ['player','catnip']]);
@@ -68,13 +70,14 @@ test('simultaneous enemy and player spells both show, same-side captions queue, 
 test('AI spells announce their actual effects through the same caption path', () => {
   const b = create();
   b.aiEnabled = true;
+  b.armies.enemy.energy=100;
   advance(b, b.level.grace - .1);
   for (const row of [0,1,2]) {
     spawn(b, 'player', 'knight', BASE_X.enemy - 100, row);
     spawn(b, 'enemy', 'slinger', BASE_X.enemy - 40, row);
   }
   b.aiEnabled = true; advance(b, .2);
-  assert.ok(b.armies.enemy.roarCooldown > 0); assert.ok(b.armies.enemy.catnipCooldown > 0);
+  assert.equal(b.armies.enemy.energySpent,100);assert.equal(b.armies.enemy.energy,0);
   assert.equal(b.spellNotices.visible(b.time)[0].spell, 'roar');
   b.aiEnabled = false; advance(b, 4.6);
   const notice = b.spellNotices.visible(b.time)[0];
@@ -326,16 +329,16 @@ test('stars survive caster death, fizzle for dead targets, and can damage bases'
   assert.ok(Math.abs(b.armies.enemy.hp - (BASE_HP - UNITS.mage.damage * 1.2)) < 1e-8);
 });
 
-test('catnip snapshots only the current living allied roster, expires after 10s and cools down for 45s', () => {
-  const b = create(); assert.equal(b.catnip('player'), false); assert.equal(b.armies.player.catnipCooldown, 0);
+test('catnip snapshots the current roster, expires after 10s and waiting does not refill energy', () => {
+  const b = create(); assert.equal(b.catnip('player'), false); assert.equal(b.armies.player.energy, 50);
   const first = spawn(b, 'player', 'soldier', 300), enemy = spawn(b, 'enemy', 'soldier', 1000);
   assert.equal(b.catnip('player'), true); assert.equal(first.catnip, CATNIP.duration); assert.equal(enemy.catnip, 0);
   const later = spawn(b, 'player', 'soldier', 300); assert.equal(later.catnip, 0);
   assert.equal(b.catnip('player'), false);
   // Park units away from combat while advancing spell timers.
   for (let i = 0; i < 450; i++) { first.x = later.x = 300; enemy.x = 1000; b.step(.1); if (i === 100) assert.equal(first.catnip, 0); }
-  assert.ok(b.armies.player.catnipCooldown < 1e-8);
-  b.step(.1); assert.equal(b.catnip('player'), true); assert.equal(later.catnip, 10);
+  assert.equal(b.armies.player.energy,0);assert.equal(b.catnip('player'),false);
+  b.armies.player.energy=50;assert.equal(b.catnip('player'), true); assert.equal(later.catnip, 10);
 });
 
 test('catapult splash includes its radius boundary, excludes allies and scales every victim with catnip', () => {
@@ -367,7 +370,7 @@ test('pause freezes projectiles and statuses, reset clears them and disallows sp
   b.catnip('player'); mage.starSlow = 3; b.step(1 / 30); b.togglePause();
   const state = JSON.stringify([b.units, b.projectiles, b.armies]); advance(b, 5);
   assert.equal(JSON.stringify([b.units, b.projectiles, b.armies]), state); assert.equal(b.catnip('enemy'), false);
-  b.reset(); assert.equal(b.projectiles.length, 0); assert.equal(b.units.length, 0); assert.equal(b.armies.player.catnipCooldown, 0);
+  b.reset(); assert.equal(b.projectiles.length, 0); assert.equal(b.units.length, 0); assert.equal(b.armies.player.energy, 50);
 });
 
 test('income, spending, cooldowns and population enforce the same constraints for both sides', () => {
@@ -493,7 +496,7 @@ test('healer restores at most three allies and never heals buildings or exceeds 
   assert.equal(healer.hp, UNITS.healer.hp);
 });
 
-test('roar only displaces nearby enemies, applies slow and observes its cooldown', () => {
+test('roar only displaces nearby enemies, applies slow and spends the shared energy', () => {
   const battle = create();
   const near = spawn(battle, 'enemy', 'soldier', 300), far = spawn(battle, 'enemy', 'soldier', 900);
   const friend = spawn(battle, 'player', 'soldier', 250);

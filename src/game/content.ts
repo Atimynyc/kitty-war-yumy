@@ -1,5 +1,5 @@
 export type Side = 'player' | 'enemy';
-export type UnitKind = 'mouse' | 'soldier' | 'shield' | 'slinger' | 'mage' | 'catapult' | 'healer' | 'knight';
+export type UnitKind = 'mouse' | 'soldier' | 'shield' | 'slinger' | 'mage' | 'catapult' | 'healer' | 'knight' | 'boss';
 export interface UnitSpec {
   name: string; short: string; role: string; description: string;
   cost: number; population: number; tier: number; cooldown: number;
@@ -9,11 +9,23 @@ export interface UnitSpec {
 }
 export const UNIT_ORDER: UnitKind[] = ['mouse', 'soldier', 'shield', 'slinger', 'mage', 'catapult', 'healer', 'knight'];
 export const STAR_MAGIC = { slow: .3, duration: 3, travel: .32 };
-export const CATNIP = { bonus: .2, duration: 10, cooldown: 45 };
-export const ROAR = { range: 300, distance: 130, slow: .55, duration: 3, cooldown: 45 };
+export const CATNIP = { bonus: .2, duration: 10, energyCost: 50 };
+export const ROAR = { range: 300, distance: 130, slow: .55, duration: 3, energyCost: 50 };
+export const ENERGY = { starting: 50, max: 100 };
+// Reward the defeated troop, once per kill, including defensive cannon kills.
+export const ENERGY_REWARDS: Record<UnitKind, number> = {
+  mouse: 2, soldier: 4, shield: 6, slinger: 5, mage: 6,
+  catapult: 8, healer: 6, knight: 20, boss: 50,
+};
 // All melee troops must close to the same contact distance, including knights.
 export const MELEE_CONTACT_RANGE = 22;
+export const ORANGE_BOSS = {
+  trigger: .3, entrance: 1.2, lift: 1.1, hold: .3, swipe: .12, recovery: .28,
+  get windup() { return this.lift + this.hold + this.swipe; },
+  knockback: 80, sweepDepth: 36, sweepHalfWidth: 96,
+};
 export const UNITS: Record<UnitKind, UnitSpec> = {
+  boss: { name: '大胖橘', short: '大胖橘', role: '守关首领', description: '缓慢举起巨型猫爪，停顿后横扫身前一排并击退。', cost: 0, population: 0, tier: 99, cooldown: 0, hp: 2600, damage: 180, interval: 3.6, speed: 26, range: MELEE_CONTACT_RANGE, color: '#efbc79' },
   mouse: { name: '发条玩具鼠', short: '玩具鼠', role: '快速突击', description: '轻巧又勇敢。跑得快、出兵快，适合补位；小心范围攻击。', cost: 25, population: 1, tier: 1, cooldown: .8, hp: 85, damage: 12, interval: .8, speed: 75, range: MELEE_CONTACT_RANGE, color: '#e8cbb2' },
   soldier: { name: '小鱼干士兵', short: '小鱼干士兵', role: '均衡近战', description: '可靠的小队主力。挥起香喷喷的小鱼干，向冻干前进！', cost: 50, population: 1, tier: 1, cooldown: 1.2, hp: 230, damage: 28, interval: 1, speed: 48, range: MELEE_CONTACT_RANGE, color: '#efd29a' },
   shield: { name: '纸箱盾卫', short: '纸箱盾卫', role: '前排守护', description: '厚厚的纸箱就是安全感。高生命、低伤害，保护身后的投手。', cost: 90, population: 2, tier: 2, cooldown: 2.5, hp: 700, damage: 15, interval: 1.4, speed: 33, range: MELEE_CONTACT_RANGE, color: '#cce0c6' },

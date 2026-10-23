@@ -27,7 +27,8 @@ export class SpellNotices {
 
 export function spellNoticeText(notice: SpellNotice) {
   const caster = notice.side === 'enemy' ? '敌方' : '我方';
-  const title = `${caster}释放${notice.spell === 'catnip' ? '猫薄荷' : '震退'}`;
+  const cost=notice.spell==='catnip'?CATNIP.energyCost:ROAR.energyCost;
+  const title = `${caster}释放${notice.spell === 'catnip' ? '猫薄荷' : '震退'} · −${cost} 能量`;
   const detail = notice.spell === 'catnip'
     ? `在场 ${notice.affected} 名${notice.side === 'enemy' ? '敌军' : '队友'}攻击力 +${Math.round(CATNIP.bonus * 100)}%，持续 ${CATNIP.duration} 秒；新出兵不享受`
     : notice.affected

@@ -120,8 +120,16 @@ try {
       assert.equal(await page.evaluate(() => JSON.stringify({ armies: window.__catGame.battle.armies, units: window.__catGame.battle.units, time: window.__catGame.battle.time })), snapshot);
       await page.setViewportSize({ width, height }); await page.waitForTimeout(100);
       await page.locator('#resume').click();
+      await page.evaluate(()=>{
+        // Freeze this input/layout fixture so the cannon cannot kill the target before the click.
+        window.advanceTime(0);
+        const b=window.__catGame.battle;b.armies.player.energy=50;
+        const foe=b.units.find(u=>u.side==='enemy' && u.hp>0);
+        if(!foe)throw new Error('Roar layout fixture requires a living enemy');
+        foe.x=300;window.__catGame.render();
+      });
       await page.locator('#roar').click();
-      assert.ok(await page.evaluate(() => window.__catGame.battle.armies.player.roarCooldown > 44));
+      assert.equal(await page.evaluate(() => window.__catGame.battle.armies.player.energy),0);
       if (name === 'iphone-14' || name === 'tiny-portrait') {
         await page.locator('#help').click();
         assert.equal(await page.locator('#guide').isVisible(), true);

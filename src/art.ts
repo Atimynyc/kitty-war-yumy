@@ -2,6 +2,7 @@ import type { Side, UnitKind } from './game/content.ts';
 import { driedFish, teaserWand } from './game/weapon-art.ts';
 import { knightParts } from './game/knight-art.ts';
 import { unitShadowSVG } from './game/unit-art.ts';
+import { bossParts } from './game/boss-art.ts';
 
 const wrap = (body: string, width = 120, height = 120) => `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><g stroke="#604c41" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">${body}</g></svg>`;
 export const svgURL = (svg: string) => `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
@@ -17,6 +18,7 @@ export const icons = {
 };
 
 export function unitSVG(kind: UnitKind, side: Side = 'player') {
+  if (kind === 'boss') return `<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">${unitShadowSVG}${bossParts().map(part=>part.svg).join('')}</svg>`;
   if (kind === 'knight') return `<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 128 128">${unitShadowSVG}${knightParts(side).map(part => part.svg).join('')}</svg>`;
   const fur = side === 'player' ? '#f7d7a1' : '#d9d0ea';
   const accent = side === 'player' ? '#769d88' : '#a18bb9';
@@ -39,7 +41,7 @@ export function unitPortraitSVG(kind: UnitKind) {
   const bounds: Record<UnitKind, [number, number, number, number]> = {
     mouse: [8, 32, 104, 82], soldier: [11, 9, 107, 106], shield: [11, 6, 97, 109],
     slinger: [7, 11, 99, 104], mage: [11, 0, 107, 115], catapult: [11, 3, 92, 112],
-    healer: [11, 12, 108, 103], knight: [0, 0, 128, 120],
+    healer: [11, 12, 108, 103], knight: [0, 0, 128, 120], boss: [0, 0, 128, 128],
   };
   const [x, y, width, height] = bounds[kind];
   return unitSVG(kind).replace(/<svg\b[^>]*>/, `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="${x} ${y} ${width} ${height}">`);

@@ -1,13 +1,20 @@
 import { BASE_HP, BASE_X, CANNON_DAMAGE, CANNON_INTERVAL, CANNON_RANGE, CATNIP, ROAR, STAR_MAGIC, ECONOMY_COSTS, FOOD_RATES, MAX_POPULATION, STARTING_FOOD, TECH_COSTS, TECH_TIMES, UNITS, UNIT_ORDER } from './content.ts';
 import type { Side, UnitKind } from './content.ts';
 import { getLevel } from './levels.ts';
-import { battleDistance } from './combat-space.ts';
+import { battleDistance, LANE_SPACING } from './combat-space.ts';
 import { BaseDialogue } from './base-dialogue.ts';
 import { SpellNotices } from './spell-notices.ts';
+import { ORANGE_BOSS } from './content.ts';
+import { inBossSweep, sweepDirection } from './boss-combat.ts';
+import type { Sweep } from './boss-combat.ts';
+import { ENERGY, ENERGY_REWARDS } from './content.ts';
+import type { SpellKind } from './spell-notices.ts';
 
 export interface Army {
   food: number; hp: number; economy: number; tech: number;
-  research: number; researching: boolean; roarCooldown: number; catnipCooldown: number;
+  research: number; researching: boolean;
+  energy: number; energyEarned: number; energySpent: number; energyOverflow: number;
+  energyGain: number; energyGainAt: number;
   cooldowns: Record<UnitKind, number>; spent: number; hired: number; lost: number;
   cannonCooldown: number; cannonShots: number;
 }
@@ -16,18 +23,22 @@ export interface Unit {
   attackCooldown: number; slow: number; attacking: boolean; walking: boolean; row: number;
   attackAt: number; hitAt: number; walkDistance: number; starSlow: number; catnip: number;
   targetId: number | null; targetX: number; targetRow: number;
+  bossEntry?: number; sweep?: Sweep;
 }
 export interface Effect {
-  id: number; type: 'hit' | 'shot' | 'cannon' | 'heal' | 'death' | 'roar' | 'spawn' | 'starHit' | 'catnip';
+  id: number; type: 'hit' | 'shot' | 'cannon' | 'heal' | 'death' | 'roar' | 'spawn' | 'starHit' | 'catnip' | 'sweep';
   side: Side; x: number; targetX: number; row: number; age: number; duration: number; kind?: UnitKind; unitId?: number;
   sourceRow?: number; sourceId?: number; targetId?: number; aimX?: number; aimRow?: number;
+  sweep?: Sweep;
 }
 export interface StarProjectile {
   id: number; side: Side; x: number; row: number; targetX: number; targetRow: number;
   sourceId: number; targetId?: number; damage: number; age: number; duration: number;
 }
 export type Phase = 'ready' | 'playing' | 'paused' | 'ended';
-const makeArmy = (): Army => ({ food: STARTING_FOOD, hp: BASE_HP, economy: 0, tech: 1, research: 0, researching: false, roarCooldown: 0, catnipCooldown: 0, cannonCooldown: 0, cannonShots: 0, cooldowns: Object.fromEntries(UNIT_ORDER.map(kind => [kind, 0])) as Record<UnitKind, number>, spent: 0, hired: 0, lost: 0 });
+const makeArmy = (): Army => ({ food: STARTING_FOOD, hp: BASE_HP, economy: 0, tech: 1, research: 0, researching: false,
+  energy: ENERGY.starting, energyEarned: 0, energySpent: 0, energyOverflow: 0, energyGain: 0, energyGainAt: -100,
+  cannonCooldown: 0, cannonShots: 0, cooldowns: Object.fromEntries(UNIT_ORDER.map(kind => [kind, 0])) as Record<UnitKind, number>, spent: 0, hired: 0, lost: 0 });
 const opposite = (side: Side): Side => side === 'player' ? 'enemy' : 'player';
 
 export class Battle {
@@ -42,6 +53,7 @@ export class Battle {
   time = 0;
   revision = 0;
   winner: Side | 'draw' | null = null;
+  boss = { spawned: false, unitId: null as number | null, enteredAt: 0 };
   aiEnabled = true;
   message = '冻干已就位，小队等你出发。';
   messageUntil = 0;
@@ -59,6 +71,7 @@ export class Battle {
     this.level = getLevel(levelId);
     this.phase = 'ready'; this.armies = { player: makeArmy(), enemy: makeArmy() };
     this.units = []; this.effects = []; this.projectiles = []; this.time = 0; this.winner = null;
+    this.boss = { spawned:false,unitId:null,enteredAt:0 };
     this.nextId = 1; this.aiTimer = this.level.grace; this.aiQueueIndex = 0; this.aiLastRecruit = 0; this.aiSavingSince = null;
     this.aiEnabled = true;
     this.message = '冻干已就位，小队等你出发。'; this.messageUntil = 0;
@@ -67,6 +80,7 @@ export class Battle {
   population(side: Side) { return this.units.filter(u => u.side === side).reduce((n, u) => n + UNITS[u.kind].population, 0); }
   notify(text: string) { this.message = text; this.messageUntil = this.time + 5; }
   summonReason(side: Side, kind: UnitKind): string {
+    if (kind === 'boss') return '关卡首领无法招募';
     const army = this.armies[side], spec = UNITS[kind];
     if (army.tech < spec.tier) return `${spec.tier === 2 ? '二' : '三'}阶科技解锁`;
     if (this.phase !== 'playing') return this.phase === 'paused' ? '已暂停' : this.phase === 'ended' ? '已结束' : '等待开战';
@@ -85,6 +99,14 @@ export class Battle {
     this.units.push(unit); this.effect('spawn', side, unit.x, unit.x, unit.row, .6);
     return true;
   }
+  private enterBoss() {
+    if (this.boss.spawned || this.level.id !== 'pantry' || this.armies.enemy.hp <= 0 || this.armies.enemy.hp >= BASE_HP*ORANGE_BOSS.trigger) return;
+    const id=this.nextId++,x=BASE_X.enemy-55;
+    this.boss={spawned:true,unitId:id,enteredAt:this.time};
+    this.units.push({id,kind:'boss',side:'enemy',hp:UNITS.boss.hp,x,row:1,targetId:null,targetX:BASE_X.player,targetRow:1,
+      attackCooldown:0,slow:0,starSlow:0,catnip:0,attacking:false,walking:true,attackAt:-100,hitAt:-100,walkDistance:0,bossEntry:ORANGE_BOSS.entrance});
+    this.notify('大胖橘亲自上场！小心抬爪横扫，保护后排！');
+  }
   upgradeEconomy(side: Side) {
     const army = this.armies[side], cost = ECONOMY_COSTS[army.economy];
     if (this.phase !== 'playing' || cost === undefined || army.food < cost) return false;
@@ -99,14 +121,30 @@ export class Battle {
     if (side === 'player') this.notify('猫咪正在研究新装备，期间可以继续招募。');
     return true;
   }
+  spellReason(side: Side, kind: SpellKind): string {
+    if(this.phase!=='playing')return this.phase==='paused'?'已暂停':'当前不可释放';
+    const cost=kind==='roar'?ROAR.energyCost:CATNIP.energyCost;
+    if(this.armies[side].energy<cost)return `能量不足，还差 ${cost-this.armies[side].energy}`;
+    const target=this.units.some(u=>u.hp>0 && (u.bossEntry??0)<=0 && (kind==='roar'
+      ? u.side!==side && Math.abs(u.x-BASE_X[side])<ROAR.range : u.side===side));
+    return target?'':kind==='roar'?'基地附近没有敌人':'请先招募伙伴';
+  }
+  private recoverEnergy(side: Side, kind: UnitKind) {
+    const army=this.armies[side],reward=ENERGY_REWARDS[kind],gain=Math.min(reward,ENERGY.max-army.energy);
+    army.energy+=gain;army.energyEarned+=gain;army.energyOverflow+=reward-gain;
+    if(gain>0) {
+      army.energyGain=(army.energyGainAt===this.time?army.energyGain:0)+gain;
+      army.energyGainAt=this.time;
+    }
+  }
   roar(side: Side) {
     const army = this.armies[side];
-    if (this.phase !== 'playing' || army.roarCooldown > 0) return false;
-    army.roarCooldown = ROAR.cooldown;
+    if (this.spellReason(side,'roar')) return false;
+    army.energy-=ROAR.energyCost;army.energySpent+=ROAR.energyCost;
     const direction = side === 'player' ? 1 : -1;
     let affected = 0;
     for (const unit of this.units) {
-      if (unit.side !== side && Math.abs(unit.x - BASE_X[side]) < ROAR.range) {
+      if (unit.hp>0 && (unit.bossEntry??0)<=0 && unit.side !== side && Math.abs(unit.x - BASE_X[side]) < ROAR.range) {
         unit.x = Math.max(BASE_X.player + 30, Math.min(BASE_X.enemy - 30, unit.x + direction * ROAR.distance));
         unit.slow = ROAR.duration; affected++;
       }
@@ -117,9 +155,9 @@ export class Battle {
     return true;
   }
   catnip(side: Side) {
-    const army = this.armies[side], allies = this.units.filter(unit => unit.side === side && unit.hp > 0);
-    if (this.phase !== 'playing' || army.catnipCooldown > 0 || !allies.length) return false;
-    army.catnipCooldown = CATNIP.cooldown;
+    const army = this.armies[side], allies = this.units.filter(unit => unit.side === side && unit.hp > 0 && (unit.bossEntry??0)<=0);
+    if (this.spellReason(side,'catnip')) return false;
+    army.energy-=CATNIP.energyCost;army.energySpent+=CATNIP.energyCost;
     for (const unit of allies) {
       unit.catnip = CATNIP.duration;
       this.effect('catnip', side, unit.x, unit.x, unit.row, .7).sourceId = unit.id;
@@ -141,8 +179,6 @@ export class Battle {
     for (const side of ['player', 'enemy'] as Side[]) {
       const army = this.armies[side];
       army.food += FOOD_RATES[army.economy] * dt;
-      army.roarCooldown = Math.max(0, army.roarCooldown - dt);
-      army.catnipCooldown = Math.max(0, army.catnipCooldown - dt);
       army.cannonCooldown = Math.max(0, army.cannonCooldown - dt);
       for (const kind of UNIT_ORDER) army.cooldowns[kind] = Math.max(0, army.cooldowns[kind] - dt);
       if (army.researching) {
@@ -156,11 +192,12 @@ export class Battle {
     for (const fx of this.effects) fx.age += dt;
     this.effects = this.effects.filter(fx => fx.age < fx.duration);
     const damage = new Map<number, number>();
+    const knockback = new Map<number, { x:number; row:number }>();
     const baseDamage: Record<Side, number> = { player: 0, enemy: 0 };
     const meleeSlots = new Map<string, number>();
     // Every unit reads the same start-of-step positions. Moving one side first must
     // not let the other side land a first strike a frame earlier on contact.
-    const live = this.units.map(unit => ({ ...unit }));
+    const live = this.units.filter(unit=>(unit.bossEntry??0)<=0).map(unit => ({ ...unit }));
     const slowed = new Set<number>();
     for (const star of this.projectiles) {
       const target = live.find(unit => unit.id === star.targetId);
@@ -190,7 +227,12 @@ export class Battle {
     // Frontmost units claim contact positions first; damage resolves simultaneously.
     const ordered = [...this.units].sort((a, b) => (a.side === 'player' ? -a.x : a.x) - (b.side === 'player' ? -b.x : b.x));
     for (const unit of ordered) {
+      if(unit.hp<=0) continue;
       const spec = UNITS[unit.kind], dir = unit.side === 'player' ? 1 : -1;
+      if ((unit.bossEntry??0)>0) {
+        unit.bossEntry=Math.max(0,unit.bossEntry!-dt); unit.walking=true; unit.attacking=false; unit.walkDistance+=spec.speed*dt;
+        continue;
+      }
       // Integrate the slowed fraction of this step, including partial expiry.
       unit.attackCooldown = Math.max(0, unit.attackCooldown - dt + Math.min(dt, unit.starSlow) * STAR_MAGIC.slow);
       unit.attacking = false; unit.walking = false;
@@ -203,7 +245,7 @@ export class Battle {
       unit.targetX = nearest?.x ?? BASE_X[opposite(unit.side)];
       unit.targetRow = nearest?.row ?? 1;
       if (spec.heal) {
-        const wounded = this.units.filter(u => u.side === unit.side && u.hp < UNITS[u.kind].hp && battleDistance(live.find(snapshot => snapshot.id === u.id) ?? u, origin) <= spec.range)
+        const wounded = this.units.filter(u => (u.bossEntry??0)<=0 && u.hp>0 && u.side === unit.side && u.hp < UNITS[u.kind].hp && battleDistance(live.find(snapshot => snapshot.id === u.id) ?? u, origin) <= spec.range)
           .sort((a, b) => a.hp / UNITS[a.kind].hp - b.hp / UNITS[b.kind].hp).slice(0, 3);
         const casting = this.time - unit.attackAt < .34;
         const healingTarget = wounded[0] ?? (casting ? live.find(ally => ally.id === origin.targetId && ally.side === unit.side) : undefined);
@@ -227,6 +269,35 @@ export class Battle {
       const targetX = nearest?.x ?? BASE_X[opposite(unit.side)];
       const distance = battleDistance(origin, { x: targetX, row: unit.targetRow });
       const inRange = distance <= spec.range;
+      if (unit.kind === 'boss') {
+        if (unit.sweep) {
+          const sweep={...unit.sweep,remaining:Math.max(0,unit.sweep.remaining-dt+Math.min(dt,unit.starSlow)*STAR_MAGIC.slow)};
+          unit.sweep=sweep; unit.attacking=true;
+          // A telegraphed swing keeps its heading even if its original target dies.
+          unit.targetId=null; unit.targetX=unit.x+sweep.forwardX*ORANGE_BOSS.sweepDepth;
+          unit.targetRow=unit.row+sweep.forwardY*ORANGE_BOSS.sweepDepth/LANE_SPACING;
+          if (sweep.remaining<=1e-8) {
+            const amount=spec.damage*(unit.catnip>dt+1e-8?1+CATNIP.bonus:1);
+            for (const victim of foes.filter(foe=>inBossSweep(origin,sweep,foe))) {
+              damage.set(victim.id,(damage.get(victim.id)??0)+amount);
+              knockback.set(victim.id,{x:sweep.forwardX*ORANGE_BOSS.knockback,row:sweep.forwardY*ORANGE_BOSS.knockback/LANE_SPACING});
+            }
+            if (inBossSweep(origin,sweep,{x:BASE_X.player,row:1})) baseDamage.player+=amount;
+            unit.attackAt=this.time; unit.sweep=undefined;
+            const fx=this.effect('sweep',unit.side,unit.x,unit.targetX,unit.row,ORANGE_BOSS.swipe+ORANGE_BOSS.recovery,'boss');
+            fx.sourceId=unit.id; fx.sweep=sweep;
+          }
+        } else if (this.time-unit.attackAt<ORANGE_BOSS.swipe+ORANGE_BOSS.recovery) {
+          unit.attacking=true;
+        } else if (inRange) {
+          unit.attacking=true;
+          if (unit.attackCooldown<=0) {
+            unit.sweep={remaining:ORANGE_BOSS.windup,...sweepDirection(origin,{x:targetX,row:unit.targetRow})};
+            unit.attackCooldown=spec.interval;
+          }
+        } else this.move(unit,dt,targetX,unit.targetRow,spec.range*.98);
+        continue;
+      }
       const tooClose = spec.minRange !== undefined && distance < spec.minRange;
       const slotKey = `${unit.side}:${nearest?.id ?? 'base'}`;
       const used = meleeSlots.get(slotKey) ?? 0;
@@ -257,9 +328,17 @@ export class Battle {
       unit.starSlow = slowed.has(unit.id) ? STAR_MAGIC.duration : Math.max(0, unit.starSlow - dt);
       unit.catnip = Math.max(0, unit.catnip - dt);
       if ((damage.get(unit.id) ?? 0) > 0) unit.hitAt = this.time;
+      const hpBefore=unit.hp;
       unit.hp -= damage.get(unit.id) ?? 0;
+      const push=knockback.get(unit.id);
+      if (push && unit.hp>0) {
+        unit.x=Math.max(BASE_X.player+22,Math.min(BASE_X.enemy-22,unit.x+push.x));
+        unit.row=Math.max(-.5,Math.min(2.5,unit.row+push.row));
+        unit.attacking=false; unit.walking=false;
+      }
       if (unit.hp <= 0) {
-        this.armies[unit.side].lost++;
+        if(hpBefore>0 && (damage.get(unit.id)??0)>0)this.recoverEnergy(opposite(unit.side),unit.kind);
+        if (unit.kind !== 'boss') this.armies[unit.side].lost++;
         const death = this.effect('death', unit.side, unit.x, unit.x, unit.row, .8, unit.kind, unit.id);
         death.aimX = unit.targetX; death.aimRow = unit.targetRow;
       }
@@ -272,6 +351,7 @@ export class Battle {
       this.winner = !this.armies.player.hp && !this.armies.enemy.hp ? 'draw' : !this.armies.enemy.hp ? 'player' : 'enemy';
       return;
     }
+    this.enterBoss();
     if (this.aiEnabled) {
       this.aiTimer -= dt;
       if (this.aiTimer <= .00001) {
@@ -297,8 +377,8 @@ export class Battle {
     const allies = this.units.filter(u => u.side === side), foes = this.units.filter(u => u.side !== side);
     const threatened = foes.some(u => u.x > BASE_X.enemy - 310);
     const count = (kind: UnitKind) => allies.filter(u => u.kind === kind).length;
-    if (threatened && army.roarCooldown === 0) this.roar(side);
-    if (allies.filter(unit => unit.attacking && UNITS[unit.kind].damage > 0).length >= 3) this.catnip(side);
+    if (threatened) this.roar(side);
+    if (allies.filter(unit => unit.attacking && unit.catnip<=2 && UNITS[unit.kind].damage > 0).length >= 3) this.catnip(side);
     // Continuous recruitment, with a bounded savings window instead of a finite
     // wave list or unbounded return paths while waiting for an expensive upgrade.
     const safe = army.hp > BASE_HP * .5 && allies.length >= this.level.investmentGuard && (!threatened || allies.length >= foes.length);

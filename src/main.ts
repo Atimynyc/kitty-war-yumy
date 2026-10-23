@@ -4,9 +4,10 @@ import './experience.css';
 import './base-cats.css';
 import './spells.css';
 import './recruitment.css';
+import './boss.css';
 import { installViewport } from './ui/viewport.ts';
 import { icons, paw, svgURL, unitSVG, unitPortraitSVG } from './art.ts';
-import { BASE_HP, CANNON_DAMAGE, CANNON_INTERVAL, CANNON_RANGE, ECONOMY_COSTS, FOOD_RATES, MAX_POPULATION, TECH_COSTS, TECH_TIMES, UNIT_ORDER, UNITS } from './game/content.ts';
+import { BASE_HP, CANNON_DAMAGE, CANNON_INTERVAL, CANNON_RANGE, ECONOMY_COSTS, FOOD_RATES, MAX_POPULATION, TECH_COSTS, TECH_TIMES, UNIT_ORDER, UNITS, ENERGY, ENERGY_REWARDS, ROAR, CATNIP } from './game/content.ts';
 import type { UnitKind } from './game/content.ts';
 import { LEVELS, readProgress, victoryStars } from './game/levels.ts';
 import type { CampaignProgress } from './game/levels.ts';
@@ -18,6 +19,7 @@ import { installBaseCatDialogue } from './ui/base-cat-dialogue.ts';
 import { PLAYER_CAT } from './game/cat-appearance.ts';
 import { installSpellControls, spellControlsMarkup } from './ui/spell-controls.ts';
 import { spellNoticeText } from './game/spell-notices.ts';
+import { bossStatusMarkup, installBossStatus } from './ui/boss-status.ts';
 
 installViewport();
 const battle = new Battle();
@@ -28,7 +30,7 @@ const food = `<span class="inline-icon">${icons.food}</span>`;
 $('#app').innerHTML = `
   <div class="game-shell">
     <header class="site-header">
-      <a class="brand" href="./" aria-label="猫咪冻干保卫战首页"><span class="brand-mark">${paw}</span><span><span class="brand-name">猫咪冻干保卫战<span class="version">试玩版 0.9</span></span><span class="brand-en">PAW & PANTRY <span>一场为了冻干的可爱战争</span></span></span></a>
+      <a class="brand" href="./" aria-label="猫咪冻干保卫战首页"><span class="brand-mark">${paw}</span><span><span class="brand-name">猫咪冻干保卫战<span class="version">试玩版 0.11</span></span><span class="brand-en">PAW & PANTRY <span>一场为了冻干的可爱战争</span></span></span></a>
       <nav class="toolbar" aria-label="游戏设置"><button class="icon-button" id="sound" title="开启音效（M）" aria-label="开启音效" aria-pressed="false">${icons.mute}</button><button class="text-button" id="help" aria-label="玩法指南"><span class="help-symbol">?</span><span>玩法指南</span></button><span class="toolbar-divider"></span><button class="text-button" id="pause" aria-label="暂停" disabled>${icons.pause}<span>暂停</span></button></nav>
     </header>
     ${menuMarkup()}
@@ -46,7 +48,7 @@ $('#app').innerHTML = `
         <div class="arena-population">${icons.people} 小队 <strong id="population">0 / 24</strong></div>
         <div class="arena-base-label enemy-label"><span>对手冻干 <strong id="compact-enemy-hp">3000</strong></span><div class="health-track"><span id="compact-enemy-health"></span></div></div>
         <div class="arena-base-label player-label"><span>我方冻干 <strong id="compact-player-hp">3000</strong></span><div class="health-track"><span id="compact-player-health"></span></div><small id="compact-cannon">主炮 32 · 自动防守</small></div>
-        <p id="enemy-cat-speech" class="base-cat-speech" role="status" aria-label="大胖橘说" aria-live="polite" aria-atomic="true" hidden></p>
+        <p id="enemy-cat-speech" class="base-cat-speech" role="status" aria-label="大胖橘说" aria-live="polite" aria-atomic="true" hidden></p>${bossStatusMarkup}
         ${spellControlsMarkup}
         <div id="battle-overlay" class="battle-overlay"></div>
       </section>
@@ -61,7 +63,7 @@ $('#app').innerHTML = `
     </main>
     <footer><span>${paw} 每一粒冻干，都值得全力以赴。</span><span>招募 <kbd>1</kbd>—<kbd>8</kbd><i>·</i> 升级 <kbd>E</kbd> / <kbd>T</kbd><i>·</i> 暂停 <kbd>P</kbd></span></footer>
   </div>
-  <dialog id="guide" aria-labelledby="guide-title"><button class="dialog-close" aria-label="关闭玩法指南">×</button><span class="eyebrow">THE LITTLE FIELD GUIDE</span><h2 id="guide-title">冻干保卫战，开课啦。</h2><p class="guide-lead">下方是你的家，上方是馋嘴对手。让对手的基地耐久降到零，就赢啦！</p><div class="guide-steps"><p><b>01</b><span><strong>收猫粮，招募小队</strong>投喂机自动生产猫粮。点击兵种卡招募，佣兵会自己前进和战斗，每方最多 24 人口。</span></p><p><b>02</b><span><strong>稳住前线，再做投资</strong>升级投喂机能提高产量；研究科技解锁新伙伴并强化主炮。研究期间照样可以出兵。</span></p><p><b>03</b><span><strong>搭配阵容，抓准时机</strong>盾卫扛伤、法师迟缓、投石机范围轰击、奶妈治疗；三阶可攒粮召唤高攻高血的小狗骑士。敌人接近基地时，点击战场右侧的猫爪图标释放「震退」救场；叶片图标释放猫薄荷。猫薄荷让释放时在场的我方单位攻击力 +20%，持续 10 秒，冷却 45 秒；新出兵无加成，治疗量和主炮不变。蓝紫星环表示迟缓，绿叶表示增伤。</span></p></div><div class="guide-units">${UNIT_ORDER.map(kind => `<p><img src="${svgURL(unitSVG(kind))}" alt=""/><span><strong>${UNITS[kind].name}</strong>${UNITS[kind].description}</span></p>`).join('')}</div><p class="guide-fair">双方开局 240 猫粮、每秒产粮 12。电脑按关卡节奏持续招募，同样消耗猫粮和人口。双方主炮自动攻击附近敌人，科技升级将伤害从 32 提升到 55 / 85。切换标签页会自动暂停。</p><button class="primary-button" id="guide-close">记住了，保护冻干！ ${icons.play}</button></dialog>
+  <dialog id="guide" aria-labelledby="guide-title"><button class="dialog-close" aria-label="关闭玩法指南">×</button><span class="eyebrow">THE LITTLE FIELD GUIDE</span><h2 id="guide-title">冻干保卫战，开课啦。</h2><p class="guide-lead">下方是你的家，上方是馋嘴对手。让对手的基地耐久降到零，就赢啦！</p><div class="guide-steps"><p><b>01</b><span><strong>收猫粮，招募小队</strong>投喂机自动生产猫粮。点击兵种卡招募，佣兵会自己前进和战斗，每方最多 24 人口。</span></p><p><b>02</b><span><strong>稳住前线，再做投资</strong>升级投喂机能提高产量；研究科技解锁新伙伴并强化主炮。研究期间照样可以出兵。</span></p><p><b>03</b><span><strong>搭配阵容，抓准时机</strong>盾卫扛伤、法师迟缓、投石机范围轰击、奶妈治疗；三阶可攒粮召唤高攻高血的小狗骑士。敌人接近基地时，点击战场右侧的猫爪图标释放「震退」救场；叶片图标释放猫薄荷。猫薄荷让释放时在场的我方单位攻击力 +20%，持续 10 秒；两个技能共用能量，每次消耗 50，开局 50、上限 100，击杀敌人回复，不随时间回复。新出兵无加成，治疗量和主炮不变。蓝紫星环表示迟缓，绿叶表示增伤。</span></p></div><div class="guide-units">${UNIT_ORDER.map(kind => `<p><img src="${svgURL(unitSVG(kind))}" alt=""/><span><strong>${UNITS[kind].name}</strong>${UNITS[kind].description}</span></p>`).join('')}</div><p class="guide-fair">击杀回能：玩具鼠 2，鱼干士兵 4，投手 5，盾卫／法师／奶妈各 6，投石机 8，骑士 20，胖橘首领 50。主炮击杀也回能；无目标时不会扣能量。最后一关敌方基地低于 30% 时，大胖橘会亲自上场，慢慢举起巨爪、停顿后快速横扫并击退前排。双方开局 240 猫粮、每秒产粮 12。电脑按关卡节奏持续招募，同样消耗猫粮和人口。双方主炮自动攻击附近敌人，科技升级将伤害从 32 提升到 55 / 85。切换标签页会自动暂停。</p><button class="primary-button" id="guide-close">记住了，保护冻干！ ${icons.play}</button></dialog>
 `;
 
 type Screen = 'home' | 'levels' | 'battle';
@@ -86,6 +88,7 @@ function updateMarkup(selector: string, markup: string) {
 }
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const renderBaseCatDialogue = installBaseCatDialogue(battle);
+const renderBossStatus = installBossStatus(battle);
 const renderSpellControls = installSpellControls(battle);
 const { scene } = createGame('battle-canvas', battle, render);
 const guide = $('#guide') as HTMLDialogElement;
@@ -197,6 +200,7 @@ function overlay() {
 }
 
 function render(force = false) {
+  renderBossStatus();
   renderBaseCatDialogue();
   renderSpellControls();
   const now = performance.now();
@@ -268,11 +272,14 @@ Object.assign(window, {
     result: battle.phase === 'ended' ? { stars: battle.winner === 'player' ? victoryStars(battle.armies.player.hp) : 0, baseHealthPercent: Math.floor(battle.armies.player.hp / BASE_HP * 1000) / 10 } : null,
     coordinates: 'Vertical battlefield: player below, enemy above; x runs from 155 (player) to 1285 (enemy), bottom to top. Continuous row runs left (0) to right (2), with 80 simulation units per row. Facing is in screen radians relative to player up / enemy down.',
     player: { ...battle.armies.player, population: battle.population('player'), income: FOOD_RATES[battle.armies.player.economy] },
-    enemy: { hp: battle.armies.enemy.hp, tech: battle.armies.enemy.tech, hired: battle.armies.enemy.hired, population: battle.population('enemy') },
+    enemy: { energy: battle.armies.enemy.energy, hp: battle.armies.enemy.hp, tech: battle.armies.enemy.tech, hired: battle.armies.enemy.hired, population: battle.population('enemy') },
     cannon: { damage: CANNON_DAMAGE[battle.armies.player.tech - 1], range: CANNON_RANGE, interval: CANNON_INTERVAL },
     reinforcement: { initialDelayRemaining: Math.max(0, battle.level.grace - battle.time), continuous: true },
-    baseCats: { enemy: { name: '大胖橘', ...battle.baseDialogue.snapshot(battle.time), speechVisible: screen === 'battle' && (battle.phase === 'playing' || battle.phase === 'paused') && !battle.spellNotices.visible(battle.time).length && Boolean(battle.baseDialogue.snapshot(battle.time).text) }, player: { name: '我的猫咪', appearance: PLAYER_CAT } },
-    spells: { cooldowns: { roar: battle.armies.player.roarCooldown, catnip: battle.armies.player.catnipCooldown }, notices: screen === 'battle' && (battle.phase === 'playing' || battle.phase === 'paused') ? battle.spellNotices.visible(battle.time).map(notice => ({ ...notice, ...spellNoticeText(notice) })) : [] },
+    boss: { ...battle.boss, hp:battle.units.find(u=>u.id===battle.boss.unitId)?.hp??0, maxHp:UNITS.boss.hp,
+      state:!battle.boss.spawned?'waiting':!battle.units.some(u=>u.id===battle.boss.unitId)?'defeated':battle.units.find(u=>u.id===battle.boss.unitId)?.bossEntry?'entering':'active',
+      sweep:battle.units.find(u=>u.id===battle.boss.unitId)?.sweep??null },
+    baseCats: { enemy: { name: '大胖橘', ...battle.baseDialogue.snapshot(battle.time), speechVisible: !battle.boss.spawned && screen === 'battle' && (battle.phase === 'playing' || battle.phase === 'paused') && !battle.spellNotices.visible(battle.time).length && Boolean(battle.baseDialogue.snapshot(battle.time).text) }, player: { name: '我的猫咪', appearance: PLAYER_CAT } },
+    spells: { energy: { player: battle.armies.player.energy, enemy: battle.armies.enemy.energy, max: ENERGY.max, starting: ENERGY.starting }, costs: { roar: ROAR.energyCost, catnip: CATNIP.energyCost }, killRewards: ENERGY_REWARDS, notices: screen === 'battle' && (battle.phase === 'playing' || battle.phase === 'paused') ? battle.spellNotices.visible(battle.time).map(notice => ({ ...notice, ...spellNoticeText(notice) })) : [] },
     units: battle.units.map(({ id, kind, side, x, row, hp, starSlow, catnip, targetId, targetX, targetRow }) => ({ id, kind, side, x: +x.toFixed(1), row: +row.toFixed(3), hp, targetId, targetX: +targetX.toFixed(1), targetRow: +targetRow.toFixed(3), slowSeconds: +starSlow.toFixed(2), catnipSeconds: +catnip.toFixed(2) })),
     projectiles: battle.projectiles.map(({ id, targetId, age, duration }) => ({ id, targetId, impactIn: +(duration - age).toFixed(2) })),
     animations: scene.getAnimationSnapshot().map(({ id, state, x, y, facing }) => ({ id, state, x: +x.toFixed(1), y: +y.toFixed(1), facing: +facing.toFixed(3) })),

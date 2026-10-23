@@ -14,7 +14,7 @@ export function installBaseCatDialogue(battle: Battle) {
   const observer = new ResizeObserver(resize); observer.observe(canvas);
   return () => {
     const speech = battle.baseDialogue.snapshot(battle.time);
-    const text = battle.phase === 'ready' || battle.phase === 'ended' ? '' : speech.text;
+    const text = battle.phase === 'ready' || battle.phase === 'ended' || battle.boss.spawned ? '' : speech.text;
     if (bubble.textContent !== text) {
       const split = speech.cue === 'opening' ? text.indexOf('！') + 1 : speech.cue === 'protect' ? text.indexOf('都') : -1;
       const lines = split > 0 ? [text.slice(0, split), text.slice(split)] : [text];

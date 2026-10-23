@@ -1,0 +1,96 @@
+[
+  {
+    "minBuff": 4,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 196,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 475,
+        "enemyFood": 60
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "enemy",
+        "seconds": 309,
+        "playerHp": 0,
+        "enemyHp": 3000,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 97,
+        "enemyFood": 1603
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 295,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 287,
+        "enemyFood": 28
+      }
+    ]
+  },
+  {
+    "minBuff": 5,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 191,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 559,
+        "enemyFood": 47
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 231,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 599,
+        "enemyFood": 16
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 272,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 728,
+        "enemyFood": 39
+      }
+    ]
+  }
+]

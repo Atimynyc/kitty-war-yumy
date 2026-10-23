@@ -5,7 +5,7 @@ import { portraitProjection } from './projection.ts';
 
 interface Actor { id: number; x: number; row: number; side: Side; kind: UnitKind; targetId?: number | null; attacking?: boolean }
 export interface ScreenPoint { x: number; y: number }
-export const unitScale = (kind: UnitKind) => kind === 'knight' ? 1.24 : kind === 'catapult' ? 1.14 : kind === 'mouse' ? .9 : 1;
+export const unitScale = (kind: UnitKind) => kind === 'boss' ? 1.85 : kind === 'knight' ? 1.24 : kind === 'catapult' ? 1.14 : kind === 'mouse' ? .9 : 1;
 // Body silhouettes touch at this spacing; transparent SVG edges are not bodies.
 export const meleeContactPixels = (a: UnitKind, b: UnitKind, size: number) => size * (unitScale(a) + unitScale(b)) / 2 * .6;
 

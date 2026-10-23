@@ -1,0 +1,1766 @@
+[
+  {
+    "candidate": "conservative",
+    "minBuff": 3,
+    "earliest": 0,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 210,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 738,
+        "enemyFood": 50
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 235,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 769,
+        "enemyFood": 29
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "enemy",
+        "seconds": 249,
+        "playerHp": 0,
+        "enemyHp": 3000,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 71,
+        "enemyFood": 948
+      }
+    ]
+  },
+  {
+    "candidate": "conservative",
+    "minBuff": 3,
+    "earliest": 45,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 161,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 136,
+        "enemyFood": 70
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 259,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 726,
+        "enemyFood": 18
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 250,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 952,
+        "enemyFood": 23
+      }
+    ]
+  },
+  {
+    "candidate": "conservative",
+    "minBuff": 3,
+    "earliest": 75,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 156,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 522,
+        "enemyFood": 62
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 259,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 726,
+        "enemyFood": 18
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 250,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 952,
+        "enemyFood": 23
+      }
+    ]
+  },
+  {
+    "candidate": "conservative",
+    "minBuff": 4,
+    "earliest": 0,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 194,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 427,
+        "enemyFood": 66
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 248,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 559,
+        "enemyFood": 20
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 295,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 278,
+        "enemyFood": 44
+      }
+    ]
+  },
+  {
+    "candidate": "conservative",
+    "minBuff": 4,
+    "earliest": 45,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 194,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 427,
+        "enemyFood": 66
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 241,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 823,
+        "enemyFood": 35
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 295,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 278,
+        "enemyFood": 44
+      }
+    ]
+  },
+  {
+    "candidate": "conservative",
+    "minBuff": 4,
+    "earliest": 75,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 194,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 427,
+        "enemyFood": 66
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 241,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 823,
+        "enemyFood": 35
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 295,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 278,
+        "enemyFood": 44
+      }
+    ]
+  },
+  {
+    "candidate": "conservative",
+    "minBuff": 5,
+    "earliest": 0,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 191,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 559,
+        "enemyFood": 47
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 231,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 599,
+        "enemyFood": 16
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 272,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 728,
+        "enemyFood": 39
+      }
+    ]
+  },
+  {
+    "candidate": "conservative",
+    "minBuff": 5,
+    "earliest": 45,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 191,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 559,
+        "enemyFood": 47
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 231,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 599,
+        "enemyFood": 16
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 272,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 728,
+        "enemyFood": 39
+      }
+    ]
+  },
+  {
+    "candidate": "conservative",
+    "minBuff": 5,
+    "earliest": 75,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 191,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 559,
+        "enemyFood": 47
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 231,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 599,
+        "enemyFood": 16
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 272,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 728,
+        "enemyFood": 39
+      }
+    ]
+  },
+  {
+    "candidate": "conservative",
+    "minBuff": 6,
+    "earliest": 0,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 191,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 469,
+        "enemyFood": 47
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 236,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 205,
+        "enemyFood": 37
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 252,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 604,
+        "enemyFood": 40
+      }
+    ]
+  },
+  {
+    "candidate": "conservative",
+    "minBuff": 6,
+    "earliest": 45,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 191,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 469,
+        "enemyFood": 47
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 236,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 205,
+        "enemyFood": 37
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 252,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 604,
+        "enemyFood": 40
+      }
+    ]
+  },
+  {
+    "candidate": "conservative",
+    "minBuff": 6,
+    "earliest": 75,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 191,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 469,
+        "enemyFood": 47
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 236,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 205,
+        "enemyFood": 37
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 252,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 604,
+        "enemyFood": 40
+      }
+    ]
+  },
+  {
+    "candidate": "standard",
+    "minBuff": 3,
+    "earliest": 0,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 166,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 248,
+        "enemyFood": 72
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "enemy",
+        "seconds": 301,
+        "playerHp": 0,
+        "enemyHp": 3000,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 82,
+        "enemyFood": 1603
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "enemy",
+        "seconds": 264,
+        "playerHp": 0,
+        "enemyHp": 3000,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 87,
+        "enemyFood": 1304
+      }
+    ]
+  },
+  {
+    "candidate": "standard",
+    "minBuff": 3,
+    "earliest": 45,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 170,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 183,
+        "enemyFood": 63
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 191,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 472,
+        "enemyFood": 39
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 220,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 747,
+        "enemyFood": 33
+      }
+    ]
+  },
+  {
+    "candidate": "standard",
+    "minBuff": 3,
+    "earliest": 75,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 211,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 536,
+        "enemyFood": 51
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 191,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 472,
+        "enemyFood": 39
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 220,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 747,
+        "enemyFood": 33
+      }
+    ]
+  },
+  {
+    "candidate": "standard",
+    "minBuff": 4,
+    "earliest": 0,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 196,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 464,
+        "enemyFood": 49
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 230,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 656,
+        "enemyFood": 32
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 225,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 762,
+        "enemyFood": 33
+      }
+    ]
+  },
+  {
+    "candidate": "standard",
+    "minBuff": 4,
+    "earliest": 45,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 196,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 464,
+        "enemyFood": 49
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 191,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 472,
+        "enemyFood": 39
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 225,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 762,
+        "enemyFood": 33
+      }
+    ]
+  },
+  {
+    "candidate": "standard",
+    "minBuff": 4,
+    "earliest": 75,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 196,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 464,
+        "enemyFood": 49
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 191,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 472,
+        "enemyFood": 39
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 225,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 762,
+        "enemyFood": 33
+      }
+    ]
+  },
+  {
+    "candidate": "standard",
+    "minBuff": 5,
+    "earliest": 0,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 194,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 567,
+        "enemyFood": 70
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 178,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 343,
+        "enemyFood": 35
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 238,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 646,
+        "enemyFood": 31
+      }
+    ]
+  },
+  {
+    "candidate": "standard",
+    "minBuff": 5,
+    "earliest": 45,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 194,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 567,
+        "enemyFood": 70
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 178,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 343,
+        "enemyFood": 35
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 238,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 646,
+        "enemyFood": 31
+      }
+    ]
+  },
+  {
+    "candidate": "standard",
+    "minBuff": 5,
+    "earliest": 75,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 194,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 567,
+        "enemyFood": 70
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 178,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 343,
+        "enemyFood": 35
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 238,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 646,
+        "enemyFood": 31
+      }
+    ]
+  },
+  {
+    "candidate": "standard",
+    "minBuff": 6,
+    "earliest": 0,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 192,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 595,
+        "enemyFood": 68
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 184,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 479,
+        "enemyFood": 21
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 227,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 943,
+        "enemyFood": 34
+      }
+    ]
+  },
+  {
+    "candidate": "standard",
+    "minBuff": 6,
+    "earliest": 45,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 192,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 595,
+        "enemyFood": 68
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 184,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 479,
+        "enemyFood": 21
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 227,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 943,
+        "enemyFood": 34
+      }
+    ]
+  },
+  {
+    "candidate": "standard",
+    "minBuff": 6,
+    "earliest": 75,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 192,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 595,
+        "enemyFood": 68
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 184,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 479,
+        "enemyFood": 21
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 227,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 943,
+        "enemyFood": 34
+      }
+    ]
+  },
+  {
+    "candidate": "steady",
+    "minBuff": 3,
+    "earliest": 0,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 200,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 612,
+        "enemyFood": 29
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 251,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 614,
+        "enemyFood": 25
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "enemy",
+        "seconds": 267,
+        "playerHp": 0,
+        "enemyHp": 3000,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 86,
+        "enemyFood": 1778
+      }
+    ]
+  },
+  {
+    "candidate": "steady",
+    "minBuff": 3,
+    "earliest": 45,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 189,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 536,
+        "enemyFood": 50
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 207,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 643,
+        "enemyFood": 35
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 229,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 940,
+        "enemyFood": 26
+      }
+    ]
+  },
+  {
+    "candidate": "steady",
+    "minBuff": 3,
+    "earliest": 75,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 211,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 536,
+        "enemyFood": 51
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 207,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 643,
+        "enemyFood": 35
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 229,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 940,
+        "enemyFood": 26
+      }
+    ]
+  },
+  {
+    "candidate": "steady",
+    "minBuff": 4,
+    "earliest": 0,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 196,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 467,
+        "enemyFood": 52
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 239,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 841,
+        "enemyFood": 27
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 224,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 833,
+        "enemyFood": 19
+      }
+    ]
+  },
+  {
+    "candidate": "steady",
+    "minBuff": 4,
+    "earliest": 45,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 196,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 467,
+        "enemyFood": 52
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "enemy",
+        "seconds": 321,
+        "playerHp": 0,
+        "enemyHp": 3000,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 96,
+        "enemyFood": 1578
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 224,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 833,
+        "enemyFood": 19
+      }
+    ]
+  },
+  {
+    "candidate": "steady",
+    "minBuff": 4,
+    "earliest": 75,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 196,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 467,
+        "enemyFood": 52
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "enemy",
+        "seconds": 321,
+        "playerHp": 0,
+        "enemyHp": 3000,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 96,
+        "enemyFood": 1578
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 224,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 833,
+        "enemyFood": 19
+      }
+    ]
+  },
+  {
+    "candidate": "steady",
+    "minBuff": 5,
+    "earliest": 0,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 194,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 567,
+        "enemyFood": 70
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 211,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 520,
+        "enemyFood": 37
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 227,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 897,
+        "enemyFood": 33
+      }
+    ]
+  },
+  {
+    "candidate": "steady",
+    "minBuff": 5,
+    "earliest": 45,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 194,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 567,
+        "enemyFood": 70
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 211,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 520,
+        "enemyFood": 37
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 227,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 897,
+        "enemyFood": 33
+      }
+    ]
+  },
+  {
+    "candidate": "steady",
+    "minBuff": 5,
+    "earliest": 75,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 194,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 567,
+        "enemyFood": 70
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 211,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 520,
+        "enemyFood": 37
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 227,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 897,
+        "enemyFood": 33
+      }
+    ]
+  },
+  {
+    "candidate": "steady",
+    "minBuff": 6,
+    "earliest": 0,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 192,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 595,
+        "enemyFood": 68
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 218,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 604,
+        "enemyFood": 46
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 229,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 1002,
+        "enemyFood": 43
+      }
+    ]
+  },
+  {
+    "candidate": "steady",
+    "minBuff": 6,
+    "earliest": 45,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 192,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 595,
+        "enemyFood": 68
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 218,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 604,
+        "enemyFood": 46
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 229,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 1002,
+        "enemyFood": 43
+      }
+    ]
+  },
+  {
+    "candidate": "steady",
+    "minBuff": 6,
+    "earliest": 75,
+    "scenarios": [
+      {
+        "level": "sunroom",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 192,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 2,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 3,
+        "playerFood": 595,
+        "enemyFood": 68
+      },
+      {
+        "level": "cardboard",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 218,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 604,
+        "enemyFood": 46
+      },
+      {
+        "level": "pantry",
+        "strategy": "combined-arms",
+        "winner": "player",
+        "seconds": 229,
+        "playerHp": 3000,
+        "enemyHp": 0,
+        "playerTech": 3,
+        "enemyTech": 3,
+        "playerIncomeLevel": 4,
+        "enemyIncomeLevel": 4,
+        "playerFood": 1002,
+        "enemyFood": 43
+      }
+    ]
+  }
+]

@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { BASE_X, CANNON_INTERVAL, UNIT_ORDER, UNITS } from './content.ts';
+import { BASE_X, CANNON_INTERVAL, ORANGE_BOSS, UNIT_ORDER, UNITS } from './content.ts';
 import type { Side } from './content.ts';
 import { Battle } from './simulation.ts';
 import type { Unit } from './simulation.ts';
@@ -13,6 +13,10 @@ import type { ScreenPoint } from './combat-layout.ts';
 import { baseCatSVG } from './base-cat-art.ts';
 import { ORANGE_CAT, PLAYER_CAT } from './cat-appearance.ts';
 import { BaseCatView } from './BaseCatView.ts';
+import { baseCatLayout } from './base-cat-layout.ts';
+import { bossSweepCorners, inBossSweep } from './boss-combat.ts';
+import type { Sweep } from './boss-combat.ts';
+import { LANE_SPACING } from './combat-space.ts';
 
 export class BattleScene extends Phaser.Scene {
   private battle: Battle;
@@ -47,7 +51,7 @@ export class BattleScene extends Phaser.Scene {
       for (const mood of ['calm', 'hungry', 'happy', 'worried'] as const) {
         load(`base-cat-${side}-${mood}`, baseCatSVG(side === 'enemy' ? ORANGE_CAT : PLAYER_CAT, mood, side === 'enemy'));
       }
-      for (const kind of UNIT_ORDER) {
+      for (const kind of [...UNIT_ORDER, 'boss'] as const) {
         for (const part of unitParts(kind, side)) load(`${side}-${kind}-${part.name}`, part.svg);
         if (kind !== 'mouse' && kind !== 'catapult') for (const look of ['back', 'front', 'side'] as const) {
           for (const part of unitParts(kind, side, look)) if (part.name === 'body' || part.name === 'rider') load(`${side}-${kind}-${part.name}-${look}`, part.svg);
@@ -125,15 +129,27 @@ export class BattleScene extends Phaser.Scene {
     }
     const previous = this.positions;
     this.positions = new Map(this.combatLayout.update([...live.values()], this.scale.width, this.scale.height, now));
+    for (const unit of live.values()) if ((unit.bossEntry??0)>0) {
+      const at=baseCatLayout(this.scale.width,this.scale.height).enemy,to=this.positions.get(unit.id)!;
+      const progress=1-unit.bossEntry!/ORANGE_BOSS.entrance,ease=progress*progress*(3-2*progress);
+      this.positions.set(unit.id,{x:Phaser.Math.Linear(at.x,to.x,ease),y:Phaser.Math.Linear(at.y-at.size*.5,to.y,ease)});
+    }
     // Fallen units keep their last position and stop pushing living fighters.
     for (const [id, death] of deaths) if (!live.has(id)) this.positions.set(id,previous.get(id) ?? projection.project(death.x,death.row));
     for (const [id, view] of this.units) {
       const death = deaths.get(id), unit = live.get(id) ?? view.unit;
       if (!live.has(id) && (!death || death.age + this.endingTime >= DEATH_DURATION)) { view.destroy(); this.units.delete(id); continue; }
-      const point = this.positions.get(id)!, size = projection.unitSize * unitScale(unit.kind);
-      const target = (!death && unit.targetId !== null ? this.positions.get(unit.targetId) : undefined) ?? projection.project(unit.targetX, unit.targetRow);
+      const point = this.positions.get(id)!;
+      let size = projection.unitSize * unitScale(unit.kind);
+      if((unit.bossEntry??0)>0)size=Phaser.Math.Linear(baseCatLayout(this.scale.width,this.scale.height).enemy.size,size,1-unit.bossEntry!/ORANGE_BOSS.entrance);
+      let target = (!death && unit.targetId !== null ? this.positions.get(unit.targetId) : undefined) ?? projection.project(unit.targetX, unit.targetRow);
+      const sweep=unit.sweep ?? (unit.kind==='boss'?this.battle.effects.find(fx=>fx.type==='sweep' && fx.sourceId===id)?.sweep:undefined);
+      if(sweep && !death) {
+        const origin=projection.project(unit.x,unit.row),aim=projection.project(unit.x+sweep.forwardX*ORANGE_BOSS.sweepDepth,unit.row+sweep.forwardY*ORANGE_BOSS.sweepDepth/LANE_SPACING);
+        target={x:point.x+aim.x-origin.x,y:point.y+aim.y-origin.y};
+      }
       view.draw(unit, now, point.x, point.y, size, this.reducedMotion, targetFacing(point, target, unit.side), death ? this.battle.time - death.age : undefined);
-      if (!death && unit.hp < UNITS[unit.kind].hp) {
+      if (!death && unit.kind!=='boss' && unit.hp < UNITS[unit.kind].hp) {
         this.bars.fillStyle(0x695449, .2).fillRoundedRect(point.x - 13, point.y - size * .48, 26, 3, 1.5);
         this.bars.fillStyle(unit.side === 'player' ? 0x6c9579 : 0x9f83b2).fillRoundedRect(point.x - 13, point.y - size * .48, Math.max(1, 26 * unit.hp / UNITS[unit.kind].hp), 3, 1.5);
       }
@@ -212,6 +228,7 @@ export class BattleScene extends Phaser.Scene {
     const view = portraitProjection(this.scale.width, this.scale.height);
     for (const side of ['player', 'enemy'] as Side[]) this.bases[side]!.setAlpha(this.battle.armies[side].hp === 0 ? .4 : 1);
     this.drawUnits();
+    for (const unit of this.battle.units) if(unit.sweep) this.drawBossSweep(unit.x,unit.row,unit.sweep,unit.id,.18+.2*(1-unit.sweep.remaining/ORANGE_BOSS.windup),false);
     const flights = new Set([...this.battle.projectiles.map(projectile => projectile.id), ...this.battle.effects.filter(effect => effect.type === 'shot').map(effect => effect.id)]);
     for (const id of this.launchOffsets.keys()) if (!flights.has(id)) this.launchOffsets.delete(id);
     const star = (x: number, y: number, radius: number, angle: number, alpha: number) => {
@@ -234,7 +251,9 @@ export class BattleScene extends Phaser.Scene {
       const t = effect.age / effect.duration, alpha = 1 - t;
       const point = effect.type === 'shot' ? this.launchPoint(effect.id, effect.x, effect.sourceRow ?? effect.row, effect.sourceId) : this.effectPoint(effect.x, effect.sourceRow ?? effect.row, effect.sourceId);
       const target = this.effectPoint(effect.targetX, effect.row, effect.targetId);
-      if (effect.type === 'shot') {
+      if (effect.type === 'sweep' && effect.sweep) {
+        this.drawBossSweep(effect.x,effect.row,effect.sweep,effect.sourceId,alpha*.65,true);
+      } else if (effect.type === 'shot') {
         const x = Phaser.Math.Linear(point.x, target.x, t) + Math.sin(t * Math.PI) * (effect.side === 'player' ? -15 : 15);
         const y = Phaser.Math.Linear(point.y, target.y, t), radius = effect.kind === 'catapult' ? 7 : 4;
         this.fx.fillStyle(effect.side === 'player' ? 0xb39260 : 0xaa93bc).fillCircle(x, y, radius);
@@ -263,6 +282,23 @@ export class BattleScene extends Phaser.Scene {
         }
         for (let i = 0; i < 5; i++) { const angle = i * Math.PI * .4; this.fx.fillStyle(0xfff1c5, alpha).fillCircle(at.x + Math.cos(angle) * t * 22, at.y + Math.sin(angle) * t * 22, alpha * 3 + 1); }
       }
+    }
+  }
+
+  private drawBossSweep(x:number,row:number,sweep:Sweep,id:number|undefined,alpha:number,hit:boolean) {
+    const projection=portraitProjection(this.scale.width,this.scale.height),anchor=projection.project(x,row);
+    const at=this.effectPoint(x,row,id),offset={x:at.x-anchor.x,y:at.y-anchor.y};
+    const corners=bossSweepCorners({x,row},sweep).map(p=>{const q=projection.project(p.x,p.row);return new Phaser.Geom.Point(q.x+offset.x,q.y+offset.y);});
+    this.fx.fillStyle(hit?0xffcc78:0xd68048,alpha*.45).fillPoints(corners,true);
+    this.fx.lineStyle(hit?3:1.5,hit?0xfff0c0:0xb86538,alpha).strokePoints(corners,true);
+    for(const victim of this.battle.units.filter(u=>u.side==='player' && inBossSweep({x,row},sweep,u))) {
+      const p=this.positions.get(victim.id)!;
+      this.fx.lineStyle(hit?3:1.5,hit?0xffecc3:0xb86538,alpha).strokeEllipse(p.x,p.y+10,22,8);
+    }
+    if(hit) {
+      const end=projection.project(x+sweep.forwardX*ORANGE_BOSS.sweepDepth,row+sweep.forwardY*ORANGE_BOSS.sweepDepth/LANE_SPACING);
+      const angle=Math.atan2(end.y-anchor.y,end.x-anchor.x);
+      this.fx.lineStyle(5,0xffe3a3,alpha).beginPath().arc(at.x,at.y,projection.unitSize*.8,angle-1.2,angle+1.2).strokePath();
     }
   }
 

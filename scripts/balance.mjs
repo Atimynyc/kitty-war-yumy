@@ -4,7 +4,7 @@ import { UNITS } from '../src/game/content.ts';
 import { pathToFileURL } from 'node:url';
 
 export const STRATEGIES = ['mouse-rush', 'soldier-rush', 'economy-and-tech', 'economy-opening', 'reserve-for-tech', 'combined-arms'];
-export function simulateStrategy(level, strategy) {
+export function simulateStrategy(level, strategy, spellOptions = {}) {
   const battle = new Battle(); battle.reset(level.id); battle.level = level; battle.start();
   if (strategy === 'economy-opening' || strategy === 'combined-arms') battle.upgradeEconomy('player');
   let decision = 0;
@@ -17,7 +17,8 @@ export function simulateStrategy(level, strategy) {
       decision++;
       if (strategy === 'combined-arms') {
         const count = kind => allies.filter(u => u.kind === kind).length;
-        if (allies.filter(u => u.attacking).length >= 3) battle.catnip('player');
+        // With shared energy, save the team buff for a substantial engaged group.
+        if (battle.time >= (spellOptions.earliest ?? 0) && allies.filter(u => u.attacking && u.catnip<=2).length >= (spellOptions.minBuff ?? 5)) battle.catnip('player');
         let saving = false;
         if (allies.length >= 2 && army.hp > 1500) {
           if (army.economy < 3 && battle.time >= [0,22,48][army.economy]) {

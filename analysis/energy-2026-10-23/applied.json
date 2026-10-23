@@ -1,0 +1,1228 @@
+{
+  "version": "0.11.0",
+  "sourceHash": {
+    "src/game/content.ts": "4310bf3e4501ed0ad9e0d1f6dc81da66751b35af8ca8616f7e605f6cd80950ac",
+    "src/game/simulation.ts": "ab1f2b22486bbfb7a6ecc9120c388c418a5b101930f0e2435e5cea2f72ec57a0",
+    "scripts/balance.mjs": "b130b86e4e0e1e384749f8cf76bbc5e20aa1f1ab115e2ae4908045ead0372481"
+  },
+  "spellPolicy": "buff group >=5, remaining buff <=2s",
+  "candidates": [
+    {
+      "name": "applied-light",
+      "rewards": {
+        "mouse": 2,
+        "soldier": 4,
+        "shield": 6,
+        "slinger": 5,
+        "mage": 6,
+        "catapult": 8,
+        "healer": 6,
+        "knight": 20,
+        "boss": 50
+      }
+    }
+  ],
+  "scenarios": [
+    {
+      "candidate": "applied-light",
+      "level": "sunroom",
+      "strategy": "mouse-rush",
+      "winner": "enemy",
+      "seconds": 181,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "playerTech": 1,
+      "enemyTech": 3,
+      "playerIncomeLevel": 1,
+      "enemyIncomeLevel": 4,
+      "playerFood": 11,
+      "enemyFood": 162,
+      "spells": {
+        "player": {
+          "casts": [
+            {
+              "spell": "roar",
+              "time": 104.5
+            },
+            {
+              "spell": "roar",
+              "time": 110
+            }
+          ],
+          "kills": {
+            "soldier": 16,
+            "mouse": 10
+          },
+          "energy": 16,
+          "earned": 66,
+          "spent": 100,
+          "overflow": 18
+        },
+        "enemy": {
+          "casts": [
+            {
+              "spell": "roar",
+              "time": 12
+            },
+            {
+              "spell": "roar",
+              "time": 64.8
+            },
+            {
+              "spell": "catnip",
+              "time": 96
+            },
+            {
+              "spell": "catnip",
+              "time": 139.2
+            }
+          ],
+          "kills": {
+            "mouse": 96
+          },
+          "energy": 42,
+          "earned": 192,
+          "spent": 200,
+          "overflow": 0
+        }
+      }
+    },
+    {
+      "candidate": "applied-light",
+      "level": "sunroom",
+      "strategy": "soldier-rush",
+      "winner": "player",
+      "seconds": 227,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "playerTech": 1,
+      "enemyTech": 1,
+      "playerIncomeLevel": 1,
+      "enemyIncomeLevel": 1,
+      "playerFood": 668,
+      "enemyFood": 43,
+      "spells": {
+        "player": {
+          "casts": [],
+          "kills": {
+            "soldier": 32,
+            "mouse": 53
+          },
+          "energy": 100,
+          "earned": 50,
+          "spent": 0,
+          "overflow": 184
+        },
+        "enemy": {
+          "casts": [
+            {
+              "spell": "roar",
+              "time": 28
+            },
+            {
+              "spell": "roar",
+              "time": 151.2
+            }
+          ],
+          "kills": {
+            "soldier": 22
+          },
+          "energy": 38,
+          "earned": 88,
+          "spent": 100,
+          "overflow": 0
+        }
+      }
+    },
+    {
+      "candidate": "applied-light",
+      "level": "sunroom",
+      "strategy": "economy-and-tech",
+      "winner": "player",
+      "seconds": 128,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "playerTech": 2,
+      "enemyTech": 1,
+      "playerIncomeLevel": 3,
+      "enemyIncomeLevel": 1,
+      "playerFood": 274,
+      "enemyFood": 30,
+      "spells": {
+        "player": {
+          "casts": [],
+          "kills": {
+            "soldier": 26,
+            "mouse": 18
+          },
+          "energy": 100,
+          "earned": 50,
+          "spent": 0,
+          "overflow": 90
+        },
+        "enemy": {
+          "casts": [
+            {
+              "spell": "roar",
+              "time": 28
+            },
+            {
+              "spell": "roar",
+              "time": 105.6
+            }
+          ],
+          "kills": {
+            "mouse": 6,
+            "soldier": 12
+          },
+          "energy": 10,
+          "earned": 60,
+          "spent": 100,
+          "overflow": 0
+        }
+      }
+    },
+    {
+      "candidate": "applied-light",
+      "level": "sunroom",
+      "strategy": "economy-opening",
+      "winner": "player",
+      "seconds": 126,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "playerTech": 2,
+      "enemyTech": 1,
+      "playerIncomeLevel": 3,
+      "enemyIncomeLevel": 1,
+      "playerFood": 476,
+      "enemyFood": 29,
+      "spells": {
+        "player": {
+          "casts": [],
+          "kills": {
+            "soldier": 26,
+            "mouse": 17
+          },
+          "energy": 100,
+          "earned": 50,
+          "spent": 0,
+          "overflow": 88
+        },
+        "enemy": {
+          "casts": [
+            {
+              "spell": "roar",
+              "time": 28
+            }
+          ],
+          "kills": {
+            "mouse": 5,
+            "soldier": 10
+          },
+          "energy": 50,
+          "earned": 50,
+          "spent": 50,
+          "overflow": 0
+        }
+      }
+    },
+    {
+      "candidate": "applied-light",
+      "level": "sunroom",
+      "strategy": "reserve-for-tech",
+      "winner": "player",
+      "seconds": 201,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "playerTech": 3,
+      "enemyTech": 2,
+      "playerIncomeLevel": 4,
+      "enemyIncomeLevel": 2,
+      "playerFood": 74,
+      "enemyFood": 39,
+      "spells": {
+        "player": {
+          "casts": [],
+          "kills": {
+            "soldier": 36,
+            "mouse": 11,
+            "shield": 4,
+            "mage": 4,
+            "slinger": 4
+          },
+          "energy": 100,
+          "earned": 50,
+          "spent": 0,
+          "overflow": 184
+        },
+        "enemy": {
+          "casts": [
+            {
+              "spell": "roar",
+              "time": 28
+            },
+            {
+              "spell": "roar",
+              "time": 108
+            },
+            {
+              "spell": "roar",
+              "time": 165.6
+            }
+          ],
+          "kills": {
+            "mouse": 4,
+            "soldier": 10,
+            "shield": 7,
+            "slinger": 5
+          },
+          "energy": 15,
+          "earned": 115,
+          "spent": 150,
+          "overflow": 0
+        }
+      }
+    },
+    {
+      "candidate": "applied-light",
+      "level": "sunroom",
+      "strategy": "combined-arms",
+      "winner": "player",
+      "seconds": 191,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "playerTech": 3,
+      "enemyTech": 2,
+      "playerIncomeLevel": 4,
+      "enemyIncomeLevel": 4,
+      "playerFood": 559,
+      "enemyFood": 47,
+      "spells": {
+        "player": {
+          "casts": [
+            {
+              "spell": "catnip",
+              "time": 159.5
+            },
+            {
+              "spell": "catnip",
+              "time": 168
+            },
+            {
+              "spell": "catnip",
+              "time": 184.5
+            }
+          ],
+          "kills": {
+            "soldier": 35,
+            "mouse": 8,
+            "shield": 4,
+            "slinger": 4,
+            "mage": 3
+          },
+          "energy": 13,
+          "earned": 113,
+          "spent": 150,
+          "overflow": 105
+        },
+        "enemy": {
+          "casts": [
+            {
+              "spell": "roar",
+              "time": 28
+            },
+            {
+              "spell": "roar",
+              "time": 124.8
+            }
+          ],
+          "kills": {
+            "soldier": 7,
+            "shield": 2,
+            "mage": 2,
+            "slinger": 3,
+            "knight": 1
+          },
+          "energy": 37,
+          "earned": 87,
+          "spent": 100,
+          "overflow": 0
+        }
+      }
+    },
+    {
+      "candidate": "applied-light",
+      "level": "cardboard",
+      "strategy": "mouse-rush",
+      "winner": "enemy",
+      "seconds": 107,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "playerTech": 1,
+      "enemyTech": 3,
+      "playerIncomeLevel": 1,
+      "enemyIncomeLevel": 3,
+      "playerFood": 22,
+      "enemyFood": 217,
+      "spells": {
+        "player": {
+          "casts": [
+            {
+              "spell": "roar",
+              "time": 54
+            }
+          ],
+          "kills": {
+            "soldier": 5,
+            "mouse": 5
+          },
+          "energy": 30,
+          "earned": 30,
+          "spent": 50,
+          "overflow": 0
+        },
+        "enemy": {
+          "casts": [
+            {
+              "spell": "catnip",
+              "time": 15
+            },
+            {
+              "spell": "catnip",
+              "time": 42.2
+            },
+            {
+              "spell": "catnip",
+              "time": 86.2
+            }
+          ],
+          "kills": {
+            "mouse": 60
+          },
+          "energy": 20,
+          "earned": 120,
+          "spent": 150,
+          "overflow": 0
+        }
+      }
+    },
+    {
+      "candidate": "applied-light",
+      "level": "cardboard",
+      "strategy": "soldier-rush",
+      "winner": "enemy",
+      "seconds": 155,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "playerTech": 1,
+      "enemyTech": 3,
+      "playerIncomeLevel": 1,
+      "enemyIncomeLevel": 4,
+      "playerFood": 48,
+      "enemyFood": 116,
+      "spells": {
+        "player": {
+          "casts": [
+            {
+              "spell": "roar",
+              "time": 113
+            },
+            {
+              "spell": "roar",
+              "time": 117
+            }
+          ],
+          "kills": {
+            "soldier": 13,
+            "mouse": 5,
+            "slinger": 2,
+            "shield": 2
+          },
+          "energy": 16,
+          "earned": 66,
+          "spent": 100,
+          "overflow": 18
+        },
+        "enemy": {
+          "casts": [
+            {
+              "spell": "catnip",
+              "time": 17.2
+            },
+            {
+              "spell": "roar",
+              "time": 69.2
+            },
+            {
+              "spell": "catnip",
+              "time": 100.2
+            },
+            {
+              "spell": "catnip",
+              "time": 140.2
+            }
+          ],
+          "kills": {
+            "soldier": 41
+          },
+          "energy": 14,
+          "earned": 164,
+          "spent": 200,
+          "overflow": 0
+        }
+      }
+    },
+    {
+      "candidate": "applied-light",
+      "level": "cardboard",
+      "strategy": "economy-and-tech",
+      "winner": "enemy",
+      "seconds": 276,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "playerTech": 2,
+      "enemyTech": 3,
+      "playerIncomeLevel": 4,
+      "enemyIncomeLevel": 4,
+      "playerFood": 42,
+      "enemyFood": 1490,
+      "spells": {
+        "player": {
+          "casts": [
+            {
+              "spell": "roar",
+              "time": 218.5
+            },
+            {
+              "spell": "roar",
+              "time": 224
+            }
+          ],
+          "kills": {
+            "soldier": 17,
+            "mouse": 6,
+            "slinger": 5,
+            "shield": 5,
+            "mage": 3,
+            "healer": 1
+          },
+          "energy": 0,
+          "earned": 50,
+          "spent": 100,
+          "overflow": 109
+        },
+        "enemy": {
+          "casts": [
+            {
+              "spell": "catnip",
+              "time": 17.2
+            },
+            {
+              "spell": "roar",
+              "time": 67.2
+            },
+            {
+              "spell": "catnip",
+              "time": 108.2
+            },
+            {
+              "spell": "catnip",
+              "time": 167.2
+            },
+            {
+              "spell": "catnip",
+              "time": 202.2
+            },
+            {
+              "spell": "catnip",
+              "time": 230.2
+            },
+            {
+              "spell": "catnip",
+              "time": 261.2
+            }
+          ],
+          "kills": {
+            "mouse": 6,
+            "soldier": 17,
+            "shield": 27,
+            "slinger": 18
+          },
+          "energy": 32,
+          "earned": 332,
+          "spent": 350,
+          "overflow": 0
+        }
+      }
+    },
+    {
+      "candidate": "applied-light",
+      "level": "cardboard",
+      "strategy": "economy-opening",
+      "winner": "player",
+      "seconds": 291,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "playerTech": 3,
+      "enemyTech": 3,
+      "playerIncomeLevel": 4,
+      "enemyIncomeLevel": 4,
+      "playerFood": 807,
+      "enemyFood": 18,
+      "spells": {
+        "player": {
+          "casts": [],
+          "kills": {
+            "soldier": 22,
+            "mouse": 31,
+            "slinger": 15,
+            "shield": 7,
+            "mage": 9,
+            "catapult": 3,
+            "healer": 1
+          },
+          "energy": 100,
+          "earned": 50,
+          "spent": 0,
+          "overflow": 301
+        },
+        "enemy": {
+          "casts": [
+            {
+              "spell": "catnip",
+              "time": 17.2
+            },
+            {
+              "spell": "roar",
+              "time": 59.2
+            },
+            {
+              "spell": "catnip",
+              "time": 98.2
+            },
+            {
+              "spell": "roar",
+              "time": 158.2
+            },
+            {
+              "spell": "catnip",
+              "time": 211.2
+            }
+          ],
+          "kills": {
+            "mouse": 9,
+            "soldier": 20,
+            "shield": 12,
+            "slinger": 12
+          },
+          "energy": 30,
+          "earned": 230,
+          "spent": 250,
+          "overflow": 0
+        }
+      }
+    },
+    {
+      "candidate": "applied-light",
+      "level": "cardboard",
+      "strategy": "reserve-for-tech",
+      "winner": "player",
+      "seconds": 297,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "playerTech": 3,
+      "enemyTech": 3,
+      "playerIncomeLevel": 4,
+      "enemyIncomeLevel": 4,
+      "playerFood": 809,
+      "enemyFood": 29,
+      "spells": {
+        "player": {
+          "casts": [
+            {
+              "spell": "roar",
+              "time": 64
+            },
+            {
+              "spell": "roar",
+              "time": 178
+            }
+          ],
+          "kills": {
+            "soldier": 24,
+            "mouse": 34,
+            "shield": 8,
+            "slinger": 7,
+            "mage": 7,
+            "healer": 4,
+            "catapult": 6
+          },
+          "energy": 100,
+          "earned": 150,
+          "spent": 100,
+          "overflow": 211
+        },
+        "enemy": {
+          "casts": [
+            {
+              "spell": "catnip",
+              "time": 17.2
+            },
+            {
+              "spell": "catnip",
+              "time": 81.2
+            },
+            {
+              "spell": "catnip",
+              "time": 162.2
+            },
+            {
+              "spell": "catnip",
+              "time": 237.2
+            }
+          ],
+          "kills": {
+            "mouse": 3,
+            "soldier": 4,
+            "shield": 18,
+            "slinger": 6,
+            "healer": 2
+          },
+          "energy": 22,
+          "earned": 172,
+          "spent": 200,
+          "overflow": 0
+        }
+      }
+    },
+    {
+      "candidate": "applied-light",
+      "level": "cardboard",
+      "strategy": "combined-arms",
+      "winner": "player",
+      "seconds": 231,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "playerTech": 3,
+      "enemyTech": 3,
+      "playerIncomeLevel": 4,
+      "enemyIncomeLevel": 4,
+      "playerFood": 599,
+      "enemyFood": 16,
+      "spells": {
+        "player": {
+          "casts": [
+            {
+              "spell": "roar",
+              "time": 53.5
+            },
+            {
+              "spell": "roar",
+              "time": 78
+            },
+            {
+              "spell": "catnip",
+              "time": 152
+            },
+            {
+              "spell": "catnip",
+              "time": 168.5
+            },
+            {
+              "spell": "catnip",
+              "time": 215.5
+            },
+            {
+              "spell": "catnip",
+              "time": 224
+            }
+          ],
+          "kills": {
+            "soldier": 22,
+            "mouse": 28,
+            "shield": 6,
+            "slinger": 6,
+            "mage": 6,
+            "healer": 1,
+            "catapult": 3
+          },
+          "energy": 26,
+          "earned": 276,
+          "spent": 300,
+          "overflow": 0
+        },
+        "enemy": {
+          "casts": [
+            {
+              "spell": "catnip",
+              "time": 17.2
+            },
+            {
+              "spell": "catnip",
+              "time": 89.2
+            },
+            {
+              "spell": "roar",
+              "time": 162.2
+            }
+          ],
+          "kills": {
+            "soldier": 7,
+            "shield": 7,
+            "mage": 4,
+            "slinger": 4,
+            "knight": 1,
+            "healer": 1
+          },
+          "energy": 40,
+          "earned": 140,
+          "spent": 150,
+          "overflow": 0
+        }
+      }
+    },
+    {
+      "candidate": "applied-light",
+      "level": "pantry",
+      "strategy": "mouse-rush",
+      "winner": "enemy",
+      "seconds": 106,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "playerTech": 1,
+      "enemyTech": 3,
+      "playerIncomeLevel": 1,
+      "enemyIncomeLevel": 4,
+      "playerFood": 12,
+      "enemyFood": 101,
+      "spells": {
+        "player": {
+          "casts": [
+            {
+              "spell": "roar",
+              "time": 47.5
+            }
+          ],
+          "kills": {
+            "soldier": 7,
+            "mouse": 1
+          },
+          "energy": 30,
+          "earned": 30,
+          "spent": 50,
+          "overflow": 0
+        },
+        "enemy": {
+          "casts": [
+            {
+              "spell": "catnip",
+              "time": 12.8
+            },
+            {
+              "spell": "catnip",
+              "time": 41
+            },
+            {
+              "spell": "catnip",
+              "time": 86
+            }
+          ],
+          "kills": {
+            "mouse": 60
+          },
+          "energy": 20,
+          "earned": 120,
+          "spent": 150,
+          "overflow": 0
+        }
+      }
+    },
+    {
+      "candidate": "applied-light",
+      "level": "pantry",
+      "strategy": "soldier-rush",
+      "winner": "enemy",
+      "seconds": 137,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "playerTech": 1,
+      "enemyTech": 3,
+      "playerIncomeLevel": 1,
+      "enemyIncomeLevel": 4,
+      "playerFood": 34,
+      "enemyFood": 135,
+      "spells": {
+        "player": {
+          "casts": [
+            {
+              "spell": "roar",
+              "time": 92
+            },
+            {
+              "spell": "roar",
+              "time": 97.5
+            }
+          ],
+          "kills": {
+            "soldier": 11,
+            "mouse": 2,
+            "shield": 2
+          },
+          "energy": 10,
+          "earned": 60,
+          "spent": 100,
+          "overflow": 0
+        },
+        "enemy": {
+          "casts": [
+            {
+              "spell": "catnip",
+              "time": 15.2
+            },
+            {
+              "spell": "roar",
+              "time": 58.4
+            },
+            {
+              "spell": "catnip",
+              "time": 92.6
+            }
+          ],
+          "kills": {
+            "soldier": 37
+          },
+          "energy": 48,
+          "earned": 148,
+          "spent": 150,
+          "overflow": 0
+        }
+      }
+    },
+    {
+      "candidate": "applied-light",
+      "level": "pantry",
+      "strategy": "economy-and-tech",
+      "winner": "enemy",
+      "seconds": 190,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "playerTech": 2,
+      "enemyTech": 3,
+      "playerIncomeLevel": 2,
+      "enemyIncomeLevel": 4,
+      "playerFood": 32,
+      "enemyFood": 927,
+      "spells": {
+        "player": {
+          "casts": [
+            {
+              "spell": "roar",
+              "time": 144
+            },
+            {
+              "spell": "roar",
+              "time": 150
+            }
+          ],
+          "kills": {
+            "soldier": 15,
+            "mouse": 2,
+            "mage": 1,
+            "shield": 1,
+            "slinger": 2
+          },
+          "energy": 2,
+          "earned": 52,
+          "spent": 100,
+          "overflow": 34
+        },
+        "enemy": {
+          "casts": [
+            {
+              "spell": "catnip",
+              "time": 15.2
+            },
+            {
+              "spell": "roar",
+              "time": 65.6
+            },
+            {
+              "spell": "catnip",
+              "time": 105.2
+            },
+            {
+              "spell": "catnip",
+              "time": 142.4
+            },
+            {
+              "spell": "catnip",
+              "time": 174.2
+            }
+          ],
+          "kills": {
+            "mouse": 6,
+            "soldier": 17,
+            "shield": 17,
+            "slinger": 8
+          },
+          "energy": 22,
+          "earned": 222,
+          "spent": 250,
+          "overflow": 0
+        }
+      }
+    },
+    {
+      "candidate": "applied-light",
+      "level": "pantry",
+      "strategy": "economy-opening",
+      "winner": "enemy",
+      "seconds": 212,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "playerTech": 2,
+      "enemyTech": 3,
+      "playerIncomeLevel": 3,
+      "enemyIncomeLevel": 4,
+      "playerFood": 19,
+      "enemyFood": 1186,
+      "spells": {
+        "player": {
+          "casts": [
+            {
+              "spell": "roar",
+              "time": 165
+            },
+            {
+              "spell": "roar",
+              "time": 170
+            }
+          ],
+          "kills": {
+            "soldier": 13,
+            "mouse": 2,
+            "slinger": 2,
+            "mage": 2,
+            "shield": 3
+          },
+          "energy": 0,
+          "earned": 50,
+          "spent": 100,
+          "overflow": 46
+        },
+        "enemy": {
+          "casts": [
+            {
+              "spell": "catnip",
+              "time": 15.2
+            },
+            {
+              "spell": "catnip",
+              "time": 46.4
+            },
+            {
+              "spell": "catnip",
+              "time": 93.8
+            },
+            {
+              "spell": "catnip",
+              "time": 144.8
+            },
+            {
+              "spell": "catnip",
+              "time": 175.4
+            },
+            {
+              "spell": "catnip",
+              "time": 201.8
+            }
+          ],
+          "kills": {
+            "mouse": 9,
+            "soldier": 28,
+            "shield": 17,
+            "slinger": 8
+          },
+          "energy": 22,
+          "earned": 272,
+          "spent": 300,
+          "overflow": 0
+        }
+      }
+    },
+    {
+      "candidate": "applied-light",
+      "level": "pantry",
+      "strategy": "reserve-for-tech",
+      "winner": "enemy",
+      "seconds": 225,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "playerTech": 3,
+      "enemyTech": 3,
+      "playerIncomeLevel": 3,
+      "enemyIncomeLevel": 4,
+      "playerFood": 23,
+      "enemyFood": 1142,
+      "spells": {
+        "player": {
+          "casts": [
+            {
+              "spell": "roar",
+              "time": 47.5
+            },
+            {
+              "spell": "roar",
+              "time": 163
+            },
+            {
+              "spell": "roar",
+              "time": 167.5
+            }
+          ],
+          "kills": {
+            "soldier": 14,
+            "mouse": 5,
+            "mage": 2,
+            "slinger": 4,
+            "shield": 3
+          },
+          "energy": 16,
+          "earned": 116,
+          "spent": 150,
+          "overflow": 0
+        },
+        "enemy": {
+          "casts": [
+            {
+              "spell": "catnip",
+              "time": 15.2
+            },
+            {
+              "spell": "catnip",
+              "time": 99.8
+            },
+            {
+              "spell": "catnip",
+              "time": 156.2
+            },
+            {
+              "spell": "catnip",
+              "time": 195.2
+            },
+            {
+              "spell": "catnip",
+              "time": 219.2
+            }
+          ],
+          "kills": {
+            "mouse": 3,
+            "soldier": 11,
+            "shield": 18,
+            "slinger": 6,
+            "catapult": 3
+          },
+          "energy": 12,
+          "earned": 212,
+          "spent": 250,
+          "overflow": 0
+        }
+      }
+    },
+    {
+      "candidate": "applied-light",
+      "level": "pantry",
+      "strategy": "combined-arms",
+      "winner": "player",
+      "seconds": 272,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "playerTech": 3,
+      "enemyTech": 3,
+      "playerIncomeLevel": 4,
+      "enemyIncomeLevel": 4,
+      "playerFood": 728,
+      "enemyFood": 39,
+      "spells": {
+        "player": {
+          "casts": [
+            {
+              "spell": "roar",
+              "time": 46.5
+            },
+            {
+              "spell": "roar",
+              "time": 95
+            },
+            {
+              "spell": "catnip",
+              "time": 145.5
+            },
+            {
+              "spell": "catnip",
+              "time": 214
+            },
+            {
+              "spell": "catnip",
+              "time": 223.5
+            },
+            {
+              "spell": "catnip",
+              "time": 236.5
+            },
+            {
+              "spell": "catnip",
+              "time": 266
+            }
+          ],
+          "kills": {
+            "soldier": 27,
+            "mouse": 40,
+            "slinger": 6,
+            "shield": 6,
+            "mage": 5,
+            "healer": 3,
+            "catapult": 5,
+            "boss": 1
+          },
+          "energy": 66,
+          "earned": 366,
+          "spent": 350,
+          "overflow": 26
+        },
+        "enemy": {
+          "casts": [
+            {
+              "spell": "catnip",
+              "time": 15.2
+            },
+            {
+              "spell": "catnip",
+              "time": 85.4
+            },
+            {
+              "spell": "catnip",
+              "time": 152
+            },
+            {
+              "spell": "roar",
+              "time": 215
+            }
+          ],
+          "kills": {
+            "soldier": 7,
+            "shield": 9,
+            "mage": 5,
+            "knight": 2,
+            "slinger": 2,
+            "healer": 2
+          },
+          "energy": 24,
+          "earned": 174,
+          "spent": 200,
+          "overflow": 0
+        }
+      }
+    }
+  ]
+}

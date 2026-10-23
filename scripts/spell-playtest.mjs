@@ -26,6 +26,8 @@ try {
   await page.locator('#loading').waitFor({ state: 'detached' });
   await page.locator('#start').tap(); await advance(0);
   assert.equal(await page.locator('#catnip').isDisabled(), true);
+  assert.equal(await page.locator('#roar').isDisabled(), true);
+  assert.equal(await page.locator('#energy-count').textContent(),'50');
   assert.equal(await page.locator('.upgrade-grid button').count(), 2);
   for (const id of ['roar', 'catnip']) {
     assert.equal((await page.locator(`#${id}`).textContent()).trim(), '');
@@ -36,9 +38,28 @@ try {
   await page.locator('#catnip').tap();
   assert.equal(await page.locator('#catnip').isDisabled(), true);
   assert.match(await page.locator('.spell-notice.player').textContent(), /我方释放猫薄荷.*攻击力 \+20%.*10 秒/);
-  assert.equal(await page.locator('#catnip').getAttribute('data-cooling'), 'true');
-  assert.match(await page.locator('#catnip').getAttribute('aria-label'), /45 秒/);
+  assert.equal(await page.locator('.spell-ring').count(),0);
+  assert.equal(await page.locator('#energy-count').textContent(),'0');
+  assert.match(await page.locator('#catnip').getAttribute('aria-label'), /能量不足/);
+  assert.equal(await page.locator('#roar').isDisabled(),true);
+  await page.keyboard.press('Space');assert.equal((await read()).player.energySpent,50);
+  // Real splash kills refill exactly one spell: 12 soldiers (4 each) + a mouse (2).
+  await page.evaluate(()=>{
+    const b=window.__catGame.battle;
+    b.armies.player.tech=3;b.armies.player.food=1000;b.summon('player','catapult');
+    Object.assign(b.units.at(-1),{x:700,row:1,targetRow:1,attackCooldown:0});
+    for(const kind of [...Array(12).fill('soldier'),'mouse']) {
+      b.armies.enemy.food=10000;b.armies.enemy.cooldowns[kind]=0;b.summon('enemy',kind);
+      Object.assign(b.units.at(-1),{x:950,row:1,targetRow:1,hp:1,attackCooldown:100});
+    }
+    window.advanceTime(1000/30);
+  });
+  assert.equal(await page.locator('#energy-count').textContent(),'50');
+  assert.equal(await page.locator('#energy-gain').textContent(),'+50');
+  assert.equal(await page.locator('#roar').isDisabled(),false);
+  await capture('kill-refill');
   await page.locator('#roar').tap();
+  assert.equal(await page.locator('#energy-count').textContent(),'0');
   await page.evaluate(() => { window.__catGame.battle.catnip('enemy'); window.__catGame.render(); });
   assert.equal(await page.locator('.spell-notice').count(), 2);
   assert.match(await page.locator('.spell-notice.enemy').textContent(), /敌方释放猫薄荷.*1 名敌军攻击力 \+20%/);
@@ -53,7 +74,7 @@ try {
   assert.equal(await page.locator('.spell-notice').count(), 0);
   await page.locator('#pause').tap(); await page.locator('#restart').tap(); await advance(0);
   assert.equal(await page.locator('.spell-notice').count(), 0);
-  assert.equal(await page.locator('#roar').isDisabled(), false);
+  assert.equal(await page.locator('#roar').isDisabled(), true);assert.equal(await page.locator('#energy-count').textContent(),'50');
   // Inspect right-side touch targets and captions on phone, narrow and desktop boards.
   for (const [name,width,height] of [['tiny',320,568],['phone',390,844],['fold',344,882],['desktop',1440,900]]) {
     await page.setViewportSize({ width, height }); await page.waitForTimeout(180); await fixture();
@@ -75,8 +96,9 @@ try {
   }
   await page.setViewportSize({width:390,height:844}); await page.waitForTimeout(180);
   await fixture(); await page.emulateMedia({reducedMotion:'reduce'});
+  await page.evaluate(()=>{window.__catGame.battle.armies.player.energy=100;window.__catGame.render();});
   await page.keyboard.press('c'); await page.keyboard.press('Space');
-  assert.equal((await read()).spells.cooldowns.catnip,45); assert.equal((await read()).spells.cooldowns.roar,45);
+  assert.equal((await read()).spells.energy.player,0); assert.equal((await read()).player.energySpent,100);
   assert.equal(await page.locator('.spell-notice').evaluate(el=>getComputedStyle(el).animationName),'none');
   await capture('reduced-motion');
   // End-of-battle overlay must hide all queued captions and remain operable.
@@ -86,5 +108,5 @@ try {
   assert.equal(await page.locator('.spell-notice').count(),0);
   writeFileSync(`${output}/${engine}-state.json`,JSON.stringify(await read(),null,2));
   assert.deepEqual(errors,[]);
-  console.log(`PASS ${engine}: icon touch controls, cooldowns, both armies, queued subtitles, pause/restart/end, keyboard and 4 layouts`);
+  console.log(`PASS ${engine}: 50 starting energy, shared spending, real kill refill, both armies, queued subtitles, pause/restart/end, keyboard and 4 layouts`);
 } finally { await browser.close(); }
