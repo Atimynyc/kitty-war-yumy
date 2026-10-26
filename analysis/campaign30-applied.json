@@ -1,0 +1,4018 @@
+[
+  {
+    "level": "campaign-01",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 244,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 1,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 24,
+    "enemyFood": 1844
+  },
+  {
+    "level": "campaign-01",
+    "strategy": "soldier-rush",
+    "winner": "player",
+    "seconds": 288,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 1,
+    "enemyTech": 1,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 2,
+    "playerFood": 1046,
+    "enemyFood": 1422
+  },
+  {
+    "level": "campaign-01",
+    "strategy": "economy-and-tech",
+    "winner": "player",
+    "seconds": 128,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 1,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 1,
+    "playerFood": 351,
+    "enemyFood": 230
+  },
+  {
+    "level": "campaign-01",
+    "strategy": "economy-opening",
+    "winner": "player",
+    "seconds": 123,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 1,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 1,
+    "playerFood": 477,
+    "enemyFood": 236
+  },
+  {
+    "level": "campaign-01",
+    "strategy": "reserve-for-tech",
+    "winner": "player",
+    "seconds": 108,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 1,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 2,
+    "playerFood": 102,
+    "enemyFood": 604
+  },
+  {
+    "level": "campaign-01",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 165,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 1,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 555,
+    "enemyFood": 766
+  },
+  {
+    "level": "campaign-02",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 305,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 1,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 20,
+    "enemyFood": 1887
+  },
+  {
+    "level": "campaign-02",
+    "strategy": "soldier-rush",
+    "winner": "player",
+    "seconds": 233,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 1,
+    "enemyTech": 1,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 2,
+    "playerFood": 787,
+    "enemyFood": 1318
+  },
+  {
+    "level": "campaign-02",
+    "strategy": "economy-and-tech",
+    "winner": "player",
+    "seconds": 118,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 1,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 1,
+    "playerFood": 359,
+    "enemyFood": 306
+  },
+  {
+    "level": "campaign-02",
+    "strategy": "economy-opening",
+    "winner": "player",
+    "seconds": 129,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 1,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 1,
+    "playerFood": 707,
+    "enemyFood": 289
+  },
+  {
+    "level": "campaign-02",
+    "strategy": "reserve-for-tech",
+    "winner": "player",
+    "seconds": 102,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 1,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 1,
+    "playerFood": 34,
+    "enemyFood": 337
+  },
+  {
+    "level": "campaign-02",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 162,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 1,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 3,
+    "playerFood": 497,
+    "enemyFood": 1015
+  },
+  {
+    "level": "campaign-03",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 226,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 1,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 23,
+    "enemyFood": 1592
+  },
+  {
+    "level": "campaign-03",
+    "strategy": "soldier-rush",
+    "winner": "unfinished",
+    "seconds": 900,
+    "playerHp": 3000,
+    "enemyHp": 480,
+    "playerTech": 1,
+    "enemyTech": 1,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 2,
+    "playerFood": 3290,
+    "enemyFood": 1432,
+    "remainingUnits": [
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1273,
+        "hp": 138
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1273,
+        "hp": 134
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1273,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1273,
+        "hp": 174
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1273,
+        "hp": 146
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1273,
+        "hp": 50
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1273,
+        "hp": 98
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1273,
+        "hp": 78
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1273,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1273,
+        "hp": 66
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1273,
+        "hp": 170
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1273,
+        "hp": 206
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1273,
+        "hp": 38
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1273,
+        "hp": 62
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1273,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1273,
+        "hp": 218
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1273,
+        "hp": 50
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1273,
+        "hp": 110
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1273,
+        "hp": 110
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1273,
+        "hp": 194
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1272,
+        "hp": 174
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 940,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 607,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 321,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "enemy",
+        "x": 1268,
+        "hp": 230
+      }
+    ]
+  },
+  {
+    "level": "campaign-03",
+    "strategy": "economy-and-tech",
+    "winner": "player",
+    "seconds": 130,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 1,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 2,
+    "playerFood": 426,
+    "enemyFood": 514
+  },
+  {
+    "level": "campaign-03",
+    "strategy": "economy-opening",
+    "winner": "player",
+    "seconds": 129,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 1,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 2,
+    "playerFood": 604,
+    "enemyFood": 523
+  },
+  {
+    "level": "campaign-03",
+    "strategy": "reserve-for-tech",
+    "winner": "player",
+    "seconds": 129,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 1,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 3,
+    "playerFood": 275,
+    "enemyFood": 500
+  },
+  {
+    "level": "campaign-03",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 174,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 1,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 662,
+    "enemyFood": 542
+  },
+  {
+    "level": "campaign-04",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 144,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 12,
+    "enemyFood": 115
+  },
+  {
+    "level": "campaign-04",
+    "strategy": "soldier-rush",
+    "winner": "unfinished",
+    "seconds": 900,
+    "playerHp": 3000,
+    "enemyHp": 1628,
+    "playerTech": 1,
+    "enemyTech": 1,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 2,
+    "playerFood": 2790,
+    "enemyFood": 867,
+    "remainingUnits": [
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1204,
+        "hp": 2
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1204,
+        "hp": 194
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1204,
+        "hp": 162
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1204,
+        "hp": 110
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1204,
+        "hp": 142
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1204,
+        "hp": 146
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1204,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1204,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1204,
+        "hp": 146
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1204,
+        "hp": 102
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1204,
+        "hp": 2
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1204,
+        "hp": 114
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1204,
+        "hp": 142
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1204,
+        "hp": 62
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1204,
+        "hp": 30
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1204,
+        "hp": 146
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1204,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1204,
+        "hp": 150
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1204,
+        "hp": 26
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1204,
+        "hp": 34
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1204,
+        "hp": 62
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1204,
+        "hp": 198
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1111,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 489,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "enemy",
+        "x": 1216,
+        "hp": 174
+      }
+    ]
+  },
+  {
+    "level": "campaign-04",
+    "strategy": "economy-and-tech",
+    "winner": "player",
+    "seconds": 138,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 1,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 2,
+    "playerFood": 334,
+    "enemyFood": 381
+  },
+  {
+    "level": "campaign-04",
+    "strategy": "economy-opening",
+    "winner": "player",
+    "seconds": 134,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 1,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 2,
+    "playerFood": 476,
+    "enemyFood": 388
+  },
+  {
+    "level": "campaign-04",
+    "strategy": "reserve-for-tech",
+    "winner": "enemy",
+    "seconds": 141,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 2,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 21,
+    "enemyFood": 131
+  },
+  {
+    "level": "campaign-04",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 289,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 2,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 517,
+    "enemyFood": 22
+  },
+  {
+    "level": "campaign-05",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 148,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 18,
+    "enemyFood": 405
+  },
+  {
+    "level": "campaign-05",
+    "strategy": "soldier-rush",
+    "winner": "enemy",
+    "seconds": 834,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 50,
+    "enemyFood": 429
+  },
+  {
+    "level": "campaign-05",
+    "strategy": "economy-and-tech",
+    "winner": "player",
+    "seconds": 180,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 2,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 3,
+    "playerFood": 67,
+    "enemyFood": 51
+  },
+  {
+    "level": "campaign-05",
+    "strategy": "economy-opening",
+    "winner": "player",
+    "seconds": 138,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 1,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 2,
+    "playerFood": 442,
+    "enemyFood": 28
+  },
+  {
+    "level": "campaign-05",
+    "strategy": "reserve-for-tech",
+    "winner": "enemy",
+    "seconds": 164,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 2,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 51,
+    "enemyFood": 326
+  },
+  {
+    "level": "campaign-05",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 204,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 2,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 616,
+    "enemyFood": 18
+  },
+  {
+    "level": "campaign-06",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 130,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 23,
+    "enemyFood": 169
+  },
+  {
+    "level": "campaign-06",
+    "strategy": "soldier-rush",
+    "winner": "enemy",
+    "seconds": 225,
+    "playerHp": 0,
+    "enemyHp": 2916,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 44,
+    "enemyFood": 194
+  },
+  {
+    "level": "campaign-06",
+    "strategy": "economy-and-tech",
+    "winner": "player",
+    "seconds": 298,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 2,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 771,
+    "enemyFood": 50
+  },
+  {
+    "level": "campaign-06",
+    "strategy": "economy-opening",
+    "winner": "player",
+    "seconds": 144,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 2,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 2,
+    "playerFood": 180,
+    "enemyFood": 36
+  },
+  {
+    "level": "campaign-06",
+    "strategy": "reserve-for-tech",
+    "winner": "enemy",
+    "seconds": 158,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 2,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 37,
+    "enemyFood": 165
+  },
+  {
+    "level": "campaign-06",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 228,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 2,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 600,
+    "enemyFood": 33
+  },
+  {
+    "level": "campaign-07",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 155,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 19,
+    "enemyFood": 46
+  },
+  {
+    "level": "campaign-07",
+    "strategy": "soldier-rush",
+    "winner": "unfinished",
+    "seconds": 900,
+    "playerHp": 3000,
+    "enemyHp": 2692,
+    "playerTech": 1,
+    "enemyTech": 1,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 2,
+    "playerFood": 1540,
+    "enemyFood": 27,
+    "remainingUnits": [
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1163,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1163,
+        "hp": 34
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1163,
+        "hp": 194
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1163,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1163,
+        "hp": 174
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1163,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1163,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1163,
+        "hp": 94
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1163,
+        "hp": 174
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1163,
+        "hp": 14
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1163,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1163,
+        "hp": 146
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1163,
+        "hp": 42
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1163,
+        "hp": 194
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1163,
+        "hp": 146
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1163,
+        "hp": 194
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1164,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1139,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1164,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 633,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 489,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 393,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "enemy",
+        "x": 1185,
+        "hp": 6
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 273,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "enemy",
+        "x": 1210,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 201,
+        "hp": 230
+      }
+    ]
+  },
+  {
+    "level": "campaign-07",
+    "strategy": "economy-and-tech",
+    "winner": "player",
+    "seconds": 146,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 1,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 2,
+    "playerFood": 149,
+    "enemyFood": 37
+  },
+  {
+    "level": "campaign-07",
+    "strategy": "economy-opening",
+    "winner": "player",
+    "seconds": 136,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 1,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 2,
+    "playerFood": 517,
+    "enemyFood": 33
+  },
+  {
+    "level": "campaign-07",
+    "strategy": "reserve-for-tech",
+    "winner": "enemy",
+    "seconds": 162,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 2,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 19,
+    "enemyFood": 192
+  },
+  {
+    "level": "campaign-07",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 199,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 2,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 838,
+    "enemyFood": 35
+  },
+  {
+    "level": "campaign-08",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 138,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 21,
+    "enemyFood": 236
+  },
+  {
+    "level": "campaign-08",
+    "strategy": "soldier-rush",
+    "winner": "unfinished",
+    "seconds": 900,
+    "playerHp": 3000,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 40,
+    "enemyFood": 101,
+    "remainingUnits": [
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1241,
+        "hp": 63
+      },
+      {
+        "kind": "mage",
+        "side": "enemy",
+        "x": 1245,
+        "hp": 122
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1242,
+        "hp": 35
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1198,
+        "hp": 146
+      },
+      {
+        "kind": "mage",
+        "side": "enemy",
+        "x": 1263,
+        "hp": 10
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1187,
+        "hp": 6
+      },
+      {
+        "kind": "mage",
+        "side": "enemy",
+        "x": 1263,
+        "hp": 150
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1134,
+        "hp": 230
+      },
+      {
+        "kind": "slinger",
+        "side": "enemy",
+        "x": 1253,
+        "hp": 150
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 920,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 729,
+        "hp": 230
+      },
+      {
+        "kind": "mage",
+        "side": "enemy",
+        "x": 1263,
+        "hp": 150
+      },
+      {
+        "kind": "soldier",
+        "side": "enemy",
+        "x": 1207,
+        "hp": 62
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 537,
+        "hp": 230
+      },
+      {
+        "kind": "mage",
+        "side": "enemy",
+        "x": 1263,
+        "hp": 150
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 320,
+        "hp": 230
+      }
+    ]
+  },
+  {
+    "level": "campaign-08",
+    "strategy": "economy-and-tech",
+    "winner": "player",
+    "seconds": 147,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 2,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 2,
+    "playerFood": 69,
+    "enemyFood": 36
+  },
+  {
+    "level": "campaign-08",
+    "strategy": "economy-opening",
+    "winner": "player",
+    "seconds": 147,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 1,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 2,
+    "playerFood": 233,
+    "enemyFood": 33
+  },
+  {
+    "level": "campaign-08",
+    "strategy": "reserve-for-tech",
+    "winner": "enemy",
+    "seconds": 168,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 2,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 21,
+    "enemyFood": 430
+  },
+  {
+    "level": "campaign-08",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 182,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 2,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 616,
+    "enemyFood": 26
+  },
+  {
+    "level": "campaign-09",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 131,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 3,
+    "playerFood": 12,
+    "enemyFood": 201
+  },
+  {
+    "level": "campaign-09",
+    "strategy": "soldier-rush",
+    "winner": "unfinished",
+    "seconds": 900,
+    "playerHp": 3000,
+    "enemyHp": 2776,
+    "playerTech": 1,
+    "enemyTech": 1,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 2,
+    "playerFood": 1990,
+    "enemyFood": 24,
+    "remainingUnits": [
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1243,
+        "hp": 162
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1243,
+        "hp": 42
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1243,
+        "hp": 194
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1243,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1243,
+        "hp": 194
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1243,
+        "hp": 146
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1243,
+        "hp": 86
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1243,
+        "hp": 62
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1243,
+        "hp": 46
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1243,
+        "hp": 182
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1243,
+        "hp": 182
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1243,
+        "hp": 154
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1243,
+        "hp": 182
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1243,
+        "hp": 174
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1243,
+        "hp": 122
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1243,
+        "hp": 110
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1243,
+        "hp": 134
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1243,
+        "hp": 146
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1243,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1243,
+        "hp": 170
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1240,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1085,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 561,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 488,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "enemy",
+        "x": 1262,
+        "hp": 174
+      }
+    ]
+  },
+  {
+    "level": "campaign-09",
+    "strategy": "economy-and-tech",
+    "winner": "player",
+    "seconds": 149,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 1,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 2,
+    "playerFood": 194,
+    "enemyFood": 23
+  },
+  {
+    "level": "campaign-09",
+    "strategy": "economy-opening",
+    "winner": "player",
+    "seconds": 139,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 1,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 2,
+    "playerFood": 465,
+    "enemyFood": 21
+  },
+  {
+    "level": "campaign-09",
+    "strategy": "reserve-for-tech",
+    "winner": "enemy",
+    "seconds": 145,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 2,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 32,
+    "enemyFood": 159
+  },
+  {
+    "level": "campaign-09",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 218,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 2,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 656,
+    "enemyFood": 39
+  },
+  {
+    "level": "campaign-10",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 134,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 25,
+    "enemyFood": 112
+  },
+  {
+    "level": "campaign-10",
+    "strategy": "soldier-rush",
+    "winner": "unfinished",
+    "seconds": 900,
+    "playerHp": 3000,
+    "enemyHp": 2160,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 2,
+    "playerFood": 990,
+    "enemyFood": 59,
+    "remainingUnits": [
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1203,
+        "hp": 6
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1203,
+        "hp": 194
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1203,
+        "hp": 146
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1203,
+        "hp": 34
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1203,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1203,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1203,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1203,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1203,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1203,
+        "hp": 120
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1203,
+        "hp": 80
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1203,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1203,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1203,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1203,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1203,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1203,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1202,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1137,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1065,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 921,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 775,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 561,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 416,
+        "hp": 230
+      },
+      {
+        "kind": "slinger",
+        "side": "enemy",
+        "x": 1263,
+        "hp": 150
+      }
+    ]
+  },
+  {
+    "level": "campaign-10",
+    "strategy": "economy-and-tech",
+    "winner": "player",
+    "seconds": 152,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 2,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 2,
+    "playerFood": 57,
+    "enemyFood": 21
+  },
+  {
+    "level": "campaign-10",
+    "strategy": "economy-opening",
+    "winner": "player",
+    "seconds": 134,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 2,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 2,
+    "playerFood": 247,
+    "enemyFood": 32
+  },
+  {
+    "level": "campaign-10",
+    "strategy": "reserve-for-tech",
+    "winner": "enemy",
+    "seconds": 165,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 2,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 8,
+    "enemyFood": 402
+  },
+  {
+    "level": "campaign-10",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 200,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 2,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 837,
+    "enemyFood": 43
+  },
+  {
+    "level": "campaign-11",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 155,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 25,
+    "enemyFood": 153
+  },
+  {
+    "level": "campaign-11",
+    "strategy": "soldier-rush",
+    "winner": "player",
+    "seconds": 459,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 1,
+    "enemyTech": 1,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 2,
+    "playerFood": 1595,
+    "enemyFood": 1342
+  },
+  {
+    "level": "campaign-11",
+    "strategy": "economy-and-tech",
+    "winner": "player",
+    "seconds": 131,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 1,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 2,
+    "playerFood": 352,
+    "enemyFood": 464
+  },
+  {
+    "level": "campaign-11",
+    "strategy": "economy-opening",
+    "winner": "player",
+    "seconds": 132,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 1,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 2,
+    "playerFood": 591,
+    "enemyFood": 479
+  },
+  {
+    "level": "campaign-11",
+    "strategy": "reserve-for-tech",
+    "winner": "enemy",
+    "seconds": 169,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 3,
+    "enemyTech": 2,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 4,
+    "playerFood": 40,
+    "enemyFood": 387
+  },
+  {
+    "level": "campaign-11",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 218,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 2,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 686,
+    "enemyFood": 88
+  },
+  {
+    "level": "campaign-12",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 131,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 13,
+    "enemyFood": 351
+  },
+  {
+    "level": "campaign-12",
+    "strategy": "soldier-rush",
+    "winner": "enemy",
+    "seconds": 353,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 24,
+    "enemyFood": 515
+  },
+  {
+    "level": "campaign-12",
+    "strategy": "economy-and-tech",
+    "winner": "enemy",
+    "seconds": 265,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 2,
+    "enemyTech": 2,
+    "playerIncomeLevel": 2,
+    "enemyIncomeLevel": 4,
+    "playerFood": 52,
+    "enemyFood": 1007
+  },
+  {
+    "level": "campaign-12",
+    "strategy": "economy-opening",
+    "winner": "enemy",
+    "seconds": 209,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 2,
+    "enemyTech": 2,
+    "playerIncomeLevel": 2,
+    "enemyIncomeLevel": 4,
+    "playerFood": 24,
+    "enemyFood": 925
+  },
+  {
+    "level": "campaign-12",
+    "strategy": "reserve-for-tech",
+    "winner": "enemy",
+    "seconds": 167,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 3,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 42,
+    "enemyFood": 209
+  },
+  {
+    "level": "campaign-12",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 233,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 2,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 542,
+    "enemyFood": 34
+  },
+  {
+    "level": "campaign-13",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 130,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 21,
+    "enemyFood": 117
+  },
+  {
+    "level": "campaign-13",
+    "strategy": "soldier-rush",
+    "winner": "unfinished",
+    "seconds": 900,
+    "playerHp": 3000,
+    "enemyHp": 2552,
+    "playerTech": 1,
+    "enemyTech": 1,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 2,
+    "playerFood": 1990,
+    "enemyFood": 34,
+    "remainingUnits": [
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1261,
+        "hp": 66
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1261,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1261,
+        "hp": 50
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1261,
+        "hp": 30
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1261,
+        "hp": 118
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1261,
+        "hp": 34
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1261,
+        "hp": 166
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1261,
+        "hp": 182
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1261,
+        "hp": 110
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1261,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1261,
+        "hp": 62
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1261,
+        "hp": 66
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1261,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1261,
+        "hp": 174
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1261,
+        "hp": 146
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1261,
+        "hp": 58
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1260,
+        "hp": 118
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1260,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1260,
+        "hp": 118
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1252,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1089,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 943,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 704,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "enemy",
+        "x": 1263,
+        "hp": 34
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 321,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "enemy",
+        "x": 1261,
+        "hp": 230
+      }
+    ]
+  },
+  {
+    "level": "campaign-13",
+    "strategy": "economy-and-tech",
+    "winner": "player",
+    "seconds": 141,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 1,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 2,
+    "playerFood": 208,
+    "enemyFood": 95
+  },
+  {
+    "level": "campaign-13",
+    "strategy": "economy-opening",
+    "winner": "player",
+    "seconds": 139,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 1,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 2,
+    "playerFood": 464,
+    "enemyFood": 105
+  },
+  {
+    "level": "campaign-13",
+    "strategy": "reserve-for-tech",
+    "winner": "enemy",
+    "seconds": 158,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 2,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 42,
+    "enemyFood": 156
+  },
+  {
+    "level": "campaign-13",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 198,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 596,
+    "enemyFood": 86
+  },
+  {
+    "level": "campaign-14",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 134,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 20,
+    "enemyFood": 175
+  },
+  {
+    "level": "campaign-14",
+    "strategy": "soldier-rush",
+    "winner": "unfinished",
+    "seconds": 900,
+    "playerHp": 3000,
+    "enemyHp": 2356,
+    "playerTech": 1,
+    "enemyTech": 1,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 2,
+    "playerFood": 2490,
+    "enemyFood": 33,
+    "remainingUnits": [
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 2
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 86
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 142
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 170
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 174
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 26
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 146
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 2
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 122
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 34
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 182
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 122
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 146
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 134
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 62
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1255,
+        "hp": 206
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1250,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1110,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 846,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 440,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "enemy",
+        "x": 1263,
+        "hp": 6
+      },
+      {
+        "kind": "mouse",
+        "side": "enemy",
+        "x": 1263,
+        "hp": 85
+      }
+    ]
+  },
+  {
+    "level": "campaign-14",
+    "strategy": "economy-and-tech",
+    "winner": "player",
+    "seconds": 142,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 2,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 3,
+    "playerFood": 97,
+    "enemyFood": 38
+  },
+  {
+    "level": "campaign-14",
+    "strategy": "economy-opening",
+    "winner": "player",
+    "seconds": 197,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 1,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 3,
+    "playerFood": 1115,
+    "enemyFood": 22
+  },
+  {
+    "level": "campaign-14",
+    "strategy": "reserve-for-tech",
+    "winner": "enemy",
+    "seconds": 338,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 2,
+    "enemyIncomeLevel": 4,
+    "playerFood": 27,
+    "enemyFood": 183
+  },
+  {
+    "level": "campaign-14",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 211,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 2,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 693,
+    "enemyFood": 35
+  },
+  {
+    "level": "campaign-15",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 126,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 25,
+    "enemyFood": 38
+  },
+  {
+    "level": "campaign-15",
+    "strategy": "soldier-rush",
+    "winner": "unfinished",
+    "seconds": 900,
+    "playerHp": 3000,
+    "enemyHp": 1796,
+    "playerTech": 1,
+    "enemyTech": 1,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 2,
+    "playerFood": 2990,
+    "enemyFood": 23,
+    "remainingUnits": [
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 78
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 62
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 98
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 102
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 158
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 106
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 134
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 182
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 134
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 158
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 150
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 42
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 102
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 2
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 158
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 182
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1263,
+        "hp": 74
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1253,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1222,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1111,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 991,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 750,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 272,
+        "hp": 230
+      },
+      {
+        "kind": "mouse",
+        "side": "enemy",
+        "x": 1263,
+        "hp": 1
+      },
+      {
+        "kind": "mouse",
+        "side": "enemy",
+        "x": 1263,
+        "hp": 85
+      }
+    ]
+  },
+  {
+    "level": "campaign-15",
+    "strategy": "economy-and-tech",
+    "winner": "enemy",
+    "seconds": 277,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 2,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 48,
+    "enemyFood": 1126
+  },
+  {
+    "level": "campaign-15",
+    "strategy": "economy-opening",
+    "winner": "enemy",
+    "seconds": 250,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 2,
+    "enemyTech": 3,
+    "playerIncomeLevel": 2,
+    "enemyIncomeLevel": 4,
+    "playerFood": 46,
+    "enemyFood": 699
+  },
+  {
+    "level": "campaign-15",
+    "strategy": "reserve-for-tech",
+    "winner": "player",
+    "seconds": 293,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 509,
+    "enemyFood": 22
+  },
+  {
+    "level": "campaign-15",
+    "strategy": "combined-arms",
+    "winner": "enemy",
+    "seconds": 191,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 95,
+    "enemyFood": 547
+  },
+  {
+    "level": "campaign-16",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 123,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 21,
+    "enemyFood": 156
+  },
+  {
+    "level": "campaign-16",
+    "strategy": "soldier-rush",
+    "winner": "enemy",
+    "seconds": 162,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 29,
+    "enemyFood": 130
+  },
+  {
+    "level": "campaign-16",
+    "strategy": "economy-and-tech",
+    "winner": "enemy",
+    "seconds": 174,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 3,
+    "playerIncomeLevel": 2,
+    "enemyIncomeLevel": 4,
+    "playerFood": 29,
+    "enemyFood": 540
+  },
+  {
+    "level": "campaign-16",
+    "strategy": "economy-opening",
+    "winner": "enemy",
+    "seconds": 164,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 3,
+    "playerIncomeLevel": 2,
+    "enemyIncomeLevel": 4,
+    "playerFood": 54,
+    "enemyFood": 563
+  },
+  {
+    "level": "campaign-16",
+    "strategy": "reserve-for-tech",
+    "winner": "player",
+    "seconds": 174,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 3,
+    "playerFood": 169,
+    "enemyFood": 39
+  },
+  {
+    "level": "campaign-16",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 243,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 770,
+    "enemyFood": 25
+  },
+  {
+    "level": "campaign-17",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 129,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 18,
+    "enemyFood": 306
+  },
+  {
+    "level": "campaign-17",
+    "strategy": "soldier-rush",
+    "winner": "enemy",
+    "seconds": 234,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 48,
+    "enemyFood": 340
+  },
+  {
+    "level": "campaign-17",
+    "strategy": "economy-and-tech",
+    "winner": "player",
+    "seconds": 180,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 1,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 259,
+    "enemyFood": 50
+  },
+  {
+    "level": "campaign-17",
+    "strategy": "economy-opening",
+    "winner": "player",
+    "seconds": 144,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 1,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 3,
+    "playerFood": 267,
+    "enemyFood": 48
+  },
+  {
+    "level": "campaign-17",
+    "strategy": "reserve-for-tech",
+    "winner": "enemy",
+    "seconds": 161,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 2,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 28,
+    "enemyFood": 279
+  },
+  {
+    "level": "campaign-17",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 224,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 585,
+    "enemyFood": 38
+  },
+  {
+    "level": "campaign-18",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 111,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 28,
+    "enemyFood": 198
+  },
+  {
+    "level": "campaign-18",
+    "strategy": "soldier-rush",
+    "winner": "enemy",
+    "seconds": 183,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 39,
+    "enemyFood": 201
+  },
+  {
+    "level": "campaign-18",
+    "strategy": "economy-and-tech",
+    "winner": "player",
+    "seconds": 227,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 420,
+    "enemyFood": 16
+  },
+  {
+    "level": "campaign-18",
+    "strategy": "economy-opening",
+    "winner": "enemy",
+    "seconds": 277,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 2,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 14,
+    "enemyFood": 1444
+  },
+  {
+    "level": "campaign-18",
+    "strategy": "reserve-for-tech",
+    "winner": "enemy",
+    "seconds": 271,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 2,
+    "enemyIncomeLevel": 4,
+    "playerFood": 27,
+    "enemyFood": 815
+  },
+  {
+    "level": "campaign-18",
+    "strategy": "combined-arms",
+    "winner": "enemy",
+    "seconds": 355,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 6,
+    "enemyFood": 1923
+  },
+  {
+    "level": "campaign-19",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 132,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 25,
+    "enemyFood": 43
+  },
+  {
+    "level": "campaign-19",
+    "strategy": "soldier-rush",
+    "winner": "unfinished",
+    "seconds": 900,
+    "playerHp": 3000,
+    "enemyHp": 1348,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 2,
+    "playerFood": 2390,
+    "enemyFood": 25,
+    "remainingUnits": [
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1270,
+        "hp": 74
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1270,
+        "hp": 98
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1270,
+        "hp": 134
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1270,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1270,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1270,
+        "hp": 126
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1270,
+        "hp": 146
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1270,
+        "hp": 218
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1270,
+        "hp": 139
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1270,
+        "hp": 170
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1270,
+        "hp": 146
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1270,
+        "hp": 122
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1270,
+        "hp": 194
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1270,
+        "hp": 206
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1270,
+        "hp": 103
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1270,
+        "hp": 151
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1270,
+        "hp": 103
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1269,
+        "hp": 170
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1269,
+        "hp": 170
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1268,
+        "hp": 26
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1267,
+        "hp": 218
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 1245,
+        "hp": 218
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 798,
+        "hp": 230
+      },
+      {
+        "kind": "soldier",
+        "side": "player",
+        "x": 321,
+        "hp": 230
+      },
+      {
+        "kind": "mouse",
+        "side": "enemy",
+        "x": 1266,
+        "hp": 1
+      },
+      {
+        "kind": "mouse",
+        "side": "enemy",
+        "x": 1252,
+        "hp": 85
+      }
+    ]
+  },
+  {
+    "level": "campaign-19",
+    "strategy": "economy-and-tech",
+    "winner": "player",
+    "seconds": 218,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 2,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 3,
+    "playerFood": 432,
+    "enemyFood": 30
+  },
+  {
+    "level": "campaign-19",
+    "strategy": "economy-opening",
+    "winner": "player",
+    "seconds": 132,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 2,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 2,
+    "playerFood": 256,
+    "enemyFood": 32
+  },
+  {
+    "level": "campaign-19",
+    "strategy": "reserve-for-tech",
+    "winner": "enemy",
+    "seconds": 283,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 54,
+    "enemyFood": 536
+  },
+  {
+    "level": "campaign-19",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 218,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 650,
+    "enemyFood": 21
+  },
+  {
+    "level": "campaign-20",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 101,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 3,
+    "playerFood": 26,
+    "enemyFood": 194
+  },
+  {
+    "level": "campaign-20",
+    "strategy": "soldier-rush",
+    "winner": "enemy",
+    "seconds": 163,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 46,
+    "enemyFood": 193
+  },
+  {
+    "level": "campaign-20",
+    "strategy": "economy-and-tech",
+    "winner": "enemy",
+    "seconds": 297,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 2,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 39,
+    "enemyFood": 1188
+  },
+  {
+    "level": "campaign-20",
+    "strategy": "economy-opening",
+    "winner": "player",
+    "seconds": 211,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 2,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 297,
+    "enemyFood": 34
+  },
+  {
+    "level": "campaign-20",
+    "strategy": "reserve-for-tech",
+    "winner": "player",
+    "seconds": 478,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 770,
+    "enemyFood": 23
+  },
+  {
+    "level": "campaign-20",
+    "strategy": "combined-arms",
+    "winner": "enemy",
+    "seconds": 284,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 70,
+    "enemyFood": 1143
+  },
+  {
+    "level": "campaign-21",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 100,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 17,
+    "enemyFood": 75
+  },
+  {
+    "level": "campaign-21",
+    "strategy": "soldier-rush",
+    "winner": "enemy",
+    "seconds": 270,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 28,
+    "enemyFood": 65
+  },
+  {
+    "level": "campaign-21",
+    "strategy": "economy-and-tech",
+    "winner": "player",
+    "seconds": 143,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 2,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 2,
+    "playerFood": 163,
+    "enemyFood": 28
+  },
+  {
+    "level": "campaign-21",
+    "strategy": "economy-opening",
+    "winner": "player",
+    "seconds": 167,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 2,
+    "enemyTech": 2,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 2,
+    "playerFood": 92,
+    "enemyFood": 30
+  },
+  {
+    "level": "campaign-21",
+    "strategy": "reserve-for-tech",
+    "winner": "enemy",
+    "seconds": 304,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 56,
+    "enemyFood": 599
+  },
+  {
+    "level": "campaign-21",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 177,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 2,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 423,
+    "enemyFood": 44
+  },
+  {
+    "level": "campaign-22",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 103,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 3,
+    "playerFood": 24,
+    "enemyFood": 209
+  },
+  {
+    "level": "campaign-22",
+    "strategy": "soldier-rush",
+    "winner": "enemy",
+    "seconds": 176,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 49,
+    "enemyFood": 429
+  },
+  {
+    "level": "campaign-22",
+    "strategy": "economy-and-tech",
+    "winner": "enemy",
+    "seconds": 299,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 2,
+    "enemyTech": 3,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 4,
+    "playerFood": 34,
+    "enemyFood": 2560
+  },
+  {
+    "level": "campaign-22",
+    "strategy": "economy-opening",
+    "winner": "player",
+    "seconds": 200,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 62,
+    "enemyFood": 41
+  },
+  {
+    "level": "campaign-22",
+    "strategy": "reserve-for-tech",
+    "winner": "player",
+    "seconds": 368,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 945,
+    "enemyFood": 39
+  },
+  {
+    "level": "campaign-22",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 233,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 692,
+    "enemyFood": 21
+  },
+  {
+    "level": "campaign-23",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 96,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 21,
+    "enemyFood": 157
+  },
+  {
+    "level": "campaign-23",
+    "strategy": "soldier-rush",
+    "winner": "enemy",
+    "seconds": 166,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 34,
+    "enemyFood": 203
+  },
+  {
+    "level": "campaign-23",
+    "strategy": "economy-and-tech",
+    "winner": "enemy",
+    "seconds": 123,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 41,
+    "enemyFood": 36
+  },
+  {
+    "level": "campaign-23",
+    "strategy": "economy-opening",
+    "winner": "player",
+    "seconds": 181,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 158,
+    "enemyFood": 25
+  },
+  {
+    "level": "campaign-23",
+    "strategy": "reserve-for-tech",
+    "winner": "enemy",
+    "seconds": 191,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 4,
+    "enemyFood": 379
+  },
+  {
+    "level": "campaign-23",
+    "strategy": "combined-arms",
+    "winner": "enemy",
+    "seconds": 186,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 71,
+    "enemyFood": 605
+  },
+  {
+    "level": "campaign-24",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 126,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 26,
+    "enemyFood": 159
+  },
+  {
+    "level": "campaign-24",
+    "strategy": "soldier-rush",
+    "winner": "enemy",
+    "seconds": 178,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 31,
+    "enemyFood": 79
+  },
+  {
+    "level": "campaign-24",
+    "strategy": "economy-and-tech",
+    "winner": "player",
+    "seconds": 231,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 2,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 3,
+    "playerFood": 538,
+    "enemyFood": 33
+  },
+  {
+    "level": "campaign-24",
+    "strategy": "economy-opening",
+    "winner": "player",
+    "seconds": 207,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 2,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 3,
+    "playerFood": 187,
+    "enemyFood": 25
+  },
+  {
+    "level": "campaign-24",
+    "strategy": "reserve-for-tech",
+    "winner": "player",
+    "seconds": 164,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 3,
+    "playerFood": 69,
+    "enemyFood": 41
+  },
+  {
+    "level": "campaign-24",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 226,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 756,
+    "enemyFood": 39
+  },
+  {
+    "level": "campaign-25",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 119,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 21,
+    "enemyFood": 284
+  },
+  {
+    "level": "campaign-25",
+    "strategy": "soldier-rush",
+    "winner": "enemy",
+    "seconds": 153,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 31,
+    "enemyFood": 148
+  },
+  {
+    "level": "campaign-25",
+    "strategy": "economy-and-tech",
+    "winner": "player",
+    "seconds": 180,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 2,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 37,
+    "enemyFood": 40
+  },
+  {
+    "level": "campaign-25",
+    "strategy": "economy-opening",
+    "winner": "player",
+    "seconds": 189,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 71,
+    "enemyFood": 39
+  },
+  {
+    "level": "campaign-25",
+    "strategy": "reserve-for-tech",
+    "winner": "player",
+    "seconds": 305,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 673,
+    "enemyFood": 39
+  },
+  {
+    "level": "campaign-25",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 249,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 324,
+    "enemyFood": 29
+  },
+  {
+    "level": "campaign-26",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 113,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 17,
+    "enemyFood": 71
+  },
+  {
+    "level": "campaign-26",
+    "strategy": "soldier-rush",
+    "winner": "enemy",
+    "seconds": 136,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 27,
+    "enemyFood": 102
+  },
+  {
+    "level": "campaign-26",
+    "strategy": "economy-and-tech",
+    "winner": "enemy",
+    "seconds": 157,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 3,
+    "playerIncomeLevel": 2,
+    "enemyIncomeLevel": 4,
+    "playerFood": 23,
+    "enemyFood": 433
+  },
+  {
+    "level": "campaign-26",
+    "strategy": "economy-opening",
+    "winner": "enemy",
+    "seconds": 177,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 2,
+    "enemyTech": 3,
+    "playerIncomeLevel": 2,
+    "enemyIncomeLevel": 4,
+    "playerFood": 26,
+    "enemyFood": 893
+  },
+  {
+    "level": "campaign-26",
+    "strategy": "reserve-for-tech",
+    "winner": "player",
+    "seconds": 273,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 796,
+    "enemyFood": 42
+  },
+  {
+    "level": "campaign-26",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 273,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 753,
+    "enemyFood": 22
+  },
+  {
+    "level": "campaign-27",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 115,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 16,
+    "enemyFood": 120
+  },
+  {
+    "level": "campaign-27",
+    "strategy": "soldier-rush",
+    "winner": "enemy",
+    "seconds": 144,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 19,
+    "enemyFood": 71
+  },
+  {
+    "level": "campaign-27",
+    "strategy": "economy-and-tech",
+    "winner": "enemy",
+    "seconds": 229,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 2,
+    "enemyTech": 3,
+    "playerIncomeLevel": 2,
+    "enemyIncomeLevel": 4,
+    "playerFood": 39,
+    "enemyFood": 1170
+  },
+  {
+    "level": "campaign-27",
+    "strategy": "economy-opening",
+    "winner": "enemy",
+    "seconds": 287,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 2,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 39,
+    "enemyFood": 1158
+  },
+  {
+    "level": "campaign-27",
+    "strategy": "reserve-for-tech",
+    "winner": "enemy",
+    "seconds": 215,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 3,
+    "enemyIncomeLevel": 4,
+    "playerFood": 40,
+    "enemyFood": 536
+  },
+  {
+    "level": "campaign-27",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 204,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 732,
+    "enemyFood": 26
+  },
+  {
+    "level": "campaign-28",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 115,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 18,
+    "enemyFood": 72
+  },
+  {
+    "level": "campaign-28",
+    "strategy": "soldier-rush",
+    "winner": "enemy",
+    "seconds": 155,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 49,
+    "enemyFood": 254
+  },
+  {
+    "level": "campaign-28",
+    "strategy": "economy-and-tech",
+    "winner": "player",
+    "seconds": 319,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 858,
+    "enemyFood": 47
+  },
+  {
+    "level": "campaign-28",
+    "strategy": "economy-opening",
+    "winner": "player",
+    "seconds": 190,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 80,
+    "enemyFood": 27
+  },
+  {
+    "level": "campaign-28",
+    "strategy": "reserve-for-tech",
+    "winner": "player",
+    "seconds": 302,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 1008,
+    "enemyFood": 31
+  },
+  {
+    "level": "campaign-28",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 242,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 660,
+    "enemyFood": 35
+  },
+  {
+    "level": "campaign-29",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 92,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 25,
+    "enemyFood": 141
+  },
+  {
+    "level": "campaign-29",
+    "strategy": "soldier-rush",
+    "winner": "enemy",
+    "seconds": 161,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 26,
+    "enemyFood": 32
+  },
+  {
+    "level": "campaign-29",
+    "strategy": "economy-and-tech",
+    "winner": "player",
+    "seconds": 280,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 521,
+    "enemyFood": 34
+  },
+  {
+    "level": "campaign-29",
+    "strategy": "economy-opening",
+    "winner": "enemy",
+    "seconds": 188,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 2,
+    "enemyTech": 3,
+    "playerIncomeLevel": 2,
+    "enemyIncomeLevel": 4,
+    "playerFood": 49,
+    "enemyFood": 801
+  },
+  {
+    "level": "campaign-29",
+    "strategy": "reserve-for-tech",
+    "winner": "enemy",
+    "seconds": 268,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 2,
+    "enemyIncomeLevel": 4,
+    "playerFood": 15,
+    "enemyFood": 619
+  },
+  {
+    "level": "campaign-29",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 229,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 724,
+    "enemyFood": 32
+  },
+  {
+    "level": "campaign-30",
+    "strategy": "mouse-rush",
+    "winner": "enemy",
+    "seconds": 96,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 14,
+    "enemyFood": 174
+  },
+  {
+    "level": "campaign-30",
+    "strategy": "soldier-rush",
+    "winner": "enemy",
+    "seconds": 125,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 1,
+    "enemyTech": 2,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 42,
+    "enemyFood": 34
+  },
+  {
+    "level": "campaign-30",
+    "strategy": "economy-and-tech",
+    "winner": "player",
+    "seconds": 253,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 601,
+    "enemyFood": 38
+  },
+  {
+    "level": "campaign-30",
+    "strategy": "economy-opening",
+    "winner": "player",
+    "seconds": 323,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 711,
+    "enemyFood": 50
+  },
+  {
+    "level": "campaign-30",
+    "strategy": "reserve-for-tech",
+    "winner": "enemy",
+    "seconds": 151,
+    "playerHp": 0,
+    "enemyHp": 3000,
+    "playerTech": 2,
+    "enemyTech": 3,
+    "playerIncomeLevel": 1,
+    "enemyIncomeLevel": 4,
+    "playerFood": 32,
+    "enemyFood": 229
+  },
+  {
+    "level": "campaign-30",
+    "strategy": "combined-arms",
+    "winner": "player",
+    "seconds": 260,
+    "playerHp": 3000,
+    "enemyHp": 0,
+    "playerTech": 3,
+    "enemyTech": 3,
+    "playerIncomeLevel": 4,
+    "enemyIncomeLevel": 4,
+    "playerFood": 1013,
+    "enemyFood": 44
+  }
+]

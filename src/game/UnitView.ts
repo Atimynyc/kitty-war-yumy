@@ -5,6 +5,7 @@ import type { UnitLook } from './unit-art.ts';
 import { unitMotion } from './unit-motion.ts';
 import { BodyDirection } from './unit-facing.ts';
 import type { Unit } from './simulation.ts';
+import { isHidden } from './simulation.ts';
 import { bossCharge } from './boss-combat.ts';
 import { ORANGE_BOSS } from './content.ts';
 
@@ -58,7 +59,9 @@ export class UnitView {
     const direction = unit.side === 'player' ? -1 : 1;
     const machine = unit.kind === 'mouse' || unit.kind === 'catapult';
     const localDirection = machine ? -1 : direction;
-    this.state = motion.state;
+    const hidden = deathAt === undefined && isHidden(unit, now);
+    const dodging = deathAt === undefined && now - (unit.dodgeAt ?? -100) < .3;
+    this.state = hidden ? 'stealth' : dodging ? 'dodge' : motion.state;
     if (deathAt !== undefined) this.deathFacing ??= this.drawn ? this.heading : facing;
     this.heading = this.deathFacing ?? facing;
     const forward = { x: -Math.sin(this.heading) * direction, y: Math.cos(this.heading) * direction };
@@ -73,6 +76,16 @@ export class UnitView {
     this.drawn = true;
     this.status.clear();
     if (deathAt === undefined) {
+      if ((unit.weakenedUntil ?? 0) > now) {
+        this.status.fillStyle(0xc4b589, .4).fillEllipse(0, 46, 84, 20);
+        this.status.lineStyle(3, 0xa18f62, 1).lineBetween(-9, -52, 0, -44).lineBetween(0, -44, 9, -52);
+      }
+      if ((unit.guardUntil ?? 0) > now) this.status.lineStyle(3, 0x88b89e, .8).strokeEllipse(0, 2, 112, 108);
+      if ((unit.hasteUntil ?? 0) > now) {
+        this.status.lineStyle(3, 0xd9ac5b, .95).lineBetween(-37, -32, -29, -41).lineBetween(-29, -41, -21, -32);
+        this.status.fillStyle(0xd9ac5b, .95).fillCircle(40, -20, 4);
+        this.status.lineStyle(2, 0xd9ac5b, 1).lineBetween(43, -20, 43, -34).lineBetween(43, -34, 50, -31);
+      }
       if (unit.starSlow > 0 || unit.slow > 0) {
         this.status.lineStyle(3, 0x8b9bdf, .85).strokeEllipse(0, 48, 94, 25);
         this.status.lineStyle(3, 0xc0cafa, 1).lineBetween(-45, 31, -39, 38).lineBetween(-39, 38, -33, 31);
@@ -86,7 +99,7 @@ export class UnitView {
         }
       }
     }
-    this.root.setPosition(x, y).setScale(size / 128).setAlpha(motion.alpha).setDepth(10 + y / 10000);
+    this.root.setPosition(x, y).setScale(size / 128).setAlpha(motion.alpha * (hidden ? .32 : 1)).setDepth(10 + y / 10000);
     const lunge = motion.attack * 8 - motion.windup * 3;
     this.actor.setPosition(-motion.fall * 8 * direction + localForward.x * lunge, motion.fall * 7 + localForward.y * lunge)
       .setAngle((machine && unit.side === 'enemy' ? 180 : 0) + motion.fall * 72 * direction);
@@ -95,6 +108,7 @@ export class UnitView {
     const recoil = motion.attack * 5 - motion.windup * 2 - motion.hit * 7;
     this.torso.setPosition(localForward.x * recoil, -motion.lift + (machine ? localDirection : localForward.y) * recoil)
       .setScale(1 + motion.hit * .045, 1 - motion.hit * .06).setAngle(motion.stride * 1.2 + motion.hit * 5);
+    if (dodging && !reduced) { this.torso.x += Math.sin((now - unit.dodgeAt!) / .3 * Math.PI) * 14; this.torso.angle -= 12; }
     for (const [name, image] of Object.entries(this.pieces) as [PartName, Phaser.GameObjects.Image][]) {
       const pivot = this.pivots[name]!;
       if (!machine && (name === 'body' || name === 'rider')) image.setTexture(`${unit.side}-${unit.kind}-${name}-${this.look}`);
@@ -125,7 +139,11 @@ export class UnitView {
       left.y += tread; right.y -= tread;
       left.setScale(1, 1 + tread * .025); right.setScale(1, 1 - tread * .025);
       if (unit.kind === 'mouse') this.pieces.rightHand!.setRotation(motion.wheel * .8 + motion.attack * .7);
-      else this.pieces.rightHand!.setRotation(motion.windup * -.25 + motion.attack * .65).setScale(1, 1 - motion.attack * .28);
+      else if (unit.side === 'player') {
+        this.pieces.rightHand!.y += motion.attack * 10;
+        this.pieces.rearLeftFoot!.y += motion.stride * 5; this.pieces.rearRightFoot!.y -= motion.stride * 5;
+        this.pieces.leftHand!.y += motion.stride * .7;
+      } else this.pieces.rightHand!.setRotation(motion.windup * -.25 + motion.attack * .65).setScale(1, 1 - motion.attack * .28);
     } else {
       left.y += motion.stride * 7; right.y -= motion.stride * 7;
       left.x -= Math.max(0, motion.stride) * 2; right.x += Math.max(0, -motion.stride) * 2;
@@ -148,6 +166,20 @@ export class UnitView {
           leftHand.setAngle(lifted*12-swipe*recover*18);
           this.torso.setAngle(-lifted*4+swipe*recover*8+motion.hit*5);
         }
+      } else if (unit.kind === 'gunner' || unit.kind === 'hook') {
+        rightHand.y += motion.attack * 10 + motion.windup * 5;
+        leftHand.setAngle(-motion.attack * 12);
+      } else if (unit.kind === 'drummer') {
+        leftHand.setAngle(-motion.attack * 28 + motion.windup * 15);
+        rightHand.setAngle(motion.attack * 28 - motion.windup * 15);
+      } else if (unit.kind === 'litter') {
+        rightHand.setAngle(motion.windup * 48 - motion.attack * 65);
+        rightHand.y += motion.windup * 8 - motion.attack * 12;
+      } else if (unit.kind === 'boxer' || unit.kind === 'kungfu') {
+        rightHand.y += direction * (motion.attack * 25 - motion.windup * 15);
+        leftHand.setAngle(motion.attack * -20 + motion.windup * 12);
+      } else if (unit.kind === 'umbrella') {
+        rightHand.setAngle(motion.attack * 12);
       } else if (unit.kind === 'shield') {
         rightHand.y += direction * (motion.attack * 15 - motion.windup * 4);
         rightHand.setAngle(-direction * motion.attack * 12);
@@ -157,11 +189,12 @@ export class UnitView {
         rightHand.setAngle(direction * (motion.attack * 24 - motion.windup * 8));
       } else if (unit.kind === 'mage') {
         rightHand.y += direction * (motion.attack * 16 - motion.windup * 8);
-        rightHand.setAngle(direction * (motion.attack * 38 - motion.windup * 24));
+        rightHand.setAngle(direction * (motion.attack * 38 - motion.windup * 24) + (unit.side === 'enemy' ? Math.sin(motion.attack * Math.PI * 2) * 16 : 0));
         leftHand.y += direction * motion.attack * 6;
+        if (unit.side === 'enemy') leftHand.setAngle(-motion.attack * 24 + motion.windup * 12);
       } else if (unit.kind === 'healer') {
         rightHand.y += direction * (motion.attack * 14 + motion.windup * 5);
-        rightHand.setAngle(direction * motion.attack * 20);
+        rightHand.setAngle(direction * motion.attack * (unit.side === 'enemy' ? 42 : 20));
         leftHand.y += direction * motion.attack * 8;
       } else rightHand.setAngle(direction * (motion.attack * 30 - motion.windup * 38) - motion.stride * 8);
       rightHand.rotation += motion.hit * .12 - motion.fall * .3;
@@ -191,11 +224,14 @@ export class UnitView {
 
   projectileOrigin() {
     const hand = this.pieces.rightHand!;
-    // Coordinates relative to the hand's pivot, including the enemy weapon's native flip.
+    if (this.unit.side === 'enemy') {
+      const dy = this.unit.kind === 'mage' ? 26 : this.unit.kind === 'catapult' ? -52 : 14;
+      return hand.getWorldTransformMatrix().transformPoint(0, dy);
+    }
+    // Friendly tools point up from their hand pivots.
     const dx = this.unit.kind === 'mage' ? -2 : 0;
-    const dy = this.unit.kind === 'mage' ? -52 : this.unit.kind === 'catapult' ? -50 : -21;
-    const flip = this.unit.side === 'enemy' && this.unit.kind !== 'catapult' ? -.75 : 1;
-    return hand.getWorldTransformMatrix().transformPoint(dx * flip, dy * flip);
+    const dy = this.unit.kind === 'mage' ? -52 : this.unit.kind === 'catapult' ? -37 : this.unit.kind === 'gunner' ? -47 : this.unit.kind === 'hook' ? -40 : -21;
+    return hand.getWorldTransformMatrix().transformPoint(dx, dy);
   }
   snapshot() {
     return { id: this.unit.id, kind: this.unit.kind, side: this.unit.side, state: this.state, x: this.root.x, y: this.root.y, alpha: this.root.alpha, facing: this.heading, targetId: this.unit.targetId,

@@ -1,10 +1,17 @@
-/* The portrait owns the card; the only persistent label is its food cost. */
+/* Every unlocked troop stays available. The roster scrolls without moving the battlefield. */
+html[data-layout='portrait'] .recruit-section { display: grid; grid-template-rows: 18px minmax(0, 1fr); gap: 3px; }
+.recruit-heading { display: flex; justify-content: space-between; align-items: center; color: #8a795d; font-size: 10px; }
+.recruit-heading h2 { margin: 0; font-size: 11px; font-weight: 600; }
+html[data-layout='portrait'] .unit-grid { grid-template-rows: none; grid-auto-rows: calc((100% - 6px) / 2); overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; touch-action: pan-y; scrollbar-width: thin; scrollbar-color: #b4b99a #f1eadc; padding-right: 3px; }
+.unit-grid::-webkit-scrollbar { width: 4px; }
+.unit-grid::-webkit-scrollbar-thumb { background: #b4b99a; border-radius: 3px; }
+.unit-grid:focus-visible { outline: 2px solid #a88bb7; outline-offset: -2px; }
 html[data-layout='portrait'] .unit-card {
   padding: 0; display: block; min-height: 44px; border-radius: 10px;
   background-image: radial-gradient(ellipse at 55% 65%, color-mix(in srgb, var(--unit-bg) 32%, transparent), transparent 75%);
 }
 .recruit-portrait {
-  position: absolute; inset: 2px; width: calc(100% - 4px); height: calc(100% - 4px);
+  position: absolute; inset: 2px 2px 14px; width: calc(100% - 4px); height: calc(100% - 16px);
   object-fit: contain; object-position: center bottom; pointer-events: none; user-select: none;
 }
 html[data-layout='portrait'] .unit-card .unit-cost {
@@ -15,9 +22,15 @@ html[data-layout='portrait'] .unit-card .unit-cost {
 }
 .unit-card:disabled .recruit-portrait { opacity: .6; }
 .unit-card.locked .recruit-portrait { filter: saturate(.25); opacity: .5; }
+.unit-card .unit-lock { position:absolute; top:3px; left:3px; z-index:4; padding:2px 4px; border-radius:5px; background:#efe9dff5; color:#766b59; font:600 10px/13px sans-serif; pointer-events:none; }
+html[data-layout='portrait'] .unit-card.locked .unit-cost { display:none; }
+.unit-card .unit-new { position:absolute; top:3px; right:3px; z-index:5; padding:1px 3px; border-radius:4px; background:#6e8a57; color:#fff9e9; font:600 9px/13px sans-serif; pointer-events:none; }
+.unit-card .unit-lock[hidden], .unit-card .unit-new[hidden] { display:none; }
+.unit-card.progress-locked .recruit-portrait { opacity:.32; }
 html[data-layout='portrait'] .unit-card[data-unavailable='猫粮不足'] .unit-cost { color: #a35f49; }
 .unit-card .cooldown-track { z-index: 3; height: 4px; background: #bca26e; }
 .unit-card:focus-visible { outline: 3px solid #8a6a9b; outline-offset: 1px; }
+.recruit-name { position: absolute; bottom: 2px; left: 0; right: 0; font-size: 9px; line-height: 12px; color: #756348; white-space: nowrap; pointer-events: none; }
 @media (max-width: 350px), (max-height: 500px) {
   html[data-layout='portrait'] .unit-card .unit-cost { top: 2px; left: 2px; padding: 0 3px; font-size: 12px; line-height: 15px; }
 }

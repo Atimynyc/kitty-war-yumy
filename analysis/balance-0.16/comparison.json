@@ -1,0 +1,172 @@
+{
+  "policyHash": "f733dff3d0ad4368c2530cae05d4253cdd7d2d62fe416854e1437cd12b3f4459",
+  "before": {
+    "games": 540,
+    "wins": 277,
+    "losses": 215,
+    "timeouts": 48,
+    "winMedian": 217,
+    "winMin": 99,
+    "winMax": 427,
+    "wins180to300": 183,
+    "fullHealthWins": 277,
+    "tier3": 444,
+    "tier3Median": 96,
+    "fullPopulationMedian": 9,
+    "foodMedian": 220
+  },
+  "after": {
+    "games": 540,
+    "wins": 324,
+    "losses": 157,
+    "timeouts": 59,
+    "winMedian": 215,
+    "winMin": 94,
+    "winMax": 573,
+    "wins180to300": 144,
+    "fullHealthWins": 323,
+    "tier3": 448,
+    "tier3Median": 94,
+    "fullPopulationMedian": 22.5,
+    "foodMedian": 274
+  },
+  "winsInBoth": 264,
+  "newlyWon": 60,
+  "newlyNotWon": 13,
+  "incomeLevels": [
+    {
+      "level": 1,
+      "matches": 540
+    },
+    {
+      "level": 2,
+      "matches": 450
+    },
+    {
+      "level": 3,
+      "matches": 450
+    },
+    {
+      "level": 4,
+      "matches": 440
+    },
+    {
+      "level": 5,
+      "matches": 369
+    },
+    {
+      "level": 6,
+      "matches": 274
+    },
+    {
+      "level": 7,
+      "matches": 213
+    },
+    {
+      "level": 8,
+      "matches": 108
+    }
+  ],
+  "abilityEventTotals": {
+    "dodge": 5370,
+    "stealth": 732,
+    "guard": 3375,
+    "drum": 4752,
+    "hook": 990,
+    "dust": 13150,
+    "heal": 23156
+  },
+  "regressions": [
+    {
+      "stage": 6,
+      "policy": "support",
+      "seed": 1234,
+      "winner": "enemy",
+      "seconds": 196
+    },
+    {
+      "stage": 6,
+      "policy": "support",
+      "seed": 20261025,
+      "winner": "enemy",
+      "seconds": 196
+    },
+    {
+      "stage": 6,
+      "policy": "support",
+      "seed": 8675309,
+      "winner": "enemy",
+      "seconds": 196
+    },
+    {
+      "stage": 11,
+      "policy": "soldiers",
+      "seed": 1234,
+      "winner": "enemy",
+      "seconds": 245
+    },
+    {
+      "stage": 11,
+      "policy": "soldiers",
+      "seed": 20261025,
+      "winner": "enemy",
+      "seconds": 245
+    },
+    {
+      "stage": 11,
+      "policy": "soldiers",
+      "seed": 8675309,
+      "winner": "enemy",
+      "seconds": 245
+    },
+    {
+      "stage": 14,
+      "policy": "support",
+      "seed": 1234,
+      "winner": "enemy",
+      "seconds": 359
+    },
+    {
+      "stage": 14,
+      "policy": "support",
+      "seed": 20261025,
+      "winner": "enemy",
+      "seconds": 359
+    },
+    {
+      "stage": 14,
+      "policy": "support",
+      "seed": 8675309,
+      "winner": "enemy",
+      "seconds": 359
+    },
+    {
+      "stage": 19,
+      "policy": "martial",
+      "seed": 20261025,
+      "winner": "enemy",
+      "seconds": 452
+    },
+    {
+      "stage": 26,
+      "policy": "support",
+      "seed": 1234,
+      "winner": "enemy",
+      "seconds": 320
+    },
+    {
+      "stage": 26,
+      "policy": "support",
+      "seed": 20261025,
+      "winner": "enemy",
+      "seconds": 320
+    },
+    {
+      "stage": 26,
+      "policy": "support",
+      "seed": 8675309,
+      "winner": "enemy",
+      "seconds": 320
+    }
+  ]
+}

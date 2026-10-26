@@ -12,6 +12,8 @@ export class BaseDialogue {
   private startedAt = 0;
   private until = 0;
   private nextAllowed = { opening: 0, feast: 0, protect: 0 };
+  save() { return { cue: this.cue, startedAt: this.startedAt, until: this.until, nextAllowed: { ...this.nextAllowed } }; }
+  restore(s: ReturnType<BaseDialogue['save']>) { this.cue = s.cue; this.startedAt = s.startedAt; this.until = s.until; this.nextAllowed = { ...s.nextAllowed }; }
 
   reset() {
     this.cue = null; this.startedAt = 0; this.until = 0;

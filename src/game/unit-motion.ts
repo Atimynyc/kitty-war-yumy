@@ -1,4 +1,4 @@
-import { UNITS } from './content.ts';
+import { UNITS, SPECIAL } from './content.ts';
 import type { Unit } from './simulation.ts';
 import { bossCharge } from './boss-combat.ts';
 
@@ -14,7 +14,8 @@ export function unitMotion(unit: Unit, now: number, deathAt?: number, reduced = 
   const deathAge = dying ? Math.max(0, now - deathAt) : 0;
   const attack = !dying && attackAge >= 0 && attackAge < .34 ? 1 - ease(Math.max(0, attackAge - .07) / .27) : 0;
   // Cooldown anticipates the next strike; a newly acquired target can strike immediately.
-  const windup = !dying && unit.sweep ? bossCharge(unit.sweep).lift
+  const windup = !dying && unit.charge ? 1 - unit.charge.remaining / (unit.kind === 'hook' ? SPECIAL.hook.windup : SPECIAL.boxer.windup)
+    : !dying && unit.sweep ? bossCharge(unit.sweep).lift
     : !dying && unit.kind!=='boss' && unit.attacking && unit.attackCooldown > 0 && unit.attackCooldown < ATTACK_WINDUP
     ? 1 - unit.attackCooldown / ATTACK_WINDUP : 0;
   const wave = Math.sin(unit.walkDistance / 32 * Math.PI * 2 + unit.id * 1.7);

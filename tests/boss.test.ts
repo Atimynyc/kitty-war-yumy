@@ -6,7 +6,7 @@ import { BASE_HP, BASE_X, ORANGE_BOSS, UNITS } from '../src/game/content.ts';
 import { bossCharge, inBossSweep, sweepDirection } from '../src/game/boss-combat.ts';
 import { LEVELS } from '../src/game/levels.ts';
 
-function create(level='pantry') {
+function create(level='campaign-30') {
   const b=new Battle(); b.reset(level); b.start(); b.aiEnabled=false;
   b.armies.player.cannonCooldown=b.armies.enemy.cannonCooldown=1000;
   return b;
@@ -31,7 +31,7 @@ test('only final level below 30% spawns one boss, independent of food and popula
     const b=create(level.id); b.armies.enemy.hp=BASE_HP*.3; b.step(1/30);
     assert.equal(b.boss.spawned,false,'exactly 30% must not trigger');
     b.armies.enemy.hp-=.01; b.step(1/30);
-    assert.equal(b.boss.spawned,level.id==='pantry');
+    assert.equal(b.boss.spawned,level.id==='campaign-30');
   }
   const b=create(); for(let n=0;n<24;n++)spawn(b,'enemy','soldier',1000);
   b.armies.enemy.food=0; const {spent,hired}=b.armies.enemy;
@@ -41,7 +41,7 @@ test('only final level below 30% spawns one boss, independent of food and popula
   for(const side of ['player','enemy'] as Side[])assert.equal(b.summon(side,'boss'),false);
   b.units.find(u=>u.kind==='boss')!.hp=0; advance(b,4);
   assert.equal(b.units.some(u=>u.kind==='boss'),false); assert.equal(b.armies.enemy.lost,0);
-  b.reset('pantry'); assert.equal(b.boss.spawned,false); assert.equal(b.boss.unitId,null);
+  b.reset('campaign-30'); assert.equal(b.boss.spawned,false); assert.equal(b.boss.unitId,null);
 });
 
 test('actual base damage triggers entry, but a destroyed base ends the game',()=>{

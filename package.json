@@ -1,23 +1,44 @@
 {
   "name": "cat-protect",
-  "version": "0.11.0",
+  "version": "0.23.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "dev:lan": "vite --host 0.0.0.0",
     "build": "tsc --noEmit && vite build",
+    "build:minitool": "tsc --noEmit && node scripts/build-minitool.mjs",
+    "test:minitool": "node --experimental-strip-types --test tests/platform.test.ts",
+    "audit:minitool": "node --experimental-strip-types scripts/audit-minitool.mjs",
+    "package:minitool": "npm run build:minitool && npm run audit:minitool && python scripts/package-minitool.py",
     "preview": "vite preview --host 127.0.0.1",
-    "test": "node --experimental-strip-types --test tests/simulation.test.ts tests/viewport.test.ts tests/boss.test.ts tests/energy.test.ts",
+    "test": "node --experimental-strip-types --test tests/simulation.test.ts tests/viewport.test.ts tests/boss.test.ts tests/energy.test.ts tests/campaign.test.ts tests/specialists.test.ts tests/economy.test.ts tests/pacing.test.ts tests/achievements.test.ts tests/resume.test.ts tests/platform.test.ts tests/spells.test.ts tests/unit-unlocks.test.ts tests/cat-appearance.test.ts",
+    "test:achievements": "node scripts/achievements-playtest.mjs",
     "test:browser": "node scripts/playtest.mjs",
     "test:responsive": "node scripts/responsive-playtest.mjs",
     "test:animations": "node scripts/animation-playtest.mjs",
+    "test:enemies": "node scripts/enemy-faction-playtest.mjs",
+    "test:specialists": "node scripts/specialists-playtest.mjs",
+    "test:pacing": "node scripts/pacing-playtest.mjs",
+    "balance:pacing": "node --experimental-strip-types scripts/pacing-balance.mjs",
+    "balance:global": "node --experimental-strip-types scripts/global-balance.mjs",
+    "test:bases": "node scripts/base-upgrade-playtest.mjs",
     "test:campaign": "node scripts/campaign-playtest.mjs",
     "test:story": "node scripts/story-playtest.mjs",
+    "test:unlocks": "node scripts/unit-unlocks-playtest.mjs",
+    "test:characters": "node --experimental-strip-types scripts/characters-playtest.mjs",
+    "test:cat-idle": "node scripts/cat-idle-playtest.mjs",
     "test:spells": "node scripts/spell-playtest.mjs",
     "test:combat": "node scripts/combat-stability-playtest.mjs",
-    "test:boss": "node scripts/boss-playtest.mjs"
+    "test:boss": "node scripts/boss-playtest.mjs",
+    "test:cat-editor": "node scripts/cat-editor-playtest.mjs"
   },
-  "dependencies": { "phaser": "^3.90.0" },
-  "devDependencies": { "@playwright/test": "^1.58.0", "typescript": "^5.9.3", "vite": "^7.2.2" }
+  "dependencies": {
+    "phaser": "^3.90.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.2"
+  }
 }

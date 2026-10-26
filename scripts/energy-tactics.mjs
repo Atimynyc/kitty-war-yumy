@@ -1,5 +1,5 @@
 import { simulateStrategy } from './balance.mjs';
-import { LEVELS } from '../src/game/levels.ts';
+import { LEGACY_LEVELS as LEVELS } from '../src/game/levels.ts';
 import { ENERGY_REWARDS } from '../src/game/content.ts';
 import { readFileSync, writeFileSync } from 'node:fs';
 

@@ -62,6 +62,8 @@ try {
   await page.locator('#pause').click();await page.locator('#pause-home').click();
   await page.locator('#start').click();await advance(0);
   assert.equal(await bubble.textContent(),'我要吃冻干！快给我！');
+  // Saved battles resume paused; exercise the real resume action before damage.
+  await page.locator('#resume').click();await advance(0);
   await page.evaluate(()=>{window.__catGame.battle.armies.enemy.hp=1;});
   await damage('player');
   assert.equal((await read()).phase,'ended');assert.equal(await bubble.isVisible(),false);

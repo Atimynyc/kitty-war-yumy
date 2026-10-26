@@ -1,0 +1,13 @@
+{
+  "version": "0.15.0",
+  "sources": {
+    "simulation.ts": "0367aa361b13236ad68c7b70b654174edb8c3b86f628437574004b355b6f9a0f",
+    "content.ts": "876f903c7610a8e5ed5bc917d951b889f71def7a208e5ec5530a741e0742ae9f",
+    "levels.ts": "a05aa637574cc172ae0838ccab6bab152e65d5cdbd8fa9e1c91b22d7140b88c8",
+    "campaign.ts": "31de25325f65f455ea972c8f871fe87c5254ab29d4a88058d4810fcda78622d5",
+    "combat-space.ts": "e9e280ac758fd629276593c93eed2ad60167fc4b479cd3821b316c5c84a8227f",
+    "base-dialogue.ts": "d898873b4a553f721514fa9cb36700d6f267723a1bd9447f33c7ee20646adfc2",
+    "spell-notices.ts": "a6cebf1882f3207d3e7d0d06861130ab8cd23391047e8491c96d21894d1df1fb",
+    "boss-combat.ts": "5e71164d41e8f5aa2a07d4da7743bd36f11103c6fa0a034d97ffc7c175dd4925"
+  }
+}

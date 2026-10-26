@@ -4,8 +4,9 @@ import { UNITS } from '../src/game/content.ts';
 import { pathToFileURL } from 'node:url';
 
 export const STRATEGIES = ['mouse-rush', 'soldier-rush', 'economy-and-tech', 'economy-opening', 'reserve-for-tech', 'combined-arms'];
-export function simulateStrategy(level, strategy, spellOptions = {}) {
-  const battle = new Battle(); battle.reset(level.id); battle.level = level; battle.start();
+export function simulateStrategy(level, strategy, spellOptions = {}, rules = { Battle, UNITS }) {
+  const UNITS = rules.UNITS;
+  const battle = new rules.Battle(); battle.reset(level.id); battle.level = level; battle.start();
   if (strategy === 'economy-opening' || strategy === 'combined-arms') battle.upgradeEconomy('player');
   let decision = 0;
   for (let frame = 0; frame < 30 * 900 && battle.phase === 'playing'; frame++) {
@@ -13,7 +14,7 @@ export function simulateStrategy(level, strategy, spellOptions = {}) {
       const army = battle.armies.player;
       const allies = battle.units.filter(u => u.side === 'player');
       const threatened = battle.units.some(u => u.side === 'enemy' && u.x < 430);
-      if (threatened) battle.roar('player');
+      if (threatened) { if (battle.bombard) battle.bombard('player'); else battle.roar('player'); }
       decision++;
       if (strategy === 'combined-arms') {
         const count = kind => allies.filter(u => u.kind === kind).length;

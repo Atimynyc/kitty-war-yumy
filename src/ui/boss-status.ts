@@ -12,6 +12,11 @@ export function installBossStatus(battle: Battle) {
   const count=document.getElementById('boss-health-text')!,action=document.getElementById('boss-action')!;
   return ()=>{
     panel.hidden=!battle.boss.spawned || battle.phase==='ready' || battle.phase==='ended';
+    const visible = !panel.hidden, arena = panel.parentElement!;
+    if (arena.classList.contains('has-boss') !== visible) {
+      arena.classList.toggle('has-boss', visible);
+      window.dispatchEvent(new Event('game-layout-change'));
+    }
     if(panel.hidden)return;
     const boss=battle.units.find(u=>u.id===battle.boss.unitId),hp=boss?.hp??0;
     count.textContent=`${Math.ceil(hp)} / ${UNITS.boss.hp}`;

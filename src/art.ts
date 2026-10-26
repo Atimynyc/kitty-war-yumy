@@ -1,8 +1,11 @@
 import type { Side, UnitKind } from './game/content.ts';
 import { driedFish, teaserWand } from './game/weapon-art.ts';
 import { knightParts } from './game/knight-art.ts';
-import { unitShadowSVG } from './game/unit-art.ts';
+import { unitShadowSVG, unitParts } from './game/unit-art.ts';
 import { bossParts } from './game/boss-art.ts';
+import { enemyPortraitSVG } from './game/enemy-art.ts';
+import { SPECIALIST_ORDER } from './game/content.ts';
+import { basePreviewSVG } from './game/base-art.ts';
 
 const wrap = (body: string, width = 120, height = 120) => `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><g stroke="#604c41" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">${body}</g></svg>`;
 export const svgURL = (svg: string) => `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
@@ -19,6 +22,8 @@ export const icons = {
 
 export function unitSVG(kind: UnitKind, side: Side = 'player') {
   if (kind === 'boss') return `<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">${unitShadowSVG}${bossParts().map(part=>part.svg).join('')}</svg>`;
+  if (side === 'enemy') return enemyPortraitSVG(kind);
+  if (kind === 'catapult' || SPECIALIST_ORDER.some(item => item === kind)) return `<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">${unitShadowSVG}${unitParts(kind, side, 'front').map(part => part.svg).join('')}</svg>`;
   if (kind === 'knight') return `<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 128 128">${unitShadowSVG}${knightParts(side).map(part => part.svg).join('')}</svg>`;
   const fur = side === 'player' ? '#f7d7a1' : '#d9d0ea';
   const accent = side === 'player' ? '#769d88' : '#a18bb9';
@@ -26,7 +31,6 @@ export function unitSVG(kind: UnitKind, side: Side = 'player') {
   const shadow = '<ellipse cx="60" cy="107" rx="35" ry="6" fill="#655248" opacity=".12" stroke="none"/>';
   const cat = `<path d="M37 88q-23 2-19-15 2-9 8-4" fill="none" stroke="${fur}" stroke-width="11"/><path d="M39 72q-6 13-3 29h15l5-14 7 14h16l-2-29Z" fill="${fur}"/><path d="m30 42 2-25 20 13q13-3 24 1l16-14 1 30q7 10 1 24-9 17-33 14-31 1-33-18-3-15 2-25Z" fill="${fur}"/><path d="m36 32 1-9 9 8m33 2 9-9 1 14" fill="${ear}" stroke="none"/><path d="m56 30 3 8m7-8 1 8m8-7-2 7" stroke="#bf9874" stroke-width="3"/><path d="M44 54v5m32-5v5" stroke-width="4"/><path d="m57 63 4 3 4-3Z" fill="#bf8278" stroke="#bf8278"/><path d="M61 67q-3 6-8 2m8-2q3 6 8 2" fill="none" stroke-width="2"/><ellipse cx="40" cy="66" rx="7" ry="3.8" fill="${ear}" stroke="none"/><ellipse cx="81" cy="66" rx="7" ry="3.8" fill="${ear}" stroke="none"/><path d="m29 60-10-2m10 8-10 2m71-10 10-2m-10 10 10 2" stroke-width="1.8"/>`;
   if (kind === 'mouse') return wrap(`${shadow}<path d="M30 81Q4 79 15 60q8-9 12 3" fill="none" stroke="#d1a397" stroke-width="5"/><ellipse cx="61" cy="79" rx="34" ry="23" fill="#d2c6bc"/><path d="m77 64 28 19-27 13" fill="#d2c6bc"/><circle cx="51" cy="57" r="17" fill="#d2c6bc"/><circle cx="51" cy="57" r="10" fill="#e7bbb0" stroke="none"/><circle cx="83" cy="77" r="3" fill="#604c41" stroke="none"/><circle cx="105" cy="83" r="4" fill="#d99292"/><path d="m99 86 9 6m-9-11 9-5" stroke-width="1.5"/><circle cx="44" cy="100" r="8" fill="${accent}"/><circle cx="78" cy="100" r="8" fill="${accent}"/><path d="M64 59V43h-7v-8h17v8h-7" fill="#eac68e"/><path d="M54 83h17" stroke="#b4a699"/>`);
-  if (kind === 'catapult') return wrap(`${shadow}<path d="M23 86h77v12H23Z" fill="#c99e72"/><path d="m37 86 18-49 24 49Z" fill="#e4be91"/><path d="m43 75 33-55" stroke="#987655" stroke-width="10"/><path d="m67 23 16-2 7 10-12 7Z" fill="#d2af83"/><circle cx="81" cy="20" r="14" fill="${accent}"/><path d="m74 12 14 12m-18-7 15 11m-7-20 12 12" stroke="#fff4df" stroke-width="1.5"/><circle cx="33" cy="99" r="12" fill="#ad855f"/><circle cx="88" cy="99" r="12" fill="#ad855f"/><circle cx="33" cy="99" r="4" fill="#e8c797"/><circle cx="88" cy="99" r="4" fill="#e8c797"/><path d="m14 67 1-18 13 8 12-7 2 19q-2 18-16 16-14 0-12-18" fill="${fur}"/><path d="M22 67v3m12-3v3"/><path d="m25 76 4 2 3-2" fill="none"/>`);
   let gear = '';
   if (kind === 'soldier') gear = `<path d="M30 40q0-27 32-28 28 0 30 28Z" fill="${accent}"/><path d="M28 40h65" stroke-width="4"/><path d="M60 17v17" stroke="#c6d8bb" stroke-width="5"/><path d="m36 80 37 1-4 11H41Z" fill="${accent}"/>${driedFish(99, 66, 24)}<ellipse cx="89" cy="91" rx="8" ry="7" fill="${fur}"/>`;
   if (kind === 'mage') gear = `<path d="m30 37 27-34 13 12 15 23Z" fill="#a89aca"/><path d="M24 39q37-12 75 0l-3 7H27Z" fill="#c9bce4"/><path d="m57 20 3-6 3 6 6 1-5 4 1 6-5-3-5 3 1-6-5-4Z" fill="#ffe3a1" stroke-width="1.5"/><path d="m36 82 42-1 4 20H32Z" fill="#b4a4d3"/><path d="M39 86h36" stroke="#eee1ad" stroke-width="5"/>${teaserWand(96, 65)}<ellipse cx="96" cy="89" rx="8" ry="7" fill="${fur}"/>`;
@@ -38,20 +42,16 @@ export function unitSVG(kind: UnitKind, side: Side = 'player') {
 
 /** Trim only the empty margin for recruitment; keep the full figure and weapon. */
 export function unitPortraitSVG(kind: UnitKind) {
-  const bounds: Record<UnitKind, [number, number, number, number]> = {
+  const bounds: Partial<Record<UnitKind, [number, number, number, number]>> = {
     mouse: [8, 32, 104, 82], soldier: [11, 9, 107, 106], shield: [11, 6, 97, 109],
-    slinger: [7, 11, 99, 104], mage: [11, 0, 107, 115], catapult: [11, 3, 92, 112],
+    slinger: [7, 11, 99, 104], mage: [11, 0, 107, 115], catapult: [6, 4, 116, 122],
     healer: [11, 12, 108, 103], knight: [0, 0, 128, 120], boss: [0, 0, 128, 128],
   };
-  const [x, y, width, height] = bounds[kind];
+  const [x, y, width, height] = bounds[kind] ?? [0, 0, 128, 128];
   return unitSVG(kind).replace(/<svg\b[^>]*>/, `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="${x} ${y} ${width} ${height}">`);
 }
 
-export function baseSVG(side: Side) {
-  const accent = side === 'player' ? '#83a791' : '#a294bd';
-  const light = side === 'player' ? '#dce8ce' : '#e0d9ed';
-  return wrap(`<ellipse cx="130" cy="228" rx="108" ry="14" fill="#695b49" opacity=".13" stroke="none"/><path d="M137 62V8m0 1h62l-14 17 14 16h-62" fill="${accent}"/><path d="M151 23q4-9 9-4 5-5 9 4 6 6-9 9-15-3-9-9" fill="#fff8e7" stroke="none"/><path d="M30 116 129 61l103 55v103H30Z" fill="#d1b187"/><path d="m30 116 99-55 103 55-12 18-91-47-88 47Z" fill="${accent}"/><path d="M42 129h179v89H42Z" fill="#e8c9a1"/><path d="M44 130h174v17H44Z" fill="#c8a67d" opacity=".45" stroke="none"/><path d="M101 218v-45q0-26 29-26 29 0 29 26v45" fill="#a18368"/><path d="M111 218v-41q0-17 19-17 19 0 19 17v41" fill="#66544a"/><path d="m61 168 22-3 4 23-24 3Z" fill="${light}"/><path d="m73 169 2 18m-13-8 22-3" stroke="#ad997e" stroke-width="2"/><path d="m177 165 24 2-3 24-23-2Z" fill="${light}"/><path d="m189 168-1 20m-10-12 22 1" stroke="#ad997e" stroke-width="2"/><rect x="84" y="101" width="94" height="32" rx="8" fill="#fff3d8"/><path d="m100 111 8 1 3 10-11 2-3-7Z" fill="#d8a26a" stroke-width="1.5"/><text x="140" y="123" text-anchor="middle" font-family="Microsoft YaHei,sans-serif" font-size="14" font-weight="bold" fill="#6b5949" stroke="none">冻干仓库</text><path d="m170 202 4-26 23-2 10 29Z" fill="#f4d781"/><path d="m177 174 17-1m-18 8 20-1" stroke="#c99d5b" stroke-width="2"/><path d="m183 189 9-2 3 8-11 2Z" fill="#bd9063" stroke-width="1.5"/><path d="M14 212h58l-6 14H23Z" fill="${accent}"/><path d="M19 210q7-8 13 0 7-9 14-1 6-8 15 1" fill="#b89169"/><path d="m216 191 20 1 8 24-31 1Z" fill="#e3bb91"/><path d="m220 203 15 1m-13-6 11 1" stroke="#bc9269" stroke-width="2"/>`, 260, 246);
-}
+export function baseSVG(side: Side) { return basePreviewSVG(side); }
 
 export const roomSVG = wrap(`
   <defs>

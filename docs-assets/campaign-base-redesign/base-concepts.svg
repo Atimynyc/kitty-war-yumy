@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="970" viewBox="0 0 1200 970" role="img" aria-labelledby="title desc">
+<title id="title">猫爪罐头炮与三阶大本营方向草图</title>
+<desc id="desc">从开放纸箱营地，升级为加盖猫屋，再升级为双侧矮塔的冻干要塞。每阶使用罐头材质的单管短炮。下方展示三阶炮管细节和九十六像素宽度的轮廓。</desc>
+<defs>
+  <pattern id="paper" width="23" height="23" patternUnits="userSpaceOnUse"><circle cx="3" cy="7" r=".6" fill="#a78b68" opacity=".14"/><circle cx="17" cy="19" r=".5" fill="#a78b68" opacity=".1"/></pattern>
+  <g id="paw" fill="currentColor" stroke="none"><path d="M-9 6C-10 0-5-4 0-4s10 5 9 10C8 12 3 9 0 9s-8 3-9-3Z"/><ellipse cx="-10" cy="-6" rx="3.5" ry="4.5" transform="rotate(-25 -10 -6)"/><ellipse cx="-3.5" cy="-12" rx="3.5" ry="4.5"/><ellipse cx="4.5" cy="-12" rx="3.5" ry="4.5"/><ellipse cx="11" cy="-5.5" rx="3.5" ry="4.5" transform="rotate(25 11 -5.5)"/></g>
+  <g id="bolt"><circle r="2.3" fill="#f6e3b6" stroke="#715c48" stroke-width="1.2"/></g>
+  <g id="cannon1" stroke="#655346" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+    <ellipse cx="0" cy="13" rx="35" ry="13" fill="#a1815a"/><path d="M-30-1v14c0 15 60 15 60 0V-1Z" fill="#9ca98c"/><ellipse cy="-1" rx="30" ry="15" fill="#dce0bc"/>
+    <path d="M-18-7l2-37c1-10 31-10 32 0l2 37c0 13-36 13-36 0Z" fill="#ead6a4"/>
+    <path d="M9-39v28" fill="none" stroke="#c6ae7f" stroke-width="6"/><path d="M-11-37v24" stroke="#fff3d5"/>
+    <ellipse cy="-43" rx="17" ry="9" fill="#eee2bc"/><ellipse cy="-43" rx="10" ry="5" fill="#6f6755" stroke-width="2"/>
+    <path d="M-29 8c14 8 43 8 58 0" fill="none" stroke="#738569" stroke-width="2"/>
+    <use xlink:href="#paw" transform="translate(0 14) scale(.42)" style="color:#f4e6bd"/>
+  </g>
+  <g id="cannon2" stroke="#655346" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+    <ellipse cy="18" rx="41" ry="14" fill="#987e5e"/><path d="M-35-5v22c0 18 70 18 70 0V-5Z" fill="#789b87"/><ellipse cy="-5" rx="35" ry="18" fill="#adc5a6"/>
+    <path d="M-36 0h12v22h-12ZM24 0h12v22H24Z" fill="#ead7b3"/><use xlink:href="#bolt" x="-30" y="10"/><use xlink:href="#bolt" x="30" y="10"/>
+    <path d="M-21-8l1-39c0-14 40-14 40 0l1 39c0 15-42 15-42 0Z" fill="#efdfb8"/>
+    <path d="M13-44v31" stroke="#c5b18c" stroke-width="7"/><path d="M-13-43v28" stroke="#fff4d7"/>
+    <path d="M-22-43v-7c0-15 44-15 44 0v7c0 16-44 16-44 0Z" fill="#b2c4a3"/><ellipse cy="-50" rx="22" ry="11" fill="#dae3c4"/><ellipse cy="-50" rx="13" ry="6.4" fill="#666d5c" stroke-width="2"/>
+    <path d="M-12 5v12c0 6 24 6 24 0V5" fill="#648d79" stroke-width="2"/><use xlink:href="#paw" transform="translate(0 14) scale(.52)" style="color:#f7e8bc"/>
+  </g>
+  <g id="cannon3" stroke="#655346" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+    <ellipse cy="22" rx="46" ry="15" fill="#937351"/><path d="M-39-5v24c0 22 78 22 78 0V-5Z" fill="#689581"/><ellipse cy="-5" rx="39" ry="20" fill="#c4d6b4"/>
+    <path d="M-42-3l13-4 4 26-13 5ZM42-3 29-7l-4 26 13 5Z" fill="#ddb978"/><path d="M-40 3l8-2m64 0 8 2" stroke="#fff0c7"/>
+    <use xlink:href="#bolt" x="-34" y="15"/><use xlink:href="#bolt" x="34" y="15"/>
+    <path d="M-24-7l1-42c0-17 46-17 46 0l1 42c0 18-48 18-48 0Z" fill="#f2e5c8"/>
+    <path d="M15-44v30" stroke="#c8b28b" stroke-width="8"/><path d="M-15-42v28" stroke="#fff9e9" stroke-width="4"/>
+    <path d="M-25-16c14 8 36 8 50 0v8c-12 11-38 11-50 0Z" fill="#d2ab68"/>
+    <path d="M-26-43v-9c0-18 52-18 52 0v9c0 18-52 18-52 0Z" fill="#d7b374"/>
+    <ellipse cy="-52" rx="26" ry="13" fill="#f0d7a0"/><ellipse cy="-52" rx="16" ry="8" fill="#62665a" stroke-width="2.5"/><path d="M-11-54q10-5 21 0" stroke="#9d9c80" stroke-width="2" fill="none"/>
+    <path d="M-17 5q17-9 34 0l-3 17q-14 12-28 0Z" fill="#4f806e"/><use xlink:href="#paw" transform="translate(0 17) scale(.7)" style="color:#f4d692"/>
+  </g>
+  <g id="base1" stroke="#655346" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="120" cy="216" rx="99" ry="17" fill="#8a7656" opacity=".16" stroke="none"/>
+    <path d="M28 130 115 98 209 131v64l-91 29-90-29Z" fill="#c49d70"/>
+    <path d="M28 130 118 158v66l-90-29Z" fill="#d9b888"/><path d="M118 158 209 131v64l-91 29Z" fill="#be986a"/>
+    <path d="M28 130 115 98 209 131 118 161Z" fill="#edcfa0"/>
+    <path d="M46 130 115 109 190 132 118 151Z" fill="#8b9475"/><path d="M57 131 115 115 177 133 118 145Z" fill="#746849"/>
+    <path d="m60 130 13-5 13 8-14 6Zm87 1 10-7 14 8-13 7Z" fill="#e9c58d" stroke-width="1.5"/>
+    <path d="M42 137v48l59 19m27-8 67-21" fill="none" stroke="#b78f61" stroke-width="2"/>
+    <path d="M81 147l19 6v36l-19-6Z" fill="#f3dfb1" stroke="#cbaa75" stroke-width="1.5"/>
+    <path d="m144 173 40-12v24l-40 12Z" fill="#85a68a"/><use xlink:href="#paw" transform="translate(165 179) skewY(-15) scale(.65)" style="color:#f6e5bc"/>
+    <path d="M181 123V64m0 0 34 7-9 10 9 11-34-7Z" fill="#8eab8c"/>
+    <use xlink:href="#cannon1" transform="translate(114 115) scale(.86)"/>
+    <path d="m34 159 6 2m-6 7 9 3m88 35 7-2" stroke="#b18a5b" stroke-width="2"/>
+  </g>
+  <g id="base2" stroke="#655346" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="120" cy="216" rx="104" ry="18" fill="#8a7656" opacity=".16" stroke="none"/>
+    <path d="M24 124 118 92 215 124v71l-95 30-96-31Z" fill="#c49c6e"/><path d="M24 124 120 154v71l-96-31Z" fill="#e1c494"/><path d="M120 154 215 124v71l-95 30Z" fill="#c4a278"/>
+    <path d="m24 178 96 30 95-29v16l-95 30-96-31Z" fill="#9f8e6b"/>
+    <path d="M24 124 117 77 215 124 120 156Z" fill="#92ae91"/><path d="M37 124 118 88 201 124 120 149Z" fill="#b9caa6" stroke="#71937d" stroke-width="2"/>
+    <path d="m34 116-4-32 34 20m114-1 33-19-3 35" fill="#a1bb98"/><path d="m42 104-1-10 11 7m137 0 13-8-1 12" fill="#e8cfb6" stroke="none"/>
+    <path d="m18 123 102 32 101-32v11l-101 32-102-32Z" fill="#75967e"/>
+    <path d="M31 144v45l13 4v-45Zm158 2v47l14-4v-47Z" fill="#f2dfb5"/><path d="M60 153v47m29-37v47m45-44v50m33-62v51" stroke="#bd9d73" stroke-width="2"/>
+    <path d="m76 166 22 7v28l-22-7Z" fill="#9db195"/><use xlink:href="#paw" transform="translate(87 186) skewY(17) scale(.65)" style="color:#f9e9c2"/>
+    <path d="m146 174 24-8v27l-24 7Z" fill="#726f56"/><path d="M158 171v25m-10-11 20-6" stroke="#f0d9ac" stroke-width="2"/>
+    <use xlink:href="#bolt" x="38" y="153"/><use xlink:href="#bolt" x="38" y="183"/><use xlink:href="#bolt" x="196" y="153"/><use xlink:href="#bolt" x="196" y="183"/>
+    <use xlink:href="#cannon2" transform="translate(119 111) scale(.9)"/>
+  </g>
+  <g id="base3" stroke="#655346" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="120" cy="218" rx="113" ry="18" fill="#8a7656" opacity=".18" stroke="none"/>
+    <path d="M35 121 118 86 208 120v79l-88 27-85-28Z" fill="#c5a478"/><path d="M35 121 120 149v77l-85-28Z" fill="#e7d3a9"/><path d="M120 149 208 120v79l-88 27Z" fill="#c4ae84"/>
+    <path d="M35 121 118 79 208 120 120 154Z" fill="#97b69c"/><path d="M48 120 119 91 194 119 120 144Z" fill="#c5d6b5" stroke="#7d9e87" stroke-width="2"/>
+    <path d="M29 120 120 151l94-31v12l-94 30-91-30Z" fill="#d4ae6c"/><path d="M32 122 120 152l90-29" fill="none" stroke="#ffedbf" stroke-width="2"/>
+    <path d="M39 183 120 208l85-25v17l-85 27-81-27Z" fill="#6f9480"/>
+    <path d="M13 137 40 125 66 138v63l-27 13-26-13Z" fill="#719a85"/><path d="m13 137 26 12 27-11v13l-27 11-26-12Z" fill="#e3c17c"/><path d="m39 149 27-11v63l-27 13Z" fill="#5e876f"/>
+    <path d="M13 137v-16l13 5v-11l13 6 14-6v12l13-6v17l-27 12Z" fill="#ecd5a1"/>
+    <path d="M176 138 203 125 229 137v64l-26 13-27-13Z" fill="#7ba08a"/><path d="m176 138 27 11 26-12v13l-26 12-27-11Z" fill="#e3c17c"/><path d="m203 149 26-12v64l-26 13Z" fill="#567e69"/>
+    <path d="M176 138v-17l13 6v-12l14 6 13-6v11l13-5v16l-26 13Z" fill="#ecd5a1"/>
+    <path d="M24 170v20m28-21v20m136-20v20m28-19v20" stroke="#e5c892" stroke-width="4"/>
+    <path d="m79 160 27 9v37l-27-8Z" fill="#789c83"/><path d="m79 160 27 9v10l-27-9Z" fill="#e7c17d"/><use xlink:href="#paw" transform="translate(93 191) skewY(16) scale(.78)" style="color:#f5deb1"/>
+    <path d="m135 170 28-9v39l-28 9Z" fill="#6f7962"/><path d="m138 176 22-7m-22 14 22-7m-22 14 22-7m-22 14 22-7" stroke="#d1bb86" stroke-width="2"/>
+    <use xlink:href="#cannon3" transform="translate(119 108) scale(.93)"/>
+    <path d="M163 88V44m0 0 30 5-8 10 8 10-30-5Z" fill="#e2bf77"/><use xlink:href="#paw" transform="translate(175 56) scale(.33)" style="color:#658771"/>
+  </g>
+</defs>
+<rect width="1200" height="970" rx="22" fill="#f7f1e4"/><rect width="1200" height="970" rx="22" fill="url(#paper)"/>
+<g font-family="Microsoft YaHei, PingFang SC, sans-serif" fill="#574b3e">
+  <text x="50" y="47" font-size="13" letter-spacing="3" fill="#82765f">PAW &amp; PANTRY / ART DIRECTION</text>
+  <text x="50" y="105" font-size="34" font-weight="700">把小窝，升级成要塞。</text>
+  <text x="50" y="139" font-size="16" fill="#81725c">三阶大本营 × 猫爪罐头炮 · 轮廓与材质方向稿</text>
+  <text x="1150" y="49" text-anchor="end" font-size="13" fill="#82765f">2026.10 / 尚未接入游戏</text>
+  <path d="M50 165H1150" stroke="#d7cdb9"/>
+  <g transform="translate(75 186)"><ellipse cx="150" cy="176" rx="150" ry="126" fill="#ede0c6" opacity=".55"/><use xlink:href="#base1" transform="translate(5 8) scale(1.2)"/></g>
+  <g transform="translate(450 186)"><ellipse cx="150" cy="176" rx="150" ry="126" fill="#dce4cf" opacity=".65"/><use xlink:href="#base2" transform="translate(5 8) scale(1.2)"/></g>
+  <g transform="translate(825 186)"><ellipse cx="150" cy="176" rx="150" ry="126" fill="#eae0c1" opacity=".7"/><use xlink:href="#base3" transform="translate(5 8) scale(1.2)"/></g>
+  <g text-anchor="middle">
+    <text x="225" y="501" font-size="14" letter-spacing="2" fill="#8b7655">TECH 01</text><text x="225" y="534" font-size="25" font-weight="700">纸箱营地</text><text x="225" y="563" font-size="15" fill="#82725b">开放纸箱 · 胶带加固 · 小号罐头炮</text>
+    <text x="600" y="501" font-size="14" letter-spacing="2" fill="#68836c">TECH 02</text><text x="600" y="534" font-size="25" font-weight="700">加固猫屋</text><text x="600" y="563" font-size="15" fill="#82725b">猫耳屋顶 · 木质护角 · 加粗炮口</text>
+    <text x="975" y="501" font-size="14" letter-spacing="2" fill="#a08146">TECH 03</text><text x="975" y="534" font-size="25" font-weight="700">冻干要塞</text><text x="975" y="563" font-size="15" fill="#82725b">双侧矮塔 · 储粮舱 · 黄铜护圈</text>
+  </g>
+  <path d="M50 596H1150" stroke="#d7cdb9"/>
+  <text x="50" y="638" font-size="20" font-weight="700">主炮：短、厚、圆润，有真实的炮口。</text>
+  <text x="50" y="665" font-size="14" fill="#82725b">单炮管保持一致，用支架与护圈表达威力成长。</text>
+  <use xlink:href="#cannon1" transform="translate(137 759) scale(1.08)"/>
+  <use xlink:href="#cannon2" transform="translate(310 759) scale(1.08)"/>
+  <use xlink:href="#cannon3" transform="translate(493 759) scale(1.08)"/>
+  <g text-anchor="middle" font-size="15"><text x="137" y="826">32 伤害</text><text x="310" y="826">55 伤害</text><text x="493" y="826">85 伤害</text></g>
+  <path d="M615 626V859" stroke="#d7cdb9"/>
+  <text x="660" y="638" font-size="20" font-weight="700">96 px 轮廓检查</text>
+  <text x="660" y="665" font-size="14" fill="#82725b">缩小后，屋顶与双塔仍是升级的主要识别点。</text>
+  <use xlink:href="#base1" transform="translate(680 708) scale(.4)"/>
+  <use xlink:href="#base2" transform="translate(845 708) scale(.4)"/>
+  <use xlink:href="#base3" transform="translate(1010 708) scale(.4)"/>
+  <g text-anchor="middle" font-size="14" fill="#82725b"><text x="728" y="826">一阶</text><text x="893" y="826">二阶</text><text x="1058" y="826">三阶</text></g>
+  <path d="M50 881H1150" stroke="#d7cdb9"/>
+  <text x="50" y="916" font-size="14" fill="#82725b">统一材质：牛皮纸 / 温润木材 / 奶油色金属 / 鼠尾草绿 / 黄铜</text>
+  <text x="50" y="942" font-size="13" fill="#96866e">方向草图仅展示我方静态造型；敌方朝向、投喂模块、损伤层与升级动作在游戏内样板阶段完善。</text>
+</g>
+</svg>

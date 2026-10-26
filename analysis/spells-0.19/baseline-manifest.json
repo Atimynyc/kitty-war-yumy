@@ -1,0 +1,130 @@
+[
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\achievements.ts",
+    "Hash": "E1C8B11144036EDDDBEF3E0ED74B9D2A90C7A0E50C41708DC9534C0DF31182BC"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\audio.ts",
+    "Hash": "FCA61E03093C63F2B603A15A806D600886FE94100063BFDEEEE3A43425FA688C"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\base-art.ts",
+    "Hash": "F61E6C20526127A0757E8C66B8E8108CF2CEF45785C9E43A46D90D7BAC4519CC"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\base-cat-art.ts",
+    "Hash": "AAB32AFBAB03A50D65A44D86DAB2AA4ABFF64EE020CA95879DC6927B20605FF0"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\base-cat-layout.ts",
+    "Hash": "CAE8AE671F9A2FBD3420E61956106980B10D45F2B1DFB5E3DD3C1EB82E0AF306"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\base-dialogue.ts",
+    "Hash": "EC92CAF97BFCD1A3539BE87A4071F983E2E4EC2C6FAF1E637AD8F2512C15A4EE"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\BaseCatView.ts",
+    "Hash": "F2283C40AF3FD81E06F357B076F8D676F4A6B05714973755CBD16ACFCEF8D938"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\BaseView.ts",
+    "Hash": "3B9CCAC9FC288385D78F0F8D6D7A66FA7A7ADA740A29EBE723508095E59DBFEC"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\battle-save.ts",
+    "Hash": "3C5A885B7212F3AF8003FCB5CABDD3395B9D5C98FE07B9FF204F496421128EBF"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\BattleScene.ts",
+    "Hash": "74FA203289435B90065F0832ACB47D161025824434ADF377609D8FE053E5AA02"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\boss-art.ts",
+    "Hash": "C3302E80F71A2D1D45FD91BDFD31F99D3EF84F3EF0B915EDF939B725359F1910"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\boss-combat.ts",
+    "Hash": "5E71164D41E8F5AA2A07D4DA7743BD36F11103C6FA0A034D97FFC7C175DD4925"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\campaign.ts",
+    "Hash": "3DEFC4F45CF7573322FC65C6E37AEE5EC778BB87A24467734D6DAD073CA4FCC9"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\cat-appearance.ts",
+    "Hash": "4D885790EDE286687EE569FF35E5D78582C1C18DB25DD50AA88CA17D66A79E9E"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\combat-layout.ts",
+    "Hash": "BA1868C0F4D057BC0AC0376AF53C7132A45B21627A65114A975907A340797C5C"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\combat-space.ts",
+    "Hash": "E9E280AC758FD629276593C93EED2AD60167FC4B479CD3821B316C5C84A8227F"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\content.ts",
+    "Hash": "82E7610A004157405930F43E018D5943A1400D1823C98A3157A9DFE3A01433D0"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\enemy-art.ts",
+    "Hash": "65B6A7F0030AF9322688DB5B8D235CBAB9C924489FA3A43245BF3882C7300006"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\enemy-roster.ts",
+    "Hash": "2B0D90F60E2CC5EFEA2B7EA591453D12AD4F66E81D48790904B636C340B975F0"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\knight-art.ts",
+    "Hash": "D39D01AF1D115E9417E2006BC76561AD87A7ABF9E60A49EBF5BD8B54C226F659"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\levels.ts",
+    "Hash": "A7FBFB54B4FA3DF3FC9A7C25F150C69B475B8E6D9BAD946EE7605010A5F12BE3"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\profile.ts",
+    "Hash": "43AAD69B1E9EBD9D8D51B4FF975BAB6DCEC0CD4649C61F3D2F2C4766A878F559"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\projection.ts",
+    "Hash": "D876FCBB2FF29E9A7A5BC1545455A6DA9DFB2972DE5562DE2E91804C8E9F8A04"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\scene-art.ts",
+    "Hash": "14C5B917542F339E1FCA392EDD1554F4CBB84B64E04848FB4B09067BEB527DF1"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\simulation.ts",
+    "Hash": "F170C54E17EBF421FD05AA8AF5AAFD2976CC7C6F2D497BD111158A16F2CE4587"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\specialist-art.ts",
+    "Hash": "DC41D6D8487776F699E28678F2CE13D5611EDC79E3F8A8B0203E888335C2C708"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\spell-notices.ts",
+    "Hash": "37BE8CAB41CE91E7B8005DAEAE30FC6CCA7E03BE847FE6E09104C25F6D5D628D"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\unit-art.ts",
+    "Hash": "5BF95F7FCD85D76419CC75117EB693F28CE35DB72D093E3ACA89C95DF8A5A4E9"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\unit-facing.ts",
+    "Hash": "448B25C77D49D6CD2EC194D647AF71488BDC257B57F15FD63C37EF83F373E9AF"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\unit-motion.ts",
+    "Hash": "E02525FF27118CF338657D7E1A5C7C0174ED6166C1A1A347613675DC84762227"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\UnitView.ts",
+    "Hash": "67F2214DD84C5C66A7BA14B24B922604A6DCC7561BCAFF1098FA93E0DE1DBCDC"
+  },
+  {
+    "Path": "D:\\code\\redbook\\catProtect\\analysis\\spells-0.19\\baseline-source\\weapon-art.ts",
+    "Hash": "D5D401E32E388EA15400EED54FD488C61F2D8B3D87E6741BEA9AB784DA188625"
+  }
+]

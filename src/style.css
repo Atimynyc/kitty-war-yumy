@@ -152,17 +152,12 @@ h1 > span { color: var(--orange); }
 .tech-card .upgrade-info small { color: #a398af; }
 .tech-card .upgrade-action { color: #a08eb3; }
 #research-progress { position: absolute; bottom: 0; height: 4px; left: 0; background: #b6a2c9; }
-.roar-card { background: #f6e8dc; border-color: #e8d3bf; }
-.roar-card .upgrade-symbol { background: #efd8c4; border-color: #e5c6ac; color: #bd9069; }
-.roar-card .upgrade-info strong span { color: #b99a7b; border-color: #dfc9b3; }
-.roar-card .upgrade-info small { color: #ad967e; }
-.roar-card .upgrade-action { color: #b98358; }
 footer { display: flex; justify-content: space-between; align-items: center; margin: 25px 0 23px; color: #b7af9d; font-size: 10px; }
 footer > span { display: flex; align-items: center; gap: 5px; }
 footer svg { width: 12px; height: 12px; transform: rotate(-20deg); }
 footer i { font-style: normal; margin: 0 6px; }
 kbd { border: 1px solid #e1dbce; border-radius: 3px; padding: 1px 4px; font: 9px 'Trebuchet MS', sans-serif; }
-dialog { max-width: min(640px, calc(100vw - 30px)); max-height: calc(100dvh - 40px); padding: 32px; border: 1px solid #d9c7ab; border-radius: 20px; background: #fffaf0; color: var(--ink); box-shadow: 0 20px 80px #56442c33; }
+dialog { width: calc(100vw - 30px); max-width: 640px; max-height: calc(var(--app-height, 100vh) - 40px); padding: 32px; border: 1px solid #d9c7ab; border-radius: 20px; background: #fffaf0; color: var(--ink); box-shadow: 0 20px 80px #56442c33; }
 dialog::backdrop { background: #51463065; backdrop-filter: blur(3px); }
 .dialog-close { position: absolute; right: 15px; top: 12px; width: 30px; height: 30px; background: none; border: 0; font-size: 24px; color: #ac9a7f; }
 dialog h2 { font-size: 25px; margin: 12px 0; }
@@ -193,7 +188,7 @@ dialog h2 { font-size: 25px; margin: 12px 0; }
   .battle-heading { padding: 13px 0 12px; }
   h1 { font-size: 22px; margin-top: 5px; }
   .status-bar { padding: 12px 18px; }
-  #battle-canvas { aspect-ratio: auto; height: clamp(235px, calc(100dvh - 580px), 420px); }
+  #battle-canvas { aspect-ratio: auto; height: calc(var(--app-height, 100vh) - 580px); min-height: 235px; max-height: 420px; }
   .field-note { min-height: 32px; padding: 6px 3px; }
   .section-label { margin: 6px 0 10px; }
   .unit-card { padding-top: 6px; }

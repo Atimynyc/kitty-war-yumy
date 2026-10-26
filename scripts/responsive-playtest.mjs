@@ -21,7 +21,9 @@ const cases = [
 ];
 const inspect = async page => page.evaluate(() => {
   const rect = element => { const r = element.getBoundingClientRect(); return { x: r.x, y: r.y, width: r.width, height: r.height, right: r.right, bottom: r.bottom }; };
-  const selectors = ['#sound', '#help', '#pause', '#speed', ...Array.from(document.querySelectorAll('.unit-card')).map(e => `#${e.id}`), '#upgrade-economy', '#upgrade-tech', '#roar', '#catnip'];
+  const grid = rect(document.querySelector('.unit-grid'));
+  const visibleCards = Array.from(document.querySelectorAll('.unit-card')).filter(e => { const r=rect(e); return r.y >= grid.y - 1 && r.bottom <= grid.bottom + 1; });
+  const selectors = ['#sound', '#help', '#pause', '#speed', ...visibleCards.map(e => `#${e.id}`), '#upgrade-economy', '#upgrade-tech', '#treat', '#catnip', '#bombard'];
   return {
     scrollY: window.scrollY, layout: document.documentElement.dataset.layout, viewport: { width: innerWidth, height: innerHeight },
     scroll: { width: document.documentElement.scrollWidth, height: document.documentElement.scrollHeight },
@@ -71,6 +73,7 @@ function validate(info, name) {
 }
 const fixture = () => {
   const b = window.__catGame.battle; b.aiEnabled = false; b.units = []; b.effects = [];
+  b.playerRoster=Object.keys(b.armies.player.cooldowns); // Full-roster visual fixture, independent of first-time progress.
   const kinds = ['mouse', 'soldier', 'shield', 'slinger', 'mage', 'catapult', 'healer', 'knight'];
   const positions = [665, 625, 580, 465, 445, 330, 400, 635];
   for (const side of ['player', 'enemy']) {
@@ -94,7 +97,7 @@ try {
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
       await page.screenshot({ path: path.join(output, `${engine}-${name}-home.png`) });
       await page.locator('#choose-level').click();
-      await page.locator('#level-sunroom').click();
+      await page.locator('#level-campaign-01').click();
       await page.screenshot({ path: path.join(output, `${engine}-${name}-levels.png`) });
       await page.locator('#level-start').click();
       await page.waitForTimeout(120);
@@ -123,12 +126,12 @@ try {
       await page.evaluate(()=>{
         // Freeze this input/layout fixture so the cannon cannot kill the target before the click.
         window.advanceTime(0);
-        const b=window.__catGame.battle;b.armies.player.energy=50;
+        const b=window.__catGame.battle;b.armies.player.energy=70;
         const foe=b.units.find(u=>u.side==='enemy' && u.hp>0);
-        if(!foe)throw new Error('Roar layout fixture requires a living enemy');
+        if(!foe)throw new Error('Bombard layout fixture requires a living enemy');
         foe.x=300;window.__catGame.render();
       });
-      await page.locator('#roar').click();
+      await page.locator('#bombard').click();
       assert.equal(await page.evaluate(() => window.__catGame.battle.armies.player.energy),0);
       if (name === 'iphone-14' || name === 'tiny-portrait') {
         await page.locator('#help').click();

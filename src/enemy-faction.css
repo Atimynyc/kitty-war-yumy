@@ -1,0 +1,16 @@
+.enemy-roster { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 9px 0; list-style: none; }
+.enemy-roster li { display: flex; align-items: center; gap: 3px; padding: 3px 8px 3px 2px; border: 1px solid #ead6c2; border-radius: 9px; background: #fbf0df; }
+.enemy-roster img { width: 36px; height: 36px; flex-shrink: 0; }
+.enemy-roster span { color: #80523e; font-size: 11px; line-height: 1.5; }
+.stage-detail .enemy-roster small { font-size: 9px; color: #9c7c5e; }
+.enemy-guide { margin: 16px 0; border: 1px solid #e6cbb6; border-radius: 10px; background: #fcf4e8; }
+.enemy-guide summary { cursor: pointer; padding: 14px; color: #94513d; font-size: 14px; font-weight: 700; min-height: 44px; }
+.enemy-guide > p { margin: 0 14px 12px; font-size: 12px; color: #8f7058; line-height: 1.7; }
+.enemy-guide .guide-units { padding: 12px; }
+.enemy-guide .guide-units p { color: #856a52; }
+.enemy-guide .guide-units strong { color: #8f4e39; }
+.enemy-guide .guide-units img { width: 64px; height: 64px; }
+.rival .team-avatar { background: #f8e5d2; color: #b85b49; }
+.rival .health-track span, .enemy-label .health-track span { background: #bf795c; }
+html[data-layout='portrait'] .enemy-label { color: #9c5b43; }
+html[data-layout='portrait'] .enemy-label .health-track span { background: #bf795c; }

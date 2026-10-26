@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "scope": "Static checks; not platform or real-device acceptance",
+  "files": [
+    {
+      "name": "assets/game.css",
+      "bytes": 87528,
+      "sha256": "2732d433a7b6d581b618a5803d7f4411f1a18472e373a7c33b4874b8047dd2c5"
+    },
+    {
+      "name": "assets/game.js",
+      "bytes": 1098200,
+      "sha256": "eb10d7ba83d2b7aed6654893440b0a0e0873fb4200d42000773061777e1f1cf2"
+    },
+    {
+      "name": "favicon.svg",
+      "bytes": 403,
+      "sha256": "951c8a95fae5aaf27c5103328a267b3ccb7c6d3545d4c54175c9c0537aab7ef2"
+    },
+    {
+      "name": "index.html",
+      "bytes": 687,
+      "sha256": "226879082932786bc1f1d7e67f3ba091e5b2c01c1cd417122a57594455abd86a"
+    }
+  ],
+  "checks": [
+    "root index.html",
+    "allowlisted file types",
+    "all resource references resolve locally",
+    "external classic script",
+    "no inline handlers or custom CSP",
+    "banned API scan including engine code",
+    "JS AST syntax scan plus ES2017/Chrome61 build target",
+    "CSS fallback review",
+    "Base64 and generated SVG sizes"
+  ],
+  "javascriptASTNodes": 385389,
+  "base64Count": 3,
+  "largestBase64Bytes": 117,
+  "generatedSVGVariants": 3139,
+  "largestSVGBytes": 6791,
+  "totalUncompressedBytes": 1186818,
+  "pending": [
+    "Xiaohongshu creator-platform simulator",
+    "Android device QR scan",
+    "iOS device QR scan",
+    "actual Chrome61 CSS and runtime compatibility",
+    "real-device startup, FPS and memory"
+  ]
+}

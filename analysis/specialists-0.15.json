@@ -1,0 +1,145 @@
+{
+  "scope": "Nine fixed strategies with normal resource and recruitment rules; not human win rates",
+  "seed": 1234,
+  "fingerprints": {
+    "src/game/content.ts": "876f903c7610a8e5ed5bc917d951b889f71def7a208e5ec5530a741e0742ae9f",
+    "src/game/simulation.ts": "0367aa361b13236ad68c7b70b654174edb8c3b86f628437574004b355b6f9a0f",
+    "scripts/specialists-balance.mjs": "869b72e07f571c1d7c526bba343179f87770f33457209c61eb5a676e2da96359"
+  },
+  "results": [
+    {
+      "stage": 5,
+      "strategy": "mixed",
+      "winner": "enemy",
+      "seconds": 170,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "recruited": {
+        "soldier": 7,
+        "umbrella": 13,
+        "kungfu": 3,
+        "gunner": 1
+      }
+    },
+    {
+      "stage": 5,
+      "strategy": "guns",
+      "winner": "player",
+      "seconds": 168,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "recruited": {
+        "soldier": 11,
+        "shield": 2,
+        "slinger": 2,
+        "umbrella": 2,
+        "gunner": 3,
+        "healer": 1,
+        "drummer": 1,
+        "litter": 1
+      }
+    },
+    {
+      "stage": 5,
+      "strategy": "assassins",
+      "winner": "enemy",
+      "seconds": 176,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "recruited": {
+        "soldier": 11,
+        "kungfu": 1,
+        "shield": 1,
+        "assassin": 11
+      }
+    },
+    {
+      "stage": 15,
+      "strategy": "mixed",
+      "winner": "enemy",
+      "seconds": 138,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "recruited": {
+        "soldier": 7,
+        "umbrella": 11,
+        "kungfu": 3
+      }
+    },
+    {
+      "stage": 15,
+      "strategy": "guns",
+      "winner": "player",
+      "seconds": 209,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "recruited": {
+        "soldier": 15,
+        "shield": 5,
+        "slinger": 4,
+        "umbrella": 2,
+        "gunner": 3,
+        "healer": 1,
+        "drummer": 1,
+        "litter": 1
+      }
+    },
+    {
+      "stage": 15,
+      "strategy": "assassins",
+      "winner": "enemy",
+      "seconds": 179,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "recruited": {
+        "soldier": 7,
+        "kungfu": 16,
+        "shield": 10
+      }
+    },
+    {
+      "stage": 30,
+      "strategy": "mixed",
+      "winner": "enemy",
+      "seconds": 169,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "recruited": {
+        "soldier": 7,
+        "umbrella": 13,
+        "kungfu": 6
+      }
+    },
+    {
+      "stage": 30,
+      "strategy": "guns",
+      "winner": "player",
+      "seconds": 313,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "recruited": {
+        "soldier": 22,
+        "shield": 4,
+        "slinger": 3,
+        "umbrella": 10,
+        "gunner": 4,
+        "healer": 3,
+        "drummer": 4,
+        "litter": 1
+      }
+    },
+    {
+      "stage": 30,
+      "strategy": "assassins",
+      "winner": "enemy",
+      "seconds": 153,
+      "playerHp": 0,
+      "enemyHp": 3000,
+      "recruited": {
+        "soldier": 7,
+        "kungfu": 13,
+        "shield": 9
+      }
+    }
+  ]
+}

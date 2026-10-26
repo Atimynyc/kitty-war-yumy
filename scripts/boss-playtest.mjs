@@ -10,6 +10,7 @@ const report=[];
 try {
   for(const size of [{width:390,height:844},{width:320,height:568}]) {
     const page=await browser.newPage({viewport:size,deviceScaleFactor:2}),errors=[];
+    await page.addInitScript(() => localStorage.setItem('paw-pantry-progress-qa-v3', JSON.stringify({ version: 2, legacy: {}, campaign: Object.fromEntries(Array.from({ length: 29 }, (_, i) => [`campaign-${String(i + 1).padStart(2, '0')}`, { stars: 1, bestTime: 200, ratingVersion: 2 }])) })));
     page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
     const advance=ms=>page.evaluate(ms=>window.advanceTime(ms),ms);
     const read=()=>page.evaluate(()=>({text:JSON.parse(window.render_game_to_text()),poses:window.__catGame.getAnimations()}));
@@ -21,7 +22,7 @@ try {
     await page.locator('#loading').waitFor({state:'detached'});await page.locator('#start').click();await advance(0);
     // Trigger through real damage crossing 30%, preserving the same entry path as live play.
     await page.evaluate(()=>{
-      const b=window.__catGame.battle;b.reset('pantry');b.start();b.aiEnabled=false;
+      const b=window.__catGame.battle;b.reset('campaign-30');b.start();b.aiEnabled=false;
       b.armies.player.cannonCooldown=b.armies.enemy.cannonCooldown=1000;
       b.armies.enemy.hp=901;b.summon('player','soldier');
       Object.assign(b.units[0],{x:1265,row:1,targetRow:1,attackCooldown:0});
@@ -72,7 +73,7 @@ try {
     const swipe=await capture('sweep');
     assert.ok(swipe.poses.find(p=>p.kind==='boss').parts.rightHand.x<raisedPose.parts.rightHand.x-25);
     assert.ok(swipe.poses.some(p=>p.kind==='shield' && p.state==='hurt'));
-    const panel=await page.locator('#boss-status').boundingBox(),rail=await page.locator('#roar').boundingBox();
+    const panel=await page.locator('#boss-status').boundingBox(),rail=await page.locator('#bombard').boundingBox();
     assert.ok(panel.x>=0 && panel.x+panel.width<size.width);
     if(rail)assert.ok(panel.x+panel.width<=rail.x,'boss status must leave skill rail clear');
     await advance(400);const recovered=await capture('recovered');
@@ -87,16 +88,16 @@ try {
     await page.evaluate(()=>{const b=window.__catGame.battle;b.units.find(u=>u.kind==='boss').hp=0;window.advanceTime(1000/30);});
     assert.equal((await read()).text.boss.state,'defeated');await capture('defeated');await advance(900);
     assert.equal((await read()).poses.some(p=>p.kind==='boss'),false);
-    await page.evaluate(()=>{const b=window.__catGame.battle;b.reset('pantry');b.start();window.advanceTime(0);});
+    await page.evaluate(()=>{const b=window.__catGame.battle;b.reset('campaign-30');b.start();window.advanceTime(0);});
     assert.equal(await page.locator('#boss-status').isVisible(),false);assert.equal((await read()).text.boss.spawned,false);
     await capture('reset');
     if(size.width===390) {
       const natural=await page.evaluate(()=>{
-        const b=window.__catGame.battle;b.reset('pantry');b.start();b.aiEnabled=true;b.upgradeEconomy('player');
+        const b=window.__catGame.battle;b.reset('campaign-30');b.start();b.aiEnabled=true;b.upgradeEconomy('player');
         for(let frame=0;frame<30*600 && b.phase==='playing';frame++) {
           if(frame%15===0) {
             const a=b.armies.player,allies=b.units.filter(u=>u.side==='player'),count=kind=>allies.filter(u=>u.kind===kind).length;
-            if(b.units.some(u=>u.side==='enemy' && u.x<430))b.roar('player');
+            if(b.units.some(u=>u.side==='enemy' && u.x<430))b.bombard('player');
             if(allies.filter(u=>u.attacking && u.catnip<=2).length>=5)b.catnip('player');
             let saving=false;
             if(allies.length>=2 && a.hp>1500) {

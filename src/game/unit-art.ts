@@ -2,6 +2,10 @@ import type { Side, UnitKind } from './content.ts';
 import { driedFish, teaserWand } from './weapon-art.ts';
 import { knightParts } from './knight-art.ts';
 import { bossParts } from './boss-art.ts';
+import { enemyParts } from './enemy-art.ts';
+import { SPECIALIST_ORDER } from './content.ts';
+import type { SpecialistKind } from './content.ts';
+import { specialistParts, toyCannonParts } from './specialist-art.ts';
 
 export type PartName = 'body' | 'leftFoot' | 'rightFoot' | 'rearLeftFoot' | 'rearRightFoot' | 'rider' | 'leftHand' | 'rightHand';
 export type UnitLook = 'back' | 'front' | 'side';
@@ -13,6 +17,9 @@ export const unitStarsSVG = wrap('<g fill="#ffe39a" stroke="#bc965c" stroke-widt
 /** All parts share a canvas; each supplied pivot is the hand/ankle/body attachment. */
 export function unitParts(kind: UnitKind, side: Side, look: UnitLook = side === 'player' ? 'back' : 'front'): UnitPart[] {
   if (kind === 'boss') return bossParts(look);
+  if (side === 'enemy') return enemyParts(kind, look);
+  if (SPECIALIST_ORDER.some(item => item === kind)) return specialistParts(kind as SpecialistKind, look);
+  if (kind === 'catapult') return toyCannonParts(look);
   if (kind === 'knight') return knightParts(side, look);
   const friendly = side === 'player';
   const fur = friendly ? '#f5d19a' : '#ddd0e9', accent = friendly ? '#80a38a' : '#a494b9';
@@ -22,11 +29,6 @@ export function unitParts(kind: UnitKind, side: Side, look: UnitLook = side === 
     part('leftFoot', 37, 91, wheel(37)), part('rightFoot', 91, 91, wheel(91)),
     part('body', 64, 76, `<path d="M64 101q-20 23-30 5" fill="none" stroke="#ce9a8e" stroke-width="5"/><ellipse cx="64" cy="75" rx="29" ry="31" fill="#cec1b5"/><path d="M40 54q8-23 24-29 18 9 25 29" fill="#cec1b5"/><circle cx="38" cy="52" r="14" fill="#e3b6ad"/><circle cx="90" cy="52" r="14" fill="#e3b6ad"/><circle cx="64" cy="25" r="5" fill="#d99491"/><path d="M53 42v3m22-3v3" stroke-width="4"/><path d="M42 77h44v10H42Z" fill="${accent}"/>`),
     part('rightHand', 64, 67, '<path d="M61 74V61h-8v-9h22v9h-8v13" fill="#e7c285"/>'),
-  ];
-  if (kind === 'catapult') return [
-    part('leftFoot', 27, 91, wheel(27)), part('rightFoot', 101, 91, wheel(101)),
-    part('body', 64, 80, `<path d="M34 58h60v42H34Z" fill="#c8a375"/><path d="M41 59V49h46v10" fill="#e4c28e"/><path d="m48 97 1-16 13 9 14-9 2 18q-2 19-16 17-16 1-14-19" fill="${fur}"/><path d="M55 99v3m14-3v3"/>`),
-    part('rightHand', 64, 75, `<path d="M64 78V31" stroke="#957354" stroke-width="10"/><path d="m48 35 4-17h24l4 17Z" fill="#e5c599"/><circle cx="64" cy="25" r="14" fill="${accent}"/><path d="m54 17 18 17m-22-9 19 14" stroke="#fbefce" stroke-width="2"/>`),
   ];
   const hat = kind === 'mage'
     ? '<path d="m29 42 28-35 14 12 13 22Z" fill="#a89aca"/><path d="M24 43q37-12 76 0l-3 7H27Z" fill="#c9bce4"/><path d="m58 23 3-6 3 6 6 1-5 4 1 6-5-3-5 3 1-6-5-4Z" fill="#ffe3a1" stroke-width="1.5"/>'

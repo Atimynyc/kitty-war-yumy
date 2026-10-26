@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import { Battle } from '../src/game/simulation.ts';
-import { LEVELS } from '../src/game/levels.ts';
+import { LEGACY_LEVELS as LEVELS } from '../src/game/levels.ts';
 import { UNITS, UNIT_ORDER, FOOD_RATES, ECONOMY_COSTS, TECH_COSTS, TECH_TIMES, BASE_HP, STARTING_FOOD, MAX_POPULATION } from '../src/game/content.ts';
 import { STRATEGIES, simulateStrategy } from './balance.mjs';
 

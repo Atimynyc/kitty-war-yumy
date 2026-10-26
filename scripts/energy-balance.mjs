@@ -1,6 +1,6 @@
 import { Battle } from '../src/game/simulation.ts';
 import * as content from '../src/game/content.ts';
-import { LEVELS } from '../src/game/levels.ts';
+import { LEGACY_LEVELS as LEVELS } from '../src/game/levels.ts';
 import { STRATEGIES, simulateStrategy } from './balance.mjs';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';

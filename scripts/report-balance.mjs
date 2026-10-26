@@ -2,7 +2,7 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { isDeepStrictEqual } from 'node:util';
 import { CANDIDATES, BASELINE, OUTPUT, applyConfig, restoreRuntime, unitMetrics, economyMetrics, compact } from './balance-lab.mjs';
-import { LEVELS } from '../src/game/levels.ts';
+import { LEGACY_LEVELS as LEVELS } from '../src/game/levels.ts';
 import { TECH_COSTS, TECH_TIMES } from '../src/game/content.ts';
 
 const chosen='focused_no_heal';

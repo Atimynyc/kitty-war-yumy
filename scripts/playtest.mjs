@@ -15,6 +15,8 @@ if (!executablePath && !existsSync(chromium.executablePath()) && existsSync(cach
 }
 const browser = await chromium.launch({ headless: true, executablePath });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
+// This full-roster mechanics regression represents an existing player; first-time gates have their own suite.
+await page.addInitScript(()=>{const key='paw-pantry-progress-qa-v3';if(!localStorage.getItem(key))localStorage.setItem(key,JSON.stringify({version:3,campaign:{},achievements:{stats:{recruited:['mouse','soldier','shield','slinger','mage','catapult','healer','knight','gunner','litter','kungfu','assassin','umbrella','drummer','hook','boxer']}}}));});
 const errors = [];
 page.on('pageerror', error => errors.push(error.message));
 page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
@@ -33,16 +35,17 @@ try {
   await page.keyboard.press('1');
   assert.equal(await check(() => window.__catGame.battle.armies.player.hired), 0);
   await page.locator('#choose-level').click();
-  await page.locator('#level-cardboard').click();
-  assert.equal(await page.locator('#level-cardboard').getAttribute('aria-pressed'), 'true');
+  await page.locator('#level-campaign-01').click();
+  assert.equal(await page.locator('#level-campaign-01').getAttribute('aria-pressed'), 'true');
   assert.equal(await check(() => window.__catGame.battle.time), 0);
   await capture('desktop-levels');
   await page.locator('#level-start').click();
-  assert.equal(await check(() => window.__catGame.battle.level.id), 'cardboard');
+  assert.equal(await check(() => window.__catGame.battle.level.id), 'campaign-01');
   await page.locator('#pause').click();
   await page.locator('#pause-home').click();
   assert.equal(await check(() => window.__catGame.getScreen()), 'home');
   await page.locator('#start').click();
+  await page.locator('#resume').click();
   await page.locator('#hire-mouse').click();
   await page.locator('#hire-soldier').click();
   assert.equal(await check(() => window.__catGame.battle.armies.player.hired), 2);
@@ -100,17 +103,17 @@ try {
   await capture('desktop-battle');
   await check(() => {
     const b = window.__catGame.battle;
-    b.units.find(u => u.side === 'enemy' && u.kind === 'shield').x = 300; b.armies.player.energy = 50;
+    b.units.find(u => u.side === 'enemy' && u.kind === 'shield').x = 300; b.armies.player.energy = 70;
     window.__catGame.render();
   });
   await page.keyboard.press('Space');
   assert.equal(await check(() => window.__catGame.battle.armies.player.energy),0);
-  assert.ok(await check(() => window.__catGame.battle.units.some(u => u.side === 'enemy' && u.slow > 0)));
+  assert.ok(await check(() => window.__catGame.battle.effects.some(fx => fx.type === 'bombard' && !fx.landed)));
   const shotsBefore = await check(() => window.__catGame.battle.armies.player.cannonShots);
   await check(() => window.__catGame.advance(3));
   assert.ok(await check(() => window.__catGame.battle.armies.player.cannonShots) > shotsBefore);
   assert.match(await page.locator('#cannon-status').textContent(), /85/);
-  const categories = await check(() => ['#hire-soldier', '#upgrade-economy', '#upgrade-tech', '#roar', '#catnip'].map(id => getComputedStyle(document.querySelector(id)).backgroundColor));
+  const categories = await check(() => ['#hire-soldier', '#upgrade-economy', '#upgrade-tech', '#bombard', '#catnip'].map(id => getComputedStyle(document.querySelector(id)).backgroundColor));
   assert.equal(new Set(categories).size, 5);
   await capture('desktop-cannon');
   await page.locator('#speed').click();
@@ -123,13 +126,14 @@ try {
   });
   assert.equal(await check(() => window.__catGame.battle.winner), 'player');
   await capture('desktop-victory');
-  assert.ok(await check(() => JSON.parse(localStorage.getItem('paw-pantry-progress-v1')).cardboard.stars >= 1));
+  assert.ok(await check(() => JSON.parse(localStorage.getItem('paw-pantry-progress-qa-v3')).campaign['campaign-01'].stars >= 1));
   await page.locator('#next-level').click();
-  assert.equal(await check(() => window.__catGame.battle.level.id), 'pantry');
+  assert.equal(await check(() => window.__catGame.battle.level.id), 'campaign-02');
   await page.locator('#pause').click();
   await page.locator('#pause-levels').click();
-  assert.match(await page.locator('[data-record="cardboard"]').textContent(), /已通关/);
+  assert.match(await page.locator('#level-campaign-01').getAttribute('aria-label'), /已通关/);
   await page.locator('#level-start').click();
+  await page.locator('#replace-confirm').click();
   assert.equal(await check(() => window.__catGame.battle.armies.player.tech), 1);
   assert.equal(await check(() => window.__catGame.battle.units.length), 0);
   // Run a complete losing match from normal starting resources, with the real computer.
@@ -143,7 +147,8 @@ try {
   await page.locator('#loading').waitFor({ state: 'detached' });
   await capture('laptop-home');
   await page.locator('#start').click();
-  assert.ok(await check(() => document.querySelector('#roar').getBoundingClientRect().bottom < innerHeight));
+  await page.locator('#resume').click();
+  assert.ok(await check(() => document.querySelector('#bombard').getBoundingClientRect().bottom < innerHeight));
   await page.locator('#hire-soldier').click();
   assert.equal(await check(() => window.__catGame.battle.armies.player.hired), 1);
   await page.setViewportSize({ width: 390, height: 844 });
@@ -152,15 +157,17 @@ try {
   assert.ok(await check(() => document.documentElement.scrollWidth <= window.innerWidth));
   await capture('mobile-ready');
   await page.locator('#start').click();
+  await page.locator('#resume').click();
+  await check(() => window.__catGame.advance(3));
   await page.locator('#hire-soldier').click();
-  assert.equal(await check(() => window.__catGame.battle.armies.player.hired), 1);
+  assert.equal(await check(() => window.__catGame.battle.armies.player.hired), 2);
   await capture('mobile-battle');
   await page.setViewportSize({ width: 844, height: 390 });
   await page.waitForTimeout(200);
   assert.ok(await check(() => document.documentElement.scrollWidth <= window.innerWidth));
   await capture('mobile-landscape');
   assert.deepEqual(errors, []);
-  console.log(JSON.stringify({ status: 'passed', scenarios: ['home idle', 'level selection', 'menu navigation', 'saved stars', 'next level', 'cannon damage', 'button categories', 'boot', 'recruitment', 'pause', 'guide', 'income upgrade', 'both technology tiers', 'all eight units', 'roar', 'speed', 'victory', 'restart', 'full AI defeat', 'laptop controls visible', 'mobile portrait', 'vertical board after phone rotation'], browserErrors: errors, screenshots: output }, null, 2));
+  console.log(JSON.stringify({ status: 'passed', scenarios: ['home idle', 'level selection', 'menu navigation', 'saved stars', 'next level', 'cannon damage', 'button categories', 'boot', 'recruitment', 'pause', 'guide', 'income upgrade', 'both technology tiers', 'all eight units', 'bombard', 'speed', 'victory', 'restart', 'full AI defeat', 'laptop controls visible', 'mobile portrait', 'vertical board after phone rotation'], browserErrors: errors, screenshots: output }, null, 2));
 } catch (error) {
   console.error(JSON.stringify({ browserErrors: errors, url: page.url() }, null, 2));
   await capture('failure');

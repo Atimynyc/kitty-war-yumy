@@ -1,0 +1,15 @@
+{
+  "version": "0.12.0",
+  "date": "2026-10-24",
+  "stages": 30,
+  "runs": 180,
+  "playerWins": 85,
+  "timeouts": 10,
+  "sources": {
+    "src/game/campaign.ts": "212d316f819706d53a37d865ad2d2edefa609a48cd7527fbb362e3d1743cd64d",
+    "src/game/levels.ts": "a05aa637574cc172ae0838ccab6bab152e65d5cdbd8fa9e1c91b22d7140b88c8",
+    "src/game/simulation.ts": "c65bcb2d1f95836b31c4d479459da02bd460bf4c42975d57d145b49c16dc1cac",
+    "src/game/content.ts": "4310bf3e4501ed0ad9e0d1f6dc81da66751b35af8ca8616f7e605f6cd80950ac",
+    "scripts/balance.mjs": "b130b86e4e0e1e384749f8cf76bbc5e20aa1f1ab115e2ae4908045ead0372481"
+  }
+}

@@ -1,5 +1,8 @@
 /* Game-sized viewports, including browser chrome and notched display safe areas. */
-:root { --safe-top: env(safe-area-inset-top, 0px); --safe-bottom: env(safe-area-inset-bottom, 0px); --safe-left: env(safe-area-inset-left, 0px); --safe-right: env(safe-area-inset-right, 0px); }
+:root { --safe-top: var(--safe-area-inset-top, 0px); --safe-bottom: var(--safe-area-inset-bottom, 0px); --safe-left: var(--safe-area-inset-left, 0px); --safe-right: var(--safe-area-inset-right, 0px); }
+@supports (padding-top: env(safe-area-inset-top)) {
+  :root { --safe-top: var(--safe-area-inset-top, env(safe-area-inset-top, 0px)); --safe-bottom: var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px)); --safe-left: var(--safe-area-inset-left, env(safe-area-inset-left, 0px)); --safe-right: var(--safe-area-inset-right, env(safe-area-inset-right, 0px)); }
+}
 body { min-width: 280px; }
 .arena-base-label, .portrait-direction { display: none; }
 .upgrade-info strong b { font-weight: inherit; }
@@ -8,9 +11,10 @@ html[data-phase='ended'] .health-track span { transition: none; }
 html[data-layout='portrait'] body { overflow-x: hidden; overflow-y: auto; overscroll-behavior: none; }
 html[data-layout='portrait'] .game-shell {
   height: 100vh;
-  height: max(560px, var(--app-height, 100dvh));
+  height: var(--app-height, 100vh); min-height: 560px;
   max-width: 1500px;
-  padding: max(4px, var(--safe-top)) max(8px, var(--safe-right)) max(6px, var(--safe-bottom)) max(8px, var(--safe-left));
+  padding: calc(4px + var(--safe-top)) calc(8px + var(--safe-right)) calc(6px + var(--safe-bottom)) calc(8px + var(--safe-left));
+
   display: flex; flex-direction: column; gap: 5px; overflow: hidden;
 }
 html[data-layout='portrait'] .site-header { height: 44px; min-height: 44px; flex: 0 0 44px; border: 0; gap: 6px; }
@@ -41,7 +45,7 @@ html[data-layout='portrait'] .time-status .resource-label { display: none; }
 html[data-layout='portrait'] .time-status > strong { font-size: 18px; }
 html[data-layout='portrait'] #speed { min-width: 44px; min-height: 44px; margin-right: -9px; padding: 0; border: 0; background: none; font-size: 13px; }
 html[data-layout='portrait'] .arena-frame { min-width: 0; min-height: 0; border-radius: 12px; }
-html[data-layout='portrait'] #battle-canvas { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; }
+html[data-layout='portrait'] #battle-canvas { position: absolute; inset: 0; width: 100%; height: 100%; min-height: 0; max-height: none; aspect-ratio: auto; }
 html[data-layout='portrait'] .arena-badge { display: none; }
 html[data-layout='portrait'] .arena-population { top: 10px; right: 10px; font-size: 11px; padding: 4px 6px; gap: 5px; }
 html[data-layout='portrait'] .arena-population strong { font-size: 11px; }
@@ -77,7 +81,6 @@ html[data-layout='portrait'] .upgrade-info { flex: 0 1 auto; align-items: center
 html[data-layout='portrait'] .upgrade-info strong { font-size: 12px; line-height: 16px; }
 html[data-layout='portrait'] .upgrade-info strong span { font-size: 10px; margin-left: 1px; padding: 0 2px; }
 html[data-layout='portrait'] .upgrade-info small { font-size: 11px; line-height: 14px; margin-top: 0; white-space: nowrap; }
-html[data-layout='portrait'] .roar-card .upgrade-info small { display: none; }
 html[data-layout='portrait'] .upgrade-action { width: auto; max-width: 100%; flex-wrap: nowrap; justify-content: center; gap: 2px; font-size: 12px; line-height: 16px; }
 html[data-layout='portrait'] .upgrade-action > span:last-child { flex-basis: auto; font-size: 11px; margin: 0 0 0 2px; white-space: nowrap; }
 html[data-layout='portrait'] .upgrade-action .inline-icon svg { width: 11px; height: 11px; }
@@ -94,12 +97,12 @@ html[data-layout='portrait'] .primary-button { min-height: 44px; font-size: 13px
 html[data-layout='portrait'] .subtle-button { min-height: 44px; font-size: 12px; margin: 5px auto 0; }
 html[data-layout='portrait'] .result-stats span { font-size: 11px; }
 html[data-layout='portrait'] .result-paw { display: none; }
-html[data-layout='portrait'] dialog { max-width: calc(100vw - 20px - var(--safe-left) - var(--safe-right)); max-height: calc(var(--app-height, 100dvh) - 20px - var(--safe-top) - var(--safe-bottom)); overflow-y: auto; overscroll-behavior: contain; padding: 24px 18px; }
+html[data-layout='portrait'] dialog { max-width: calc(100vw - 20px - var(--safe-left) - var(--safe-right)); max-height: calc(var(--app-height, 100vh) - 20px - var(--safe-top) - var(--safe-bottom)); overflow-y: auto; overscroll-behavior: contain; padding: 24px 18px; }
 html[data-layout='portrait'] .dialog-close { min-width: 44px; min-height: 44px; top: 0; right: 0; }
 html[data-layout='portrait'] .guide-units p,
 html[data-layout='portrait'] .guide-fair { font-size: 12px; }
 
-html[data-layout='portrait'] .game-shell { max-width: clamp(340px, calc(var(--app-height, 100dvh) * .66), 520px); }
+html[data-layout='portrait'] .game-shell { width: 100%; max-width: var(--game-width, 520px); }
 html[data-layout='portrait'] main { grid-template-rows: 44px minmax(100px, 1fr) 150px 52px; }
 html[data-layout='portrait'] .status-bar { grid-row: 1; }
 html[data-layout='portrait'] .arena-frame { grid-row: 2; }

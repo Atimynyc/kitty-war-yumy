@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { Battle } from '../src/game/simulation.ts';
-import { BASE_X, ENERGY, ENERGY_REWARDS, UNIT_ORDER, UNITS } from '../src/game/content.ts';
+import { BASE_X, CATNIP, SPELLS, ENERGY, ENERGY_REWARDS, UNIT_ORDER, ENEMY_ORDER, UNITS } from '../src/game/content.ts';
 import type { Side, UnitKind } from '../src/game/content.ts';
 
 function create(){const b=new Battle();b.start();b.aiEnabled=false;b.armies.player.cannonCooldown=b.armies.enemy.cannonCooldown=1000;return b;}
@@ -12,21 +12,22 @@ function spawn(b:Battle,side:Side,kind:UnitKind,x:number){
 function step(b:Battle,seconds:number){for(let t=0;t<seconds-1e-8;t+=1/30)b.step(Math.min(1/30,seconds-t));}
 
 test('50 starting energy permits exactly one choice of skill for either army; time grants none',()=>{
-  for(const side of ['player','enemy'] as Side[])for(const first of ['roar','catnip'] as const){
+  for(const side of ['player','enemy'] as Side[])for(const first of ['treat','catnip'] as const){
     const b=create(),foe=side==='player'?'enemy':'player';
-    spawn(b,side,'soldier',700);spawn(b,foe,'shield',BASE_X[side]+(side==='player'?100:-100));
+    spawn(b,side,'soldier',700).hp=100;spawn(b,foe,'shield',BASE_X[side]+(side==='player'?100:-100));
     assert.equal(b.armies[side].energy,50);assert.ok(b[first](side));
-    assert.equal(b.armies[side].energy,0);assert.equal(b.armies[side].energySpent,50);
-    assert.equal(b.roar(side),false);assert.equal(b.catnip(side),false);
-    b.units=[];step(b,120);assert.equal(b.armies[side].energy,0);
+    assert.equal(b.armies[side].energy,50-SPELLS[first].energyCost);assert.equal(b.armies[side].energySpent,SPELLS[first].energyCost);
+    assert.equal(b.treat(side),false);assert.equal(b.bombard(side),false);assert.equal(b.catnip(side),false);
+    b.units=[];step(b,120);assert.equal(b.armies[side].energy,50-SPELLS[first].energyCost);
     b.reset();assert.equal(b.armies[side].energy,50);assert.equal(b.armies[side].energyEarned,0);assert.equal(b.armies[side].energySpent,0);
   }
 });
 
 test('every ordinary troop returns its configured reward once to the opposing army',()=>{
-  for(const side of ['player','enemy'] as Side[])for(const kind of UNIT_ORDER){
+  for(const side of ['player','enemy'] as Side[])for(const kind of side === 'player' ? ENEMY_ORDER : UNIT_ORDER){
     const b=create(),foe=side==='player'?'enemy':'player',a=spawn(b,side,'soldier',700),v=spawn(b,foe,kind,716);
     b.armies[side].energy=0;a.attackCooldown=0;v.hp=1;b.step(1/30);
+    for(let attempt=0;kind==='kungfu' && v.hp>0 && attempt<20;attempt++){a.attackCooldown=0;b.step(1/30);}
     assert.equal(b.armies[side].energy,ENERGY_REWARDS[kind],`${side} kills ${kind}`);
     assert.equal(b.armies[foe].energy,50);assert.equal(b.units.some(u=>u.id===v.id),false);
     step(b,1);assert.equal(b.armies[side].energy,ENERGY_REWARDS[kind]);
@@ -63,7 +64,7 @@ test('simultaneous deaths reward both sides and energy caps at 100 without later
   cap.armies.player.energy=98;killer.attackCooldown=0;knight.hp=1;cap.step(1/30);
   assert.equal(cap.armies.player.energy,100);assert.equal(cap.armies.player.energyEarned,2);
   assert.equal(cap.armies.player.energyOverflow,ENERGY_REWARDS.knight-2);assert.equal(cap.armies.player.energyGain,2);
-  assert.ok(cap.catnip('player'));step(cap,2);assert.equal(cap.armies.player.energy,50);
+  assert.ok(cap.catnip('player'));step(cap,2);assert.equal(cap.armies.player.energy,100-CATNIP.energyCost);
 });
 
 test('boss defeat returns a full skill; boss sweep kills reward the enemy with the same table',()=>{
@@ -74,14 +75,14 @@ test('boss defeat returns a full skill; boss sweep kills reward the enemy with t
   b.armies.enemy.energy=0;boss.sweep={remaining:.001,forwardX:-1,forwardY:0};b.step(.01);
   assert.equal(b.armies.enemy.energy,ENERGY_REWARDS.mouse+ENERGY_REWARDS.soldier);
   const killer=spawn(b,'player','soldier',680);killer.attackCooldown=0;boss.hp=1;b.armies.player.energy=0;b.step(.01);
-  assert.equal(b.armies.player.energy,50);assert.ok(b.catnip('player'));assert.equal(b.armies.player.energy,0);
+  assert.equal(b.armies.player.energy,50);assert.ok(b.catnip('player'));assert.equal(b.armies.player.energy,50-CATNIP.energyCost);
 });
 
 test('empty, paused, ended, and unaffordable actions never spend or announce; removed bodies grant nothing',()=>{
-  const b=create();assert.equal(b.roar('player'),false);assert.equal(b.catnip('player'),false);assert.equal(b.armies.player.energy,50);
+  const b=create();assert.equal(b.bombard('player'),false);assert.equal(b.catnip('player'),false);assert.equal(b.armies.player.energy,50);
   const a=spawn(b,'player','soldier',700);b.togglePause();assert.equal(b.catnip('player'),false);
   const snapshot=JSON.stringify(b.armies);step(b,10);assert.equal(JSON.stringify(b.armies),snapshot);
-  b.togglePause();b.armies.player.energy=49;assert.equal(b.catnip('player'),false);assert.equal(b.armies.player.energy,49);
+  b.togglePause();b.armies.player.energy=39;assert.equal(b.catnip('player'),false);assert.equal(b.armies.player.energy,39);
   b.armies.player.energy=50;b.phase='ended';assert.equal(b.catnip('player'),false);assert.deepEqual(b.spellNotices.visible(b.time),[]);
   b.phase='playing';a.hp=0;b.step(.01);assert.equal(b.armies.enemy.energy,50);
 });
@@ -90,7 +91,7 @@ test('banked energy allows two skills without a timer; catnip refreshes without 
   const b=create(),first=spawn(b,'player','soldier',700);b.armies.player.energy=ENERGY.max;
   assert.ok(b.catnip('player'));const later=spawn(b,'player','soldier',500);assert.equal(later.catnip,0);
   assert.ok(b.catnip('player'));assert.equal(first.catnip,10);assert.equal(later.catnip,10);
-  assert.equal(b.armies.player.energy,0);assert.equal(b.armies.player.energySpent,100);assert.equal(b.catnip('player'),false);
+  assert.equal(b.armies.player.energy,20);assert.equal(b.armies.player.energySpent,80);assert.equal(b.catnip('player'),false);
   const victim=spawn(b,'enemy','shield',716);first.attackCooldown=0;b.step(.01);
   assert.ok(Math.abs(victim.hp-(UNITS.shield.hp-UNITS.soldier.damage*1.2))<1e-8);
 });

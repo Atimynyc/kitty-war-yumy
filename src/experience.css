@@ -11,9 +11,9 @@ html:not([data-screen='battle']) .toolbar-divider,
 html:not([data-screen='battle']) footer { display: none; }
 .menu-screen { padding: 40px 0 24px; }
 .menu-screen h1:focus { outline: none; }
-.home-screen { display: grid; grid-template-columns: 1fr 1.15fr; gap: 36px; align-items: center; min-height: min(720px, calc(100dvh - 90px)); }
+.home-screen { display: grid; grid-template-columns: 1fr 1.15fr; gap: 36px; align-items: center; min-height: calc(var(--app-height, 100vh) - 90px); }
 .home-copy { padding: 20px 0 12px 20px; }
-.home-copy h1 { font-size: clamp(40px, 4.3vw, 64px); line-height: 1.3; letter-spacing: 2px; margin: 20px 0; color: #574632; }
+.home-copy h1 { font-size: 40px; font-size: clamp(40px, 4.3vw, 64px); line-height: 1.3; letter-spacing: 2px; margin: 20px 0; color: #574632; }
 .home-copy h1 span { color: #ca7952; }
 .home-lead { font-size: 15px; line-height: 2; color: #8b7962; margin: 0 0 30px; }
 .home-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; }
@@ -41,7 +41,7 @@ html:not([data-screen='battle']) footer { display: none; }
 .level-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 .level-card { position: relative; min-width: 0; border: 2px solid #e1d7c5; border-radius: 20px; background: #fffcf4; padding: 20px; text-align: left; display: flex; flex-direction: column; transition: border-color .15s, transform .15s; }
 .level-card:hover { transform: translateY(-3px); }
-.level-card[aria-pressed='true'] { border-color: var(--level-accent); box-shadow: 0 4px 0 color-mix(in srgb, var(--level-accent) 25%, transparent); }
+.level-card[aria-pressed='true'] { border-color: var(--level-accent); box-shadow: 0 4px 0 #d9d0bc; box-shadow: 0 4px 0 color-mix(in srgb, var(--level-accent) 25%, transparent); }
 .level-top { display: flex; justify-content: space-between; align-items: center; }
 .level-number { font: 700 25px 'Trebuchet MS', sans-serif; color: var(--level-accent); }
 .difficulty-tag { font-size: 11px; border: 1px solid var(--level-accent); border-radius: 30px; padding: 4px 12px; color: var(--level-accent); }
@@ -67,11 +67,6 @@ html:not([data-screen='battle']) footer { display: none; }
 .tech-card { background: #e9e0f0; border-color: #ae8ec2; }
 .tech-card .upgrade-info strong, .tech-card .upgrade-action { color: var(--research-purple); }
 .tech-card .upgrade-info small, .tech-card .upgrade-action > span:last-child { color: #86659b; }
-.roar-card { background: #d77b50; border: 2px solid #b65f39; border-radius: 26px 9px 26px 9px; box-shadow: 0 3px 0 #a8583533; }
-.roar-card .upgrade-info strong, .roar-card .upgrade-info small, .roar-card .upgrade-action, .roar-card .upgrade-action > span:last-child { color: #fff9ed; }
-.roar-card .upgrade-symbol { background: #f5c49a; border-color: #eeb480; color: #a95934; border-radius: 50%; }
-.roar-card .upgrade-action { border-left: 1px solid #edac85; padding-left: 5px; }
-.roar-card:disabled { background: #c8977d; border-color: #b58c72; box-shadow: none; }
 .upgrade-card:disabled .upgrade-action { opacity: .8; }
 .pause-navigation, .result-actions { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
 .pause-navigation .menu-secondary, .result-actions .menu-secondary { padding: 8px 14px; font-size: 12px; }
@@ -90,7 +85,7 @@ html[data-layout='portrait'] .home-actions .primary-button { min-height: 48px; f
 html[data-layout='portrait'] .home-details { justify-content: center; gap: 16px; margin-top: 22px; }
 html[data-layout='portrait'] .home-details span + span { padding-left: 16px; }
 html[data-layout='portrait'] .home-details b { font-size: 20px; }
-html[data-layout='portrait'] .home-art { width: min(100%, 470px); height: clamp(180px, 30vh, 330px); min-height: 180px; flex: 1 0 180px; border-radius: 80px 80px 15px 15px; }
+html[data-layout='portrait'] .home-art { width: 100%; max-width: 470px; height: 30vh; max-height: 330px; min-height: 180px; flex: 1 0 180px; border-radius: 80px 80px 15px 15px; }
 html[data-layout='portrait'] .home-base { width: 46%; left: 15%; bottom: 22%; }
 html[data-layout='portrait'] .home-cat { width: 27%; }
 html[data-layout='portrait'] .hero-soldier { width: 30%; }
@@ -128,10 +123,10 @@ html[data-layout='portrait'] .upgrade-action { flex-direction: column; flex-shri
 html[data-layout='portrait'] .upgrade-action > span:last-child { margin: 0; font-size: 10px; }
 html[data-layout='portrait'] .unit-cost { font-size: 11px; }
 html[data-layout='portrait'] .unit-state { font-size: 10px; }
-html[data-layout='portrait'] .roar-card { border-width: 2px; border-radius: 22px 7px 22px 7px; }
-html[data-layout='portrait'] .roar-card .upgrade-action { border: 0; padding: 0; }
 html[data-layout='portrait'] .available .unit-state { padding: 0 3px; }
 html[data-layout='portrait'] .arena-badge { display: flex; top: 51px; left: 10px; right: auto; gap: 0; padding: 4px 6px; border-radius: 5px; background: #fff8e9de; font-size: 9px; }
+.arena-badge.regrouping, html[data-layout='portrait'] .arena-badge.regrouping { color: #386747; background: #edf6e9ee; }
+.arena-badge.regrouping > span { opacity: 1; }
 html[data-layout='portrait'] .arena-badge .sun-icon { display: none; }
 html[data-layout='portrait'] .arena-badge > span { opacity: 1; }
 html[data-layout='portrait'] .battle-overlay { display: flex; }
@@ -149,11 +144,11 @@ html[data-layout='portrait'] .result-stats { margin: 8px 0; }
 .result-rating { display: block; color: #a77639; font-size: 13px; margin: 4px 0 6px; }
 .result-rating-rules { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 6px; padding: 8px 0; border-top: 1px solid #e8ddc9; border-bottom: 1px solid #e8ddc9; font-size: 10px; color: #8d7e68; }
 .result-rating-rules b { display: block; color: #806d4c; margin-bottom: 2px; }
-html[data-layout='portrait'] .result-card { width: min(100%, 340px); }
+html[data-layout='portrait'] .result-card { width: 100%; max-width: 340px; }
 html[data-layout='portrait'][data-phase='ended'] .arena-frame { z-index: 100; }
 html[data-layout='portrait'][data-phase='ended'] .arena-frame .battle-overlay:not(.hidden) {
   position: fixed; inset: 0; z-index: 1000;
-  padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  padding: calc(16px + var(--safe-top)) calc(16px + var(--safe-right)) calc(16px + var(--safe-bottom)) calc(16px + var(--safe-left));
   background: #e8deccc9; backdrop-filter: blur(3px);
 }
 html[data-layout='portrait'][data-density='tight'] .result-stars { margin: 1px 0 4px; gap: 5px; }
