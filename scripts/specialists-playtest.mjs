@@ -15,7 +15,7 @@ const capture = async name => { await paint(); await page.screenshot({ path: pat
 const foodFor = async cost => { const s = await state(); if (s.player.food < cost) await advance(Math.ceil((cost - s.player.food) / s.player.income * 1000) + 10); };
 const fixture = async kind => {
   await page.evaluate(({ kind }) => {
-    const b = window.__catGame.battle; b.reset(); b.start(); b.aiEnabled = false;
+    const b = window.__catGame.battle; b.reset(undefined,Object.keys(b.armies.player.cooldowns)); b.start(); b.aiEnabled = false;
     b.armies.player.cannonCooldown = b.armies.enemy.cannonCooldown = 10000;
     const add = (side, type, x, row = 1) => {
       b.armies[side].food = 10000; b.armies[side].tech = 3; b.armies[side].cooldowns[type] = 0;
@@ -42,7 +42,7 @@ try {
   await board.setContent(`<html lang="zh-CN"><meta charset="utf-8"><style>*{box-sizing:border-box}body{margin:0;padding:32px;background:#f7f0df;color:#655345;font-family:'Microsoft YaHei',sans-serif}h1{margin:0 0 8px;font-size:28px}p{margin:0 0 24px;color:#8d7b60;font-size:13px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:#fffaf0;border:1px solid #ddcfb5;border-radius:20px;text-align:center;padding:14px}img{width:180px;height:180px;display:block;margin:auto}.role{font-size:12px;color:#8f9772}h2{font-size:19px;margin:5px 0 8px}.stats{font-size:11px;color:#9b845f}</style><h1>小队扩编 · 16 种伙伴随时招募</h1><p>新增八种猫咪，重画一台猫咪推着走的玩具大炮 · 游戏实际角色素材</p><div class="grid">${roster.map(u => `<div class="card"><div class="role">${u.role}</div><img src="data:image/svg+xml;charset=utf-8,${encodeURIComponent(u.svg)}"/><h2>${u.name}</h2><div class="stats">${u.cost} 猫粮 · ${u.population} 人口 · ${u.tier} 阶科技</div></div>`).join('')}</div></html>`);
   await board.locator('img').evaluateAll(images => Promise.all(images.map(image => image.decode())));
   await board.screenshot({ path: path.join(output, `${engine}-roster.png`), fullPage: true }); await board.close();
-  await page.locator('#start').click(); await advance(0); await page.evaluate(() => { window.__catGame.battle.aiEnabled = false; });
+  await page.locator('#start').click(); await advance(0); await page.evaluate(() => { const b=window.__catGame.battle; b.playerRoster=Object.keys(b.armies.player.cooldowns); b.aiEnabled=false; window.__catGame.render(); });
   assert.equal(await page.locator('.unit-card').count(), 16);
   await capture('cards-original');
   // Normal starting resources, actual income/research, and UI recruitment on both halves of the roster.
@@ -82,9 +82,9 @@ try {
     await page.setViewportSize({ width, height }); await page.waitForTimeout(120); await fixture('gunner');
     const arena = await page.locator('.arena-frame').boundingBox(); assert.ok(arena.height >= 150);
     for (const card of await page.locator('.unit-card').all()) {
-      await card.scrollIntoViewIfNeeded();
+      await card.evaluate(el=>el.scrollIntoView({block:'center',inline:'nearest',behavior:'instant'}));await page.waitForTimeout(120);
       const r = await card.boundingBox(), grid = await page.locator('.unit-grid').boundingBox();
-      assert.ok(r.width >= 44 && r.height >= 44); assert.ok(r.y >= grid.y - 1 && r.y + r.height <= grid.y + grid.height + 1);
+      assert.ok(r.width >= 44 && r.height >= 44); assert.ok(r.y >= grid.y - 1 && r.y + r.height <= grid.y + grid.height + 1,JSON.stringify({width,height,id:await card.getAttribute('id'),r,grid}));
       assert.ok(r.x >= 0 && r.x + r.width <= width);
     }
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false); await capture(`viewport-${width}`);

@@ -4,13 +4,13 @@
   "files": [
     {
       "name": "assets/game.css",
-      "bytes": 87528,
-      "sha256": "2732d433a7b6d581b618a5803d7f4411f1a18472e373a7c33b4874b8047dd2c5"
+      "bytes": 89618,
+      "sha256": "ee7c9f72fb1c41a5045d924b095cf597114343ae2bdd94c96b017b37f4a4431b"
     },
     {
       "name": "assets/game.js",
-      "bytes": 1098200,
-      "sha256": "eb10d7ba83d2b7aed6654893440b0a0e0873fb4200d42000773061777e1f1cf2"
+      "bytes": 1113750,
+      "sha256": "98ebf9b0d18a6beaf6def1c6ff3349ad3cf2d40f201c7791e8edffc1084be63a"
     },
     {
       "name": "favicon.svg",
@@ -34,12 +34,12 @@
     "CSS fallback review",
     "Base64 and generated SVG sizes"
   ],
-  "javascriptASTNodes": 385389,
+  "javascriptASTNodes": 390240,
   "base64Count": 3,
   "largestBase64Bytes": 117,
   "generatedSVGVariants": 3139,
   "largestSVGBytes": 6791,
-  "totalUncompressedBytes": 1186818,
+  "totalUncompressedBytes": 1204458,
   "pending": [
     "Xiaohongshu creator-platform simulator",
     "Android device QR scan",

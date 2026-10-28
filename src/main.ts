@@ -10,6 +10,7 @@ import './enemy-faction.css';
 import './achievements.css';
 import './characters.css';
 import './cat-editor.css';
+import './audio.css';
 import { ENEMY_FACTION, ENEMY_UNITS, unitIdentity } from './game/enemy-roster.ts';
 import { installViewport } from './ui/viewport.ts';
 import { icons, paw, svgURL, unitSVG, unitPortraitSVG } from './art.ts';
@@ -22,6 +23,8 @@ import { Battle } from './game/simulation.ts';
 import { createGame } from './game/BattleScene.ts';
 import { BASE_NAMES, FEEDER_NAMES } from './game/base-art.ts';
 import { GameAudio } from './game/audio.ts';
+import { createBattleAudio } from './game/battle-audio.ts';
+import { settingsMarkup, installSettings } from './ui/audio-settings.ts';
 import { installBaseCatDialogue } from './ui/base-cat-dialogue.ts';
 import { breedLabel, copyCat } from './game/cat-appearance.ts';
 import { baseCatSVG } from './game/base-cat-art.ts';
@@ -34,21 +37,22 @@ import { emptyProfile, readProfile, serializeProfile } from './game/profile.ts';
 import { ACHIEVEMENTS, TITLES, emptyRunStats, absorbRun, awardVictory, clone, unlockAchievements, equippedTitle } from './game/achievements.ts';
 import { achievementsMarkup, renderAchievements, resultAchievements } from './ui/achievements.ts';
 import { createSaveCoordinator } from './ui/save-coordinator.ts';
-import { unlockedUnits, unlockStage, arrivalsAtStage, arrivalText, UNIT_LESSONS } from './game/unit-unlocks.ts';
+import { unlockedUnits, unlockStage, arrivalsAtStage, arrivalText, UNIT_LESSONS, unlockedTech, techLockReason, techUnlockStage } from './game/unit-unlocks.ts';
 import { characterCatalogMarkup, installCharacterCatalog } from './ui/character-catalog.ts';
 
 installViewport();
 const battle = new Battle();
 battle.reset('campaign-01',unlockedUnits({}));
 const audio = new GameAudio();
+const renderBattleAudio = createBattleAudio(audio);
 const $ = <T extends HTMLElement = HTMLElement>(selector: string) => document.querySelector<T>(selector)!;
 const clock = (time: number) => `${Math.floor(time / 60).toString().padStart(2, '0')}:${Math.floor(time % 60).toString().padStart(2, '0')}`;
 const food = `<span class="inline-icon">${icons.food}</span>`;
 $('#app').innerHTML = `
   <div class="game-shell">
     <header class="site-header">
-      <a class="brand" href="./" aria-label="猫咪冻干保卫战首页"><span class="brand-mark">${paw}</span><span><span class="brand-name">猫咪冻干保卫战<span class="version">试玩版 0.23</span></span><span class="brand-en">PAW & PANTRY <span>一场为了冻干的可爱战争</span></span></span></a>
-      <nav class="toolbar" aria-label="游戏设置"><button class="icon-button" id="sound" title="开启音效（M）" aria-label="开启音效" aria-pressed="false">${icons.mute}</button><button class="text-button" id="help" aria-label="玩法指南"><span class="help-symbol">?</span><span>玩法指南</span></button><span class="toolbar-divider"></span><button class="text-button" id="pause" aria-label="暂停" disabled>${icons.pause}<span>暂停</span></button></nav>
+      <a class="brand" href="./" aria-label="猫咪冻干保卫战首页"><span class="brand-mark">${paw}</span><span><span class="brand-name">猫咪冻干保卫战<span class="version">试玩版 0.24</span></span><span class="brand-en">PAW & PANTRY <span>一场为了冻干的可爱战争</span></span></span></a>
+      <nav class="toolbar" aria-label="游戏设置"><button class="text-button" id="help" aria-label="玩法指南"><span class="help-symbol">?</span><span>玩法指南</span></button><span class="toolbar-divider"></span><button class="text-button" id="pause" aria-label="暂停" disabled>${icons.pause}<span>暂停</span></button><button class="icon-button" id="settings" title="设置" aria-label="设置" aria-haspopup="dialog" aria-controls="settings-dialog" aria-expanded="false">${icons.settings}</button></nav>
     </header>
     <p id="profile-notice" class="profile-notice" role="status" hidden></p>
     ${menuMarkup()}${achievementsMarkup()}${characterCatalogMarkup()}${catEditorMarkup()}
@@ -81,7 +85,8 @@ $('#app').innerHTML = `
     </main>
     <footer><span>${paw} 每一粒冻干，都值得全力以赴。</span><span>招募 <kbd>1</kbd>—<kbd>8</kbd><i>·</i> 升级 <kbd>E</kbd> / <kbd>T</kbd><i>·</i> 暂停 <kbd>P</kbd></span></footer>
   </div>
-  <dialog id="guide" aria-labelledby="guide-title"><button class="dialog-close" aria-label="关闭玩法指南">×</button><span class="eyebrow">THE LITTLE FIELD GUIDE</span><h2 id="guide-title">冻干保卫战，开课啦。</h2><p class="guide-lead">下方是你的家，上方是胖橘搜粮团。让对手的基地耐久降到零，就赢啦！</p><div class="guide-steps"><p><b>01</b><span><strong>收猫粮，招募小队</strong>投喂机自动生产猫粮。伙伴随关卡永久解锁，到达该关即可获得；局内研究到对应科技后才能招募。重玩旧关保留已获得的伙伴。上下滑动查看全部 16 种兵种，无需预选编队；点击卡片招募，伙伴会自己前进和战斗，每方最多 24 人口。</span></p><p><b>02</b><span><strong>稳住前线，再做投资</strong>投喂机共 8 档，可升级 7 次，从每秒 12 提升到 42 猫粮；越往后回本越慢，先留够补兵费用。研究科技解锁新伙伴、强化主炮，并在研究完成后将纸箱营地升级为加固猫屋、冻干要塞。产能升级会改变侧边投喂器；研究期间照样可以出兵。</span></p><p><b>03</b><span><strong>搭配阵容，抓准时机</strong>盾卫扛伤、法师迟缓、玩具大炮范围轰击、奶妈治疗；三阶可攒粮召唤高攻高血的小狗骑士。右侧三个主动技能共用能量：急救罐头（35）为在场受伤伙伴恢复30%最大生命，每只最多240，不修复基地；猫薄荷（40）让在场伙伴攻击力 +20%，持续10秒，新出兵无加成，治疗量和主炮不变；毛球轰炸（70）自动锁定最密集敌群，0.65秒后对半径140内敌人造成180/240/300伤害（随科技升级），不伤友军和基地，远程防护和闪避有效。开局50、上限100，击杀回能，无被动回复；空放不扣能量。快捷键 H 急救、C 猫薄荷、空格轰炸。蓝紫星环表示迟缓，绿叶表示增伤。</span></p></div><div class="guide-units">${UNIT_ORDER.map(kind => `<p><img src="${svgURL(unitSVG(kind))}" alt=""/><span><strong>${UNITS[kind].name} · 第 ${unlockStage(kind)} 关加入</strong>${UNITS[kind].description}</span></p>`).join('')}</div><details class="enemy-guide"><summary>认识对手 · ${ENEMY_FACTION}</summary><p>红围巾、厨房装备和零食包装，是这群馋嘴橘猫的标记。看清武器，就能判断它们的职责。</p><div class="guide-units">${ENEMY_ORDER.map(kind => `<p><img src="${svgURL(unitSVG(kind, 'enemy'))}" alt=""/><span><strong>${ENEMY_UNITS[kind].name} · ${ENEMY_UNITS[kind].role}</strong>${ENEMY_UNITS[kind].description}</span></p>`).join('')}</div></details><p class="guide-fair">击杀敌军回能：侦察车 2，饼干棒打手 4，弹弓手 5，锅盖卫兵／干扰师／补给员各 6，投射车 8，小猪重骑 20，胖橘首领 50。主炮击杀也回能；无目标时不会扣能量。最后一关敌方基地低于 30% 时，大胖橘会亲自上场，慢慢举起巨爪、停顿后快速横扫并击退前排。双方开局 240 猫粮、每秒产粮 12。电脑按关卡节奏交替增援与整备，同样消耗猫粮和人口。战场上方显示倒计时；整备期间只暂停敌军招募，场上敌人继续战斗，双方照常产粮与研究。把握窗口推进或升级，也要为下一轮增援留好前排。双方主炮自动攻击附近敌人，科技升级将伤害从 32 提升到 55 / 85。切换标签页会自动暂停。每两秒自动保存战场；暂停菜单可保存并返回，首页继续未完对局，恢复后点击继续。成就、称号和关卡成绩保存在当前设备，清理缓存可能丢失。</p><button class="primary-button" id="guide-close">记住了，保护冻干！ ${icons.play}</button></dialog>
+  <dialog id="guide" aria-labelledby="guide-title"><button class="dialog-close" aria-label="关闭玩法指南">×</button><span class="eyebrow">THE LITTLE FIELD GUIDE</span><h2 id="guide-title">冻干保卫战，开课啦。</h2><p class="guide-lead">下方是你的家，上方是胖橘搜粮团。让对手的基地耐久降到零，就赢啦！</p><div class="guide-steps"><p><b>01</b><span><strong>收猫粮，招募小队</strong>投喂机自动生产猫粮。伙伴随关卡永久解锁，到达该关即可获得；局内研究到对应科技后才能招募。重玩旧关保留已获得的伙伴。上下滑动查看全部 16 种兵种，无需预选编队；点击卡片招募，伙伴会自己前进和战斗，每方最多 24 人口。</span></p><p><b>02</b><span><strong>稳住前线，再做投资</strong>投喂机共 8 档，可升级 7 次，从每秒 12 提升到 42 猫粮；越往后回本越慢，先留够补兵费用。研究科技解锁新伙伴、强化主炮，并在研究完成后将纸箱营地升级为加固猫屋、冻干要塞。产能升级会改变侧边投喂器；研究期间照样可以出兵。</span></p><p><b>03</b><span><strong>搭配阵容，抓准时机</strong>盾卫扛伤、法师迟缓、玩具大炮范围轰击、奶妈治疗；三阶可攒粮召唤高攻高血的小狗骑士。右侧三个主动技能共用能量：急救罐头（35）为在场受伤伙伴恢复30%最大生命，每只最多240，不修复基地；猫薄荷（40）让在场伙伴攻击力 +20%，持续10秒，新出兵无加成，治疗量和主炮不变；毛球轰炸（70）自动锁定最密集敌群，0.65秒后对半径140内敌人造成180/240/300伤害（随科技升级），不伤友军和基地，远程防护和闪避有效。开局50、上限100，击杀回能，无被动回复；空放不扣能量。快捷键 H 急救、C 猫薄荷、空格轰炸。蓝紫星环表示迟缓，绿叶表示增伤。</span></p></div><div class="guide-units">${UNIT_ORDER.map(kind => `<p><img src="${svgURL(unitSVG(kind))}" alt=""/><span><strong>${UNITS[kind].name} · 第 ${unlockStage(kind)} 关加入</strong>${UNITS[kind].description}</span></p>`).join('')}</div><details class="enemy-guide"><summary>认识对手 · ${ENEMY_FACTION}</summary><p>红围巾、厨房装备和零食包装，是这群馋嘴橘猫的标记。看清武器，就能判断它们的职责。</p><div class="guide-units">${ENEMY_ORDER.map(kind => `<p><img src="${svgURL(unitSVG(kind, 'enemy'))}" alt=""/><span><strong>${ENEMY_UNITS[kind].name} · ${ENEMY_UNITS[kind].role}</strong>${ENEMY_UNITS[kind].description}</span></p>`).join('')}</div></details><p class="guide-fair">击杀敌军回能：侦察车 2，饼干棒打手 4，弹弓手 5，锅盖卫兵／干扰师／补给员各 6，投射车 8，小猪重骑 20，胖橘首领 50。主炮击杀也回能；无目标时不会扣能量。最后一关敌方基地低于 30% 时，大胖橘会亲自上场，慢慢举起巨爪、停顿后快速横扫并击退前排。双方开局 240 猫粮、每秒产粮 12。电脑按关卡节奏交替增援与整备，同样消耗猫粮和人口。战场上方显示倒计时；整备期间只暂停敌军招募，场上敌人继续战斗，双方照常产粮与研究。把握窗口推进或升级，也要为下一轮增援留好前排。二阶科技随第 3 关投手开放，三阶随第 11 关玩具大炮开放；重玩保留研究资格，每局仍需花粮研究。双方主炮自动攻击附近敌人，科技升级将伤害从 32 提升到 55 / 85。切换标签页会自动暂停。每两秒自动保存战场；暂停菜单可保存并返回，首页继续未完对局，恢复后点击继续。成就、称号和关卡成绩保存在当前设备，清理缓存可能丢失。</p><button class="primary-button" id="guide-close">记住了，保护冻干！ ${icons.play}</button></dialog>
+  ${settingsMarkup}
 `;
 
 type Screen = 'home' | 'levels' | 'battle' | 'achievements' | 'characters' | 'cat';
@@ -116,6 +121,7 @@ let previousPhase = '';
 let previousMessage = '';
 let lastHUD = -Infinity;
 let guideWasPlaying = false;
+let settingsWasPlaying = false;
 let endSoundPlayed = false;
 const renderedMarkup = new WeakMap<HTMLElement, string>();
 function updateMarkup(selector: string, markup: string) {
@@ -131,6 +137,16 @@ const renderBossStatus = installBossStatus(battle);
 const renderSpellControls = installSpellControls(battle);
 const { scene } = createGame('battle-canvas', battle, render);
 const guide = $('#guide') as HTMLDialogElement;
+const { dialog: settingsDialog, toggleSound } = installSettings(audio, qaMode, open => {
+  if (open) {
+    settingsWasPlaying = battle.phase === 'playing';
+    if (settingsWasPlaying) battle.togglePause();
+  } else {
+    if (settingsWasPlaying && screen === 'battle' && battle.phase === 'paused' && !document.hidden) battle.togglePause();
+    settingsWasPlaying = false;
+  }
+  render(true); saveProfile();
+});
 const characterCatalog=installCharacterCatalog({getOwned:()=>unlockedUnits(progress,profile.legacyRecruits),close:closeCharacters});
 const catEditor=installCatEditor({get:()=>profile.cat,canSave:()=>writableProfile&&progressStore.canWrite(),close:closeCat,
   async save(cat){
@@ -153,26 +169,22 @@ $('#treat').addEventListener('click', () => action(() => battle.treat('player'),
 $('#catnip').addEventListener('click', () => action(() => battle.catnip('player'), 'catnip'));
 $('#pause').addEventListener('click', () => { battle.togglePause(); render(true); saveProfile(); });
 $('#speed').addEventListener('click', () => { speed = speed === 1 ? 2 : 1; scene.speed = speed; $('#speed').textContent = `${speed}×`; $('#speed').setAttribute('aria-label', `游戏速度 ${speed} 倍`); });
-$('#sound').addEventListener('click', () => {
-  audio.enabled = !audio.enabled;
-  if (audio.enabled) { audio.unlock(); audio.play('tap'); }
-  $('#sound').innerHTML = audio.enabled ? icons.sound : icons.mute;
-  $('#sound').setAttribute('aria-pressed', String(audio.enabled));
-  $('#sound').setAttribute('aria-label', audio.enabled ? '关闭音效' : '开启音效');
-  $('#sound').title = `${audio.enabled ? '关闭' : '开启'}音效（M）`;
-});
 $('#help').addEventListener('click', () => { guideWasPlaying = battle.phase === 'playing'; if (guideWasPlaying) battle.togglePause(); guide.showModal(); render(true); saveProfile(); });
 const closeGuide = () => guide.close();
-$('.dialog-close').addEventListener('click', closeGuide);
+$('#guide .dialog-close').addEventListener('click', closeGuide);
 $('#guide-close').addEventListener('click', closeGuide);
 guide.addEventListener('close', () => { if (guideWasPlaying && battle.phase === 'paused') battle.togglePause(); guideWasPlaying = false; render(true); saveProfile(); });
-document.addEventListener('visibilitychange', () => { if (document.hidden) { guideWasPlaying = false; if (battle.phase === 'playing') { battle.togglePause(); render(true); } saveProfile(); } });
-window.addEventListener('pagehide', () => { if (battle.phase === 'playing') battle.togglePause(); saveProfile(); });
+document.addEventListener('visibilitychange', () => { audio.setHidden(document.hidden); if (document.hidden) { settingsWasPlaying = false; guideWasPlaying = false; if (battle.phase === 'playing') { battle.togglePause(); render(true); } saveProfile(); } });
+window.addEventListener('pagehide', () => { settingsWasPlaying = false; audio.setHidden(true); if (battle.phase === 'playing') battle.togglePause(); saveProfile(); });
+window.addEventListener('pageshow', () => { audio.setHidden(document.hidden); render(true); });
+if (import.meta.env.DEV) { if (import.meta.hot) import.meta.hot.dispose(() => audio.dispose()); }
 setInterval(() => { if (attachedRun && battle.phase === 'playing') saveProfile(); }, 2000);
 window.addEventListener('keydown', event => {
+  const editingText = event.target instanceof HTMLElement && (event.target.isContentEditable || /TEXTAREA|SELECT/.test(event.target.tagName) || event.target instanceof HTMLInputElement && !['range', 'checkbox', 'radio', 'button'].includes(event.target.type));
+  if (event.key.toLowerCase() === 'm' && !event.repeat && !event.ctrlKey && !event.metaKey && !event.altKey && !editingText) { event.preventDefault(); toggleSound(); return; }
+  if (settingsDialog.open) return;
   if (guide.open || $('#replace-run').hasAttribute('open') || $('#cat-discard').hasAttribute('open') || event.repeat || event.ctrlKey || event.metaKey || event.altKey || (event.target instanceof HTMLElement && /INPUT|TEXTAREA|SELECT/.test(event.target.tagName))) return;
   const key = event.key.toLowerCase();
-  if (key === 'm') { $('#sound').click(); return; }
   if (screen !== 'battle') { if (key === 'escape' && screen === 'cat') {event.preventDefault();catEditor.back();} if (key === 'escape' && screen === 'levels') navigate('home'); if (key === 'escape' && screen === 'achievements') $('#achievements-back').click(); if (key === 'escape' && screen === 'characters') { event.preventDefault(); characterCatalog.back(); } return; }
   const digit = /^Digit([1-8])$/.exec(event.code);
   if (digit) { event.preventDefault(); action(() => battle.summon('player', UNIT_ORDER[Number(digit[1]) - 1 + (event.shiftKey ? 8 : 0)]), 'hire'); }
@@ -256,7 +268,7 @@ function updateProfileHome() {
   if(catImage.getAttribute('src')!==catSource)catImage.src=catSource;
   $('#home-cat-description').textContent=`${breedLabel(profile.cat)} · 换个喜欢的模样`;
   const count=Object.keys(profile.achievements.unlocked).length;
-  $('#home-achievement-count').textContent=`${count}/24${profile.achievements.unseenIds.length?' · 新':''}`;
+  $('#home-achievements').title=`已获得 ${count}/24 项成就${profile.achievements.unseenIds.length?' · 有新成就':''}`;
   $('#home-equipped-title').textContent=equippedTitle(profile.achievements);
   const run=profile.run;
   $('#resume-summary').hidden=!run; $('#new-battle').hidden=!run;
@@ -354,7 +366,7 @@ function overlay() {
   if (battle.phase === 'ready') {
     target.innerHTML = '';
   } else if (battle.phase === 'paused') {
-    target.innerHTML = `<div class="intro-card pause-card"><span class="intro-eyebrow">TAKE A LITTLE CATNAP</span><h2>猫咪打个小盹。</h2><p>战场已暂停，猫粮和研究也会等你。</p><button class="primary-button" id="resume">继续保护冻干 ${icons.play}</button><button class="subtle-button" id="restart">重新开始这一局</button><div class="pause-navigation"><button class="menu-secondary" id="pause-levels">保存并返回选关</button><button class="menu-secondary" id="pause-home">保存并返回首页</button><button class="menu-secondary" id="pause-achievements">小窝荣誉柜</button><button class="menu-secondary" id="pause-characters">角色图鉴</button><button class="menu-secondary" id="pause-cat">我的猫咪</button></div></div>`;
+    target.innerHTML = `<div class="intro-card pause-card"><span class="intro-eyebrow">TAKE A LITTLE CATNAP</span><h2>猫咪打个小盹。</h2><p>战场已暂停，猫粮和研究也会等你。</p><button class="primary-button" id="resume">继续保护冻干 ${icons.play}</button><button class="subtle-button" id="restart">重新开始这一局</button><div class="pause-navigation"><button class="menu-secondary" id="pause-levels">保存并返回选关</button><button class="menu-secondary" id="pause-home">保存并返回首页</button><button class="menu-secondary nav-icon-button" id="pause-achievements">${icons.trophy}<span>成就</span></button><button class="menu-secondary nav-icon-button" id="pause-characters">${icons.book}<span>图鉴</span></button><button class="menu-secondary" id="pause-cat">我的猫咪</button></div></div>`;
     $('#resume').addEventListener('click', () => { battle.togglePause(); render(true); });
     $('#restart').addEventListener('click', restart);
     $('#pause-levels').addEventListener('click', () => leaveBattle('levels'));
@@ -389,6 +401,9 @@ function overlay() {
 }
 
 function render(force = false) {
+  const inBattle = screen === 'battle';
+  audio.setScene(settingsDialog.open ? 'menu' : inBattle ? battle.phase === 'playing' ? battle.units.some(u => u.kind === 'boss' && u.hp > 0) ? 'boss' : 'battle' : 'silent' : 'menu');
+  renderBattleAudio(battle, inBattle && !settingsDialog.open && !document.hidden);
   syncRun();
   renderBossStatus();
   renderBaseCatDialogue();
@@ -455,11 +470,13 @@ function render(force = false) {
     ? `主炮 ${cannonDamage} → ${CANNON_DAMAGE[army.tech]}`
     : `主炮 ${cannonDamage} · 满级`;
   const researchUnits=battle.playerRoster.filter(k=>UNITS[k].tier===army.tech+1);
-  const techLabel=army.tech<3 ? `基地升级为${BASE_NAMES[army.tech]}；${researchUnits.length ? `可招募：${researchUnits.map(k=>UNITS[k].short).join('、')}` : '本次没有新增可招募伙伴'}；主炮 ${cannonDamage} → ${CANNON_DAMAGE[army.tech]}，轰炸 ${BOMBARD.damage[army.tech-1]} → ${BOMBARD.damage[army.tech]}` : `冻干要塞 · 科技已满级；伙伴随关卡永久解锁`;
+  const techLocked=army.researching?'':techLockReason(battle.playerRoster,army.tech);
+  const techLabel=techLocked || (army.tech<3 ? `基地升级为${BASE_NAMES[army.tech]}；${researchUnits.length ? `可招募：${researchUnits.map(k=>UNITS[k].short).join('、')}` : '主炮与轰炸强化'}；主炮 ${cannonDamage} → ${CANNON_DAMAGE[army.tech]}，轰炸 ${BOMBARD.damage[army.tech-1]} → ${BOMBARD.damage[army.tech]}` : `冻干要塞 · 科技已满级；伙伴随关卡永久解锁`);
   $('#upgrade-tech').title=techLabel; $('#upgrade-tech').setAttribute('aria-label',techLabel);
-  if(!army.researching&&army.tech<3) $('#tech-description').textContent=researchUnits.length ? `可招募 ${researchUnits.length} 种 · 主炮↑` : '主炮、轰炸强化';
-  updateMarkup('#tech-action', army.researching ? `<b>${Math.ceil(army.research)}s</b><span>研究中…</span>` : army.tech === 3 ? '<b>MAX</b><span>已满级</span>' : `${food}${TECH_COSTS[army.tech - 1]}<span>${army.food < TECH_COSTS[army.tech - 1] ? '猫粮不足' : '研究 ↑'}</span>`);
-  $<HTMLButtonElement>('#upgrade-tech').disabled = battle.phase !== 'playing' || army.researching || army.tech === 3 || army.food < TECH_COSTS[army.tech - 1];
+  if(!army.researching&&army.tech<3) $('#tech-description').textContent=techLocked ? `随${army.tech===1?'投手':'玩具大炮'}开放` : (researchUnits.length ? `可招募 ${researchUnits.length} 种 · 主炮↑` : '主炮、轰炸强化');
+  $('#upgrade-tech').classList.toggle('progress-locked',Boolean(techLocked));
+  updateMarkup('#tech-action', army.researching ? `<b>${Math.ceil(army.research)}s</b><span>研究中…</span>` : army.tech === 3 ? '<b>MAX</b><span>已满级</span>' : techLocked ? `<b>${techUnlockStage(army.tech+1)}关</b><span>待解锁</span>` : `${food}${TECH_COSTS[army.tech - 1]}<span>${army.food < TECH_COSTS[army.tech - 1] ? '猫粮不足' : '研究 ↑'}</span>`);
+  $<HTMLButtonElement>('#upgrade-tech').disabled = Boolean(battle.researchReason('player'));
   $('#research-progress').style.width = army.researching ? `${(1 - army.research / TECH_TIMES[army.tech - 1]) * 100}%` : '0';
   $<HTMLButtonElement>('#pause').disabled = battle.phase === 'ready' || battle.phase === 'ended';
   updateMarkup('#pause', battle.phase === 'paused' ? `${icons.play}<span>继续</span>` : `${icons.pause}<span>暂停</span>`);
@@ -484,6 +501,7 @@ if (import.meta.env.DEV && new URLSearchParams(location.search).has('qa')) {
 // Read-only gameplay state and deterministic stepping for browser playtests.
 Object.assign(window, {
   render_game_to_text: () => JSON.stringify({ screen, phase: battle.phase, level: battle.level.id, selectedLevel: selectedLevelId, time: +battle.time.toFixed(2), winner: battle.winner,
+    audio: audio.snapshot(),
     catalog:screen==='characters'?characterCatalog.snapshot():null,
     achievements: { unlocked:Object.keys(profile.achievements.unlocked), total:24, title:equippedTitle(profile.achievements), stats:profile.achievements.stats },
     resume: { available:!!profile.run, level:profile.run?.battle.levelId??null, time:profile.run?.battle.time??null },
@@ -492,6 +510,7 @@ Object.assign(window, {
     result: battle.phase === 'ended' ? { stars: battle.winner === 'player' ? victoryStars(battle.armies.player.hp) : 0, baseHealthPercent: Math.floor(battle.armies.player.hp / BASE_HP * 1000) / 10 } : null,
     coordinates: 'Vertical battlefield: player below, enemy above; x runs from 155 (player) to 1285 (enemy), bottom to top. Continuous row runs left (0) to right (2), with 80 simulation units per row. Facing is in screen radians relative to player up / enemy down.',
     player: { ...battle.armies.player, population: battle.population('player'), income: FOOD_RATES[battle.armies.player.economy] },
+    technology: { unlockedTier:unlockedTech(battle.playerRoster), lockReason:techLockReason(battle.playerRoster,battle.armies.player.tech), researchReason:battle.researchReason('player') },
     economy: { level: battle.armies.player.economy + 1, maxLevel: FOOD_RATES.length, nextCost: ECONOMY_COSTS[battle.armies.player.economy] ?? null, nextIncome: FOOD_RATES[battle.armies.player.economy + 1] ?? null, paybackSeconds: ECONOMY_COSTS[battle.armies.player.economy] === undefined ? null : ECONOMY_COSTS[battle.armies.player.economy] / (FOOD_RATES[battle.armies.player.economy + 1] - FOOD_RATES[battle.armies.player.economy]) },
     enemy: { faction: ENEMY_FACTION, energy: battle.armies.enemy.energy, hp: battle.armies.enemy.hp, tech: battle.armies.enemy.tech, hired: battle.armies.enemy.hired, population: battle.population('enemy') },
     bases: scene.getBaseSnapshot(),

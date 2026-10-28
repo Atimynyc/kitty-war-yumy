@@ -28,6 +28,11 @@ try {
     for(const key of ['body','tail','eyes','leftEar','rightEar'])assert.ok(new Set(all.map(s=>JSON.stringify(s.parts[key]))).size>2,`${side}: ${key} animates`);
     assert.ok(all.some(s=>s.parts.eyes.scaleY<.2),`${side}: eyes actually close`);
     assert.ok(new Set(all.map(s=>JSON.stringify(s.head))).size>20,`${side}: head moves`);
+    const range=values=>Math.max(...values)-Math.min(...values);
+    assert.ok(range(all.map(s=>s.head.rotation))>.16,`${side}: head turn spans at least 9 degrees`);
+    assert.ok(range(all.map(s=>s.parts.tail.rotation))>.8,`${side}: tail sweep spans at least 45 degrees`);
+    assert.ok(range(all.map(s=>s.head.x*s.scaleX))>2,`${side}: head motion exceeds 2 CSS pixels on a phone`);
+    assert.ok(range(all.map(s=>s.parts.body.scaleY))>.08,`${side}: breathing remains visible without events`);
     assert.ok(all.every(s=>JSON.stringify(s.parts.feet)===JSON.stringify(first[side].parts.feet)),`${side}: feet anchored`);
     assert.ok(all.every(s=>JSON.stringify(s.parts.shadow)===JSON.stringify(first[side].parts.shadow)),`${side}: shadow anchored`);
   }
@@ -43,9 +48,12 @@ try {
   await page.waitForFunction(()=>window.__catGame.getView().height===Math.round(document.getElementById('battle-canvas').getBoundingClientRect().height));await advance(0);
   assert.deepEqual((await read()).baseCats.animation,paused,'reload derives the identical paused pose');
   await page.locator('#resume').click();await advance(400);assert.notDeepEqual((await read()).baseCats.animation,paused);
-  await page.emulateMedia({reducedMotion:'reduce'});await advance(0);const reduced=(await read()).baseCats.animation;
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await page.waitForFunction(()=>{window.advanceTime(0);return Object.values(JSON.parse(window.render_game_to_text()).baseCats.animation).every(p=>p.head.x===0&&p.head.rotation===0&&p.parts.body.scaleY===1);});
+  const reduced=(await read()).baseCats.animation;
   await advance(3000);assert.deepEqual((await read()).baseCats.animation,reduced);await capture('reduced-motion');
-  await page.emulateMedia({reducedMotion:'no-preference'});await advance(0);
+  await page.emulateMedia({reducedMotion:'no-preference'});
+  await page.waitForFunction(()=>{window.advanceTime(0);return JSON.parse(window.render_game_to_text()).baseCats.animation.player.parts.body.scaleY!==1;});
   // Clear the persisted round through the real restart control; visual phase returns to time zero.
   await page.locator('#pause').click();await page.locator('#restart').click();await advance(0);
   assert.deepEqual((await read()).baseCats.animation,first);

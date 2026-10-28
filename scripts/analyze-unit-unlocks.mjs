@@ -25,7 +25,7 @@ const args=process.argv.slice(2),arg=key=>args.find(a=>a.startsWith(`${key}=`))?
 const names=(arg('--schedules')??'unrestricted,earlyGunner,counterLessons').split(',');
 const seeds=(arg('--seeds')??'1234').split(',').map(Number);
 const selectedStages=arg('--stages')?.split(',').map(Number);
-const policies=['guns','siege','martial','support','infiltration'];
+const policies=(arg('--policies')??'guns,siege,martial,support,infiltration').split(',');
 const originals=JSON.parse(JSON.stringify(PLANS));
 const hash=f=>createHash('sha256').update(readFileSync(f)).digest('hex');
 const sourceFiles=['scripts/analyze-unit-unlocks.mjs','scripts/global-balance.mjs',...['simulation','content','levels','campaign','spell-notices','combat-space','boss-combat','unit-unlocks','profile','battle-save'].map(f=>`src/game/${f}.ts`)];

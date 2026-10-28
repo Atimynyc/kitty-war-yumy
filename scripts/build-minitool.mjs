@@ -12,7 +12,7 @@ const result = await build({
   entryPoints: ['src/minitool.ts'], bundle: true, format: 'iife', platform: 'browser',
   target: ['es2017', 'chrome61', 'ios18.4'], outfile: path.join(out, 'assets/game.js'),
   minify: true, sourcemap: false, legalComments: 'eof', metafile: true,
-  define: { 'import.meta.env.DEV': 'false', 'import.meta.env.PROD': 'true', 'process.env.NODE_ENV': '"production"', global: 'window' },
+  define: { 'import.meta.env.DEV': 'false', 'import.meta.env.PROD': 'true', 'import.meta.hot': 'undefined', 'process.env.NODE_ENV': '"production"', global: 'window' },
   plugins: [{ name: 'offline-canvas-engine', setup(builder) {
     builder.onResolve({ filter: /^phaser$/ }, () => ({ path: path.join(engine, 'phaser.js') }));
     builder.onLoad({ filter: /phaser[\\/]src[\\/].*\.js$/ }, async ({ path: file }) => {

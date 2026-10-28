@@ -12,7 +12,7 @@ import type { SpellKind } from './spell-notices.ts';
 import { addKind, emptyRunStats, clone } from './achievements.ts';
 import { readBattleSave, BATTLE_RULES_VERSION } from './battle-save.ts';
 import type { BattleSave } from './battle-save.ts';
-import { unlockStage } from './unit-unlocks.ts';
+import { unlockStage, techLockReason } from './unit-unlocks.ts';
 
 export interface Army {
   food: number; hp: number; economy: number; tech: number;
@@ -166,9 +166,20 @@ export class Battle {
     if (side === 'player') this.notify(`投喂机升级啦！现在每秒生产 ${FOOD_RATES[army.economy]} 猫粮。`);
     return true;
   }
+  researchReason(side: Side): string {
+    const army=this.armies[side],cost=TECH_COSTS[army.tech-1];
+    if(cost===undefined)return '科技已满级';
+    if(army.researching)return '正在研究中';
+    const locked=side==='player'?techLockReason(this.playerRoster,army.tech):'';
+    if(locked)return locked;
+    if(this.phase!=='playing')return this.phase==='paused'?'已暂停':'当前不能研究';
+    if(army.food<cost)return '猫粮不足';
+    return '';
+  }
   researchTech(side: Side) {
     const army = this.armies[side], cost = TECH_COSTS[army.tech - 1];
-    if (this.phase !== 'playing' || army.researching || cost === undefined || army.food < cost) return false;
+    const reason=this.researchReason(side);
+    if(reason){if(side==='player'&&this.phase==='playing')this.notify(reason);return false;}
     army.food -= cost; army.spent += cost; army.researching = true; army.research = TECH_TIMES[army.tech - 1];
     if (side === 'player') this.notify('猫咪正在研究新装备，期间可以继续招募。');
     return true;

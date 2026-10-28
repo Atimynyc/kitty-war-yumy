@@ -3,7 +3,8 @@ import type { Unit } from './simulation.ts';
 import { bossCharge } from './boss-combat.ts';
 
 export const DEATH_DURATION = .8;
-export const ATTACK_WINDUP = .16;
+export const ATTACK_WINDUP = .28;
+export const ATTACK_DURATION = .48;
 const clamp = (n: number) => Math.min(1, Math.max(0, n));
 const ease = (n: number) => 1 - (1 - clamp(n)) ** 3;
 
@@ -12,11 +13,14 @@ export function unitMotion(unit: Unit, now: number, deathAt?: number, reduced = 
   const attackAge = now - unit.attackAt, hitAge = now - unit.hitAt;
   const dying = deathAt !== undefined;
   const deathAge = dying ? Math.max(0, now - deathAt) : 0;
-  const attack = !dying && attackAge >= 0 && attackAge < .34 ? 1 - ease(Math.max(0, attackAge - .07) / .27) : 0;
+  // Hold the contact pose long enough to read on a phone, then visibly recover.
+  // Impact stays on the real damage tick; no artificial attack or damage is emitted.
+  const recover=clamp((attackAge-.12)/(ATTACK_DURATION-.12));
+  const attack = !dying && attackAge >= 0 && attackAge < ATTACK_DURATION ? 1-recover*recover*(3-2*recover) : 0;
   // Cooldown anticipates the next strike; a newly acquired target can strike immediately.
   const windup = !dying && unit.charge ? 1 - unit.charge.remaining / (unit.kind === 'hook' ? SPECIAL.hook.windup : SPECIAL.boxer.windup)
     : !dying && unit.sweep ? bossCharge(unit.sweep).lift
-    : !dying && unit.kind!=='boss' && unit.attacking && unit.attackCooldown > 0 && unit.attackCooldown < ATTACK_WINDUP
+    : !dying && !['boss','hook','boxer'].includes(unit.kind) && unit.attacking && unit.attackCooldown > 0 && unit.attackCooldown < ATTACK_WINDUP
     ? 1 - unit.attackCooldown / ATTACK_WINDUP : 0;
   const wave = Math.sin(unit.walkDistance / 32 * Math.PI * 2 + unit.id * 1.7);
   const stride = !dying && unit.walking ? wave : 0;

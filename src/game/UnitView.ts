@@ -19,6 +19,8 @@ export class UnitView {
   private stars: Phaser.GameObjects.Image;
   private bossPaw?: Phaser.GameObjects.Image;
   private status: Phaser.GameObjects.Graphics;
+  private actionTrail: Phaser.GameObjects.Graphics;
+  private motion = { attack:0, windup:0 };
   private pieces: Partial<Record<PartName, Phaser.GameObjects.Image>> = {};
   private pivots: Partial<Record<PartName, { x: number; y: number }>> = {};
   private state = 'idle';
@@ -38,7 +40,8 @@ export class UnitView {
     this.torso = scene.add.container(0, 0);
     this.stars = scene.add.image(0, 0, 'unit-stars').setVisible(false);
     this.status = scene.add.graphics();
-    this.root.add([this.shadow, this.status, this.facing, this.stars]);
+    this.actionTrail=scene.add.graphics();
+    this.root.add([this.shadow, this.status, this.facing, this.actionTrail, this.stars]);
     for (const part of unitParts(unit.kind, unit.side)) {
       const image = scene.add.image(part.x - 64, part.y - 64, `${unit.side}-${unit.kind}-${part.name}`).setOrigin(part.x / 128, part.y / 128);
       this.pieces[part.name] = image;
@@ -56,6 +59,7 @@ export class UnitView {
 
   draw(unit: Unit, now: number, x: number, y: number, size: number, reduced: boolean, facing: number, deathAt?: number) {
     const motion = unitMotion(unit, now, deathAt, reduced);
+    this.motion = { attack:motion.attack, windup:motion.windup };
     const direction = unit.side === 'player' ? -1 : 1;
     const machine = unit.kind === 'mouse' || unit.kind === 'catapult';
     const localDirection = machine ? -1 : direction;
@@ -100,14 +104,15 @@ export class UnitView {
       }
     }
     this.root.setPosition(x, y).setScale(size / 128).setAlpha(motion.alpha * (hidden ? .32 : 1)).setDepth(10 + y / 10000);
-    const lunge = motion.attack * 8 - motion.windup * 3;
+    const lunge = motion.attack * 12 - motion.windup * 5;
     this.actor.setPosition(-motion.fall * 8 * direction + localForward.x * lunge, motion.fall * 7 + localForward.y * lunge)
       .setAngle((machine && unit.side === 'enemy' ? 180 : 0) + motion.fall * 72 * direction);
     this.shadow.setScale(1 - motion.lift * .015, 1).setAlpha(1 - motion.fall * .4);
     this.stars.setVisible(motion.stars).setPosition(motion.fall * 20 * direction, 15);
-    const recoil = motion.attack * 5 - motion.windup * 2 - motion.hit * 7;
+    // Simultaneous melee hits must not cancel the attack lean with the hurt recoil.
+    const recoil = motion.attack * 6 - motion.windup * 3 - motion.hit * (motion.attack>.2?2:7);
     this.torso.setPosition(localForward.x * recoil, -motion.lift + (machine ? localDirection : localForward.y) * recoil)
-      .setScale(1 + motion.hit * .045, 1 - motion.hit * .06).setAngle(motion.stride * 1.2 + motion.hit * 5);
+      .setScale(1 + motion.hit * .045 + motion.windup*.025, 1 - motion.hit * .06 - motion.windup*.035).setAngle(motion.stride * 1.2 + motion.hit * 5 + (unit.kind==='boss'?0:direction*(motion.attack*4-motion.windup*3)));
     if (dodging && !reduced) { this.torso.x += Math.sin((now - unit.dodgeAt!) / .3 * Math.PI) * 14; this.torso.angle -= 12; }
     for (const [name, image] of Object.entries(this.pieces) as [PartName, Phaser.GameObjects.Image][]) {
       const pivot = this.pivots[name]!;
@@ -132,7 +137,7 @@ export class UnitView {
       this.pieces.rider!.setAngle(direction * (motion.attack * 7 - motion.windup * 4));
       this.pieces.leftHand!.setAngle(motion.stride * 3 + motion.hit * 8);
       this.pieces.rightHand!.y += direction * (motion.attack * 23 - motion.windup * 9);
-      this.pieces.rightHand!.setAngle(direction * (motion.attack * 14 - motion.windup * 12) + motion.hit * 5);
+      this.pieces.rightHand!.setAngle(direction * (motion.attack * 22 - motion.windup * 20) + motion.hit * 5);
       this.torso.y += localDirection * motion.attack * 3;
     } else if (machine) {
       const tread = Math.sin(motion.wheel * 3) * 1.8;
@@ -140,7 +145,7 @@ export class UnitView {
       left.setScale(1, 1 + tread * .025); right.setScale(1, 1 - tread * .025);
       if (unit.kind === 'mouse') this.pieces.rightHand!.setRotation(motion.wheel * .8 + motion.attack * .7);
       else if (unit.side === 'player') {
-        this.pieces.rightHand!.y += motion.attack * 10;
+        this.pieces.rightHand!.y += motion.attack * 19 - motion.windup*7;
         this.pieces.rearLeftFoot!.y += motion.stride * 5; this.pieces.rearRightFoot!.y -= motion.stride * 5;
         this.pieces.leftHand!.y += motion.stride * .7;
       } else this.pieces.rightHand!.setRotation(motion.windup * -.25 + motion.attack * .65).setScale(1, 1 - motion.attack * .28);
@@ -167,36 +172,43 @@ export class UnitView {
           this.torso.setAngle(-lifted*4+swipe*recover*8+motion.hit*5);
         }
       } else if (unit.kind === 'gunner' || unit.kind === 'hook') {
-        rightHand.y += motion.attack * 10 + motion.windup * 5;
-        leftHand.setAngle(-motion.attack * 12);
+        rightHand.y -= direction*(motion.attack * 18 - motion.windup * 6);
+        rightHand.setAngle(direction*(motion.attack*12-motion.windup*10));
+        leftHand.setAngle(-motion.attack * 20);
       } else if (unit.kind === 'drummer') {
-        leftHand.setAngle(-motion.attack * 28 + motion.windup * 15);
-        rightHand.setAngle(motion.attack * 28 - motion.windup * 15);
+        leftHand.setAngle(-motion.attack * 46 + motion.windup * 24);
+        rightHand.setAngle(motion.attack * 46 - motion.windup * 24);
       } else if (unit.kind === 'litter') {
         rightHand.setAngle(motion.windup * 48 - motion.attack * 65);
         rightHand.y += motion.windup * 8 - motion.attack * 12;
       } else if (unit.kind === 'boxer' || unit.kind === 'kungfu') {
-        rightHand.y += direction * (motion.attack * 25 - motion.windup * 15);
+        rightHand.y += direction * (motion.attack * 34 - motion.windup * 18);
+        rightHand.setScale(1+motion.attack*.12);
         leftHand.setAngle(motion.attack * -20 + motion.windup * 12);
       } else if (unit.kind === 'umbrella') {
-        rightHand.setAngle(motion.attack * 12);
+        rightHand.setAngle(motion.attack * 32-motion.windup*20);
+        rightHand.y += direction*(motion.attack*16-motion.windup*7);
       } else if (unit.kind === 'shield') {
         rightHand.y += direction * (motion.attack * 15 - motion.windup * 4);
-        rightHand.setAngle(-direction * motion.attack * 12);
+        rightHand.setAngle(-direction * (motion.attack * 28-motion.windup*14));
       } else if (unit.kind === 'slinger') {
-        leftHand.y -= direction * motion.windup * 11;
-        leftHand.x += motion.windup * 9;
-        rightHand.setAngle(direction * (motion.attack * 24 - motion.windup * 8));
+        leftHand.y -= direction * (motion.windup * 20-motion.attack*9);
+        leftHand.x += motion.windup * 14;
+        leftHand.setAngle(motion.windup*24-motion.attack*28);
+        rightHand.setAngle(direction * (motion.attack * 42 - motion.windup * 18));
       } else if (unit.kind === 'mage') {
         rightHand.y += direction * (motion.attack * 16 - motion.windup * 8);
-        rightHand.setAngle(direction * (motion.attack * 38 - motion.windup * 24) + (unit.side === 'enemy' ? Math.sin(motion.attack * Math.PI * 2) * 16 : 0));
+        rightHand.setAngle(direction * (motion.attack * 55 - motion.windup * 32) + (unit.side === 'enemy' ? Math.sin(motion.attack * Math.PI * 2) * 16 : 0));
         leftHand.y += direction * motion.attack * 6;
         if (unit.side === 'enemy') leftHand.setAngle(-motion.attack * 24 + motion.windup * 12);
       } else if (unit.kind === 'healer') {
         rightHand.y += direction * (motion.attack * 14 + motion.windup * 5);
-        rightHand.setAngle(direction * motion.attack * (unit.side === 'enemy' ? 42 : 20));
+        rightHand.setAngle(direction * motion.attack * 46);
         leftHand.y += direction * motion.attack * 8;
-      } else rightHand.setAngle(direction * (motion.attack * 30 - motion.windup * 38) - motion.stride * 8);
+      } else {
+        rightHand.setAngle(direction * (motion.attack * 65 - motion.windup * 55) - motion.stride * 8);
+        rightHand.y += direction*(motion.attack*28-motion.windup*10);
+      }
       rightHand.rotation += motion.hit * .12 - motion.fall * .3;
     }
     if (!machine) {
@@ -205,9 +217,23 @@ export class UnitView {
       const reach = unit.kind === 'knight' ? motion.attack * 23 - motion.windup * 9
         : unit.kind === 'shield' ? motion.attack * 15 - motion.windup * 4
         : unit.kind === 'mage' ? motion.attack * 16 - motion.windup * 8
-        : unit.kind === 'healer' ? motion.attack * 14 + motion.windup * 5 : 0;
+        : unit.kind === 'healer' ? motion.attack * 14 + motion.windup * 5
+        : unit.kind === 'boxer'||unit.kind==='kungfu' ? motion.attack*34-motion.windup*18
+        : unit.kind === 'umbrella' ? motion.attack*16-motion.windup*7
+        : unit.kind === 'gunner'||unit.kind==='hook' ? -motion.attack*18+motion.windup*6
+        : unit.kind === 'soldier'||unit.kind==='assassin' ? motion.attack*28-motion.windup*10 : 0;
       hand.x += localForward.x * reach;
       hand.y += (localForward.y - direction) * reach;
+    }
+    this.actionTrail.clear();
+    if(!reduced&&deathAt===undefined&&unit.kind!=='boss'&&motion.attack>.12) {
+      const age=now-unit.attackAt,alpha=Math.max(0,1-age/.36);
+      const angle=Math.atan2(forward.y,forward.x);
+      // A brief, readable sweep at the attacking side; drawn above the body, not over the HUD.
+      if(['soldier','shield','assassin','kungfu','boxer','knight','umbrella'].includes(unit.kind)) {
+        this.actionTrail.lineStyle(5,0xffe3a2,alpha*.85).beginPath().arc(forward.x*17,forward.y*17,35,angle-.8,angle+.8).strokePath();
+        this.actionTrail.lineStyle(2,0xb88b56,alpha*.65).beginPath().arc(forward.x*17,forward.y*17,39,angle-.55,angle+.65).strokePath();
+      }
     }
     if(this.bossPaw) {
       // Draw the giant paw over the front line, so crowded soldiers cannot hide the swing.
@@ -237,6 +263,7 @@ export class UnitView {
     return { id: this.unit.id, kind: this.unit.kind, side: this.unit.side, state: this.state, x: this.root.x, y: this.root.y, alpha: this.root.alpha, facing: this.heading, targetId: this.unit.targetId,
       look: this.look, mirror: this.facing.scaleX, turning: this.bodyDirection.turning, spriteRotation: this.facing.rotation, aimRotation: this.aimRotation,
       body: { x: this.torso.x, y: this.torso.y, rotation: this.torso.rotation },
+      action: { ...this.motion },
       charge:this.unit.kind==='boss'?bossCharge(this.unit.sweep):undefined,
       parts: Object.fromEntries(Object.entries(this.pieces).map(([name, piece]) => [name, { x: piece.x, y: piece.y, rotation: piece.rotation, scaleX: piece.scaleX, scaleY: piece.scaleY }])) };
   }

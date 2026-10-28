@@ -27,11 +27,17 @@ try {
   await page.locator('#levels-back').tap();await page.locator('#start').tap();await advance(0);
   assert.deepEqual((await read()).roster.available,['mouse','soldier']);
   assert.match(await page.locator('#hire-shield').textContent(),/第 4 关/);
-  assert.match(await page.locator('#upgrade-tech').getAttribute('aria-label'),/没有新增可招募伙伴/);
+  assert.match(await page.locator('#upgrade-tech').getAttribute('aria-label'),/第 3 关解锁二阶科技/);
+  assert.equal(await page.locator('#upgrade-tech').isDisabled(),true);
+  const lockedArmy=(await read()).player;
+  await page.keyboard.press('KeyT');
+  assert.equal(await page.evaluate(()=>window.__catGame.battle.researchTech('player')),false);
+  assert.deepEqual((await read()).player,lockedArmy,'locked research does not spend food or start a timer');
   await page.evaluate(()=>{const b=window.__catGame.battle;b.armies.player.tech=3;b.armies.player.food=5000;window.__catGame.render();});
   const before=(await read()).player;await page.keyboard.press('Digit3');await page.keyboard.press('Shift+Digit1');
   assert.equal(await page.evaluate(()=>window.__catGame.battle.summon('player','knight')),false);
   assert.deepEqual((await read()).player,before,'shortcuts and direct simulation calls respect stage locks');
+  await page.evaluate(()=>{window.__catGame.battle.armies.player.tech=1;window.__catGame.render();});
   for(const [name,width,height] of [['tiny',320,568],['phone',390,844],['landscape',844,390],['desktop',1440,900]]){
     await page.setViewportSize({width,height});await capture(name);
     const geometry=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth,cards:[...document.querySelectorAll('.unit-card')].map(e=>({w:e.getBoundingClientRect().width,h:e.getBoundingClientRect().height}))}));
@@ -42,6 +48,8 @@ try {
   await page.locator('#next-level').tap();await advance(0);assert.equal((await read()).roster.available.length,3);
   assert.match(await page.locator('#hire-slinger').textContent(),/需二阶/);assert.equal(await page.locator('#hire-slinger .unit-new').isVisible(),true);
   await page.locator('#upgrade-tech').tap();await advance(8100);assert.equal((await read()).player.tech,2);
+  assert.equal(await page.locator('#upgrade-tech').isDisabled(),true);
+  assert.match(await page.locator('#upgrade-tech').getAttribute('aria-label'),/第 11 关解锁三阶/);
   await page.locator('#hire-slinger').tap();assert.ok((await read()).units.some(u=>u.side==='player'&&u.kind==='slinger'));
   assert.equal(await page.locator('#hire-shield').isDisabled(),true);await capture('first-ranged');
   await page.locator('#pause').tap();const saved=await page.evaluate(()=>window.__catGame.battle.save());
@@ -74,6 +82,9 @@ try {
   await boot(profileTo(24));await page.locator('#choose-level').tap();await page.locator('[data-chapter="1"]').tap();await page.locator('#level-campaign-01').tap();await page.locator('#level-start').tap();await advance(0);
   assert.equal((await read()).level,'campaign-01');assert.equal((await read()).roster.available.length,16);
   assert.match(await page.locator('#hire-knight').textContent(),/需三阶/);await capture('replay');
+  await page.locator('#upgrade-tech').tap();await advance(8100);
+  await page.evaluate(()=>{window.__catGame.battle.armies.player.food=500;window.__catGame.render();});
+  await page.locator('#upgrade-tech').tap();await advance(12100);assert.equal((await read()).player.tech,3);
   assert.deepEqual(errors,[]);writeFileSync(`${out}/${engine}-report.json`,JSON.stringify({status:'passed',engine,errors,scenarios:['preview cannot unlock','simulation and keyboard gates','four screen sizes','victory before unlock encounter','real research and recruitment','pause reload restart','counter lesson and umbrella','0.19 suspended round and inherited recruits','late-progress replay keeps all partners']},null,2));
   console.log(`PASS ${engine}: permanent unlocks, research, saved rounds, migration, replay and four screen sizes`);
 }finally{await browser.close();}

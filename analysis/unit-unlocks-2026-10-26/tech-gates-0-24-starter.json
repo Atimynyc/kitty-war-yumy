@@ -1,0 +1,1707 @@
+{
+  "scope": "Planning simulation only. Normal food, technology, cooldowns, population and AI. Locked recruits rejected; fixed policies replace locked roles with earlier available units. 600s cutoff. Not human win rates.",
+  "sources": {
+    "scripts/analyze-unit-unlocks.mjs": "22d63cf5c79fbf7037d83b191e71894d9d8983ff0f0a28f3427364181274f191",
+    "scripts/global-balance.mjs": "a5e52cad856fc1156dc063e0f168c7b56c1d319a561c4fba7695c8cbc50e87f0",
+    "src/game/simulation.ts": "ea25f09420fd6b7573c2ec5a8316b96b1cc6b8720a98ea4782a8692ea97f15cc",
+    "src/game/content.ts": "02928c34dcad56bbaa799a7323f27cd8bca0724b15f7dd86745884a03a5665e8",
+    "src/game/levels.ts": "bdf777d0bf4b44457ea38e94554d365cca022561f7033c703e0c21000c7cf5d9",
+    "src/game/campaign.ts": "3defc4f45cf7573322fc65c6e37aee5ec778bb87a24467734d6dad073ca4fcc9",
+    "src/game/spell-notices.ts": "80217582bfc67b17cd451e4d22a7823a55d096e1cd7f27f27df38dacf755a1e8",
+    "src/game/combat-space.ts": "e9e280ac758fd629276593c93eed2ad60167fc4b479cd3821b316c5c84a8227f",
+    "src/game/boss-combat.ts": "5e71164d41e8f5aa2a07d4da7743bd36f11103c6fa0a034d97ffc7c175dd4925",
+    "src/game/unit-unlocks.ts": "463aa468f5bddb4d9116511dffd39052e9239f568ae751cb6c4c1d67bc1179e0",
+    "src/game/profile.ts": "074ec86ab49e52330cc7bd2821e62b5c589824b3254b10bae677cb517b58a3ee",
+    "src/game/battle-save.ts": "563f027128a530b0b2526f46cbd99d2ca476e99111a603c1b0764f3d412d006d"
+  },
+  "seeds": [
+    1234
+  ],
+  "policies": [
+    "soldiers"
+  ],
+  "schedules": {
+    "earlyGunner": {
+      "mouse": 1,
+      "soldier": 1,
+      "slinger": 3,
+      "shield": 4,
+      "kungfu": 6,
+      "umbrella": 8,
+      "mage": 9,
+      "gunner": 11,
+      "hook": 13,
+      "litter": 14,
+      "drummer": 16,
+      "healer": 17,
+      "assassin": 19,
+      "catapult": 21,
+      "boxer": 22,
+      "knight": 24
+    },
+    "counterLessons": {
+      "mouse": 1,
+      "soldier": 1,
+      "slinger": 3,
+      "shield": 4,
+      "kungfu": 6,
+      "umbrella": 8,
+      "mage": 9,
+      "catapult": 11,
+      "hook": 13,
+      "litter": 14,
+      "gunner": 16,
+      "drummer": 18,
+      "assassin": 19,
+      "healer": 21,
+      "boxer": 22,
+      "knight": 24
+    },
+    "observedEncounters": {
+      "mouse": 1,
+      "soldier": 1,
+      "slinger": 3,
+      "shield": 4,
+      "kungfu": 6,
+      "umbrella": 8,
+      "mage": 9,
+      "catapult": 11,
+      "hook": 13,
+      "litter": 14,
+      "drummer": 16,
+      "gunner": 18,
+      "assassin": 19,
+      "healer": 21,
+      "boxer": 22,
+      "knight": 24
+    }
+  },
+  "summaries": {
+    "observedEncounters": {
+      "overall": {
+        "games": 2,
+        "wins": 2,
+        "losses": 0,
+        "timeouts": 0,
+        "winMedian": 152,
+        "winMin": 149,
+        "winMax": 152,
+        "wins180to300": 0,
+        "fullHealthWins": 2,
+        "tier3": 0,
+        "tier3Median": null,
+        "fullPopulationMedian": 51.5,
+        "foodMedian": 23
+      },
+      "policies": {
+        "siege": {
+          "games": 0,
+          "wins": 0,
+          "losses": 0,
+          "timeouts": 0,
+          "winMedian": null,
+          "winMin": null,
+          "winMax": null,
+          "wins180to300": 0,
+          "fullHealthWins": 0,
+          "tier3": 0,
+          "tier3Median": null,
+          "fullPopulationMedian": null,
+          "foodMedian": null
+        },
+        "guns": {
+          "games": 0,
+          "wins": 0,
+          "losses": 0,
+          "timeouts": 0,
+          "winMedian": null,
+          "winMin": null,
+          "winMax": null,
+          "wins180to300": 0,
+          "fullHealthWins": 0,
+          "tier3": 0,
+          "tier3Median": null,
+          "fullPopulationMedian": null,
+          "foodMedian": null
+        },
+        "martial": {
+          "games": 0,
+          "wins": 0,
+          "losses": 0,
+          "timeouts": 0,
+          "winMedian": null,
+          "winMin": null,
+          "winMax": null,
+          "wins180to300": 0,
+          "fullHealthWins": 0,
+          "tier3": 0,
+          "tier3Median": null,
+          "fullPopulationMedian": null,
+          "foodMedian": null
+        },
+        "infiltration": {
+          "games": 0,
+          "wins": 0,
+          "losses": 0,
+          "timeouts": 0,
+          "winMedian": null,
+          "winMin": null,
+          "winMax": null,
+          "wins180to300": 0,
+          "fullHealthWins": 0,
+          "tier3": 0,
+          "tier3Median": null,
+          "fullPopulationMedian": null,
+          "foodMedian": null
+        },
+        "support": {
+          "games": 0,
+          "wins": 0,
+          "losses": 0,
+          "timeouts": 0,
+          "winMedian": null,
+          "winMin": null,
+          "winMax": null,
+          "wins180to300": 0,
+          "fullHealthWins": 0,
+          "tier3": 0,
+          "tier3Median": null,
+          "fullPopulationMedian": null,
+          "foodMedian": null
+        },
+        "soldiers": {
+          "games": 2,
+          "wins": 2,
+          "losses": 0,
+          "timeouts": 0,
+          "winMedian": 152,
+          "winMin": 149,
+          "winMax": 152,
+          "wins180to300": 0,
+          "fullHealthWins": 2,
+          "tier3": 0,
+          "tier3Median": null,
+          "fullPopulationMedian": 51.5,
+          "foodMedian": 23
+        }
+      },
+      "chapters": {
+        "1": {
+          "games": 2,
+          "wins": 2,
+          "losses": 0,
+          "timeouts": 0,
+          "winMedian": 152,
+          "winMin": 149,
+          "winMax": 152,
+          "wins180to300": 0,
+          "fullHealthWins": 2,
+          "tier3": 0,
+          "tier3Median": null,
+          "fullPopulationMedian": 51.5,
+          "foodMedian": 23
+        },
+        "2": {
+          "games": 0,
+          "wins": 0,
+          "losses": 0,
+          "timeouts": 0,
+          "winMedian": null,
+          "winMin": null,
+          "winMax": null,
+          "wins180to300": 0,
+          "fullHealthWins": 0,
+          "tier3": 0,
+          "tier3Median": null,
+          "fullPopulationMedian": null,
+          "foodMedian": null
+        },
+        "3": {
+          "games": 0,
+          "wins": 0,
+          "losses": 0,
+          "timeouts": 0,
+          "winMedian": null,
+          "winMin": null,
+          "winMax": null,
+          "wins180to300": 0,
+          "fullHealthWins": 0,
+          "tier3": 0,
+          "tier3Median": null,
+          "fullPopulationMedian": null,
+          "foodMedian": null
+        },
+        "4": {
+          "games": 0,
+          "wins": 0,
+          "losses": 0,
+          "timeouts": 0,
+          "winMedian": null,
+          "winMin": null,
+          "winMax": null,
+          "wins180to300": 0,
+          "fullHealthWins": 0,
+          "tier3": 0,
+          "tier3Median": null,
+          "fullPopulationMedian": null,
+          "foodMedian": null
+        },
+        "5": {
+          "games": 0,
+          "wins": 0,
+          "losses": 0,
+          "timeouts": 0,
+          "winMedian": null,
+          "winMin": null,
+          "winMax": null,
+          "wins180to300": 0,
+          "fullHealthWins": 0,
+          "tier3": 0,
+          "tier3Median": null,
+          "fullPopulationMedian": null,
+          "foodMedian": null
+        },
+        "6": {
+          "games": 0,
+          "wins": 0,
+          "losses": 0,
+          "timeouts": 0,
+          "winMedian": null,
+          "winMin": null,
+          "winMax": null,
+          "wins180to300": 0,
+          "fullHealthWins": 0,
+          "tier3": 0,
+          "tier3Median": null,
+          "fullPopulationMedian": null,
+          "foodMedian": null
+        }
+      },
+      "stagesWithoutWin": []
+    }
+  },
+  "enemyTimeline": [
+    {
+      "stage": 1,
+      "name": "第一口冻干",
+      "tactic": "基础小队",
+      "techCap": 1,
+      "techAt": [
+        42,
+        112
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        }
+      ],
+      "phases": [],
+      "boss": false
+    },
+    {
+      "stage": 2,
+      "name": "沙发下的动静",
+      "tactic": "快速补位",
+      "techCap": 1,
+      "techAt": [
+        40,
+        110
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        }
+      ],
+      "phases": [],
+      "boss": false
+    },
+    {
+      "stage": 3,
+      "name": "午后备粮",
+      "tactic": "基础小队",
+      "techCap": 1,
+      "techAt": [
+        38,
+        108
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        }
+      ],
+      "phases": [
+        {
+          "at": 105,
+          "label": "快速补位"
+        }
+      ],
+      "boss": false
+    },
+    {
+      "stage": 4,
+      "name": "窗边小队",
+      "tactic": "远程火力",
+      "techCap": 2,
+      "techAt": [
+        61,
+        131
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        }
+      ],
+      "phases": [],
+      "boss": false
+    },
+    {
+      "stage": 5,
+      "name": "客厅守护者",
+      "tactic": "锅盖阵地",
+      "techCap": 2,
+      "techAt": [
+        59,
+        129
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        }
+      ],
+      "phases": [
+        {
+          "at": 105,
+          "label": "远程火力"
+        }
+      ],
+      "boss": false
+    },
+    {
+      "stage": 6,
+      "name": "胶带路标",
+      "tactic": "锅盖阵地",
+      "techCap": 2,
+      "techAt": [
+        59,
+        125
+      ],
+      "enemies": [
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        }
+      ],
+      "phases": [],
+      "boss": false
+    },
+    {
+      "stage": 7,
+      "name": "纸箱阵地",
+      "tactic": "远程火力",
+      "techCap": 2,
+      "techAt": [
+        57,
+        123
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        }
+      ],
+      "phases": [
+        {
+          "at": 105,
+          "label": "锅盖阵地"
+        }
+      ],
+      "boss": false
+    },
+    {
+      "stage": 8,
+      "name": "走廊星光",
+      "tactic": "铃音迟缓",
+      "techCap": 2,
+      "techAt": [
+        55,
+        121
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        },
+        {
+          "kind": "mage",
+          "name": "铃铛干扰师"
+        }
+      ],
+      "phases": [],
+      "boss": false
+    },
+    {
+      "stage": 9,
+      "name": "转角增援",
+      "tactic": "快速补位",
+      "techCap": 2,
+      "techAt": [
+        53,
+        119
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        }
+      ],
+      "phases": [
+        {
+          "at": 105,
+          "label": "远程火力"
+        }
+      ],
+      "boss": false
+    },
+    {
+      "stage": 10,
+      "name": "纸箱守卫队",
+      "tactic": "协同混编",
+      "techCap": 2,
+      "techAt": [
+        51,
+        117
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        },
+        {
+          "kind": "mage",
+          "name": "铃铛干扰师"
+        }
+      ],
+      "phases": [
+        {
+          "at": 105,
+          "label": "铃音迟缓"
+        }
+      ],
+      "boss": false
+    },
+    {
+      "stage": 11,
+      "name": "厨房开张",
+      "tactic": "远程火力",
+      "techCap": 2,
+      "techAt": [
+        55,
+        109
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        }
+      ],
+      "phases": [],
+      "boss": false
+    },
+    {
+      "stage": 12,
+      "name": "饼干罐争夺",
+      "tactic": "远程火力",
+      "techCap": 2,
+      "techAt": [
+        53,
+        107
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        },
+        {
+          "kind": "mage",
+          "name": "铃铛干扰师"
+        }
+      ],
+      "phases": [
+        {
+          "at": 90,
+          "label": "铃音迟缓"
+        }
+      ],
+      "boss": false
+    },
+    {
+      "stage": 13,
+      "name": "零食弹道",
+      "tactic": "零食攻城",
+      "techCap": 3,
+      "techAt": [
+        51,
+        105
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        },
+        {
+          "kind": "mage",
+          "name": "铃铛干扰师"
+        },
+        {
+          "kind": "catapult",
+          "name": "零食投射车"
+        }
+      ],
+      "phases": [],
+      "boss": false
+    },
+    {
+      "stage": 14,
+      "name": "最后一份储备",
+      "tactic": "快速补位",
+      "techCap": 3,
+      "techAt": [
+        49,
+        103
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        },
+        {
+          "kind": "mage",
+          "name": "铃铛干扰师"
+        },
+        {
+          "kind": "catapult",
+          "name": "零食投射车"
+        }
+      ],
+      "phases": [
+        {
+          "at": 90,
+          "label": "零食攻城"
+        }
+      ],
+      "boss": false
+    },
+    {
+      "stage": 15,
+      "name": "零食保卫队",
+      "tactic": "零食攻城",
+      "techCap": 3,
+      "techAt": [
+        47,
+        101
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        },
+        {
+          "kind": "mage",
+          "name": "铃铛干扰师"
+        },
+        {
+          "kind": "catapult",
+          "name": "零食投射车"
+        }
+      ],
+      "phases": [
+        {
+          "at": 90,
+          "label": "协同混编"
+        }
+      ],
+      "boss": false
+    },
+    {
+      "stage": 16,
+      "name": "花盆之间",
+      "tactic": "罐头补给",
+      "techCap": 3,
+      "techAt": [
+        26,
+        78
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        },
+        {
+          "kind": "mage",
+          "name": "铃铛干扰师"
+        },
+        {
+          "kind": "catapult",
+          "name": "零食投射车"
+        },
+        {
+          "kind": "healer",
+          "name": "罐头补给员"
+        }
+      ],
+      "phases": [],
+      "boss": false
+    },
+    {
+      "stage": 17,
+      "name": "藤架下的援军",
+      "tactic": "锅盖阵地",
+      "techCap": 3,
+      "techAt": [
+        49,
+        101
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        },
+        {
+          "kind": "mage",
+          "name": "铃铛干扰师"
+        },
+        {
+          "kind": "catapult",
+          "name": "零食投射车"
+        },
+        {
+          "kind": "healer",
+          "name": "罐头补给员"
+        }
+      ],
+      "phases": [
+        {
+          "at": 90,
+          "label": "罐头补给"
+        }
+      ],
+      "boss": false
+    },
+    {
+      "stage": 18,
+      "name": "薄荷时刻",
+      "tactic": "罐头补给",
+      "techCap": 3,
+      "techAt": [
+        22,
+        74
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        },
+        {
+          "kind": "mage",
+          "name": "铃铛干扰师"
+        },
+        {
+          "kind": "catapult",
+          "name": "零食投射车"
+        },
+        {
+          "kind": "healer",
+          "name": "罐头补给员"
+        }
+      ],
+      "phases": [
+        {
+          "at": 90,
+          "label": "铃音迟缓"
+        }
+      ],
+      "boss": false
+    },
+    {
+      "stage": 19,
+      "name": "落叶追逐",
+      "tactic": "快速补位",
+      "techCap": 3,
+      "techAt": [
+        20,
+        72
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        },
+        {
+          "kind": "mage",
+          "name": "铃铛干扰师"
+        },
+        {
+          "kind": "catapult",
+          "name": "零食投射车"
+        },
+        {
+          "kind": "healer",
+          "name": "罐头补给员"
+        }
+      ],
+      "phases": [
+        {
+          "at": 90,
+          "label": "罐头补给"
+        }
+      ],
+      "boss": false
+    },
+    {
+      "stage": 20,
+      "name": "阳台守护队",
+      "tactic": "罐头补给",
+      "techCap": 3,
+      "techAt": [
+        18,
+        70
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        },
+        {
+          "kind": "mage",
+          "name": "铃铛干扰师"
+        },
+        {
+          "kind": "catapult",
+          "name": "零食投射车"
+        },
+        {
+          "kind": "healer",
+          "name": "罐头补给员"
+        }
+      ],
+      "phases": [
+        {
+          "at": 90,
+          "label": "协同混编"
+        }
+      ],
+      "boss": false
+    },
+    {
+      "stage": 21,
+      "name": "夜灯亮起",
+      "tactic": "铃音迟缓",
+      "techCap": 3,
+      "techAt": [
+        24,
+        72
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        },
+        {
+          "kind": "mage",
+          "name": "铃铛干扰师"
+        },
+        {
+          "kind": "catapult",
+          "name": "零食投射车"
+        },
+        {
+          "kind": "healer",
+          "name": "罐头补给员"
+        }
+      ],
+      "phases": [],
+      "boss": false
+    },
+    {
+      "stage": 22,
+      "name": "天台重骑",
+      "tactic": "小猪重骑",
+      "techCap": 3,
+      "techAt": [
+        22,
+        70
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        },
+        {
+          "kind": "mage",
+          "name": "铃铛干扰师"
+        },
+        {
+          "kind": "healer",
+          "name": "罐头补给员"
+        },
+        {
+          "kind": "knight",
+          "name": "小猪重骑兵"
+        }
+      ],
+      "phases": [],
+      "boss": false
+    },
+    {
+      "stage": 23,
+      "name": "月光拉锯",
+      "tactic": "远程火力",
+      "techCap": 3,
+      "techAt": [
+        20,
+        68
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        },
+        {
+          "kind": "mage",
+          "name": "铃铛干扰师"
+        },
+        {
+          "kind": "catapult",
+          "name": "零食投射车"
+        },
+        {
+          "kind": "healer",
+          "name": "罐头补给员"
+        },
+        {
+          "kind": "knight",
+          "name": "小猪重骑兵"
+        }
+      ],
+      "phases": [
+        {
+          "at": 90,
+          "label": "小猪重骑"
+        }
+      ],
+      "boss": false
+    },
+    {
+      "stage": 24,
+      "name": "连续来客",
+      "tactic": "快速补位",
+      "techCap": 3,
+      "techAt": [
+        18,
+        66
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        },
+        {
+          "kind": "mage",
+          "name": "铃铛干扰师"
+        },
+        {
+          "kind": "catapult",
+          "name": "零食投射车"
+        },
+        {
+          "kind": "healer",
+          "name": "罐头补给员"
+        },
+        {
+          "kind": "knight",
+          "name": "小猪重骑兵"
+        }
+      ],
+      "phases": [
+        {
+          "at": 90,
+          "label": "小猪重骑"
+        }
+      ],
+      "boss": false
+    },
+    {
+      "stage": 25,
+      "name": "月下精英队",
+      "tactic": "小猪重骑",
+      "techCap": 3,
+      "techAt": [
+        16,
+        64
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        },
+        {
+          "kind": "mage",
+          "name": "铃铛干扰师"
+        },
+        {
+          "kind": "catapult",
+          "name": "零食投射车"
+        },
+        {
+          "kind": "healer",
+          "name": "罐头补给员"
+        },
+        {
+          "kind": "knight",
+          "name": "小猪重骑兵"
+        }
+      ],
+      "phases": [
+        {
+          "at": 90,
+          "label": "协同混编"
+        }
+      ],
+      "boss": false
+    },
+    {
+      "stage": 26,
+      "name": "仓库门口",
+      "tactic": "协同混编",
+      "techCap": 3,
+      "techAt": [
+        22,
+        68
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        },
+        {
+          "kind": "mage",
+          "name": "铃铛干扰师"
+        },
+        {
+          "kind": "catapult",
+          "name": "零食投射车"
+        },
+        {
+          "kind": "healer",
+          "name": "罐头补给员"
+        },
+        {
+          "kind": "knight",
+          "name": "小猪重骑兵"
+        }
+      ],
+      "phases": [],
+      "boss": false
+    },
+    {
+      "stage": 27,
+      "name": "标签迷阵",
+      "tactic": "锅盖阵地",
+      "techCap": 3,
+      "techAt": [
+        20,
+        66
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        },
+        {
+          "kind": "mage",
+          "name": "铃铛干扰师"
+        },
+        {
+          "kind": "catapult",
+          "name": "零食投射车"
+        },
+        {
+          "kind": "healer",
+          "name": "罐头补给员"
+        },
+        {
+          "kind": "knight",
+          "name": "小猪重骑兵"
+        }
+      ],
+      "phases": [
+        {
+          "at": 90,
+          "label": "铃音迟缓"
+        },
+        {
+          "at": 170,
+          "label": "零食攻城"
+        }
+      ],
+      "boss": false
+    },
+    {
+      "stage": 28,
+      "name": "冻干争夺战",
+      "tactic": "零食攻城",
+      "techCap": 3,
+      "techAt": [
+        18,
+        64
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        },
+        {
+          "kind": "mage",
+          "name": "铃铛干扰师"
+        },
+        {
+          "kind": "catapult",
+          "name": "零食投射车"
+        },
+        {
+          "kind": "healer",
+          "name": "罐头补给员"
+        },
+        {
+          "kind": "knight",
+          "name": "小猪重骑兵"
+        }
+      ],
+      "phases": [
+        {
+          "at": 90,
+          "label": "小猪重骑"
+        }
+      ],
+      "boss": false
+    },
+    {
+      "stage": 29,
+      "name": "胖橘的前哨",
+      "tactic": "协同混编",
+      "techCap": 3,
+      "techAt": [
+        16,
+        62
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        },
+        {
+          "kind": "mage",
+          "name": "铃铛干扰师"
+        },
+        {
+          "kind": "catapult",
+          "name": "零食投射车"
+        },
+        {
+          "kind": "healer",
+          "name": "罐头补给员"
+        },
+        {
+          "kind": "knight",
+          "name": "小猪重骑兵"
+        }
+      ],
+      "phases": [
+        {
+          "at": 90,
+          "label": "罐头补给"
+        }
+      ],
+      "boss": false
+    },
+    {
+      "stage": 30,
+      "name": "一粒也不能少",
+      "tactic": "协同混编",
+      "techCap": 3,
+      "techAt": [
+        14,
+        60
+      ],
+      "enemies": [
+        {
+          "kind": "mouse",
+          "name": "罐头侦察车"
+        },
+        {
+          "kind": "soldier",
+          "name": "饼干棒打手"
+        },
+        {
+          "kind": "shield",
+          "name": "锅盖卫兵"
+        },
+        {
+          "kind": "slinger",
+          "name": "饼干弹弓手"
+        },
+        {
+          "kind": "mage",
+          "name": "铃铛干扰师"
+        },
+        {
+          "kind": "catapult",
+          "name": "零食投射车"
+        },
+        {
+          "kind": "healer",
+          "name": "罐头补给员"
+        },
+        {
+          "kind": "knight",
+          "name": "小猪重骑兵"
+        }
+      ],
+      "phases": [
+        {
+          "at": 90,
+          "label": "小猪重骑"
+        }
+      ],
+      "boss": true
+    }
+  ],
+  "rows": [
+    {
+      "stage": 1,
+      "policy": "soldiers",
+      "seed": 1234,
+      "winner": "player",
+      "seconds": 152,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "tech": 1,
+      "enemyTech": 1,
+      "economy": 1,
+      "enemyEconomy": 2,
+      "food": 17,
+      "meanFood": 29,
+      "maxPopulation": 24,
+      "fullSeconds": 5,
+      "pressureSeconds": 0,
+      "recruited": {
+        "soldier": 41
+      },
+      "techAt": [
+        0
+      ],
+      "economyAt": [
+        0
+      ],
+      "investments": [],
+      "abilityEvents": {},
+      "statusSeconds": {
+        "weakenedEnemies": 0,
+        "guardedAllies": 0,
+        "hastedAllies": 0,
+        "hiddenAllies": 0
+      },
+      "energySpent": 175,
+      "energyOverflow": 0,
+      "trace": [
+        {
+          "t": 0,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "food": 190,
+          "pop": 0,
+          "tech": 1,
+          "economy": 1
+        },
+        {
+          "t": 30,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "food": 0,
+          "pop": 10,
+          "tech": 1,
+          "economy": 1
+        },
+        {
+          "t": 60,
+          "hp": 3000,
+          "enemyHp": 2552,
+          "food": 10,
+          "pop": 16,
+          "tech": 1,
+          "economy": 1
+        },
+        {
+          "t": 90,
+          "hp": 3000,
+          "enemyHp": 2076,
+          "food": 20,
+          "pop": 16,
+          "tech": 1,
+          "economy": 1
+        },
+        {
+          "t": 120,
+          "hp": 3000,
+          "enemyHp": 1124,
+          "food": 30,
+          "pop": 19,
+          "tech": 1,
+          "economy": 1
+        },
+        {
+          "t": 150,
+          "hp": 3000,
+          "enemyHp": 116,
+          "food": 40,
+          "pop": 23,
+          "tech": 1,
+          "economy": 1
+        }
+      ],
+      "schedule": "observedEncounters",
+      "allowed": [
+        "mouse",
+        "soldier"
+      ],
+      "firstPlayer": {
+        "soldier": 0
+      },
+      "firstEnemy": {
+        "soldier": 10,
+        "mouse": 18
+      }
+    },
+    {
+      "stage": 2,
+      "policy": "soldiers",
+      "seed": 1234,
+      "winner": "player",
+      "seconds": 149,
+      "playerHp": 3000,
+      "enemyHp": 0,
+      "tech": 1,
+      "enemyTech": 1,
+      "economy": 1,
+      "enemyEconomy": 2,
+      "food": 23,
+      "meanFood": 47,
+      "maxPopulation": 24,
+      "fullSeconds": 51.5,
+      "pressureSeconds": 0,
+      "recruited": {
+        "soldier": 40
+      },
+      "techAt": [
+        0
+      ],
+      "economyAt": [
+        0
+      ],
+      "investments": [],
+      "abilityEvents": {},
+      "statusSeconds": {
+        "weakenedEnemies": 0,
+        "guardedAllies": 0,
+        "hastedAllies": 0,
+        "hiddenAllies": 0
+      },
+      "energySpent": 175,
+      "energyOverflow": 0,
+      "trace": [
+        {
+          "t": 0,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "food": 190,
+          "pop": 0,
+          "tech": 1,
+          "economy": 1
+        },
+        {
+          "t": 30,
+          "hp": 3000,
+          "enemyHp": 3000,
+          "food": 0,
+          "pop": 10,
+          "tech": 1,
+          "economy": 1
+        },
+        {
+          "t": 60,
+          "hp": 3000,
+          "enemyHp": 2412,
+          "food": 10,
+          "pop": 16,
+          "tech": 1,
+          "economy": 1
+        },
+        {
+          "t": 90,
+          "hp": 3000,
+          "enemyHp": 2020,
+          "food": 20,
+          "pop": 22,
+          "tech": 1,
+          "economy": 1
+        },
+        {
+          "t": 120,
+          "hp": 3000,
+          "enemyHp": 1124,
+          "food": 80,
+          "pop": 22,
+          "tech": 1,
+          "economy": 1
+        }
+      ],
+      "schedule": "observedEncounters",
+      "allowed": [
+        "mouse",
+        "soldier"
+      ],
+      "firstPlayer": {
+        "soldier": 0
+      },
+      "firstEnemy": {
+        "mouse": 9,
+        "soldier": 12.8
+      }
+    }
+  ]
+}

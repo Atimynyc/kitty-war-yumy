@@ -41,7 +41,7 @@ const reduceMotion = async () => {
   });
 };
 const fixture = async (kind, pair = true) => page.evaluate(({kind, pair}) => {
-  const b = window.__catGame.battle; b.reset(); b.start(); b.aiEnabled = false;
+  const b = window.__catGame.battle; b.reset(undefined,Object.keys(b.armies.player.cooldowns)); b.start(); b.aiEnabled = false;
   const spawn = (side, type, x) => {
     b.armies[side].food = 10000; b.armies[side].tech = 3; b.armies[side].cooldowns[type] = 0;
     b.summon(side, type); const unit = b.units.at(-1); unit.x = x; unit.row = unit.targetRow = 1; unit.attackCooldown = 0; return unit;
@@ -206,7 +206,7 @@ try {
   // The C shortcut follows the same guarded action when enough energy is available.
   await page.evaluate(() => { window.__catGame.battle.armies.player.energy = 50; window.__catGame.render(); });
   await page.keyboard.press('c');
-  assert.equal(await page.evaluate(() => window.__catGame.battle.armies.player.energy), 0);
+  assert.equal(await page.evaluate(() => window.__catGame.battle.armies.player.energy), 10);
   await page.keyboard.press('7');
   assert.equal(await page.evaluate(() => window.__catGame.battle.units.at(-1).kind), 'healer');
   assert.equal(await page.evaluate(() => window.__catGame.battle.units.at(-1).catnip), 0);

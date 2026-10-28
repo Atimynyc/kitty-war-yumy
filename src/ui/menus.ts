@@ -17,7 +17,7 @@ export function menuMarkup() {
       <div class="home-actions"><button id="start" class="primary-button">开始守护 ${icons.play}</button><button id="choose-level" class="menu-secondary">选择关卡 <span>→</span></button></div>
       <button id="home-cat" class="home-my-cat"><img id="home-cat-preview" src="${svgURL(baseCatSVG(PLAYER_CAT))}" alt="我的猫咪"/><span><strong>我的猫咪</strong><small id="home-cat-description">换个喜欢的模样，一起守护小窝</small></span><span aria-hidden="true">→</span></button>
       <p id="resume-summary" class="resume-summary" hidden></p><button id="new-battle" class="home-new-battle" hidden>重新开始这关</button>
-      <div class="home-honors"><button id="home-characters">角色图鉴 · 25 份档案</button><button id="home-achievements">小窝荣誉柜 · <span id="home-achievement-count">0/24</span></button><span id="home-equipped-title" class="equipped-honor"></span></div>
+      <div class="home-honors"><button id="home-characters" class="nav-icon-button">${icons.book}<span>图鉴</span></button><button id="home-achievements" class="nav-icon-button">${icons.trophy}<span>成就</span></button><span id="home-equipped-title" class="equipped-honor"></span></div>
       <div class="home-details"><span><b>${CHAPTERS.length}</b> 个场景</span><span><b>${LEVELS.length}</b> 个关卡</span><span><b id="home-cleared">0 / ${LEVELS.length}</b> 已守护</span></div>
       <p id="home-progress" class="home-progress">第 01 关 · 第一口冻干</p>
     </div>

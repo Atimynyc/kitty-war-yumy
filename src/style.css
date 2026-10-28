@@ -151,6 +151,8 @@ h1 > span { color: var(--orange); }
 .tech-card .upgrade-info strong span { border-color: #d9cfe3; color: #a193ae; }
 .tech-card .upgrade-info small { color: #a398af; }
 .tech-card .upgrade-action { color: #a08eb3; }
+.tech-card.progress-locked { border-style: dashed; background: #efede8; }
+.tech-card.progress-locked .upgrade-action { opacity: 1; color: #88785e; }
 #research-progress { position: absolute; bottom: 0; height: 4px; left: 0; background: #b6a2c9; }
 footer { display: flex; justify-content: space-between; align-items: center; margin: 25px 0 23px; color: #b7af9d; font-size: 10px; }
 footer > span { display: flex; align-items: center; gap: 5px; }

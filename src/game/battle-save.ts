@@ -6,7 +6,7 @@ import { UNIT_ORDER, UNITS, FOOD_RATES, MAX_POPULATION, BASE_HP } from './conten
 import { LEVELS, LEGACY_LEVELS } from './levels.ts';
 
 // Changing combat rules requires an explicit migration or rejection of suspended rounds.
-export const BATTLE_RULES_VERSION = '0.20.0';
+export const BATTLE_RULES_VERSION = '0.24.0';
 export interface BattleSave {
   version: 1; rules: string; levelId: string; time: number; seed: number; randomState: number;
   playerRoster: import('./content.ts').UnitKind[]; legacyRoster: boolean;
@@ -92,6 +92,12 @@ export function validBattleSave(s: unknown, legacy = false): s is BattleSave {
 /** Keep old checkpoints playable: retired visuals disappear, already-applied slow expires normally. */
 export function readBattleSave(raw: unknown): BattleSave | null {
   if (validBattleSave(raw)) return JSON.parse(JSON.stringify(raw));
+  // Research eligibility changed; keep paid research, completed tiers and the exact roster.
+  // Revalidate every field under the current schema before accepting the checkpoint.
+  if (object(raw) && raw.rules === '0.20.0') {
+    const s = { ...raw, rules: BATTLE_RULES_VERSION };
+    return validBattleSave(s) ? JSON.parse(JSON.stringify(s)) : null;
+  }
   if (!validBattleSave(raw,true)) return null;
   const s: BattleSave = JSON.parse(JSON.stringify(raw));
   const retired=s.rules==='0.18.0';

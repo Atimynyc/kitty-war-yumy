@@ -1,7 +1,7 @@
 import { ACHIEVEMENTS, CATEGORIES, TITLES, achievementValue, equippedTitle, missingPartners } from '../game/achievements.ts';
 import type { Achievement, Achievements } from '../game/achievements.ts';
 import type { CampaignProgress } from '../game/levels.ts';
-import { svgURL, unitPortraitSVG, paw } from '../art.ts';
+import { svgURL, unitPortraitSVG, paw, icons } from '../art.ts';
 
 const motifs: Record<string,string> = {
   sun:'<circle cx="32" cy="31" r="11"/><path d="M32 13v4m0 28v4M14 31h4m28 0h4M19 18l3 3m20 20 3 3M19 44l3-3m20-20 3-3" fill="none"/>',
@@ -50,5 +50,5 @@ export function resultAchievements(data: Achievements, progress: CampaignProgres
   const awards=ACHIEVEMENTS.filter(a=>gained.includes(a.id));
   const close=ACHIEVEMENTS.filter(a=>!data.unlocked[a.id]).map(a=>({a,v:achievementValue(a,data,progress)})).filter(x=>x.v>0).sort((a,b)=>b.v/b.a.target-a.v/a.a.target)[0];
   const title=equippedTitle(data);
-  return `<div class="result-honors">${title?`<p class="equipped-honor">${title}</p>`:''}${awards.length?`<strong>本局新成就 · ${awards.length}</strong><p>${awards.slice(0,2).map(a=>`✓ ${a.name}`).join('　')}</p>${awards.length>2?`<details><summary>还有 ${awards.length-2} 项</summary><p>${awards.slice(2).map(a=>a.name).join('、')}</p></details>`:''}`:''}${close?`<small>即将获得「${close.a.name}」· ${close.v}/${close.a.target}</small>`:''}<button class="subtle-button" id="result-achievements">查看荣誉柜 →</button></div>`;
+  return `<div class="result-honors">${title?`<p class="equipped-honor">${title}</p>`:''}${awards.length?`<strong>本局新成就 · ${awards.length}</strong><p>${awards.slice(0,2).map(a=>`✓ ${a.name}`).join('　')}</p>${awards.length>2?`<details><summary>还有 ${awards.length-2} 项</summary><p>${awards.slice(2).map(a=>a.name).join('、')}</p></details>`:''}`:''}${close?`<small>即将获得「${close.a.name}」· ${close.v}/${close.a.target}</small>`:''}<button class="subtle-button nav-icon-button" id="result-achievements">${icons.trophy}<span>成就</span></button></div>`;
 }

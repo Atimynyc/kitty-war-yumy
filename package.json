@@ -1,6 +1,6 @@
 {
   "name": "cat-protect",
-  "version": "0.23.0",
+  "version": "0.24.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -15,8 +15,10 @@
     "test": "node --experimental-strip-types --test tests/simulation.test.ts tests/viewport.test.ts tests/boss.test.ts tests/energy.test.ts tests/campaign.test.ts tests/specialists.test.ts tests/economy.test.ts tests/pacing.test.ts tests/achievements.test.ts tests/resume.test.ts tests/platform.test.ts tests/spells.test.ts tests/unit-unlocks.test.ts tests/cat-appearance.test.ts",
     "test:achievements": "node scripts/achievements-playtest.mjs",
     "test:browser": "node scripts/playtest.mjs",
+    "test:audio": "node scripts/audio-playtest.mjs",
     "test:responsive": "node scripts/responsive-playtest.mjs",
     "test:animations": "node scripts/animation-playtest.mjs",
+    "test:attack-readability": "node scripts/attack-readability-playtest.mjs",
     "test:enemies": "node scripts/enemy-faction-playtest.mjs",
     "test:specialists": "node scripts/specialists-playtest.mjs",
     "test:pacing": "node scripts/pacing-playtest.mjs",

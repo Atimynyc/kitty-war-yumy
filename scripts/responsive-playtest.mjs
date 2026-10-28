@@ -23,7 +23,7 @@ const inspect = async page => page.evaluate(() => {
   const rect = element => { const r = element.getBoundingClientRect(); return { x: r.x, y: r.y, width: r.width, height: r.height, right: r.right, bottom: r.bottom }; };
   const grid = rect(document.querySelector('.unit-grid'));
   const visibleCards = Array.from(document.querySelectorAll('.unit-card')).filter(e => { const r=rect(e); return r.y >= grid.y - 1 && r.bottom <= grid.bottom + 1; });
-  const selectors = ['#sound', '#help', '#pause', '#speed', ...visibleCards.map(e => `#${e.id}`), '#upgrade-economy', '#upgrade-tech', '#treat', '#catnip', '#bombard'];
+  const selectors = ['#settings', '#help', '#pause', '#speed', ...visibleCards.map(e => `#${e.id}`), '#upgrade-economy', '#upgrade-tech', '#treat', '#catnip', '#bombard'];
   return {
     scrollY: window.scrollY, layout: document.documentElement.dataset.layout, viewport: { width: innerWidth, height: innerHeight },
     scroll: { width: document.documentElement.scrollWidth, height: document.documentElement.scrollHeight },

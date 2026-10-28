@@ -36,7 +36,7 @@ class SeatedCat {
     if(mood!==this.lastMood){for(const part of BASE_CAT_MOOD_PARTS)this.pieces[part].setTexture(baseCatTexture(this.textureSide,mood,part));this.lastMood=mood;}
     this.root.setPosition(at.x,at.y).setScale(at.size/160).setVisible(this.side!=='enemy'||!battle.boss.spawned);
     this.actor.setY(-m.hop);
-    this.pieces.body.setScale(1+m.breath*.55,1+m.breath);
+    this.pieces.body.setScale(1+m.breath*.55,1+m.breath).setAngle(m.bodyAngle);
     this.pieces.tail.setAngle(m.tailAngle);
     this.head.setPosition(m.headX,-68+m.headY).setAngle(m.headAngle);
     this.pieces.leftEar.setAngle(m.leftEarAngle);this.pieces.rightEar.setAngle(m.rightEarAngle);

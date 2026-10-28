@@ -1,0 +1,23 @@
+#settings-dialog { max-width: 420px; }
+.settings-heading { display: flex; align-items: center; gap: 12px; padding-right: 20px; }
+.settings-heading h2 { margin: 5px 0 0; }
+.settings-emblem { display: grid; place-items: center; width: 46px; height: 46px; flex-shrink: 0; border: 1px solid #dbcbb4; border-radius: 14px; background: #f1e7d6; color: #96734c; }
+.settings-emblem svg { width: 25px; height: 25px; }
+.settings-section { margin-top: 22px; }
+.settings-section h3 { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 15px; color: #687e4d; }
+.settings-section h3 svg { width: 19px; height: 19px; }
+.audio-hint { color: #86775f; font-size: 12px; line-height: 1.7; }
+.audio-master { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid #e5d9c4; font-size: 15px; font-weight: 700; }
+.audio-master small { display: block; margin-top: 5px; font-size: 11px; font-weight: 400; color: #86775f; }
+.audio-master input { width: 24px; height: 24px; margin: 10px; accent-color: #78964c; cursor: pointer; }
+.audio-volume { display: grid; grid-template-columns: 1fr auto; align-items: center; margin-top: 22px; font-size: 14px; }
+.audio-volume output { color: #657b42; font-weight: 700; }
+.audio-volume input { grid-column: 1 / -1; width: 100%; min-height: 44px; margin: 3px 0; accent-color: #78964c; cursor: pointer; }
+.audio-volume small { grid-column: 1 / -1; color: #86775f; font-size: 11px; }
+.audio-actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 20px; }
+.audio-actions button { min-height: 44px; }
+.nav-icon-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+.nav-icon-button svg { width: 21px; height: 21px; flex-shrink: 0; }
+.nav-icon-button span { margin-left: 0; }
+.home-honors .nav-icon-button { min-width: 110px; }
+.home-honors #home-achievements svg { color: #b38a3c; }

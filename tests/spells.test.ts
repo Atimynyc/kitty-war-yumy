@@ -115,11 +115,11 @@ test('0.18 rounds migrate through both restore and profile loading without losin
   const old=new OldBattle();old.start();old.aiEnabled=false;old.armies.player.energy=100;
   old.summon('player','soldier');old.summon('enemy','soldier');old.units[1].x=300;
   old.catnip('player');old.roar('player');const original=old.save();
-  const migrated=readBattleSave(original)!;assert.ok(migrated);assert.equal(migrated.rules,'0.20.0');
+  const migrated=readBattleSave(original)!;assert.ok(migrated);assert.equal(migrated.rules,'0.24.0');
   assert.deepEqual(migrated.armies,original.armies);assert.deepEqual(migrated.units,original.units);
   assert.ok(migrated.effects.every(e=>(e.type as string)!=='roar'));assert.equal(migrated.notices.items.length,1);
   assert.equal(migrated.notices.items[0].energyCost,50);assert.equal(original.rules,'0.18.0');
   const b=new Battle();assert.ok(b.restore(original));assert.equal(b.phase,'paused');assert.equal(b.armies.player.energy,0);
   const p=JSON.parse(serializeProfile(emptyProfile()));p.run={battle:original,speed:2,awards:[]};
-  const loaded=readProfile(JSON.stringify(p));assert.equal(loaded.profile.run!.battle.rules,'0.20.0');assert.equal(loaded.profile.run!.speed,2);assert.equal(loaded.migrated,true);
+  const loaded=readProfile(JSON.stringify(p));assert.equal(loaded.profile.run!.battle.rules,'0.24.0');assert.equal(loaded.profile.run!.speed,2);assert.equal(loaded.migrated,true);
 });

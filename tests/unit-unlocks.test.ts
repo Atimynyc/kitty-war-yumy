@@ -3,9 +3,49 @@ import assert from 'node:assert/strict';
 import { Battle } from '../src/game/simulation.ts';
 import { UNIT_ORDER, UNITS } from '../src/game/content.ts';
 import { LEVELS } from '../src/game/levels.ts';
-import { UNIT_UNLOCK_STAGE, unitsAtStage, arrivalsAtStage, unlockedUnits, reachedStage } from '../src/game/unit-unlocks.ts';
+import { UNIT_UNLOCK_STAGE, unitsAtStage, arrivalsAtStage, unlockedUnits, reachedStage, unlockedTech, techUnlockStage } from '../src/game/unit-unlocks.ts';
 import { emptyProfile, readProfile, serializeProfile } from '../src/game/profile.ts';
-import { validBattleSave } from '../src/game/battle-save.ts';
+import { validBattleSave, readBattleSave, BATTLE_RULES_VERSION } from '../src/game/battle-save.ts';
+
+test('research eligibility follows the first permanent partner of each tier',()=>{
+  assert.equal(techUnlockStage(2),3);assert.equal(techUnlockStage(3),11);
+  for(let stage=1;stage<=30;stage++){
+    const b=new Battle();b.reset(LEVELS[stage-1].id,unitsAtStage(stage));b.start();b.aiEnabled=false;
+    const cap=stage<3?1:stage<11?2:3;assert.equal(unlockedTech(b.playerRoster),cap);
+    for(const tech of [1,2]){
+      Object.assign(b.armies.player,{tech,food:1000,researching:false,research:0});
+      const before=structuredClone(b.armies.player),stats=structuredClone(b.stats);
+      assert.equal(b.researchTech('player'),tech<cap,`stage ${stage}, tier ${tech+1}`);
+      if(tech>=cap){assert.deepEqual(b.armies.player,before);assert.deepEqual(b.stats,stats);assert.match(b.researchReason('player'),/第 .* 关解锁/);}
+      else {assert.ok(b.armies.player.food<before.food);assert.ok(b.armies.player.researching);}
+    }
+  }
+});
+test('replays and inherited partners keep research eligibility; enemy eligibility remains independent',()=>{
+  for(const roster of [unlockedUnits(progressTo(11)),unlockedUnits({},['gunner'])]){
+    const b=new Battle();b.reset('campaign-01',roster);b.start();b.aiEnabled=false;b.armies.player.food=1000;
+    assert.equal(b.researchTech('player'),true);for(let i=0;i<241;i++)b.step(1/30);
+    assert.equal(b.armies.player.tech,2);assert.equal(b.researchTech('player'),true);
+    for(let i=0;i<361;i++)b.step(1/30);assert.equal(b.armies.player.tech,3);
+  }
+  const b=new Battle();b.reset('campaign-01',unitsAtStage(1));b.start();assert.equal(b.researchTech('enemy'),true);
+});
+test('0.20 checkpoints retain completed and paid research without unlocking extra partners',()=>{
+  for(const tech of [1,2,3])for(const researching of tech===3?[false]:[false,true]){
+    const b=new Battle();b.reset('campaign-01',unitsAtStage(1));b.start();b.aiEnabled=false;
+    Object.assign(b.armies.player,{tech,researching,research:researching?2:0,food:100});
+    const raw=b.save();raw.rules='0.20.0';
+    const migrated=readBattleSave(raw)!;assert.ok(migrated);assert.equal(migrated.rules,BATTLE_RULES_VERSION);
+    assert.deepEqual(migrated,{...raw,rules:BATTLE_RULES_VERSION});
+    const p=emptyProfile();p.run={battle:raw,speed:1,awards:[]};
+    const loaded=readProfile(serializeProfile(p));assert.ok(loaded.migrated);assert.deepEqual(loaded.profile.run!.battle,migrated);
+    const restored=new Battle();assert.ok(restored.restore(raw));restored.togglePause();
+    for(let i=0;i<61;i++)restored.step(1/30);
+    assert.equal(restored.armies.player.tech,tech+(researching?1:0));assert.equal(restored.armies.player.researching,false);
+    const food=restored.armies.player.food;assert.equal(restored.researchTech('player'),false);assert.equal(restored.armies.player.food,food);
+    const invalid={...raw,playerRoster:['mouse']};assert.equal(readBattleSave(invalid),null);
+  }
+});
 
 const progressTo=(stage:number)=>Object.fromEntries(LEVELS.slice(0,stage-1).map(l=>[l.id,{stars:1,bestTime:240}]));
 test('all sixteen partners unlock before their first encounter, with chapter finales reserved for practice',()=>{

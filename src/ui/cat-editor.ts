@@ -56,7 +56,7 @@ export function installCatEditor(options: { get:()=>CatAppearance; save:(cat: Ca
   function pose(now: number) {
     const m=baseCatMotion(now/1000,'player','calm',0,!moving||reduced.matches);
     const set=(key: string,value: string)=>nodes[key]?.setAttribute('transform',value);
-    set('body',`translate(80 144) scale(${1+m.breath*.55} ${1+m.breath}) translate(-80 -144)`);
+    set('body',`translate(80 144) rotate(${m.bodyAngle}) scale(${1+m.breath*.55} ${1+m.breath}) translate(-80 -144)`);
     set('headGroup',`translate(${m.headX} ${m.headY}) rotate(${m.headAngle} 80 92)`);
     set('tail',`rotate(${m.tailAngle} 38 132)`);
     set('leftEar',`rotate(${m.leftEarAngle} 46 49)`);set('rightEar',`rotate(${m.rightEarAngle} 114 49)`);

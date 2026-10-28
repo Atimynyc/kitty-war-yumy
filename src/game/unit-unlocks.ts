@@ -27,6 +27,12 @@ export const UNIT_LESSONS: Partial<Record<UnitKind, string>> = {
 export const unlockStage = (kind: UnitKind) => kind === 'boss' ? Infinity : UNIT_UNLOCK_STAGE[kind];
 export const unitsAtStage = (stage: number) => UNIT_ORDER.filter(kind=>unlockStage(kind)<=stage);
 export const arrivalsAtStage = (stage: number) => UNIT_ORDER.filter(kind=>unlockStage(kind)===stage);
+/** Research follows the permanent roster, including previously inherited partners. */
+export const unlockedTech = (roster: readonly UnitKind[]) => Math.max(1,...roster.filter(kind=>kind!=='boss').map(kind=>UNITS[kind].tier));
+export const techUnlockStage = (tier: number) => Math.min(...UNIT_ORDER.filter(kind=>UNITS[kind].tier>=tier).map(unlockStage));
+export function techLockReason(roster: readonly UnitKind[], current: number) {
+  return current<3 && current+1>unlockedTech(roster) ? `第 ${techUnlockStage(current+1)} 关解锁${current===1?'二':'三'}阶科技` : '';
+}
 export function reachedStage(progress: CampaignProgress) {
   const next=LEVELS.find(level=>!progress[level.id]);
   return next?.stage ?? 30;
@@ -36,5 +42,6 @@ export function unlockedUnits(progress: CampaignProgress, inherited: readonly Un
   return UNIT_ORDER.filter(kind=>unlockStage(kind)<=reached || inherited.includes(kind));
 }
 export function arrivalText(stage: number) {
-  return arrivalsAtStage(stage).filter(kind=>unlockStage(kind)>1).map(kind=>`${UNITS[kind].short}：${UNIT_LESSONS[kind]}`).join(' ');
+  const tech=[2,3].find(tier=>techUnlockStage(tier)===stage);
+  return `${tech?`${tech===2?'二':'三'}阶科技研究已开放。`:''}${arrivalsAtStage(stage).filter(kind=>unlockStage(kind)>1).map(kind=>`${UNITS[kind].short}：${UNIT_LESSONS[kind]}`).join(' ')}`;
 }

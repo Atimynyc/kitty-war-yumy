@@ -53,7 +53,8 @@ export function runPolicy(Battle, content, level, policy, seed = 1234, options =
       else {
         const safe = a.hp > 1400 && front.reduce((n,u) => n + u.hp, 0) > 250 && (!pressure || allies.length >= 4);
         // Interleave technology and income; bounded savings keeps both recruitment and research reachable.
-        const desiredTech = a.tech < 3 && !a.researching && b.time >= [14, 60][a.tech - 1];
+        const techCap = options.allowedKinds ? Math.max(1,...options.allowedKinds.map(k=>UNITS[k].tier)) : 3;
+        const desiredTech = a.tech < techCap && !a.researching && b.time >= [14, 60][a.tech - 1];
         const desiredEconomy = a.economy < Math.min(ECONOMY_COSTS.length, options.economyCap ?? Infinity) && b.time >= [0, 32, 85, 120, 160, 200, 245][a.economy];
         let investing = false;
         if (safe && (desiredTech || desiredEconomy) && b.time >= retryAt) {
