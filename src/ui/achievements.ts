@@ -42,13 +42,25 @@ export function renderAchievements(data: Achievements, progress: CampaignProgres
   get('achievement-filter-summary').textContent=`显示 ${visible.length} 项成就`;
   get('achievement-list').innerHTML=visible.length?visible.map(a=>{
     const value=achievementValue(a,data,progress), entry=data.unlocked[a.id];
+    const unread=!!entry && data.unseenIds.includes(a.id);
     const missing=a.counter==='recruited'?missingPartners(data):[];
-    return `<article class="honor-card ${entry?'earned':'unearned'}" data-achievement="${a.id}"><div class="honor-badge">${achievementBadge(a)}</div><div class="honor-copy"><span class="honor-category">${CATEGORIES[a.category]}</span><h2>${a.name}</h2><p>${a.description}</p><div class="honor-progress"><progress value="${value}" max="${a.target}" aria-label="${a.name}进度"></progress><span>${entry?'✓ 已获得':`${value} / ${a.target}`}</span></div>${entry?`<small>${entry.source==='migration'?'根据已有成绩补发':'已收入荣誉柜'}</small>`:''}${missing.length?`<details><summary>还没招募的伙伴 · ${missing.length}</summary><p>${missing.join('、')}</p></details>`:''}</div></article>`;
+    return `<article class="honor-card ${entry?'earned':'unearned'}" data-achievement="${a.id}">${unread?'<span class="achievement-dot" role="img" aria-label="新获得的成就"></span>':''}<div class="honor-badge">${achievementBadge(a)}</div><div class="honor-copy"><span class="honor-category">${CATEGORIES[a.category]}</span><h2>${a.name}</h2><p>${a.description}</p><div class="honor-progress"><progress value="${value}" max="${a.target}" aria-label="${a.name}进度"></progress><span>${entry?'✓ 已获得':`${value} / ${a.target}`}</span></div>${entry?`<small>${entry.source==='migration'?'根据已有成绩补发':'已收入荣誉柜'}</small>`:''}${missing.length?`<details><summary>还没招募的伙伴 · ${missing.length}</summary><p>${missing.join('、')}</p></details>`:''}</div></article>`;
   }).join(''):'<p class="honor-empty">这里还没有徽章。试试其他分类，或带伙伴们出发吧。</p>';
 }
-export function resultAchievements(data: Achievements, progress: CampaignProgress, gained: string[]) {
-  const awards=ACHIEVEMENTS.filter(a=>gained.includes(a.id));
-  const close=ACHIEVEMENTS.filter(a=>!data.unlocked[a.id]).map(a=>({a,v:achievementValue(a,data,progress)})).filter(x=>x.v>0).sort((a,b)=>b.v/b.a.target-a.v/a.a.target)[0];
+export function resultAchievements(data: Achievements) {
   const title=equippedTitle(data);
-  return `<div class="result-honors">${title?`<p class="equipped-honor">${title}</p>`:''}${awards.length?`<strong>本局新成就 · ${awards.length}</strong><p>${awards.slice(0,2).map(a=>`✓ ${a.name}`).join('　')}</p>${awards.length>2?`<details><summary>还有 ${awards.length-2} 项</summary><p>${awards.slice(2).map(a=>a.name).join('、')}</p></details>`:''}`:''}${close?`<small>即将获得「${close.a.name}」· ${close.v}/${close.a.target}</small>`:''}<button class="subtle-button nav-icon-button" id="result-achievements">${icons.trophy}<span>成就</span></button></div>`;
+  return `<div class="result-honors">${title?`<p class="equipped-honor">${title}</p>`:''}<div class="result-links"><button class="subtle-button nav-icon-button" id="result-achievements">${icons.trophy}<span>成就</span></button><button class="subtle-button nav-icon-button" id="result-detail" aria-controls="result-detail-screen">${icons.details}<span>详情</span></button></div></div>`;
+}
+
+export function renderAchievementIndicators(data: Achievements) {
+  for (const id of ['home-achievements','pause-achievements','result-achievements']) {
+    const button=document.getElementById(id);
+    if (!button) continue;
+    const unread=data.unseenIds.length>0;
+    button.classList.add('achievement-entry');
+    button.setAttribute('aria-label',unread?'成就，有新成就':'成就');
+    const dot=button.querySelector('.achievement-dot');
+    if (unread && !dot) button.insertAdjacentHTML('beforeend','<span class="achievement-dot" aria-hidden="true"></span>');
+    if (!unread) dot?.remove();
+  }
 }

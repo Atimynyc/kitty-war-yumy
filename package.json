@@ -1,6 +1,6 @@
 {
   "name": "cat-protect",
-  "version": "0.24.0",
+  "version": "0.30.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -33,7 +33,11 @@
     "test:spells": "node scripts/spell-playtest.mjs",
     "test:combat": "node scripts/combat-stability-playtest.mjs",
     "test:boss": "node scripts/boss-playtest.mjs",
-    "test:cat-editor": "node scripts/cat-editor-playtest.mjs"
+    "test:cat-editor": "node scripts/cat-editor-playtest.mjs",
+    "test:result-cat": "node scripts/result-cat-playtest.mjs",
+    "test:home": "node scripts/home-layout-playtest.mjs",
+    "test:world": "node scripts/chapter-world-playtest.mjs",
+    "test:result-details": "node scripts/result-details-playtest.mjs"
   },
   "dependencies": {
     "phaser": "^3.90.0"

@@ -1,0 +1,48 @@
+.result-card .result-links { display:flex; justify-content:center; align-items:center; gap:12px; }
+.result-card .result-honors .result-links button { margin:0; min-width:76px; padding:8px 12px; }
+html[data-screen='details'] body { overflow:hidden; }
+html[data-screen='details'][data-layout='portrait'] .game-shell { max-width:720px; min-height:0; }
+#result-detail-screen { display:flex; flex-direction:column; overflow:hidden; padding:12px 12px 8px; }
+.result-detail-header { display:flex; align-items:center; gap:16px; flex:none; padding-bottom:16px; border-bottom:1px solid #e2d6c1; }
+.result-detail-header button { flex:none; }
+.result-detail-header h1 { margin:0 0 5px; font-size:24px; }
+.result-detail-header p { margin:0; color:#8d7b60; font-size:12px; }
+#result-detail-body { flex:1; min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:16px 4px 12px; }
+#result-detail-body:focus-visible { outline:2px solid #a67b4d; outline-offset:-2px; border-radius:8px; }
+.battle-report-stats { margin:0 0 24px; display:grid; grid-template-columns:1fr .9fr 1.4fr; gap:10px; }
+.battle-report-stats>div { min-width:0; padding:16px 10px; border:1px solid #e0d1b8; border-radius:12px; background:#fff8e9; }
+.battle-report-stats dt { color:#8b795e; font-size:12px; margin-bottom:10px; }
+.battle-report-stats dd { margin:0; font:700 23px 'Trebuchet MS',sans-serif; color:#6a563b; white-space:nowrap; }
+.battle-report-stats dd small { font-size:11px; font-weight:400; color:#92816a; }
+.recruit-report-heading { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.recruit-report-heading h2 { font-size:17px; margin:0; }
+.recruit-report-heading>span, .recruit-report-note { font-size:11px; color:#92816a; }
+.recruit-report-note { margin:8px 0 14px; }
+.recruit-report-list { padding:0; margin:0; list-style:none; }
+.recruit-report-row { display:flex; align-items:center; gap:14px; padding:10px 8px; border-bottom:1px solid #e8dfce; }
+.recruit-report-row img { width:52px; height:52px; object-fit:contain; flex:none; border-radius:12px; background:#eee9db; }
+.recruit-report-partner { min-width:0; flex:1; }
+.recruit-report-partner>span { display:block; margin-bottom:9px; color:#695b46; font-size:13px; }
+.recruit-report-track { height:8px; border-radius:6px; background:#e8e4d6; overflow:hidden; }
+.recruit-report-track i { display:block; height:100%; border-radius:6px; background:#96ae81; }
+.recruit-report-row strong { min-width:48px; flex:none; text-align:right; color:#6b805c; font:700 18px 'Trebuchet MS',sans-serif; }
+.recruit-report-empty, .recruit-report-unrecorded { padding:18px 12px; border-radius:10px; background:#eeeadd; font-size:12px; line-height:1.7; color:#8a785d; }
+@media (max-width:400px) {
+  #result-detail-screen { padding:8px 4px 4px; }
+  .result-detail-header { gap:12px; padding-bottom:12px; }
+  .result-detail-header h1 { font-size:21px; }
+  .battle-report-stats { gap:6px; margin-bottom:20px; }
+  .battle-report-stats>div { padding:12px 7px; }
+  .battle-report-stats dt { font-size:10px; }
+  .battle-report-stats dd { font-size:18px; }
+  .battle-report-stats dd small { font-size:9px; }
+  .recruit-report-row { gap:10px; padding:9px 4px; }
+}
+@media (max-height:480px) {
+  #result-detail-screen { padding-top:4px; }
+  .result-detail-header { padding-bottom:8px; }
+  .result-detail-header h1 { font-size:20px; }
+  #result-detail-body { padding-top:10px; }
+  .battle-report-stats { margin-bottom:14px; }
+  .battle-report-stats>div { padding:10px; }
+}

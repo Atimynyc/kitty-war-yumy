@@ -11,6 +11,7 @@ import { portraitBaseSVG } from '../src/portrait-art.ts';
 import { cannonMountSVG, cannonBarrelSVG, feederSVG, baseDamageSVG } from '../src/game/base-art.ts';
 import { baseCatSVG, baseCatParts, BASE_CAT_MOOD_PARTS } from '../src/game/base-cat-art.ts';
 import { PLAYER_CAT, ORANGE_CAT, CAT_OPTIONS, breedPreset } from '../src/game/cat-appearance.ts';
+import { CHAPTER_WORLDS, chapterWorldSVG } from '../src/ui/chapter-world.ts';
 
 const root = path.resolve('dist-minitool');
 const expected = ['assets/game.css', 'assets/game.js', 'favicon.svg', 'index.html'];
@@ -70,6 +71,7 @@ cssTree.walkDecls(decl => {
   assert.doesNotMatch(decl.value, /url\(\s*["']?(?:https?:|\/\/)/);
 });
 const artwork = [unitShadowSVG, unitStarsSVG];
+for (const scene of Object.keys(CHAPTER_WORLDS)) artwork.push(chapterWorldSVG(scene), chapterWorldSVG(scene, true));
 for (const side of ['player', 'enemy']) {
   for (const tier of [1, 2, 3]) artwork.push(portraitBaseSVG(side, tier), cannonMountSVG(side, tier), cannonBarrelSVG(side, tier));
   for (const economy of FOOD_RATES.keys()) artwork.push(feederSVG(side, economy));

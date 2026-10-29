@@ -4,7 +4,7 @@ import { Battle } from '../src/game/simulation.ts';
 import { Battle as OldBattle } from '../analysis/spells-0.19/baseline-source/simulation.ts';
 import { BOMBARD, TREAT, CATNIP, BASE_HP, UNITS } from '../src/game/content.ts';
 import type { Side, UnitKind } from '../src/game/content.ts';
-import { validBattleSave, readBattleSave } from '../src/game/battle-save.ts';
+import { validBattleSave, readBattleSave, BATTLE_RULES_VERSION } from '../src/game/battle-save.ts';
 import { readProfile, emptyProfile, serializeProfile } from '../src/game/profile.ts';
 import { spellNoticeText } from '../src/game/spell-notices.ts';
 
@@ -22,7 +22,7 @@ function advance(b:Battle,seconds:number,frozen=false) {
 }
 
 test('emergency food heals only living wounded allies, respects individual caps and never repairs a base',()=>{
-  for(const side of ['player','enemy'] as Side[]) {
+  for(const side of ['player'] as Side[]) {
     const b=create(),foe=side==='player'?'enemy':'player';
     const soldier=spawn(b,side,'soldier',500),shield=spawn(b,side,'shield',500),knight=spawn(b,side,'knight',500);
     const full=spawn(b,side,'mouse',500),dead=spawn(b,side,'mouse',500),enemy=spawn(b,foe,'soldier',800);
@@ -33,6 +33,36 @@ test('emergency food heals only living wounded allies, respects individual caps 
     const notice=b.spellNotices.visible(b.time)[0];assert.equal(notice.affected,3);assert.equal(notice.total,460);
     assert.match(spellNoticeText(notice).detail,/共恢复 460/);
   }
+});
+
+test('all three enemy active skills are blocked even with valid targets and enough energy',()=>{
+  const b=create();spawn(b,'enemy','soldier',700).hp=100;spawn(b,'player','soldier',720);
+  b.armies.enemy.energy=100;
+  const before=b.save();
+  for(const kind of ['treat','catnip','bombard'] as const) {
+    assert.equal(b.spellReason('enemy',kind),'敌方无法释放主动技能');
+    assert.equal(b[kind]('enemy'),false);
+    assert.deepEqual(b.save(),before);
+  }
+});
+
+test('old checkpoints retire enemy spells while preserving player spells and resources',()=>{
+  const b=create();spawn(b,'player','soldier',500);const enemy=spawn(b,'enemy','soldier',900);
+  b.armies.player.energy=100;b.catnip('player');enemy.catnip=8;
+  const old=b.save();old.rules='0.24.0';
+  old.effects.push({id:old.nextId++,type:'bombard',side:'enemy',x:500,targetX:500,row:1,age:.3,duration:1.2,power:300,landed:false});
+  old.notices.items.push({...old.notices.items[0],id:old.notices.nextId++,side:'enemy'});
+  const migrated=readBattleSave(old)!;
+  assert.equal(migrated.rules,BATTLE_RULES_VERSION);
+  assert.deepEqual(migrated.armies,old.armies);
+  assert.equal(migrated.units.find(u=>u.side==='enemy')!.catnip,0);
+  assert.equal(migrated.units.find(u=>u.side==='player')!.catnip,10);
+  assert.equal(migrated.effects.some(fx=>fx.side==='enemy' && ['catnip','treat','bombard'].includes(fx.type)),false);
+  assert.ok(migrated.effects.some(fx=>fx.side==='enemy' && fx.type==='spawn'),'ordinary enemy effects remain');
+  assert.ok(migrated.notices.items.every(n=>n.side==='player'));
+  assert.equal(old.units.find(u=>u.side==='enemy')!.catnip,8,'migration does not mutate input');
+  const restored=new Battle();assert.ok(restored.restore(old));restored.togglePause();advance(restored,.5,true);
+  assert.equal(restored.units.find(u=>u.side==='player')!.hp,230);
 });
 
 test('three skill prices enforce a choice and unusable casts never spend, queue or count',()=>{
@@ -92,10 +122,7 @@ test('hidden units and entering bosses cannot be targeted or harmed by a pending
   assert.equal(c.units.find(u=>u.kind==='boss')!.hp,2600-BOMBARD.damage[0]);
 });
 
-test('simultaneous opposing bombs award both kills and a bomb that defeats the boss records the achievement',()=>{
-  const b=create();for(const side of ['player','enemy'] as Side[])spawn(b,side,'soldier',side==='player'?500:900);
-  for(const side of ['player','enemy'] as Side[]){b.armies[side].energy=70;assert.ok(b.bombard(side));}
-  advance(b,.66,true);assert.equal(b.units.length,0);assert.equal(b.armies.player.energy,4);assert.equal(b.armies.enemy.energy,4);
+test('a bomb that defeats the boss records the achievement',()=>{
   const c=create();c.reset('campaign-30');c.start();c.aiEnabled=false;c.armies.enemy.hp=850;c.step(.01);advance(c,1.3);
   c.units.find(u=>u.kind==='boss')!.hp=100;c.armies.player.energy=70;assert.ok(c.bombard('player'));advance(c,.7,true);
   assert.equal(c.stats.bossDefeated,true);assert.equal(c.armies.player.energy,50);assert.equal(c.armies.enemy.hp,850);
@@ -115,11 +142,11 @@ test('0.18 rounds migrate through both restore and profile loading without losin
   const old=new OldBattle();old.start();old.aiEnabled=false;old.armies.player.energy=100;
   old.summon('player','soldier');old.summon('enemy','soldier');old.units[1].x=300;
   old.catnip('player');old.roar('player');const original=old.save();
-  const migrated=readBattleSave(original)!;assert.ok(migrated);assert.equal(migrated.rules,'0.24.0');
+  const migrated=readBattleSave(original)!;assert.ok(migrated);assert.equal(migrated.rules,BATTLE_RULES_VERSION);
   assert.deepEqual(migrated.armies,original.armies);assert.deepEqual(migrated.units,original.units);
   assert.ok(migrated.effects.every(e=>(e.type as string)!=='roar'));assert.equal(migrated.notices.items.length,1);
   assert.equal(migrated.notices.items[0].energyCost,50);assert.equal(original.rules,'0.18.0');
   const b=new Battle();assert.ok(b.restore(original));assert.equal(b.phase,'paused');assert.equal(b.armies.player.energy,0);
   const p=JSON.parse(serializeProfile(emptyProfile()));p.run={battle:original,speed:2,awards:[]};
-  const loaded=readProfile(JSON.stringify(p));assert.equal(loaded.profile.run!.battle.rules,'0.24.0');assert.equal(loaded.profile.run!.speed,2);assert.equal(loaded.migrated,true);
+  const loaded=readProfile(JSON.stringify(p));assert.equal(loaded.profile.run!.battle.rules,BATTLE_RULES_VERSION);assert.equal(loaded.profile.run!.speed,2);assert.equal(loaded.migrated,true);
 });

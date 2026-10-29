@@ -60,7 +60,7 @@ const policyTable=table(['策略','原版第一关 / 第二关 / 第三关胜场
   Object.keys(levelNames).map(level=>`${validation.campaigns.filter(r=>r.policy===policy&&r.level===level&&r.winner==='player').length}/5`).join(' / ')]));
 const unfinished=reports.flatMap(r=>[...r.legacy,...r.campaigns].filter(x=>x.winner==='unfinished').map(x=>[r.name,levelNames[x.level],x.strategy??x.policy,`${x.seconds} 秒` ]));
 const sourceHash=manifest.files['src/game/content.ts'];
-const report=`# 猫咪冻干保卫战：首轮数值平衡分析
+const report=`# 猫猫冻干“世界”大战：首轮数值平衡分析
 
 日期：2026-10-23。目标：通常一局 3～5 分钟，保留升级与阵容选择。分析基于真实战斗模拟代码，每步 1/30 秒。${applied?`**推荐的五处数值调整已应用于项目 ${version}，敌我双方共用；第三关节奏试案未应用。**`:'**推荐方案尚未完整应用于当前项目。**'}
 

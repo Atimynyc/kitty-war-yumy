@@ -11,8 +11,8 @@ function spawn(b:Battle,side:Side,kind:UnitKind,x:number){
 }
 function step(b:Battle,seconds:number){for(let t=0;t<seconds-1e-8;t+=1/30)b.step(Math.min(1/30,seconds-t));}
 
-test('50 starting energy permits exactly one choice of skill for either army; time grants none',()=>{
-  for(const side of ['player','enemy'] as Side[])for(const first of ['treat','catnip'] as const){
+test('50 starting energy permits exactly one player skill; time grants none',()=>{
+  for(const side of ['player'] as Side[])for(const first of ['treat','catnip'] as const){
     const b=create(),foe=side==='player'?'enemy':'player';
     spawn(b,side,'soldier',700).hp=100;spawn(b,foe,'shield',BASE_X[side]+(side==='player'?100:-100));
     assert.equal(b.armies[side].energy,50);assert.ok(b[first](side));

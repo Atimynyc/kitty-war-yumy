@@ -35,6 +35,8 @@ for(const engine of [chromium,webkit]) {
         await page.locator('#achievement-category').selectOption('2');assert.equal(await page.locator('.honor-card').count(),2);
         await page.locator('.honor-card details').first().locator('summary').click();assert.match(await page.locator('.honor-card details').first().textContent(),/猫咪/);
         await page.keyboard.press('Escape');assert.equal(await page.evaluate(()=>window.__catGame.getScreen()),'home');
+        // Research is available from stage three; keep this resume fixture eligible.
+        await bootWith({version:2,campaign:Object.fromEntries([1,2].map(n=>[`campaign-0${n}`,{stars:3,bestTime:100,ratingVersion:2}]))});
         await page.locator('#start').click();await page.locator('#upgrade-economy').click();await page.locator('#hire-soldier').click();
         await page.evaluate(()=>window.__catGame.advance(16));await page.locator('#upgrade-tech').click();await page.evaluate(()=>window.__catGame.advance(3));
         await page.locator('#speed').click();await page.locator('#pause').click();
@@ -43,6 +45,7 @@ for(const engine of [chromium,webkit]) {
         const totals=await page.evaluate(()=>window.__catGame.getProfile().achievements);
         await page.locator('#pause-home').click();await page.waitForFunction(k=>Math.abs(JSON.parse(localStorage.getItem(k)).run?.battle.time-19)<.1,persistedKey);
         await snap('resume-home');assert.match(await page.locator('#start').textContent(),/继续/);
+        assert.equal(await page.locator('#home-achievements .achievement-dot').count(),1);
         // Closing the page and reopening within the same browser context retains persisted storage.
         await page.close();page=await context.newPage();observe();await page.goto(url,{waitUntil:'networkidle'});await ready();await page.locator('#start').click();
         assert.equal(await page.evaluate(()=>window.__catGame.battle.phase),'paused');assert.deepEqual(await page.evaluate(()=>window.__catGame.battle.save()),checkpoint);
@@ -50,12 +53,22 @@ for(const engine of [chromium,webkit]) {
         await page.evaluate(()=>{for(let i=0;i<10;i++)window.__catGame.render();window.__catGame.advance(60);});
         assert.deepEqual(await page.evaluate(()=>window.__catGame.battle.save()),checkpoint);assert.deepEqual(await page.evaluate(()=>window.__catGame.getProfile().achievements),totals);
         await snap('restored');await page.locator('#pause-achievements').click();
+        assert.equal(await page.locator('[data-achievement="growth.first-feeder"] .achievement-dot').count(),1);
+        await snap('new-achievement');
         await page.locator('#achievement-category').selectOption('all');assert.equal(await page.locator('.honor-card').count(),24);
         await page.locator('#achievement-status').selectOption('unlocked');assert.equal(await page.locator('.honor-card').count(),1);
         await page.locator('#achievements-back').click();assert.equal(await page.evaluate(()=>window.__catGame.battle.phase),'paused');
+        assert.equal(await page.locator('#pause-achievements .achievement-dot').count(),0);
+        assert.deepEqual((await page.evaluate(()=>window.__catGame.getProfile())).achievements.unseenIds,[]);
+        await page.evaluate(()=>window.__catGame.saveProfile());await reload();
+        assert.equal(await page.locator('#home-achievements .achievement-dot').count(),0);
+        await page.locator('#home-achievements').click();
+        assert.equal(await page.locator('.honor-card .achievement-dot').count(),0);
+        await page.keyboard.press('Escape');await page.locator('#start').click();
         await page.locator('#resume').click();await page.evaluate(()=>window.__catGame.advance(15));await page.locator('#pause').click();
         assert.equal(await page.evaluate(()=>window.__catGame.battle.armies.player.tech),2);
         assert.ok((await page.evaluate(()=>window.__catGame.getProfile())).achievements.unlocked['growth.first-research']);
+        assert.equal(await page.locator('#pause-achievements .achievement-dot').count(),1,'a later achievement restores the red dot');
         await page.locator('#pause-home').click();await page.locator('#new-battle').click();await page.locator('#replace-cancel').click();
         assert.ok((await page.evaluate(()=>window.__catGame.getProfile())).run);
         await page.locator('#new-battle').click();await page.locator('#keep-run').click();assert.equal(await page.evaluate(()=>window.__catGame.battle.phase),'paused');
@@ -64,7 +77,13 @@ for(const engine of [chromium,webkit]) {
         // A completed loss clears only the unfinished round, keeping earned cumulative achievements.
         await page.evaluate(()=>window.__catGame.advance(480));assert.equal(await page.evaluate(()=>window.__catGame.battle.winner),'enemy');
         assert.equal((await saved()).run,null);assert.ok((await saved()).achievements.unlocked['growth.first-feeder']);
-        await page.locator('#result-achievements').click();await page.locator('#achievements-back').click();await page.locator('#play-again').click();
+        assert.equal(await page.locator('#result-achievements .achievement-dot').count(),1);
+        await page.locator('#result-achievements').click();
+        assert.equal(await page.locator('[data-achievement="growth.first-research"] .achievement-dot').count(),1);
+        assert.equal(await page.locator('[data-achievement="growth.first-feeder"] .achievement-dot').count(),0);
+        await page.locator('#achievements-back').click();
+        assert.equal(await page.locator('#result-achievements .achievement-dot').count(),0);
+        await page.locator('#play-again').click();
         // Failure is explicit and cannot overwrite the last good checkpoint.
         await page.locator('#pause').click();const prior=await saved();
         await page.evaluate(()=>{window.__failSave=true;window.__catGame.battle.togglePause();window.__catGame.advance(1);window.__catGame.saveProfile();});
@@ -98,6 +117,8 @@ for(const engine of [chromium,webkit]) {
         // Result UI fixture: no injected progress is ever written to the production key.
         await page.evaluate(()=>{const b=window.__catGame.battle;b.armies.enemy.hp=0;b.phase='ended';b.winner='player';window.__catGame.render();});
         assert.equal((await saved()).run,null);assert.match(await page.locator('.result-honors').textContent(),/传奇冻干守护者/);await snap('result-title');
+        assert.equal(await page.locator('.result-rating-rules').count(),0);
+        assert.doesNotMatch(await page.locator('.result-card').textContent(),/本局新成就|即将获得|满血获胜/);
         assert.equal(await page.evaluate(()=>localStorage.getItem('paw-pantry-progress-v1')),'{"production":"untouched"}');
         if(native)assert.ok((await page.evaluate(()=>window.__storageCalls)).includes('set'));
         assert.deepEqual(errors,[]);reports.push({id,status:'passed',checkpointBytes:JSON.stringify(checkpoint).length,errors});

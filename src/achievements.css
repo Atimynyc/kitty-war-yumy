@@ -1,4 +1,7 @@
 .home-honors { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:16px; }
+.achievement-entry,.honor-card { position:relative; }
+.achievement-dot { position:absolute; top:6px; right:6px; width:9px; height:9px; border-radius:50%; background:#d7473f; box-shadow:0 0 0 2px #fff8e9; pointer-events:none; }
+.honor-card>.achievement-dot { top:12px; right:12px; }
 .home-honors button { min-height:44px; border:1px solid #d8c7a6; background:#fff8e9; color:#80613e; border-radius:12px; padding:8px 14px; font:inherit; cursor:pointer; }
 .equipped-honor { color:#8c683c; font-size:12px; }
 .resume-summary { padding:10px 12px; border-left:3px solid #8ca881; background:#f0f3e7; color:#526d4c; border-radius:6px; font-size:12px; line-height:1.7; }

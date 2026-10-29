@@ -86,6 +86,28 @@ try {
     assert.ok(contactChecks>0);
     report.push({name,maxJump,stalls,rapidTurns,deaths:deathPoints.size,contactChecks});
   }
+  await page.setViewportSize({width:390,height:844});
+  const siege=await page.evaluate(()=>{
+    const b=window.__catGame.battle;b.reset();b.start();b.aiEnabled=false;
+    b.armies.player.cannonCooldown=b.armies.enemy.cannonCooldown=1000;
+    const spawn=(side,x)=>{const a=b.armies[side];a.food=10000;a.cooldowns.soldier=0;b.summon(side,'soldier');const u=b.units.at(-1);Object.assign(u,{x,row:1,attackCooldown:0});return u;};
+    const attackers=Array.from({length:10},()=>spawn('player',1265));
+    const defender=spawn('enemy',1281);
+    window.advanceTime(1000/30);
+    const volley={killed:!b.units.includes(defender),hits:attackers.filter(u=>u.attackAt===b.time).length,baseHP:b.armies.enemy.hp};
+    window.advanceTime(1000/30);
+    const hp=[];
+    for(let wave=0;wave<5;wave++) {
+      spawn('enemy',1263);
+      window.advanceTime(1100);
+      hp.push(b.armies.enemy.hp);
+    }
+    return {volley,hp,sieging:attackers.filter(u=>u.hp>0&&u.targetId===null).length};
+  });
+  assert.deepEqual(siege.volley,{killed:true,hits:10,baseHP:3000});
+  assert.ok(siege.hp.every((hp,i)=>hp<(i?siege.hp[i-1]:3000)),JSON.stringify(siege));
+  assert.ok(siege.sieging>3);await capture('siege-reinforcements');
+  report.push({scenario:'ten-versus-one-and-siege',...siege});
   assert.deepEqual(errors,[]);
   writeFileSync(`${output}/${engine}-report.json`,JSON.stringify(report,null,2));console.log(JSON.stringify(report));
 } finally {await browser.close();}

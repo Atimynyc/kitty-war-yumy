@@ -41,9 +41,9 @@ try {
   await page.locator('#cat-size').click();assert.equal(await page.locator('#cat-preview svg').evaluate(el=>Math.round(el.getBoundingClientRect().width)),64);
   await capture('battle-size');await page.locator('#cat-size').click();
   await page.emulateMedia({reducedMotion:'reduce'});
-  await page.waitForFunction(()=>document.querySelector('[data-preview-part="headGroup"]').getAttribute('transform')==='translate(0 0) rotate(0 80 92)');
-  const still=await page.locator('[data-preview-part="headGroup"]').getAttribute('transform');await page.waitForTimeout(120);
-  assert.equal(await page.locator('[data-preview-part="headGroup"]').getAttribute('transform'),still);
+  await page.waitForFunction(()=>document.querySelector('#cat-preview [data-preview-part="headGroup"]').getAttribute('transform')==='translate(0 0) rotate(0 80 92)');
+  const still=await page.locator('#cat-preview [data-preview-part="headGroup"]').getAttribute('transform');await page.waitForTimeout(120);
+  assert.equal(await page.locator('#cat-preview [data-preview-part="headGroup"]').getAttribute('transform'),still);
   await page.emulateMedia({reducedMotion:'no-preference'});
   await page.keyboard.press('Escape');await page.locator('#cat-stay').click();assert.deepEqual((await read()).catEditor.draft,customized);
   await save();assert.deepEqual((await read()).baseCats.player.appearance,customized);await capture('customized');

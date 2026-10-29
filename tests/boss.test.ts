@@ -100,13 +100,13 @@ test('windup locks heading; moving behind the boss dodges and rear allies are no
   advance(b,.82); assert.equal(victim.hp,UNITS.shield.hp);assert.equal(boss.sweep,undefined);
 });
 
-test('pause freezes charging; star slow stretches both lift and hold; catnip applies at impact',()=>{
+test('pause freezes charging; star slow stretches lift and hold; enemy catnip is disabled',()=>{
   const {b,boss}=encounter(),victim=spawn(b,'player','shield',680);
   boss.starSlow=3; b.step(1/30); b.togglePause();
   const state=JSON.stringify(b.units); advance(b,3); assert.equal(JSON.stringify(b.units),state);
   b.togglePause(); advance(b,1.4); assert.ok(bossCharge(boss.sweep).lift<1); assert.equal(victim.hp,700);
   advance(b,.2); assert.ok(bossCharge(boss.sweep).holding);
-  assert.ok(b.catnip('enemy')); advance(b,.58); assert.equal(victim.hp,700-216);
+  assert.equal(b.catnip('enemy'),false); advance(b,.58); assert.equal(victim.hp,700-180);
   assert.equal(boss.sweep,undefined);
 });
 

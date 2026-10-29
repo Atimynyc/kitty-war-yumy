@@ -17,8 +17,8 @@ function spawn(battle: Battle, side: Side, kind: UnitKind, x: number, row = 1) {
   const unit = battle.units.at(-1)!; unit.x = x; unit.row = row; unit.targetRow = row; unit.attackCooldown = 0; return unit;
 }
 
-test('spell captions report actual affected troops and effects for either army', () => {
-  for (const side of ['player', 'enemy'] as Side[]) {
+test('player spell captions report actual affected troops and effects', () => {
+  for (const side of ['player'] as Side[]) {
     const b = create(), foe = side === 'player' ? 'enemy' : 'player';
     b.armies[side].energy=100;
     const ally = spawn(b, side, 'soldier', 700);
@@ -52,13 +52,13 @@ test('failed and empty casts never spend energy or announce a spell', () => {
   assert.deepEqual(b.spellNotices.visible(b.time), notices);
 });
 
-test('simultaneous enemy and player spells both show, same-side captions queue, pause freezes and restart clears them', () => {
+test('player captions queue, enemy casts are blocked, pause freezes and restart clears them', () => {
   const b = create();
   spawn(b, 'player', 'knight', 500).hp = 1000; spawn(b, 'enemy', 'knight', 340);
   b.armies.player.energy=100;
   b.catnip('player'); b.treat('player'); b.catnip('enemy');
   const notices = b.spellNotices.visible(b.time);
-  assert.deepEqual(notices.map(n => [n.side, n.spell]), [['enemy','catnip'], ['player','catnip']]);
+  assert.deepEqual(notices.map(n => [n.side, n.spell]), [['player','catnip']]);
   b.togglePause(); advance(b, 20); assert.deepEqual(b.spellNotices.visible(b.time), notices);
   b.togglePause(); advance(b, 4.6);
   assert.deepEqual(b.spellNotices.visible(b.time).map(n => [n.side, n.spell]), [['player','treat']]);
@@ -68,15 +68,14 @@ test('simultaneous enemy and player spells both show, same-side captions queue, 
   assert.deepEqual(b.spellNotices.visible(b.time), []);
 });
 
-test('AI commits energy to a visible delayed strike when several enemies threaten its base', () => {
+test('AI cannot cast active skills even under base pressure with full energy', () => {
   const b=create(); b.aiEnabled=true; b.armies.enemy.energy=100;
   advance(b,b.level.grace-.1);
   for(const row of [0,1,2]) spawn(b,'player','knight',BASE_X.enemy-100,row);
   b.aiEnabled=true;advance(b,.2);
-  assert.equal(b.armies.enemy.energySpent,70);
-  assert.equal(b.spellNotices.visible(b.time)[0].spell,'bombard');
-  assert.ok(b.effects.some(fx=>fx.type==='bombard'&&!fx.landed));
-  assert.match(spellNoticeText(b.spellNotices.visible(b.time)[0]).detail,/0.65 秒后/);
+  assert.equal(b.armies.enemy.energySpent,0);
+  assert.equal(b.spellNotices.visible(b.time).length,0);
+  assert.equal(b.effects.some(fx=>fx.type==='bombard'),false);
 });
 
 test('base-cat dialogue follows actual base damage, gives defense priority and pauses with battle time', () => {
@@ -451,19 +450,83 @@ test('knockback breaks melee contact and prevents damage until the fighter close
   assert.fail('fighter never regained contact after knockback');
 });
 
-test('melee contact halts forward movement, limits contact positions and awards no kill income', () => {
+test('all melee troops in contact can hit without moving or awarding kill income', () => {
   const battle = create();
   for (let i = 0; i < 5; i++) spawn(battle, 'player', 'soldier', 700);
   const target = spawn(battle, 'enemy', 'shield', 716); target.attackCooldown = 10;
   const foodBefore = battle.armies.player.food;
   battle.step(1 / 30);
-  assert.equal(target.hp, UNITS.shield.hp - UNITS.soldier.damage * 3);
+  assert.equal(target.hp, UNITS.shield.hp - UNITS.soldier.damage * 5);
   assert.ok(battle.units.filter(u => u.side === 'player').every(u => u.x === 700));
   target.hp = 1;
   for (const unit of battle.units) if (unit.side === 'player') unit.attackCooldown = 0;
   battle.step(1 / 30);
   assert.equal(battle.units.some(u => u.id === target.id), false);
   assert.ok(Math.abs(battle.armies.player.food - foodBefore - .8) < .001);
+});
+
+test('ten melee soldiers kill a full-health soldier in one volley for either side', () => {
+  for (const side of ['player','enemy'] as Side[]) {
+    const b=create(), foe=side==='player'?'enemy':'player', dir=side==='player'?1:-1;
+    const attackers=Array.from({length:10},()=>spawn(b,side,'soldier',700));
+    const victim=spawn(b,foe,'soldier',700+dir*16);
+    b.step(1/30);
+    assert.equal(b.units.includes(victim),false);
+    assert.ok(attackers.every(u=>u.attackAt===b.time && u.attackCooldown>0));
+    assert.equal(b.armies[foe].lost,1);
+    assert.equal(b.armies[side].energy,54,'one reward despite overkill');
+  }
+});
+
+test('cooling-down front troops do not prevent ready allies from attacking', () => {
+  const b=create();
+  const front=Array.from({length:3},()=>spawn(b,'player','soldier',705));
+  front.forEach(u=>u.attackCooldown=10);
+  const ready=Array.from({length:7},()=>spawn(b,'player','soldier',700));
+  const victim=spawn(b,'enemy','shield',716);
+  b.step(1/30);
+  assert.equal(victim.hp,700-7*28);
+  assert.ok(ready.every(u=>u.attackAt===b.time));
+  assert.ok(front.every(u=>u.attackAt<0));
+});
+
+test('all troops can siege and keep attacking through new recruits, including after reload', () => {
+  for (const side of ['player','enemy'] as Side[]) {
+    const b=create(), foe=side==='player'?'enemy':'player', dir=side==='player'?1:-1;
+    b.armies.player.cannonCooldown=b.armies.enemy.cannonCooldown=1000;
+    const attackers=Array.from({length:10},()=>spawn(b,side,'soldier',BASE_X[foe]-dir*20));
+    spawn(b,foe,'soldier',700).attackCooldown=100;
+    b.step(1/30);
+    assert.equal(b.armies[foe].hp,BASE_HP-280,'a distant foe must not block reachable base damage');
+    for(let wave=0;wave<3;wave++) {
+      spawn(b,foe,'soldier',BASE_X[foe]-dir*22).attackCooldown=100;
+      attackers.forEach(u=>u.attackCooldown=0);
+      b.step(1/30);
+      assert.equal(b.armies[foe].hp,BASE_HP-280*(wave+2));
+      assert.ok(attackers.every(u=>u.targetId===null));
+    }
+    const restored=new Battle(); assert.ok(restored.restore(b.save())); restored.togglePause();
+    for(const u of restored.units.filter(u=>u.side===side))u.attackCooldown=0;
+    restored.step(1/30);
+    assert.equal(restored.armies[foe].hp,BASE_HP-280*5);
+    const pushed=restored.units.find(u=>u.id===attackers[0].id)!;
+    pushed.x-=dir*100;pushed.attackCooldown=0;
+    restored.step(1/30);
+    assert.notEqual(pushed.targetId,null,'knockback out of base range releases siege lock');
+    assert.equal(restored.armies[foe].hp,BASE_HP-280*5);
+  }
+});
+
+test('a nearby defender is fought before beginning a siege, then troops reach the base', () => {
+  const b=create();b.armies.enemy.cannonCooldown=1000;
+  const attackers=Array.from({length:10},()=>spawn(b,'player','soldier',BASE_X.enemy-40));
+  spawn(b,'enemy','soldier',BASE_X.enemy-24);
+  b.step(1/30);
+  assert.equal(b.armies.enemy.hp,BASE_HP);
+  assert.equal(b.units.filter(u=>u.side==='enemy').length,0);
+  advance(b,1.1);
+  assert.ok(b.armies.enemy.hp<BASE_HP);
+  assert.ok(attackers.every(u=>u.targetId===null));
 });
 
 test('catapult splash damages a cluster and has a minimum firing range', () => {

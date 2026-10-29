@@ -43,7 +43,8 @@ try {
   assert.equal((await read()).spells.pending.length,0);assert.ok((await read()).units.filter(u=>u.side==='enemy').every(u=>u.hp===400));await capture('bomb-impact');
   await advance(900);assert.ok((await read()).units.filter(u=>u.side==='enemy').every(u=>u.hp===400));
   await fixture();await page.evaluate(()=>{const b=window.__catGame.battle;b.armies.enemy.energy=100;b.bombard('enemy');b.treat('player');window.__catGame.render();});
-  assert.equal(await page.locator('.spell-notice').count(),2);await capture('two-armies');
+  assert.equal(await page.locator('.spell-notice').count(),1);
+  assert.equal(await page.evaluate(()=>window.__catGame.battle.armies.enemy.energySpent),0);await capture('player-only');
   for(const [name,width,height] of [['tiny',320,568],['phone',390,844],['landscape',844,390],['desktop',1440,900]]) {
     await page.setViewportSize({width,height});await paint();await advance(0);
     const geometry=await page.evaluate(()=>{

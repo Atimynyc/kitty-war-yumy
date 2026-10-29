@@ -24,7 +24,7 @@ const damage = side => page.evaluate(side=>{
 try {
   await page.goto(`${process.env.GAME_URL || 'http://127.0.0.1:5186'}/?qa`,{waitUntil:'networkidle'});
   await page.locator('#loading').waitFor({state:'detached'});
-  assert.match(await page.locator('.home-lead').textContent(),/大胖橘/);
+  assert.equal(await page.locator('#home-companion-preview svg').count(),1);
   await page.locator('#start').click(); await advance(0);
   await page.evaluate(()=>{window.__catGame.battle.aiEnabled=false;});
   assert.equal(await bubble.textContent(),'我要吃冻干！快给我！');

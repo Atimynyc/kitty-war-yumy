@@ -52,3 +52,76 @@ html[data-layout='portrait'] #level-screen .level-lead { margin: 0 0 12px; font-
 .unit-arrival span { margin:4px 0; font-size:12px; line-height:1.5; color:#746951; }
 .unit-arrival small { font-size:11px; color:#887a61; }
 .unit-reward small { display:block; margin-top:4px; font-size:11px; font-weight:400; }
+
+/* Chapter atlas: landmarks and a winding trail, with one stop per battle. */
+html[data-screen='levels'][data-layout='portrait'] .game-shell { max-width:1180px; min-height:0; padding-left:calc(20px + var(--safe-left)); padding-right:calc(20px + var(--safe-right)); }
+#level-screen { --map-paper:#fffaf0; }
+#level-screen .menu-heading { margin-bottom:16px; }
+#level-screen .menu-heading .eyebrow { color:#9a8461; letter-spacing:2px; }
+#level-screen .chapter-tabs { gap:8px; margin:0 0 18px; }
+#level-screen .chapter-tab { margin:0; padding:10px 4px; border-radius:12px 12px 5px 5px; min-height:54px; }
+#level-screen .chapter-tab b { display:block; font-size:16px; }
+#level-screen .chapter-tab small { display:block; margin-top:4px; font:11px 'Microsoft YaHei',sans-serif; }
+.campaign-explore { display:grid; grid-template-columns:minmax(0,1.7fr) minmax(280px,1fr); gap:22px; align-items:start; }
+.chapter-atlas { border:1px solid #d7c7aa; border-radius:24px; padding:16px; background:#fff9ec; box-shadow:0 5px 0 #c9b78f20; min-width:0; }
+.chapter-intro { display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin:0 4px 14px; }
+.chapter-intro>div>span { font-size:10px; letter-spacing:2px; color:var(--chapter-accent); }
+.chapter-intro h2 { font-size:26px; margin:6px 0; color:#594c39; }
+.chapter-intro p { margin:0; font-size:11px; line-height:1.7; color:#8c7b61; }
+#level-screen .chapter-stars { position:static; flex:none; padding:7px 9px; background:#eee7d4; font-size:11px; white-space:nowrap; }
+.chapter-world { position:relative; height:480px; border-radius:17px; overflow:hidden; border:1px solid #cfbea0; }
+.chapter-world-art, .chapter-route { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+#level-screen .stage-map { display:block; position:absolute; inset:0; margin:0; }
+#level-screen .stage-map::before { content:none; }
+.chapter-route path { fill:none; stroke-linecap:round; stroke-linejoin:round; }
+.chapter-route .route-edge { stroke:#ae9575; stroke-width:22px; opacity:.35; }
+.chapter-route .route-path { stroke:#fff4d9; stroke-width:17px; }
+.chapter-route .route-stitches { stroke:#bdab8b; stroke-width:2px; stroke-dasharray:3 9; }
+.chapter-route .travelled .route-path { stroke:#c7d4ac; }
+.chapter-route .travelled .route-stitches { stroke:#6e8b5c; }
+#level-screen .stage-node { position:absolute; transform:translate(-50%,-28px); display:flex; align-items:center; flex-direction:column; gap:2px; width:86px; min-width:44px; min-height:44px; margin:0; padding:0; border:0; background:none; box-shadow:none; color:#69563d; }
+.stage-medallion { display:block; position:relative; width:56px; height:56px; border:3px solid #b4a38a; border-radius:50%; background:#fff8e9; box-shadow:0 4px 0 #8e795c44; }
+#level-screen .stage-node img { display:block; width:48px; height:48px; max-width:none; object-fit:contain; }
+#level-screen .stage-number { position:absolute; z-index:1; top:-6px; left:-12px; min-width:26px; height:24px; line-height:22px; padding:0 4px; border:1px solid #bba98a; border-radius:9px; background:#fff9e8; font-size:13px; }
+#level-screen .stage-node[aria-pressed='true'] { padding:0; border:0; background:none; box-shadow:none; }
+#level-screen .stage-node[aria-pressed='true'] .stage-medallion { border-color:var(--chapter-accent); box-shadow:0 0 0 5px #fff8dfc9,0 5px 0 #7f7a5c55; }
+#level-screen .stage-node[data-current='true'] .stage-number { background:var(--chapter-accent); color:#fffbe9; border-color:var(--chapter-accent); }
+#level-screen .stage-node[data-locked='true'] .stage-medallion { background:#e5ddca; border-color:#b6aa96; }
+#level-screen .stage-node[data-locked='true'] img { opacity:.55; filter:grayscale(.8); }
+.stage-flag { position:absolute; right:-12px; top:-12px; font-size:27px; color:#b77b43; text-shadow:0 1px #fff8e8; }
+#level-screen .stage-state { padding:1px 6px; border-radius:7px; background:#fff8e9e8; font-size:10px; line-height:1.5; }
+#level-screen .stage-stars { padding:0 4px; border-radius:8px; background:#fff8e9ce; color:#a47b2d; font-size:12px; line-height:1.2; }
+#level-screen .stage-node:focus-visible { outline:3px solid var(--chapter-accent); outline-offset:5px; border-radius:14px; }
+.map-hint { font-size:11px; color:#998265; margin:12px 0 0; text-align:center; }
+.campaign-side { min-width:0; padding-top:6px; }
+#level-screen .stage-detail { padding:18px; border-style:dashed; background:#fffaf1; }
+#level-screen .stage-detail-heading { align-items:flex-start; }
+#level-screen .stage-detail-heading strong { font-size:20px; line-height:1.5; }
+#level-screen .campaign-launch { margin:14px 0 4px; }
+@media(max-width:799px) {
+  html[data-screen='levels'][data-layout='portrait'] .game-shell { max-width:620px; padding-left:calc(10px + var(--safe-left)); padding-right:calc(10px + var(--safe-right)); }
+  #level-screen { padding-left:0; padding-right:0; }
+  .campaign-explore { display:block; }
+  #level-screen .chapter-tabs { gap:5px; margin-bottom:12px; }
+  #level-screen .chapter-tab { padding:6px 2px; }
+  #level-screen .chapter-tab small { font-size:9px; letter-spacing:-.3px; }
+  .chapter-atlas { padding:10px; border-radius:18px; }
+  .chapter-intro { margin:2px 2px 10px; }
+  .chapter-intro h2 { font-size:23px; }
+  .chapter-intro p { max-width:250px; font-size:10px; }
+  #level-screen .chapter-stars { font-size:10px; padding:5px 6px; }
+  .chapter-world { height:380px; }
+  #level-screen .stage-node { width:60px; }
+  .campaign-side { padding-top:16px; }
+}
+@media(max-width:360px) {
+  #level-screen .chapter-tabs { gap:3px; }
+  #level-screen .chapter-tab { min-height:48px; }
+  #level-screen .chapter-tab small { font-size:8px; }
+  #level-screen .chapter-stars { font-size:9px; padding:4px; }
+  .chapter-world { height:350px; }
+  #level-screen .stage-node { width:56px; transform:translate(-50%,-24px); }
+  .stage-medallion { width:48px; height:48px; border-width:2px; }
+  #level-screen .stage-node img { width:42px; height:42px; }
+  #level-screen .stage-number { left:-9px; min-width:23px; height:22px; line-height:20px; font-size:12px; }
+}

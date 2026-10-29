@@ -6,7 +6,7 @@ import { UNIT_ORDER, UNITS, FOOD_RATES, MAX_POPULATION, BASE_HP } from './conten
 import { LEVELS, LEGACY_LEVELS } from './levels.ts';
 
 // Changing combat rules requires an explicit migration or rejection of suspended rounds.
-export const BATTLE_RULES_VERSION = '0.24.0';
+export const BATTLE_RULES_VERSION = '0.25.0';
 export interface BattleSave {
   version: 1; rules: string; levelId: string; time: number; seed: number; randomState: number;
   playerRoster: import('./content.ts').UnitKind[]; legacyRoster: boolean;
@@ -36,7 +36,10 @@ function validArmy(a: unknown): a is Army {
     !(a.researching && a.tech === 3) && number(a.energy,0,100) && number(a.energyGainAt,-1e12) &&
     // Recruitment permits a tiny floating-point affordability epsilon; preserve it exactly.
     number(a.food,-1e-7) && numericFields(a, ['research','energyEarned','energySpent','energyOverflow','energyGain','spent','hired','lost','cannonCooldown','cannonShots']) &&
-    object(a.cooldowns) && UNIT_ORDER.every(k=>number(a.cooldowns[k]));
+    object(a.cooldowns) && UNIT_ORDER.every(k=>number(a.cooldowns[k])) &&
+    optional(a.recruitCounts, counts => object(counts) &&
+      Object.entries(counts).every(([k, count]) => UNIT_ORDER.includes(k as keyof typeof UNITS) && integer(count, 0, 1e12)) &&
+      Object.values(counts).reduce((sum, count) => sum + count, 0) <= a.hired);
 }
 function validSweep(s: unknown) { return object(s) && number(s.remaining) && number(s.forwardX,-1,1) && number(s.forwardY,-1,1); }
 function validUnit(u: unknown): u is Unit {
@@ -94,9 +97,9 @@ export function readBattleSave(raw: unknown): BattleSave | null {
   if (validBattleSave(raw)) return JSON.parse(JSON.stringify(raw));
   // Research eligibility changed; keep paid research, completed tiers and the exact roster.
   // Revalidate every field under the current schema before accepting the checkpoint.
-  if (object(raw) && raw.rules === '0.20.0') {
+  if (object(raw) && ['0.20.0','0.24.0'].includes(raw.rules)) {
     const s = { ...raw, rules: BATTLE_RULES_VERSION };
-    return validBattleSave(s) ? JSON.parse(JSON.stringify(s)) : null;
+    return validBattleSave(s) ? retireEnemySpells(JSON.parse(JSON.stringify(s))) : null;
   }
   if (!validBattleSave(raw,true)) return null;
   const s: BattleSave = JSON.parse(JSON.stringify(raw));
@@ -107,5 +110,13 @@ export function readBattleSave(raw: unknown): BattleSave | null {
     s.effects=s.effects.filter(fx=>(fx.type as string)!=='roar');
     s.notices.items=s.notices.items.filter(n=>(n.spell as string)!=='roar').map(n=>({...n,energyCost:50}));
   }
-  return validBattleSave(s) ? s : null;
+  return validBattleSave(s) ? retireEnemySpells(s) : null;
+}
+
+/** Old rounds retain their troops/resources, but retired enemy spells cannot resume. */
+function retireEnemySpells(s: BattleSave): BattleSave {
+  for (const unit of s.units) if (unit.side === 'enemy') unit.catnip = 0;
+  s.effects = s.effects.filter(fx => fx.side !== 'enemy' || !['catnip','treat','bombard'].includes(fx.type));
+  s.notices.items = s.notices.items.filter(notice => notice.side !== 'enemy');
+  return s;
 }

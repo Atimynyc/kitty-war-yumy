@@ -6,6 +6,7 @@ import { clone } from '../src/game/achievements.ts';
 import { readProfile, serializeProfile, emptyProfile } from '../src/game/profile.ts';
 import { createSaveCoordinator } from '../src/ui/save-coordinator.ts';
 import type { UnitKind, Side } from '../src/game/content.ts';
+import { battleReport } from '../src/game/battle-report.ts';
 
 function advance(b: Battle, seconds: number) { for(let t=0;t<seconds-1e-8;t+=1/30)b.step(Math.min(1/30,seconds-t)); }
 function spawn(b: Battle, side: Side, kind: UnitKind, x: number) {
@@ -82,6 +83,51 @@ test('full profile checkpoints keep round statistics and accumulated progress at
   const p=emptyProfile(),b=new Battle();b.start();b.summon('player','soldier');advance(b,5);
   p.run={battle:b.save(),speed:2,awards:[]};p.achievements.stats.recruited=['soldier'];
   const loaded=readProfile(serializeProfile(p));assert.deepEqual(loaded.profile,p);assert.ok(loaded.profile.run);
+});
+
+test('recruitment detail counts successful hires by side, includes departed units, and resets per round',()=>{
+  const b=new Battle();b.start();b.aiEnabled=false;
+  spawn(b,'player','mouse',300);spawn(b,'player','soldier',300);spawn(b,'player','soldier',300);
+  spawn(b,'enemy','soldier',1000);
+  assert.equal(b.summon('player','soldier'),false,'cooldown rejects the hire');
+  assert.deepEqual(b.armies.player.recruitCounts,{mouse:1,soldier:2});
+  assert.deepEqual(b.armies.enemy.recruitCounts,{soldier:1});
+  b.units.find(u=>u.side==='player'&&u.kind==='soldier')!.hp=0;b.step(.01);
+  assert.equal(b.units.filter(u=>u.side==='player').length,2);
+  assert.deepEqual(battleReport(b).recruits,[{kind:'soldier',count:2},{kind:'mouse',count:1}]);
+  b.trackingEnabled=false;spawn(b,'player','mouse',300);
+  assert.equal(b.armies.player.recruitCounts!.mouse,2,'recruitment counts are independent of achievement tracking');
+  assert.equal(battleReport(b).totalRecruited,4);assert.equal(battleReport(b).unrecordedRecruits,0);
+  b.reset();assert.deepEqual(battleReport(b).recruits,[]);assert.equal(battleReport(b).totalRecruited,0);
+});
+
+test('recruitment breakdown survives a profile reload and continues counting without duplication',()=>{
+  const b=new Battle();b.start();spawn(b,'player','soldier',300);spawn(b,'player','soldier',300);
+  const p=emptyProfile();p.run={battle:b.save(),speed:1,awards:[]};
+  const loaded=readProfile(serializeProfile(p)),restored=new Battle();
+  assert.ok(restored.restore(loaded.profile.run!.battle));restored.togglePause();spawn(restored,'player','mouse',300);
+  assert.deepEqual(battleReport(restored).recruits,[{kind:'soldier',count:2},{kind:'mouse',count:1}]);
+  assert.equal(battleReport(restored).totalRecruited,3);
+  assert.deepEqual(b.armies.player.recruitCounts,{soldier:2},'saved maps do not alias live counters');
+});
+
+test('old checkpoints retain their total and explicitly leave missing recruitment detail unrecorded',()=>{
+  const b=new Battle();b.start();spawn(b,'player','soldier',300);spawn(b,'player','mouse',300);
+  const legacy=b.save();delete legacy.armies.player.recruitCounts;delete legacy.armies.enemy.recruitCounts;
+  const restored=new Battle();assert.ok(restored.restore(legacy));
+  assert.equal(battleReport(restored).unrecordedRecruits,2);assert.deepEqual(battleReport(restored).recruits,[]);
+  restored.togglePause();spawn(restored,'player','soldier',300);
+  assert.equal(battleReport(restored).totalRecruited,3);assert.equal(battleReport(restored).unrecordedRecruits,2);
+  assert.deepEqual(battleReport(restored).recruits,[{kind:'soldier',count:1}]);
+  const again=new Battle();assert.ok(again.restore(restored.save()));assert.deepEqual(battleReport(again),battleReport(restored));
+});
+
+test('malformed recruitment counters cannot replace the current checkpoint',()=>{
+  const b=new Battle();b.start();b.summon('player','soldier');const original=b.save();
+  for(const counts of [null,[],{soldier:-1},{soldier:1.5},{soldier:Infinity},{soldier:2},{boss:1},{foreign:1}]) {
+    const invalid=clone(original);(invalid.armies.player as any).recruitCounts=counts;
+    assert.equal(b.restore(invalid),false);assert.deepEqual(b.save(),original);
+  }
 });
 test('save coordinator coalesces intermediate snapshots and reports only the latest write status',async()=>{
   const writes:string[]=[],states:string[]=[];let release!:()=>void;

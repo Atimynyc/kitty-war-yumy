@@ -16,7 +16,8 @@ export function baseCatParts(appearance: CatAppearance, mood: CatMood = 'calm', 
   const thick=chubby||appearance.body==='chubby',slim=!chubby&&appearance.body==='slim';
   const body=thick?'M36 75Q12 83 14 116q2 31 64 32 63 0 67-29 4-30-30-45Z':slim?'M58 78q-16 18-15 43 0 26 35 27 36 0 37-26 0-27-17-44Z':'M49 77q-20 17-18 43 1 27 47 28 47-1 49-27 1-28-22-44Z';
   const british=appearance.face==='round';
-  const head=appearance.face==='pointed'?'M37 53Q39 32 61 35q20-7 38 0 22-3 25 18 7 17-2 29l-25 18q-17 12-33 0L38 82q-9-15-1-29Z':british?'M37 52Q39 31 61 35q20-7 38 0 22-4 24 18 9 14 3 28-8 23-46 23-40 0-48-23-5-15 5-29Z':'M33 53Q33 31 59 35q22-7 42 0 25-5 26 18 12 20 2 34-12 18-49 18-39 0-51-20-8-15 4-32Z';
+  // One crown arc avoids bumps at the former forehead/temple curve joins.
+  const head=appearance.face==='pointed'?'M37 53C41 25 119 25 124 53q7 17-2 29l-25 18q-17 12-33 0L38 82q-9-15-1-29Z':british?'M37 52C42 25 117 24 123 53q9 14 3 28-8 23-46 23-40 0-48-23-5-15 5-29Z':'M33 53C35 25 125 25 127 53q12 20 2 34-12 18-49 18-39 0-51-20-8-15 4-32Z';
   const eye=(x: number)=>appearance.eyeShape==='round'?`<ellipse cx="${x}" cy="67" rx="8" ry="9" fill="#fff8eb" stroke-width="1.5"/><ellipse cx="${x+1}" cy="67" rx="5" ry="6" fill="${appearance.eyes}" stroke="none"/><ellipse cx="${x+1}" cy="67" rx="2" ry="4" fill="${ink}" stroke="none"/>`:appearance.eyeShape==='almond'?`<path d="M${x-9} 68q9-14 18-2-8 11-18 2Z" fill="${appearance.eyes}" stroke-width="1.6"/><path d="M${x} 63v7" stroke-width="2.5"/>`:`<ellipse cx="${x}" cy="67" rx="4.2" ry="6" fill="${appearance.eyes}" stroke="none"/>`;
   const eyes=mood==='happy'
     ?'<path d="M48 67q7-10 14 0m36 0q7-10 14 0" fill="none" stroke-width="4"/>'
@@ -49,7 +50,6 @@ export function baseCatParts(appearance: CatAppearance, mood: CatMood = 'calm', 
       <path d="M49 80q7-9 21-4 10-5 20 0 15-6 22 5 5 15-31 17-34-2-32-18Z" fill="${c.muzzle}" stroke="none"/>
       ${mood==='worried'?'<path d="m46 55 15 5m38 0 15-5" fill="none" stroke-width="3.4"/>':''}
       <g fill="${appearance.noseColor}" stroke="none">${nose}</g>${mouth}
-      <path d="m35 83-15-3m16 10-13 3m102-10 15-3m-16 10 13 3" fill="none" stroke-width="1.7"/>
       <ellipse cx="43" cy="81" rx="7" ry="3.5" fill="#e3a38a" opacity=".7" stroke="none"/><ellipse cx="117" cy="81" rx="7" ry="3.5" fill="#e3a38a" opacity=".7" stroke="none"/>`),
     part('eyes',80,67,eyes),
     part('jar',80,135,`<path d="M63 116h35v24q-17 9-35 0Z" fill="${chubby?'#d5b184':'#91ad90'}"/><ellipse cx="80.5" cy="116" rx="17.5" ry="5" fill="#fff0c9"/><path d="M72 113v-5h16v5" fill="none" stroke-width="2"/><path d="M74 132q0-7 6-7t7 7q0 5-7 2-6 3-6-2Z" fill="#fff3cf" stroke="none"/><path d="M72 125h.1m5-4h.1m6 0h.1m6 4h.1" stroke="#fff3cf" stroke-width="3"/>`),

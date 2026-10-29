@@ -1,0 +1,55 @@
+.result-card .result-mascot { position:relative; width:230px; height:132px; margin:0 auto; pointer-events:none; }
+.result-cat { position:relative; z-index:1; display:block; width:164px; height:146px; margin:0 auto; overflow:visible; }
+.result-cat-sway { transform-origin:80px 144px; animation:result-cat-breathe 3.2s ease-in-out infinite; }
+.result-cat-body { animation:result-cat-breathe 3.2s ease-in-out infinite; }
+.result-mascot[data-mood='happy'] .result-cat-sway { animation:result-cat-cheer 2.4s ease-in-out infinite; }
+.result-mascot[data-mood='happy'][data-entrance='true'] .result-cat-hop { transform-origin:80px 146px; animation:result-cat-jump .68s .12s ease-in-out 2; }
+.result-mascot[data-mood='happy'] .result-cat-hands { animation:result-cat-paws 1.2s ease-in-out infinite; }
+.result-mascot[data-mood='happy'] .result-cat-tail { animation:result-cat-tail 1.1s ease-in-out infinite; }
+.result-mascot[data-mood='happy'] .result-cat-head-group { animation:result-cat-nod 2.4s ease-in-out infinite; }
+.result-mascot[data-mood='sad'] .result-cat-leftEar { transform:rotate(-24deg); }
+.result-mascot[data-mood='sad'] .result-cat-rightEar { transform:rotate(24deg); }
+.result-mascot[data-mood='sad'] .result-cat-tail { transform:translate(7px,-3px) rotate(-82deg); }
+.result-mascot[data-mood='sad'] .result-cat-head-group { transform:translateY(7px) rotate(7deg); animation:result-cat-sob 4.6s ease-in-out infinite; }
+.result-mascot[data-mood='sad'] .result-cat-eyes { transform:scaleY(.72); }
+.result-tear { opacity:0; animation:result-cat-tear 4.6s .6s ease-out infinite; }
+.result-tear-later { animation-delay:1.1s; }
+.result-confetti { position:absolute; inset:-8px -8px 0; z-index:0; overflow:hidden; pointer-events:none; }
+.result-confetti i { position:absolute; top:-12px; width:6px; height:11px; border-radius:2px; opacity:0; animation:result-confetti-fall 2s ease-out both; }
+.result-confetti i:nth-child(3n) { width:5px; height:5px; border-radius:50%; }
+.result-confetti i:nth-child(4n) { width:4px; height:15px; }
+@keyframes result-cat-breathe { 0%,100% { transform:scaleY(1); } 50% { transform:scaleY(1.018); } }
+@keyframes result-cat-cheer { 0%,100% { transform:rotate(-2deg); } 50% { transform:rotate(2deg); } }
+@keyframes result-cat-jump { 0%,100% { transform:translateY(0) scale(1); } 18% { transform:translateY(2px) scale(1.035,.96); } 48% { transform:translateY(-15px) scale(.98,1.025); } 80% { transform:translateY(1px) scale(1.025,.98); } }
+@keyframes result-cat-paws { 0%,100% { transform:translateY(-2px) rotate(-3deg); } 50% { transform:translateY(-8px) rotate(3deg); } }
+@keyframes result-cat-tail { 0%,100% { transform:rotate(-14deg); } 50% { transform:rotate(19deg); } }
+@keyframes result-cat-nod { 0%,100% { transform:translateY(0) rotate(2deg); } 50% { transform:translateY(-2px) rotate(-2deg); } }
+@keyframes result-cat-sob { 0%,36%,56%,100% { transform:translateY(7px) rotate(7deg); } 41%,49% { transform:translate(1px,5px) rotate(6deg); } 45%,53% { transform:translate(-1px,8px) rotate(8deg); } }
+@keyframes result-cat-tear { 0%,13% { opacity:0; transform:translateY(0); } 18% { opacity:.85; } 40% { opacity:0; transform:translateY(23px); } 100% { opacity:0; transform:translateY(23px); } }
+@keyframes result-confetti-fall { 0% { opacity:0; transform:translate(0,-10px) rotate(0); } 12%,65% { opacity:.85; } 100% { opacity:0; transform:translate(var(--drift),155px) rotate(var(--turn)); } }
+
+/* Keep every result action available while the cat celebrates. */
+html[data-phase='ended'] .result-card { transform:none; max-height:100%; overflow-y:auto; }
+.result-card .result-honors { margin:8px 0; padding:4px 0; }
+.result-card .result-honors .subtle-button { margin:0 auto; }
+.result-card .result-actions { display:flex; justify-content:center; gap:8px; }
+.result-card button { min-height:44px; }
+.result-card #result-levels { margin:6px auto 0; }
+@media (max-height:650px) {
+  .result-card .result-mascot { height:104px; }
+  .result-card .result-cat { width:132px; height:117px; }
+  .result-card .result-honors { margin:4px 0; padding:2px 0; }
+}
+@media (min-width:600px) and (max-height:520px) {
+  html[data-layout='portrait'] .result-card, html[data-phase='ended'] .result-card {
+    width:620px; max-width:100%; display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:16px; padding:12px 16px;
+  }
+  .result-card .result-mascot { width:210px; height:96px; }
+  .result-card .result-cat { width:124px; height:110px; }
+  .result-card .result-moment h2 { font-size:20px; }
+  .result-card .result-details { min-width:0; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .result-mascot *, .result-confetti i { animation:none !important; }
+  .result-confetti, .result-cat-tears { display:none; }
+}

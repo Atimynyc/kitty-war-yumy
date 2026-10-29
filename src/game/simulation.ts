@@ -20,6 +20,8 @@ export interface Army {
   energy: number; energyEarned: number; energySpent: number; energyOverflow: number;
   energyGain: number; energyGainAt: number;
   cooldowns: Record<UnitKind, number>; spent: number; hired: number; lost: number;
+  // Older checkpoints only have the total; do not infer counts from surviving units.
+  recruitCounts?: Partial<Record<UnitKind, number>>;
   cannonCooldown: number; cannonShots: number;
 }
 export interface Unit {
@@ -50,7 +52,7 @@ export const isHidden = (unit: Unit, time: number) => (unit.stealthUntil ?? 0) >
 export type Phase = 'ready' | 'playing' | 'paused' | 'ended';
 const makeArmy = (): Army => ({ food: STARTING_FOOD, hp: BASE_HP, economy: 0, tech: 1, research: 0, researching: false,
   energy: ENERGY.starting, energyEarned: 0, energySpent: 0, energyOverflow: 0, energyGain: 0, energyGainAt: -100,
-  cannonCooldown: 0, cannonShots: 0, cooldowns: Object.fromEntries(UNIT_ORDER.map(kind => [kind, 0])) as Record<UnitKind, number>, spent: 0, hired: 0, lost: 0 });
+  cannonCooldown: 0, cannonShots: 0, cooldowns: Object.fromEntries(UNIT_ORDER.map(kind => [kind, 0])) as Record<UnitKind, number>, spent: 0, hired: 0, lost: 0, recruitCounts: {} });
 const opposite = (side: Side): Side => side === 'player' ? 'enemy' : 'player';
 
 export class Battle {
@@ -143,6 +145,8 @@ export class Battle {
     if (this.summonReason(side, kind)) return false;
     const army = this.armies[side], spec = UNITS[kind];
     army.food -= spec.cost; army.spent += spec.cost; army.hired++; army.cooldowns[kind] = spec.cooldown;
+    const counts = army.recruitCounts ?? (army.recruitCounts = {});
+    counts[kind] = (counts[kind] ?? 0) + 1;
     const id = this.nextId++;
     const unit: Unit = { id, kind, side, hp: spec.hp, x: BASE_X[side] + (side === 'player' ? 22 : -22), attackCooldown: .25, slow: 0, starSlow: 0, catnip: 0, attacking: false, walking: true, row: id % 3, attackAt: -100, hitAt: -100, walkDistance: 0,
       targetId: null, targetX: BASE_X[opposite(side)], targetRow: id % 3 };
@@ -185,6 +189,7 @@ export class Battle {
     return true;
   }
   spellReason(side: Side, kind: SpellKind): string {
+    if(side==='enemy')return '敌方无法释放主动技能';
     if(this.phase!=='playing')return this.phase==='paused'?'已暂停':'当前不可释放';
     const cost=SPELLS[kind].energyCost;
     if(this.armies[side].energy<cost)return `能量不足，还差 ${cost-this.armies[side].energy}`;
@@ -289,7 +294,6 @@ export class Battle {
     const weakened = new Map<number, Set<number>>();
     const attackPower = (unit: Unit) => (unit.catnip > dt + 1e-8 ? 1 + CATNIP.bonus : 1) * ((unit.weakenedUntil ?? 0) > this.time ? 1 - SPECIAL.litter.reduction : 1);
     const baseDamage: Record<Side, number> = { player: 0, enemy: 0 };
-    const meleeSlots = new Map<string, number>();
     // Every unit reads the same start-of-step positions. Moving one side first must
     // not let the other side land a first strike a frame earlier on contact.
     const live = this.units.filter(unit=>(unit.bossEntry??0)<=0).map(unit => ({ ...unit }));
@@ -331,7 +335,7 @@ export class Battle {
       army.cannonCooldown = CANNON_INTERVAL; army.cannonShots++;
       this.effect('cannon', side, BASE_X[side], target.x, target.row, .45).targetId = target.id;
     }
-    // Frontmost units claim contact positions first; damage resolves simultaneously.
+    // All troops within reach can attack; damage resolves simultaneously.
     const ordered = [...this.units].sort((a, b) => (a.side === 'player' ? -a.x : a.x) - (b.side === 'player' ? -b.x : b.x));
     for (const unit of ordered) {
       if(unit.hp<=0) continue;
@@ -361,7 +365,13 @@ export class Battle {
       const previous = foes.find(foe => foe.id === unit.targetId);
       const rear = unit.kind === 'hook' ? foes.find(foe => foe.kind !== 'boss' && UNITS[foe.kind].range > 60 && battleDistance(foe, origin) <= spec.range) : undefined;
       const charged = unit.charge ? foes.find(foe => foe.id === unit.charge!.targetId) : undefined;
-      const atEnemyBase = unit.kind === 'assassin' && unit.stealthUsed && battleDistance(origin, { x: BASE_X[opposite(unit.side)], row: 1 }) <= spec.range;
+      const baseX = BASE_X[opposite(unit.side)];
+      const baseDistance = battleDistance(origin, { x: baseX, row: 1 });
+      const canHitBase = baseDistance <= spec.range && baseDistance >= (spec.minRange ?? 0);
+      // Once a siege starts, new recruits must not repeatedly pull every attacker
+      // off the base. Losing reach breaks the lock; ordinary combat still uses foes.
+      const wasSieging = origin.targetId === null && origin.attacking && origin.targetX === baseX && origin.targetRow === 1;
+      const atEnemyBase = canHitBase && (wasSieging || (unit.kind === 'assassin' && unit.stealthUsed) || !foes.length || baseDistance < battleDistance(foes[0], origin));
       const nearest = atEnemyBase ? undefined : charged ?? rear ?? (previous && battleDistance(previous, origin) <= battleDistance(foes[0], origin) + 20 ? previous : foes[0]);
       unit.targetId = nearest?.id ?? null;
       unit.targetX = nearest?.x ?? BASE_X[opposite(unit.side)];
@@ -431,12 +441,8 @@ export class Battle {
         continue;
       }
       const tooClose = spec.minRange !== undefined && distance < spec.minRange;
-      const slotKey = `${unit.side}:${nearest?.id ?? 'base'}`;
-      const used = meleeSlots.get(slotKey) ?? 0;
-      const hasSlot = spec.range > 60 || used < 3;
-      if (unit.charge && (!inRange || !hasSlot || unit.charge.targetId !== (nearest?.id ?? null))) unit.charge = undefined;
-      if (inRange && !tooClose && hasSlot) {
-        if (spec.range <= 60) meleeSlots.set(slotKey, used + 1);
+      if (unit.charge && (!inRange || unit.charge.targetId !== (nearest?.id ?? null))) unit.charge = undefined;
+      if (inRange && !tooClose) {
         unit.attacking = true;
         if (unit.attackCooldown <= 0) {
           if (unit.kind === 'hook' || unit.kind === 'boxer') {
@@ -587,11 +593,6 @@ export class Battle {
     const allies = this.units.filter(u => u.side === side), foes = this.units.filter(u => u.side !== side && !isHidden(u, this.time));
     const threatened = foes.some(u => u.x > BASE_X.enemy - 310);
     const count = (kind: UnitKind) => allies.filter(u => u.kind === kind).length;
-    const cluster=this.bombardTarget(side), clustered=cluster ? foes.filter(u=>battleDistance(u,cluster)<=BOMBARD.radius).length : 0;
-    const wounded=allies.filter(u=>u.hp<UNITS[u.kind].hp*.65);
-    if (clustered >= (threatened ? 2 : 4) && this.bombard(side)) { /* Save the frontline with a committed strike. */ }
-    else if ((wounded.length>=3 || wounded.some(u=>u.kind==='knight' && u.hp<UNITS[u.kind].hp*.4)) && this.treat(side)) { /* Rescue valuable troops. */ }
-    else if (allies.filter(unit => unit.attacking && unit.catnip<=2 && UNITS[unit.kind].damage > 0).length >= 3) this.catnip(side);
     // Investment continues during regrouping and uses a bounded savings window.
     const safe = army.hp > BASE_HP * .5 && allies.length >= this.level.investmentGuard && (!threatened || allies.length >= foes.length);
     const investEconomy = safe && army.economy < ECONOMY_COSTS.length && this.time >= (this.level.economyAt[army.economy] ?? Infinity);

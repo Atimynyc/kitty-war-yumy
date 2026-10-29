@@ -141,9 +141,6 @@ html[data-layout='portrait'] .result-stats { margin: 8px 0; }
 .result-star svg { width: 100%; height: 100%; fill: currentColor; stroke: #b7a993; stroke-width: 2; stroke-linejoin: round; }
 .result-star.earned { color: #f4c86d; filter: drop-shadow(0 3px 0 #d5aa5a38); }
 .result-star.earned svg { stroke: #bc8c45; }
-.result-rating { display: block; color: #a77639; font-size: 13px; margin: 4px 0 6px; }
-.result-rating-rules { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 6px; padding: 8px 0; border-top: 1px solid #e8ddc9; border-bottom: 1px solid #e8ddc9; font-size: 10px; color: #8d7e68; }
-.result-rating-rules b { display: block; color: #806d4c; margin-bottom: 2px; }
 html[data-layout='portrait'] .result-card { width: 100%; max-width: 340px; }
 html[data-layout='portrait'][data-phase='ended'] .arena-frame { z-index: 100; }
 html[data-layout='portrait'][data-phase='ended'] .arena-frame .battle-overlay:not(.hidden) {
@@ -154,7 +151,6 @@ html[data-layout='portrait'][data-phase='ended'] .arena-frame .battle-overlay:no
 html[data-layout='portrait'][data-density='tight'] .result-stars { margin: 1px 0 4px; gap: 5px; }
 html[data-layout='portrait'][data-density='tight'] .result-star { width: 33px; height: 33px; }
 html[data-layout='portrait'][data-density='tight'] .result-star:nth-child(2) { width: 40px; height: 40px; }
-html[data-layout='portrait'][data-density='tight'] .result-rating-rules { padding: 5px 0; }
 @media (max-width: 350px) {
   html[data-layout='portrait'] .home-copy h1 { font-size: 31px; }
   html[data-layout='portrait'] .home-screen { gap: 12px; }

@@ -1,5 +1,5 @@
-import { baseCatParts, baseCatSVG } from '../game/base-cat-art.ts';
-import { baseCatMotion } from '../game/base-cat-motion.ts';
+import { baseCatSVG } from '../game/base-cat-art.ts';
+import { installCatPreview } from './cat-preview.ts';
 import { CAT_OPTIONS, CAT_COLORS, COAT_PALETTES, PLAYER_CAT, breedPreset, breedLabel, copyCat, coatPalette, catSignature, randomCat } from '../game/cat-appearance.ts';
 import type { CatAppearance, CatFeature, CatBreed } from '../game/cat-appearance.ts';
 import { svgURL } from '../art.ts';
@@ -28,9 +28,8 @@ export function installCatEditor(options: { get:()=>CatAppearance; save:(cat: Ca
   const $=<T extends HTMLElement=HTMLElement>(id: string)=>document.getElementById(id)! as T;
   const dialog=$<HTMLDialogElement>('cat-discard'), save=$<HTMLButtonElement>('cat-save');
   let draft=copyCat(PLAYER_CAT),baseline=catSignature(draft),history: CatAppearance[]=[];
-  let tab: Tab='breed',region: keyof CatAppearance['coat']='body',busy=false,small=false,moving=true,active=false,frame=0;
-  let nodes: Record<string,SVGGElement>={};
-  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+  let tab: Tab='breed',region: keyof CatAppearance['coat']='body',busy=false,small=false,moving=true;
+  const previewActor=installCatPreview(preview);
   const dirty=()=>catSignature(draft)!==baseline;
   const status=(text: string)=>{$('cat-status').textContent=text;};
   function toolbar() {
@@ -45,25 +44,10 @@ export function installCatEditor(options: { get:()=>CatAppearance; save:(cat: Ca
     root.setAttribute('aria-busy',String(busy));
   }
   function renderPreview() {
-    const parts=baseCatParts(draft),head=['leftEar','rightEar','head','eyes'];
-    const markup=(name: string)=>{const p=parts.find(p=>p.name===name)!;return `<g data-preview-part="${p.name}">${p.svg.replace(/^<svg[^>]*>|<\/svg>$/g,'')}</g>`;};
-    preview.innerHTML=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" aria-hidden="true">${parts.filter(p=>!head.includes(p.name)&&!['jar','hands'].includes(p.name)).map(p=>markup(p.name)).join('')}<g data-preview-part="headGroup">${head.map(markup).join('')}</g>${markup('jar')}${markup('hands')}</svg>`;
-    nodes=Object.fromEntries(Array.from(preview.querySelectorAll<SVGGElement>('[data-preview-part]')).map(n=>[n.dataset.previewPart!,n]));
+    previewActor.setAppearance(draft);
     $('cat-breed-label').textContent=breedLabel(draft);
     preview.dataset.size=small?'battle':'large';
-    pose(performance.now());
   }
-  function pose(now: number) {
-    const m=baseCatMotion(now/1000,'player','calm',0,!moving||reduced.matches);
-    const set=(key: string,value: string)=>nodes[key]?.setAttribute('transform',value);
-    set('body',`translate(80 144) rotate(${m.bodyAngle}) scale(${1+m.breath*.55} ${1+m.breath}) translate(-80 -144)`);
-    set('headGroup',`translate(${m.headX} ${m.headY}) rotate(${m.headAngle} 80 92)`);
-    set('tail',`rotate(${m.tailAngle} 38 132)`);
-    set('leftEar',`rotate(${m.leftEarAngle} 46 49)`);set('rightEar',`rotate(${m.rightEarAngle} 114 49)`);
-    set('eyes',`translate(0 67) scale(1 ${1-m.blink*.94}) translate(0 -67)`);
-    set('scarf',`translate(0 ${m.headY*.35})`);set('hands',`translate(0 ${-m.pawLift})`);set('jar',`translate(0 ${-m.pawLift*.25})`);
-  }
-  function animate(now: number){if(!active)return;pose(now);frame=requestAnimationFrame(animate);}
   function field(key: CatFeature,label: string) {
     return `<fieldset><legend>${label}</legend><div class="cat-choices">${CAT_OPTIONS[key].map(([value,name])=>`<button data-cat-feature="${key}" data-cat-value="${value}" aria-pressed="${draft[key]===value}">${name}</button>`).join('')}</div></fieldset>`;
   }
@@ -120,7 +104,7 @@ export function installCatEditor(options: { get:()=>CatAppearance; save:(cat: Ca
   $('cat-reset').addEventListener('click',()=>change(copyCat(PLAYER_CAT)));
   $('cat-undo').addEventListener('click',()=>{const previous=history.pop();if(!previous||busy)return;draft=previous;renderPreview();renderControls();status(dirty()?'已撤销上一步，记得保存。':'已回到保存的外观。');});
   $('cat-size').addEventListener('click',()=>{small=!small;preview.dataset.size=small?'battle':'large';$('cat-size').setAttribute('aria-pressed',String(small));$('cat-size').textContent=small?'返回大图':'看战场大小';preview.setAttribute('aria-label',small?'约 64 像素的战场大小参考，实际随屏幕调整':'自定义猫咪的大图预览');});
-  $('cat-motion').addEventListener('click',()=>{moving=!moving;$('cat-motion').setAttribute('aria-pressed',String(moving));});
+  $('cat-motion').addEventListener('click',()=>{moving=!moving;previewActor.setMoving(moving);$('cat-motion').setAttribute('aria-pressed',String(moving));});
   save.addEventListener('click',async()=>{
     if(busy||!dirty()||!options.canSave())return;
     busy=true;toolbar();status('正在给小伙伴换上新模样…');
@@ -131,8 +115,9 @@ export function installCatEditor(options: { get:()=>CatAppearance; save:(cat: Ca
     finally{busy=false;toolbar();}
   });
   return {
-    open(label: string){draft=copyCat(options.get());baseline=catSignature(draft);history=[];tab='breed';$('cat-back').textContent=`← ${label}`;renderPreview();renderControls();controls.scrollTop=0;status(options.canSave()?'只改变外观，不影响战斗属性。':'当前存档只读，可以试搭，暂时无法保存。');active=true;cancelAnimationFrame(frame);frame=requestAnimationFrame(animate);},
-    stop(){active=false;cancelAnimationFrame(frame);},
+    open(label: string){draft=copyCat(options.get());baseline=catSignature(draft);history=[];tab='breed';$('cat-back').textContent=`← ${label}`;renderPreview();renderControls();controls.scrollTop=0;status(options.canSave()?'只改变外观，不影响战斗属性。':'当前存档只读，可以试搭，暂时无法保存。');previewActor.setActive(true);},
+    stop(){previewActor.setActive(false);},
+    dispose:previewActor.dispose,
     back,
     snapshot(){return {tab,draft:copyCat(draft),dirty:dirty(),busy};},
   };

@@ -74,7 +74,7 @@ try {
       assert.equal((await state()).boss.spawned, true); await capture('final-boss');
     }
     await finish(stage === 30 ? 1 : 3000);
-    const record = await saved(); assert.equal(record.version, 4); assert.ok(record.campaign[id].stars >= 1);
+    const record = await saved(); assert.equal(record.version, 5); assert.ok(record.campaign[id].stars >= 1);
     assert.deepEqual(record.legacy.sunroom, { stars: 3, bestTime: 60 });
     assert.deepEqual(record.legacy.pantry, { stars: 2, bestTime: 230, ratingVersion: 2 });
     if (stage % 5 === 0) { assert.match(await page.locator('.chapter-reward').textContent(), /守护纪念章/); await capture(`chapter-${stage / 5}-complete`); }
